@@ -1,0 +1,35 @@
+<style>
+    .back{
+        position: absolute;
+        top: 15%;
+        left: 0;
+        display: flex;
+        gap: 5px;
+    }
+    .between{
+        color: black;
+    }
+    .color-btn{
+        color: #0d49d7;
+    }
+    .color-btn:hover{
+        text-decoration: underline;
+    }
+</style>
+<div class="back">
+    <br><a href="/" class="color-btn">Главная</a>
+    <a class="between">/</a>
+    <a href="#" class="back-button color-btn" onclick="goBack()">Назад</a>
+</div>
+<script>
+    function goBack() {
+        const id = localStorage.getItem('id')
+        if (window.location.pathname === `/sendReviews/${id}`) {
+            window.history.back();
+            window.history.back();
+        }
+        else{
+            window.history.back();
+        }
+    }
+</script>

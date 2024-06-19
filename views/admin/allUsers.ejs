@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ панель</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            justify-content: center;
+        }
+        .ul {
+            list-style: none;
+            padding: 0;
+            margin: 100px auto;
+            justify-content: center;
+            display: grid;
+            width: 1000px;
+            gap: 20px;
+        }
+        .li {
+            background: #fff;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+        .li div.user-info,
+        .li div.change-password {
+            display: flex;
+            flex-direction: column;
+            width: 48%;
+        }
+        p {
+            margin: 5px 0 4px 0;
+            /*font-size: 14px;*/
+        }
+        .img {
+            max-width: 100px;
+            border-radius: 50%;
+            margin-top: 8px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        form {
+            display: inline-block;
+            margin: 0;
+        }
+        .change-password {
+            padding: 8px;
+            margin-top: 8px;
+        }
+        .change-password h2 {
+            margin-top: 0;
+            font-size: 16px;
+        }
+        input[type="password"] {
+            width: 400px;
+            padding: 8px;
+            margin-bottom: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .users-not-found {
+            text-align: center;
+            font-size: 1.2em;
+            color: #777;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .review-delete{
+            background-color: #155724;
+            color: white;
+            border: none;
+            padding: 2px 5px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .review-delete:hover{
+            background-color: #3b7f3a;
+        }
+    </style>
+</head>
+<body>
+<%- include('adminHeader.ejs') %>
+<ul class="ul">
+    <h2 style="text-align: center">Список пользователей</h2>
+    <% if (users && users.length) { %>
+        <% users.forEach(user => { %>
+            <li class="li">
+                <div class="user-info">
+                    <p>id: <%= user._id %></p>
+                    <p>Имя: <%= user.name %></p>
+                    <p>Эл. Адрес: <%= user.email %></p>
+                    <% if (user.reviews && user.reviews.length > 0) { %>
+                        <% user.reviews.forEach(review => { %>
+                        <div style="display: flex; gap: 10px;">
+                            <p>Отзыв: <%= review.review %></p>
+                            <form action="/admin/deleteReviewsAdmin/<%= user._id %>" method="POST">
+                                <button class="review-delete">Удалить отзыв</button>
+                            </form>
+                        </div>
+                        <% }) %>
+                    <% } else { %>
+                        <p>Отзыв: отсутствует</p>
+                    <% } %>
+                    <p>Роль: <%= user.role %></p>
+                    <img src="data:image/jpeg;base64,<%= user.image %>" alt="User Image" class="img">
+                    <br>
+                    <form action="/admin/deleteUserAdmin/<%= user._id%>" method="POST">
+                        <button>Удалить аккаунт</button>
+                    </form>
+                </div>
+                <div class="change-password">
+                    <h2>Смена пароля</h2>
+                    <form action="/admin/changePasswordAdmin/<%= user._id %>" method="POST">
+                        <input type="password" name="password" placeholder="Новый пароль" minlength="6" maxlength="50" required>
+                        <input type="password" name="confirmPassword" placeholder="Повтор пароля" minlength="6" maxlength="50" required><br>
+                        <button id="changePasswordBtn">Сменить пароль</button>
+                    </form>
+                </div>
+            </li>
+        <% }) %>
+    <% } else { %>
+        <p class="users-not-found">Пользователей не найдено.</p>
+    <% } %>
+</ul>
+<script src="/javascripts/adminScript.js"></script>
+</body>
+</html>

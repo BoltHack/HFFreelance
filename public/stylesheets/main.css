@@ -1,0 +1,209 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    /*background-color: #f4f4f4;*/
+    background-color: #e8e8e8;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.pers-container {
+    display: flex;
+    width: 100%;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 20px;
+    position: fixed;
+}
+
+.sidebar h2 {
+    text-align: center;
+    border-bottom: 1px solid #7f8c8d;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+}
+
+.sidebar ul li a {
+    color: #ecf0f1;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.sidebar ul li a:hover {
+    cursor: pointer;
+    background-color: #34495e;
+}
+#profileMenu{
+    background-color: #34495e;
+}
+.main-content {
+    flex: 1;
+    padding: 20px;
+    margin: 0 500px;
+}
+
+.section {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    list-style: none;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.pers-info h2 {
+    margin: 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
+#editImagePart {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+#editImagePart[hidden] {
+    display: none;
+}
+
+#imageChangeError {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+#attachFile {
+    margin-bottom: 10px;
+    padding: 20px;
+    text-align: center;
+    background-color: #f4f2f8;
+    width: 300px;
+    height: auto;
+    flex-wrap: wrap;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+#editImageBtn{
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #2c3e50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+#editImagePart input[type="button"] {
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #2c3e50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#editImagePart input[type="button"]:hover {
+    background-color: #34495e;
+}
+form label {
+    margin-top: 10px;
+}
+
+form input {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+}
+
+form button {
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #34495e;
+}
+
+.news-item {
+    margin-bottom: 20px;
+}
+
+.news-item h2 {
+    margin: 0;
+    color: #2c3e50;
+}
+
+.news-item p {
+    margin: 5px 0 0;
+}
+
+.redaction {
+    margin-top: 20px;
+}
+.delete{
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #bd2130;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.delete:hover{
+    background-color: #a71e34;
+}
+
+.date{
+    text-align: end;
+}
+.center{
+    text-align: center;
+    margin-left: 45px;
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HFFreelance | Оставьте отзыв</title>
+    <% if (user && user.id) { %>
+        <script>
+            const idUser = "<%= user.id %>";
+        </script>
+    <% } %>
+
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+    }
+
+    .review-container {
+        width: 400px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2 {
+        text-align: center;
+    }
+
+    form {
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+    #message{
+        min-height: 100px;
+        max-height: 300px;
+        min-width: 400px;
+        max-width: 400px;
+    }
+    #grade{
+        width: 100px;
+        position: relative;
+        top: 5%;
+        left: 50%;
+        transform: translate(-50%);
+    }
+</style>
+<body>
+<%- include('header.ejs') %>
+<main>
+    <div class="review-container">
+        <h2>Напишите отзыв</h2>
+        <form action="/sendReviews/<%= user.id %>" method="POST" id="reviewForm">
+            <div class="form-group">
+                <textarea id="message" name="message" placeholder="Ваш отзыв" maxlength="150" required></textarea>
+                <input id="grade" type="number" name="grade" placeholder="Оценка" min="1" max="5">
+            </div>
+            <button type="submit" id="sendReview">Отправить</button>
+        </form>
+        <p id="err"></p>
+    </div>
+</main>
+<script src="/javascripts/sendReviews.js"></script>
+</body>
+</html>

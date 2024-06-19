@@ -1,0 +1,46 @@
+<style>
+    .errors{
+        text-align: center;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .errorButton{
+        border: none;
+        background: none;
+        color: #24527a;
+        font-size: 15px;
+        cursor: pointer;
+    }
+    .errorButton:hover{
+        text-decoration: underline;
+    }
+</style>
+<div class="errors">
+    <h2>Ой, кажется, у нас возникли проблемы :(</h2>
+    <section id="info">
+        <button id="onSec" class="errorButton">Узнать подробнее</button>
+        <button id="back" class="errorButton">Назад</button>
+    </section>
+    <section id="section" hidden>
+        <h4>Нельзя оставлять больше одного отзыва</h4>
+        <button id="closeInfo" class="errorButton">Закрыть</button>
+    </section>
+</div>
+<script>
+    const section = document.getElementById('section');
+    const info = document.getElementById('info');
+    document.getElementById('back').addEventListener('click', () => {
+        window.location.href = '/allReviews'
+    })
+    document.getElementById('onSec').addEventListener('click', () => {
+        section.hidden = false;
+        info.hidden = true;
+    })
+
+    document.getElementById('closeInfo').addEventListener('click', () => {
+        section.hidden = true;
+        info.hidden = false;
+    })
+</script>

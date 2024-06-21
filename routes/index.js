@@ -2,7 +2,7 @@ const express = require('express');
 const {
     mainView, aboutUsView, rulesView, privacyPolicyView, sendReviewsMenuView, displayAllReviews, deleteUser,
     deleteReview, PersonalAreaView, changeImage, sendReview, allReviewsView, reviewErrorView, refreshTokenView,
-    moreDetailsView, displayAllNews
+    moreDetailsView
 } = require('../controller/IndexController');
 const AuthRouter = require('./AuthRouter');
 const AdminRouter = require('./admin');

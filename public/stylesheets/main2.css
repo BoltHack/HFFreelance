@@ -447,3 +447,12 @@ footer p {
         margin: 20px 100px;
     }
 }
+.grade{
+    display: flex;
+    justify-content: center;
+}
+.grade-data{
+    display: block;
+    gap: 5px;
+    justify-content: center;
+}

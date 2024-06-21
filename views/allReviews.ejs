@@ -85,9 +85,13 @@
             height: 120px;
             border-radius: 100px;
         }
-        .data{
+        .grade{
             display: flex;
-            gap: 10px;
+            justify-content: center;
+        }
+        .grade-data{
+            display: block;
+            gap: 5px;
             justify-content: center;
         }
     </style>
@@ -117,10 +121,37 @@
                             <h3 class="r-name"><%= review.name %></h3>
                             <img src="data:image/png;base64,<%= review.image %>" alt="profileImage" class="main-image">
                             <p class="r-comment"><%= review.review %></p><br>
-                            <div class="data">
-                                <% if (review.grade) {%>
-                                <p class="r-grade">Оценка: <%= review.grade %></p><br>
+                            <div class="grade-data">
+                                <div class="grade">
+                                    <% if (review.grade) {%>
+                                        <!--                                <p class="r-grade">&#11088; <%= review.grade %></p><br>-->
+                                        <% if (review.grade === "1") { %>
+                                            <p>&#11088;</p>
+                                        <% } %>
+                                        <% if (review.grade === "2") { %>
+                                            <p>&#11088;</p>
+                                            <p>&#11088;</p>
+                                        <% } %>
+                                        <% if (review.grade === "3") { %>
+                                            <p>&#11088;</p>
+                                            <p>&#11088;</p>
+                                            <p>&#11088;</p>
+                                        <% } %>
+                                        <% if (review.grade === "4") { %>
+                                            <p>&#11088;</p>
+                                            <p>&#11088;</p>
+                                            <p>&#11088;</p>
+                                            <p>&#11088;</p>
+                                        <% } %>
+                                        <% if (review.grade === "5") { %>
+                                            <p>&#11088;</p>
+                                            <p>&#11088;</p>
+                                            <p>&#11088;</p>
+                                            <p>&#11088;</p>
+                                            <p>&#11088;</p>
+                                        <% } %>
                                     <% } %>
+                                </div>
                                 <p class="r-date"><%= review.date %></p>
                             </div>
                         </div>

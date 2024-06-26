@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/login-register.css">
+    <title>Регистрация</title>
+</head>
+<body>
+<div class="login-register-container">
+    <form action="/auth/register" method="post" class="form-register" id="loginForm">
+        <h2 style="text-align: center; padding: 10px;">Регистрация</h2>
+        <div style="padding: 10px">
+            <input type="text" class="form-control" id="name" placeholder="Имя или Имя и Фамилия" name="name" required>
+            <input type="email" class="form-control" id="email" placeholder="Эл. адрес" name="email" required>
+            <div class="password-container">
+                <input type="password" class="form-control" id="pwd" placeholder="Пароль" name="password" required>
+                <span class="toggle-password" id="togglePassword1">&#128065;</span>
+            </div>
+            <div class="password-container">
+                <input type="password" class="form-control" id="cpwd" placeholder="повтор пароля" name="confirmPassword" require>
+            </div>
+        </div>
+        <div class="rules">
+            <span>Регистрируясь, вы принимаете наши <a href="/rules" target="_blank">Условия использования</a> и <a href="/privacyPolicy" target="_blank">Политику конфиденциальности.</a></span>
+        </div><br>
+        <button type="submit" class="btn-register" id="registerButton">Зарегистрироваться</button>
+        <p id="loginErr"></p>
+        <p id="correctRegister"></p>
+    </form>
+    <div class="already-have-account">
+            <span>
+                <p class="login">Уже есть аккаунт?</p>
+                <a href="/auth/login" class="register">Войти</a>
+            </span>
+    </div>
+</div>
+<script src="/javascripts/auth/register.js"></script>
+</body>
+</html>

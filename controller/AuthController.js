@@ -2,7 +2,6 @@ const {UsersModel } = require("../models/UsersModel");
 const bcrypt = require("bcrypt");
 const HttpErrors = require("http-errors");
 const jwt = require("jsonwebtoken");
-const requestIp = require('request-ip');
 
 const {JWTSecret, refreshTokenSecret} = process.env;
 
@@ -22,7 +21,7 @@ function parseMaxAge(duration) {
 class AuthController {
     static registerView = (req, res, next) => {
         try {
-            return res.render("index", {message: ""});
+            return res.render("auth/register");
         } catch (e) {
             next(e)
         }
@@ -52,7 +51,7 @@ class AuthController {
 
     static loginView = (req, res, next) => {
         try {
-            return res.render('index', {message: ""})
+            return res.render('auth/login')
         } catch (e) {
             next(e)
         }
@@ -97,7 +96,7 @@ class AuthController {
             res.cookie('token', accessToken, {httpOnly: true, secure: true, maxAge: parseMaxAge('15m')});
             res.cookie('refreshToken', refreshToken, {httpOnly: true, secure: true, maxAge: parseMaxAge('10d')});
 
-            return res.json({href: '/', token: accessToken, refreshToken, user});
+            return res.json({token: accessToken, refreshToken, user});
         } catch (e) {
             next(e);
         }

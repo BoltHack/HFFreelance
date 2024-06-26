@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/login-register.css">
+    <title>Авторизация</title>
+</head>
+<body>
+<div class="login-register-container">
+    <form action="/auth/login" method="POST" class="form-login" id="loginForm">
+        <div style="padding: 10px;">
+            <h2>Авторизация</h2>
+            <input type="email" placeholder="Эл. адрес" name="email" id="email" required>
+            <div class="password-container">
+                <input type="password" class="form-control" id="pwd" placeholder="Пароль" name="password" required>
+                <span class="toggle-password" id="togglePassword1">&#128065;</span>
+            </div>
+            <button type="submit" id="loginButton">Войти</button>
+            <p id="loginErr"></p>
+            <p id="correctJoin"></p>
+        </div>
+    </form>
+    <div class="already-have-account">
+        <p style="text-align: center">У вас ещё нет аккаунта?</p>
+        <a href="/auth/register" class="register">Зарегистрироваться</a>
+    </div>
+</div>
+<script src="/javascripts/auth/login.js"></script>
+</body>
+</html>

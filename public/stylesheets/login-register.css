@@ -131,7 +131,7 @@ input[type="password"]:focus {
     position: absolute;
     left: 5%;
 }
-#loginErr{
+#loginErr, #registerErr{
     color: darkred;
     text-align: center;
 }
@@ -145,6 +145,7 @@ input[type="password"]:focus {
 }
 .register{
     color: #0d49d7;
+    text-decoration: none;
 }
 .register:hover{
     color: #24527a;
@@ -154,6 +155,7 @@ input[type="password"]:focus {
 }
 .rules a{
     color: #219ebc;
+    text-decoration: none;
 }
 .rules a:hover{
     color: #023047;

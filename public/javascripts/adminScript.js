@@ -1,7 +1,7 @@
 setInterval(function (){
     getAdminTokens()
 }, 200000)
-// }, 10000)
+
 async function getAdminTokens() {
     try {
         const response = await fetch('/refreshAdmin', {

@@ -49,8 +49,8 @@ function displayInfo() {
 <div class="border-data">
     <h2 class="yourAccount">Ваш аккаунт</h2>
     <br>
-    <br>
 <h3>Вы не авторизованы</h3>
+<p>Войдите в учётную запись или создайте аккаунт.</p>
 <button onclick="login()" class="login-btn">Войти</button>
 <button onclick="register()" class="register-btn">Создать аккаунт</button>
 <span>Продолжая, вы принимаете наши <a class="termsOfUse" href="/rules" target="_blank">Условия использования</a> и <a href="privacyPolicy" target="_blank" class="privacyPolicy">Политику конфиденциальности</a>.</span>
@@ -94,7 +94,7 @@ function logoutMenu() {
     border.innerHTML = `
         <link rel="stylesheet" href="/stylesheets/style.css">
         <div class="logout-border">
-        <p style="text-align: center">Вы точно хотите выйти?</p>
+        <p style="text-align: center; color: white; margin: 40px 0">Вы точно хотите выйти?</p>
         <div class="yes-or-no">
         <button class="no-btn" id="closeBtn">Нет</button>
         <button class="yes-btn" onclick="logout()">Да</button>  
@@ -176,10 +176,16 @@ function moreDetails() {
 
 function weHaveAnAccount(){
     const name = localStorage.getItem('name');
+    const account = document.getElementById('account');
+    const accountImg = document.getElementById('account-img');
     if (name) {
-        const account = document.getElementById('account');
-        account.style.color = '#21f0df';
-        account.textContent = 'Личный кабинет'
+        account.style.display = 'none'
+        const img = localStorage.getItem('profileImage');
+        accountImg.src = img;
+    }
+    else{
+        account.textContent = 'Мой аккаунт'
+        accountImg.style.display = 'none'
     }
 }
 weHaveAnAccount();
@@ -216,7 +222,7 @@ function deleteAccountMenu() {
     border.innerHTML = `
         <link rel="stylesheet" href="/stylesheets/style.css">
         <div class="logout-border">
-        <p style="text-align: center">Вы уверены, что хотите удалить свою учётную запись?</p>
+        <p style="text-align: center; color: white; margin: 30px 0; padding: 10px;">Вы уверены, что хотите удалить свою учётную запись?</p>
         <div class="yes-or-no">
         <button class="no-btn" id="closeBtn">Нет</button>
         <button class="yes-btn" onclick="deleteAccount()">Да</button>

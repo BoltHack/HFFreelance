@@ -1,5 +1,6 @@
 const {UsersModel} = require("../models/UsersModel");
 const {NewsModel} = require("../models/NewsSchema");
+const HttpErrors = require("http-errors");
 class IndexController {
     static indexView = (req, res, next) => {
         return res.render('index');
@@ -95,7 +96,7 @@ class IndexController {
             await UsersModel.findByIdAndUpdate(id, { $set: { image: base64Image } }
             );
 
-            return res.status(200).json( 'Изменения успешно загружены' );
+            return res.status(200).json('Изменения успешно загружены' );
         } catch (e){
             console.log(e);
             next(e);
@@ -125,7 +126,7 @@ class IndexController {
         }
     }
 
-    static displayAllReviews = async(req, res, next) => {
+    static displayAllReviews = async (req, res, next) => {
         try {
             const users = await UsersModel.find();
             const reviews = users.flatMap(user => user.reviews.map(review => ({
@@ -145,7 +146,7 @@ class IndexController {
 
 
 
-    static async deleteUser(req, res, next) {
+    static deleteUser = async (req, res, next) => {
         try {
             const { id } = req.params;
 

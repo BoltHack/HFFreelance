@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/stylesheets/alert.css">
+1<link rel="stylesheet" href="/stylesheets/alert.css">
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -12,6 +12,7 @@
         background: rgb(32,30,32);
         background: linear-gradient(184deg, rgba(32,30,32,1) 54%, rgba(16,16,17,1) 76%);
         position: fixed;
+        top: 0;
         z-index: 2;
         transition: top 0.3s;
     }
@@ -62,6 +63,13 @@
     a{
         text-decoration: none;
     }
+    #account-img{
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        margin-top: 5px;
+        cursor: pointer;
+    }
     @media (max-width: 900px) {
         .ha{
             display: none;
@@ -83,10 +91,12 @@
     <div id="headerSection" hidden>
     <ul class="get">
         <li id="account">Мой аккаунт</li>
+        <img src="" id="account-img" onclick="PersonalAreaJoin()">
         <li><a href="#home" class="ha">Главная</a></li>
         <li><a href="#about" class="ha">О сайте</a></li>
         <li><a href="#services" class="ha">Услуги</a></li>
         <li><a href="#reviews" class="ha">Отзывы</a></li>
+        <li><a href="#footerSection" class="ha">Контакты</a></li>
     </ul>
     </div>
 </header>

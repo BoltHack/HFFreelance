@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let registerButton = document.getElementById('registerButton');
     let loginForm = document.getElementById('loginForm');
-    let loginErr = document.getElementById('loginErr');
+    let registerErr = document.getElementById('registerErr');
     let name = document.getElementById('name');
     let email = document.getElementById('email');
     let pwd = document.getElementById('pwd');
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
         evt.preventDefault();
 
         if (!name.value || !email.value || !pwd.value || !cpwd.value) {
-            loginErr.innerHTML = 'Пожалуйста, заполните все поля';
+            registerErr.innerHTML = 'Пожалуйста, заполните все поля';
             name.style.border = '1px solid #780000';
             email.style.border = '1px solid #780000';
             pwd.style.border = '1px solid #780000';
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 const {error, message} = data;
                 if (error) {
-                    loginErr.innerHTML = error;
+                    registerErr.innerHTML = error
                     name.style.border = '1px solid #780000';
                     email.style.border = '1px solid #780000';
                     pwd.style.border = '1px solid #780000';
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     return;
                 }
                 const correctRegister = document.getElementById('correctRegister');
-                loginErr.innerHTML = '';
+                registerErr.innerHTML = '';
                 correctRegister.innerHTML = `<p>Успешная регистрация!</p>`;
                 name.style.border = '1px solid #0d2818';
                 email.style.border = '1px solid #0d2818';

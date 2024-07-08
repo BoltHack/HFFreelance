@@ -16,7 +16,7 @@
         .ul {
             list-style: none;
             padding: 0;
-            margin: 100px auto;
+            margin: 30px auto;
             justify-content: center;
             display: grid;
             width: 1000px;
@@ -40,7 +40,6 @@
         }
         p {
             margin: 5px 0 4px 0;
-            /*font-size: 14px;*/
         }
         .img {
             max-width: 100px;
@@ -80,6 +79,14 @@
             border-radius: 5px;
             font-size: 14px;
         }
+        input[type="text"] {
+            width: 400px;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
         .users-not-found {
             text-align: center;
             font-size: 1.2em;
@@ -89,7 +96,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
-        .review-delete{
+        .review-delete {
             background-color: #155724;
             color: white;
             border: none;
@@ -99,15 +106,30 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        .review-delete:hover{
+        .review-delete:hover {
             background-color: #3b7f3a;
+        }
+        .search{
+            text-align: center;
+            margin: auto 0;
+        }
+        .br{
+            margin-top: 150px;
+        }
+        .have-review{
+            width: 200px;
+            word-wrap: break-word;
         }
     </style>
 </head>
 <body>
 <%- include('adminHeader.ejs') %>
-<ul class="ul">
-    <h2 style="text-align: center">Список пользователей</h2>
+<div class="br"></div>
+<div class="search">
+    <h2>Список пользователей</h2>
+    <input type="text" id="searchInput" placeholder="Поиск по имени или email">
+</div>
+<ul class="ul" id="userList">
     <% if (users && users.length) { %>
         <% users.forEach(user => { %>
             <li class="li">
@@ -117,12 +139,14 @@
                     <p>Эл. Адрес: <%= user.email %></p>
                     <% if (user.reviews && user.reviews.length > 0) { %>
                         <% user.reviews.forEach(review => { %>
-                        <div style="display: flex; gap: 10px;">
-                            <p>Отзыв: <%= review.review %></p>
-                            <form action="/admin/deleteReviewsAdmin/<%= user._id %>" method="POST">
-                                <button class="review-delete">Удалить отзыв</button>
-                            </form>
-                        </div>
+                            <div style="display: flex; gap: 10px;">
+                                <div class="have-review">
+                                    <p>Отзыв: <%= review.review %></p>
+                                </div>
+                                <form action="/admin/deleteReviewsAdmin/<%= user._id %>" method="POST">
+                                    <button class="review-delete">Удалить отзыв</button>
+                                </form>
+                            </div>
                         <% }) %>
                     <% } else { %>
                         <p>Отзыв: отсутствует</p>
@@ -135,7 +159,7 @@
                     </form>
                 </div>
                 <div class="change-password">
-                    <h2>Смена пароля</h2>
+                    <h2>Сменить пароль пользователю</h2>
                     <form action="/admin/changePasswordAdmin/<%= user._id %>" method="POST">
                         <input type="password" name="password" placeholder="Новый пароль" minlength="6" maxlength="50" required>
                         <input type="password" name="confirmPassword" placeholder="Повтор пароля" minlength="6" maxlength="50" required><br>
@@ -148,6 +172,24 @@
         <p class="users-not-found">Пользователей не найдено.</p>
     <% } %>
 </ul>
+<script>
+    document.getElementById('searchInput').addEventListener('input', function() {
+        const searchValue = this.value.toLowerCase();
+        const userList = document.getElementById('userList');
+        const users = userList.getElementsByClassName('li');
+
+        Array.from(users).forEach(user => {
+            const userName = user.querySelector('.user-info p:nth-child(2)').textContent.toLowerCase();
+            const userEmail = user.querySelector('.user-info p:nth-child(3)').textContent.toLowerCase();
+            if (userName.includes(searchValue) || userEmail.includes(searchValue)) {
+                user.style.display = '';
+            }
+            else {
+                user.style.display = 'none';
+            }
+        });
+    });
+</script>
 <script src="/javascripts/adminScript.js"></script>
 </body>
 </html>

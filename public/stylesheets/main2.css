@@ -50,7 +50,6 @@ main{
     height: 100%;
     background: rgb(32,30,32);
     background: linear-gradient(184deg, rgba(32,30,32,1) 54%, rgba(16,16,17,1) 76%);
-    /*background-color: #001017;*/
     flex-wrap: wrap;
 }
 .info{
@@ -200,8 +199,10 @@ ul {
     color: #6c757d;
 }
 footer {
-    background: rgb(0,16,23);
-    background: linear-gradient(260deg, rgba(0,16,23,1) 69%, rgba(0,51,74,1) 97%);
+    /*background: rgb(0,16,23);*/
+    /*background: linear-gradient(260deg, rgba(0,16,23,1) 69%, rgba(0,51,74,1) 97%);*/
+    background: rgb(32,30,32);
+    background: linear-gradient(184deg, rgba(32,30,32,1) 54%, rgba(16,16,17,1) 76%);
     color: white;
     padding: 20px 0;
     width: 100%;

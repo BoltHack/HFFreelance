@@ -191,10 +191,9 @@ a:hover{
 }
 
 .logout-border{
-  width: 300px;
-  height: 200px;
-  /*background-color: #f4f1de;*/
-  background-color: #dee2e6;
+  width: 350px;
+  height: 180px;
+  background-color: #212529;
   border-radius: 10px;
   z-index: 4;
   opacity: 1;
@@ -205,8 +204,8 @@ a:hover{
 }
 
 
-.no-btn, .yes-btn {
-  background-color: #495057;
+.no-btn {
+  background: none;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -215,14 +214,27 @@ a:hover{
   font-size: 16px;
   border-radius: 5px;
 }
-.no-btn:hover, .yes-btn:hover{
+.yes-btn{
+  background: none;
+  color: #00b4d8;
+  border: none;
+  padding: 10px 20px;
+  width: 80px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+.no-btn:hover{
   background-color: #6c757d;
+}
+.yes-btn:hover{
+  background-color: #000814;
 }
 .yes-or-no{
   display: flex;
   gap: 10px;
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
 }

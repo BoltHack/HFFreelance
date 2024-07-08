@@ -1,3 +1,18 @@
+document.getElementById('togglePassword1').addEventListener('click', function () {
+    let passwordField = document.getElementById('pwd');
+    let cpasswordField = document.getElementById('cpwd');
+    let passwordFieldType = passwordField.getAttribute('type');
+    if (passwordFieldType === 'password') {
+        passwordField.setAttribute('type', 'text');
+        cpasswordField.setAttribute('type', 'text');
+        this.innerHTML = '&#128065;';
+    } else {
+        passwordField.setAttribute('type', 'password');
+        cpasswordField.setAttribute('type', 'password');
+        this.innerHTML = '&#128065;';
+    }
+});
+
 const profileImg = document.getElementById('userImage');
 // const profileImg = document.querySelector('.profile-pic')
 const homeId = idUser
@@ -91,7 +106,7 @@ async function getNewTokens() {
 }
 
 let profileMenu = document.getElementById('profileMenu');
-let changePasswordMenu = document.getElementById('changePasswordMenu');
+// let changePasswordMenu = document.getElementById('changePasswordMenu');
 let newsMenu = document.getElementById('newsMenu');
 
 let profile = document.getElementById('profile');
@@ -100,27 +115,27 @@ let news = document.getElementById('news');
 
 profileMenu.addEventListener('click', () => {
     profileMenu.style.backgroundColor = '#34495e'
-    changePasswordMenu.style.background = 'none'
+    // changePasswordMenu.style.background = 'none'
     newsMenu.style.background = 'none'
     profile.hidden = false;
-    changePassword.hidden = true;
+    changePassword.hidden = false;
     news.hidden = true;
     document.body.style.overflowY = 'hidden'
 })
 
-changePasswordMenu.addEventListener('click', () => {
-    changePasswordMenu.style.backgroundColor = '#34495e'
-    profileMenu.style.background = 'none'
-    newsMenu.style.background = 'none'
-    changePassword.hidden = false;
-    profile.hidden = true;
-    news.hidden = true;
-    document.body.style.overflowY = 'hidden'
-})
+// changePasswordMenu.addEventListener('click', () => {
+//     changePasswordMenu.style.backgroundColor = '#34495e'
+//     profileMenu.style.background = 'none'
+//     newsMenu.style.background = 'none'
+//     changePassword.hidden = false;
+//     profile.hidden = true;
+//     news.hidden = true;
+//     document.body.style.overflowY = 'hidden'
+// })
 
 newsMenu.addEventListener('click', () => {
     newsMenu.style.backgroundColor = '#34495e'
-    changePasswordMenu.style.background = 'none'
+    // changePasswordMenu.style.background = 'none'
     profileMenu.style.background = 'none'
     news.hidden = false;
     changePassword.hidden = true;
@@ -186,7 +201,3 @@ document.getElementById('changePasswordBtn').addEventListener(function () {
             console.error('Ошибка:', error);
         });
 })
-
-
-
-

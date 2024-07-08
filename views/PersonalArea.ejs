@@ -15,7 +15,7 @@
         <h2>Меню</h2>
         <ul>
             <li id="profileMenu"><a href="#profilePage">Мой профиль</a></li>
-            <li id="changePasswordMenu"><a href="#changePassword">Сменить пароль</a></li>
+
             <li id="newsMenu"><a href="#news">Новости</a></li>
             <br>
             <% if (user.role === 'Admin') {%>
@@ -37,6 +37,7 @@
                     <h2 id="profileName"><%= user.name %></h2>
                     <p>Email: <%= user.email %></p>
                     <p>Дата регистрации: <%= user.registerDate %></p>
+
                 </div>
             </div>
             <div class="redaction">
@@ -57,12 +58,15 @@
             <% } %>
         </section>
 
-        <section id="changePassword" class="section" hidden>
+        <section id="changePassword" class="section">
             <h1>Смена пароля</h1>
             <p><%= user._id %></p>
             <form action="/changePassword/<%= user.id %>" method="POST">
-                <input type="password" name="password" placeholder="Новый пароль" minlength="6" maxlength="50" required>
-                <input type="password" name="confirmPassword" placeholder="Повтор пароля" minlength="6" maxlength="50" required>
+                <div class="password-container">
+                    <input type="password" name="password" id="pwd" placeholder="Новый пароль" minlength="6" maxlength="50" required>
+                    <input type="password" name="confirmPassword" id="cpwd" placeholder="Повтор пароля" minlength="6" maxlength="50" required>
+                    <span class="toggle-password" id="togglePassword1">&#128065;</span>
+                </div>
                 <button id="changePasswordBtn">Сменить пароль</button>
             </form>
         </section>
@@ -72,9 +76,9 @@
             <% if (news && news.length > 0) { %>
                 <ul>
                     <% news.forEach(newsItem => { %>
-                        <li class="section">
-                            <h3><%= newsItem.title %></h3>
-                            <p><%= newsItem.content %></p>
+                        <li class="news-section">
+                            <h3 class="news-title"><%= newsItem.title %></h3>
+                            <p class="news-content"><%= newsItem.content %></p>
                             <p class="date"><%= newsItem.date %></p>
                         </li>
                     <% }); %>
@@ -87,7 +91,6 @@
 </div>
 
 <script src="/javascripts/profile.js"></script>
-<!--<script src="/javascripts/PersonalArea.js"></script>-->
 <script src="/javascripts/script.js"></script>
 <script>
     const userImage = document.getElementById('userImage');

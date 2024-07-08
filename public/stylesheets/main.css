@@ -207,3 +207,27 @@ form button:hover {
     text-align: center;
     margin-left: 45px;
 }
+.news-section{
+    width: 800px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    list-style: none;
+}
+.news-content, .news-title{
+    width: 800px;
+    word-wrap: break-word;
+}
+.password-container{
+    display: flex;
+    gap: 10px;
+}
+.toggle-password {
+    position: relative;
+    right: 2px;
+    top: 5px;
+    cursor: pointer;
+    font-size: 25px;
+}

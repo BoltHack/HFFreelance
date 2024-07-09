@@ -1,25 +1,30 @@
 const {UsersModel} = require("../models/UsersModel");
 const {NewsModel} = require("../models/NewsSchema");
 const HttpErrors = require("http-errors");
+const {AdminModel} = require("../models/AdminModel");
 class IndexController {
-    static indexView = (req, res, next) => {
-        return res.render('index');
-    }
+    // static indexView = (req, res, next) => {
+    //     return res.render('index');
+    // }
     static mainView = async (req, res, next) => {
         try{
-            res.render('main')
+            const links = await AdminModel.find();
+            res.render('main', {links});
         }catch(e) {
             next(e)
         }
     }
-    static aboutUsView = (req, res, next) => {
-        return res.render('aboutUs');
+    static aboutUsView = async (req, res, next) => {
+        const links = await AdminModel.find();
+        return res.render('aboutUs', {links});
     }
-    static rulesView = (req, res, next) => {
-        return res.render('rules');
+    static rulesView = async (req, res, next) => {
+        const links = await AdminModel.find();
+        return res.render('rules', {links});
     }
-    static privacyPolicyView = (req, res, next) => {
-        return res.render('privacyPolicy');
+    static privacyPolicyView = async (req, res, next) => {
+        const links = await AdminModel.find();
+        return res.render('privacyPolicy', {links});
     };
 
     static sendReviewsMenuView = async (req, res, next) => {

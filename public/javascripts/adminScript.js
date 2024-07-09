@@ -1,6 +1,6 @@
 setInterval(function (){
     getAdminTokens()
-}, 200000)
+}, 100000)
 
 async function getAdminTokens() {
     try {
@@ -31,6 +31,7 @@ async function getAdminTokens() {
 
 function adminWindow(){
     const allUsers = document.getElementById('allUsers')
+    const sendLinks = document.getElementById('sendLinks')
     const news = document.getElementById('news')
     const allNews = document.getElementById('allNews')
     if(window.location.pathname === '/admin/sendNews'){
@@ -41,6 +42,9 @@ function adminWindow(){
     }
     if(window.location.pathname === '/admin/allUsers'){
         allUsers.style.color = '#a2a8d3'
+    }
+    if(window.location.pathname === '/admin/sendLinks'){
+        sendLinks.style.color = '#a2a8d3'
     }
 }
 adminWindow();

@@ -17,10 +17,24 @@
             </div>
             <div class="footer-contacts">
                 <h3>Контакты</h3>
-                <a href="/vk" target="_blank">VK</a>
-                <a href="/discord" target="_blank">Discord</a>
-                <a href="/instagram" target="_blank">instagram</a>
-                <a href="/facebook" target="_blank">facebook</a>
+                <% if (links) { %>
+                    <% links.forEach(linksItem => { %>
+                        <% if(linksItem.vk) {%>
+                            <a href="<%= linksItem.vk %>" target="_blank">VK</a>
+                        <%}%>
+                            <% if(linksItem.discord) {%>
+                                <a href="<%= linksItem.discord %>" target="_blank">Discord</a>
+                            <%}%>
+                            <% if(linksItem.instagram) {%>
+                                <a href="<%= linksItem.instagram %>" target="_blank">instagram</a>
+                            <%}%>
+                            <% if(linksItem.facebook) {%>
+                                <a href="<%= linksItem.facebook %>" target="_blank">facebook</a>
+                            <%}%>
+                        <% }); %>
+                <% } else { %>
+                    <p>Новых ссылок пока нет.</p>
+                <% } %>
             </div>
         </div>
         <div class="line"></div>

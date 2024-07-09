@@ -1,5 +1,6 @@
 const {UsersModel} = require("../models/UsersModel");
 const {NewsModel} = require("../models/NewsSchema");
+const {AdminModel} = require("../models/AdminModel");
 const bcrypt = require("bcrypt");
 const HttpErrors = require("http-errors");
 
@@ -12,7 +13,6 @@ class AdminController {
     static allUsersAdmin = async (req, res, next) => {
         try {
             const users = await UsersModel.find({role: 'User'});
-
             res.render('admin/allUsers', { users });
         } catch (err) {
             next(err);
@@ -25,6 +25,10 @@ class AdminController {
         } catch (err) {
             next(err);
         }
+    }
+    static sendLinksAdmin = async (req, res, next) => {
+        const links = await AdminModel.find();
+        return res.render('admin/sendLinks', {links});
     }
 
     static deleteUserAdmin = async (req, res, next) => {
@@ -79,7 +83,6 @@ static sendNewsPost = async (req, res, next) => {
         res.status(500).json({ error: err.message });
     }
 }
-
 
 static changePasswordAdmin = async (req, res, next) => {
         try {
@@ -146,6 +149,113 @@ static changePasswordAdmin = async (req, res, next) => {
             next(e)
         }
     }
+
+    static sendLinksPost = async (req, res, next) => {
+        try {
+            const id = await AdminModel.find();
+            const {vk, discord, instagram, facebook} = req.body;
+
+            await AdminModel.findByIdAndUpdate(
+                id,
+                { vk, discord, instagram, facebook },
+                { new: true }
+            )
+                .then((user) => {
+                    if (!user) {
+                        return res.status(404).json({ message: "Пользователь не найден" });
+                    }
+                    res.redirect('/admin/sendLinks')
+                })
+                .catch((error) => {
+                    res.status(500).json({ error: error.message });
+                });
+        } catch (err) {
+            console.error('Ошибка:', err);
+            res.status(500).json({error: err.message});
+            next(err);
+        }
+    }
+
+    static deleteFacebookLink = async (req, res, next) => {
+        try {
+            const { id } = req.params;
+
+            await AdminModel.findByIdAndUpdate(id, { $unset: { facebook: "" } })
+                .then((user) => {
+                    if (!user) {
+                        return res.status(404).json({ message: "Пользователь не найден" });
+                    }
+                    res.redirect('/admin/sendLinks');
+                })
+                .catch((error) => {
+                    res.status(500).json({ error: error.message });
+                });
+        } catch (e) {
+            console.log(e);
+            next(e);
+        }
+    }
+
+    static deleteVkLink = async (req, res, next) => {
+        try {
+            const { id } = req.params;
+
+            await AdminModel.findByIdAndUpdate(id, { $unset: { vk: "" } })
+                .then((user) => {
+                    if (!user) {
+                        return res.status(404).json({ message: "Пользователь не найден" });
+                    }
+                    res.redirect('/admin/sendLinks');
+                })
+                .catch((error) => {
+                    res.status(500).json({ error: error.message });
+                });
+        } catch (e) {
+            console.log(e);
+            next(e);
+        }
+    }
+
+    static deleteDiscordLink = async (req, res, next) => {
+        try {
+            const { id } = req.params;
+
+            await AdminModel.findByIdAndUpdate(id, { $unset: { discord: "" } })
+                .then((user) => {
+                    if (!user) {
+                        return res.status(404).json({ message: "Пользователь не найден" });
+                    }
+                    res.redirect('/admin/sendLinks');
+                })
+                .catch((error) => {
+                    res.status(500).json({ error: error.message });
+                });
+        } catch (e) {
+            console.log(e);
+            next(e);
+        }
+    }
+
+    static deleteInstagramLink = async (req, res, next) => {
+        try {
+            const { id } = req.params;
+
+            await AdminModel.findByIdAndUpdate(id, { $unset: { instagram: "" } })
+                .then((user) => {
+                    if (!user) {
+                        return res.status(404).json({ message: "Пользователь не найден" });
+                    }
+                    res.redirect('/admin/sendLinks');
+                })
+                .catch((error) => {
+                    res.status(500).json({ error: error.message });
+                });
+        } catch (e) {
+            console.log(e);
+            next(e);
+        }
+    }
+
 }
 
 module.exports = AdminController

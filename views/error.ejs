@@ -18,10 +18,10 @@
     }
 </style>
 <div class="errors">
-    <h2>Ой, кажется, у нас возникли проблемы :(</h2>
+    <h2 id="err">Ой, кажется, у нас возникли проблемы :(</h2>
     <section id="info">
         <button id="onSec" class="errorButton">Узнать подробнее</button>
-        <button id="reload" class="errorButton">Перезагрузить страницу</button>
+        <button id="back" class="errorButton">Назад</button>
     </section>
     <section id="section" hidden>
         <h1><%= message %></h1>
@@ -33,16 +33,19 @@
 <script>
     const section = document.getElementById('section');
     const info = document.getElementById('info');
-    document.getElementById('reload').addEventListener('click', () => {
-        window.location.href = '/'
+    const err = document.getElementById('err');
+    document.getElementById('back').addEventListener('click', () => {
+        window.history.back();
     })
     document.getElementById('onSec').addEventListener('click', () => {
         section.hidden = false;
         info.hidden = true;
+        err.hidden = true;
     })
 
     document.getElementById('closeInfo').addEventListener('click', () => {
         section.hidden = true;
         info.hidden = false;
+        err.hidden = false;
     })
 </script>

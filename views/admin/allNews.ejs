@@ -50,6 +50,10 @@
         button:hover {
             background-color: #0056b3;
         }
+        .new-items{
+            width: 800px;
+            word-wrap: break-word;
+        }
     </style>
 </head>
 <body>
@@ -60,8 +64,8 @@
             <ul>
                 <% news.forEach(newsItem => { %>
                     <li class="section">
-                        <h3><%= newsItem.title %></h3>
-                        <p><%= newsItem.content %></p>
+                        <h3 class="new-items"><%= newsItem.title %></h3>
+                        <p class="new-items"><%= newsItem.content %></p>
                         <p class="date"><%= newsItem.date %></p>
                         <form action="/admin/deleteNewsAdmin/<%= newsItem._id%>" method="POST">
                             <button>Удалить</button>

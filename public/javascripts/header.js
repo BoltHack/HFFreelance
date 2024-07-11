@@ -29,14 +29,3 @@ function header(){
     }
 }
 header();
-
-function windowReload(){
-    function reloadOnce() {
-        window.location.reload();
-        window.removeEventListener('popstate', reloadOnce);
-    }
-
-    window.addEventListener('popstate', reloadOnce);
-}
-
-windowReload();

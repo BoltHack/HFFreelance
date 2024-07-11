@@ -3,9 +3,6 @@ const {NewsModel} = require("../models/NewsSchema");
 const HttpErrors = require("http-errors");
 const {AdminModel} = require("../models/AdminModel");
 class IndexController {
-    // static indexView = (req, res, next) => {
-    //     return res.render('index');
-    // }
     static mainView = async (req, res, next) => {
         try{
             const links = await AdminModel.find();
@@ -35,7 +32,9 @@ class IndexController {
         try {
             const user = req.user;
             const news = await NewsModel.find();
-            return res.render('PersonalArea', {user, news});
+
+            const review = await UsersModel.findOne({ _id: user.id});
+            return res.render('PersonalArea', {user, news, review});
         }catch (err){
             next(err)
         }
@@ -185,7 +184,8 @@ class IndexController {
                     if (!user) {
                         return res.status(404).json({ message: "Пользователь не найден" });
                     }
-                    res.status(200).json({ message: "Отзыв успешно удалён", user });
+                    // res.status(200).json({ message: "Отзыв успешно удалён", user });
+                    res.redirect('/PersonalArea')
                 })
                 .catch((error) => {
                     res.status(500).json({ error: error.message });

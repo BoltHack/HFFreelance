@@ -1,8 +1,9 @@
 const express = require('express');
 const {
     sendNewsAdmin, allUsersAdmin, deleteUserAdmin, changePasswordAdmin, sendNewsPost, allNewsAdmin,
-    deleteNewsAdmin, deleteReviewAdmin, sendLinksAdmin, sendLinksPost, deleteFacebookLink, deleteVkLink,
-    deleteDiscordLink, deleteInstagramLink
+    deleteNewsAdmin, deleteReviewAdmin, sendLinksAdmin, deleteFacebookLink, deleteVkLink,
+    deleteDiscordLink, deleteInstagramLink, sendLinksPostVk, sendLinksPostDiscord, sendLinksPostInstagram,
+    sendLinksPostFacebook,
 } = require('../controller/AdminController');
 const {authenticateJWT} = require('../middlewares/jwtAuth');
 const {verifyPermissions} = require('../middlewares/permissionsAuthorization')
@@ -19,7 +20,11 @@ router.post('/changePasswordAdmin/:id', verifyPermissions('Admin'), changePasswo
 router.post('/deleteReviewsAdmin/:id', verifyPermissions('Admin'), deleteReviewAdmin);
 
 router.post('/sendNews', verifyPermissions('Admin'), sendNewsPost);
-router.post('/sendLinks', verifyPermissions('Admin'), sendLinksPost);
+
+router.post('/sendLinksVk', verifyPermissions('Admin'), sendLinksPostVk);
+router.post('/sendLinksDiscord', verifyPermissions('Admin'), sendLinksPostDiscord);
+router.post('/sendLinksInstagram', verifyPermissions('Admin'), sendLinksPostInstagram);
+router.post('/sendLinksFacebook', verifyPermissions('Admin'), sendLinksPostFacebook);
 
 router.post('/deleteFacebookLink/:id', verifyPermissions('Admin'), deleteFacebookLink);
 router.post('/deleteVkLink/:id', verifyPermissions('Admin'), deleteVkLink);

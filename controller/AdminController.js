@@ -150,28 +150,118 @@ static changePasswordAdmin = async (req, res, next) => {
         }
     }
 
-    static sendLinksPost = async (req, res, next) => {
+    static sendLinksPostVk = async (req, res, next) => {
         try {
-            const id = await AdminModel.find();
-            const {vk, discord, instagram, facebook} = req.body;
+            const linkElements = await AdminModel.find()
+            const { vk } = req.body;
 
-            await AdminModel.findByIdAndUpdate(
-                id,
-                { vk, discord, instagram, facebook },
-                { new: true }
-            )
-                .then((user) => {
-                    if (!user) {
-                        return res.status(404).json({ message: "Пользователь не найден" });
-                    }
-                    res.redirect('/admin/sendLinks')
-                })
-                .catch((error) => {
-                    res.status(500).json({ error: error.message });
-                });
+            if (linkElements.length === 0) {
+                const newLinkElements = new AdminModel({ vk });
+                await newLinkElements.save();
+                res.status(201).json({ message: "Новый администратор добавлен", admin: newLinkElements });
+            } else {
+                const id = linkElements[0]._id;
+                const updatedAdmin = await AdminModel.findByIdAndUpdate(
+                    id,
+                    { vk },
+                    { new: true }
+                );
+
+                if (!updatedAdmin) {
+                    return res.status(404).json({ message: "Администратор не найден" });
+                }
+                res.redirect('/admin/sendLinks');
+            }
         } catch (err) {
             console.error('Ошибка:', err);
-            res.status(500).json({error: err.message});
+            res.status(500).json({ error: err.message });
+            next(err);
+        }
+    }
+
+    static sendLinksPostDiscord = async (req, res, next) => {
+        try {
+            const linkElements = await AdminModel.find()
+            const { discord } = req.body;
+
+            if (linkElements.length === 0) {
+                const newLinkElements = new AdminModel({ discord });
+                await newLinkElements.save();
+                res.status(201).json({ message: "Новый администратор добавлен", admin: newLinkElements });
+            } else {
+                const id = linkElements[0]._id;
+                const updatedAdmin = await AdminModel.findByIdAndUpdate(
+                    id,
+                    { discord },
+                    { new: true }
+                );
+
+                if (!updatedAdmin) {
+                    return res.status(404).json({ message: "Администратор не найден" });
+                }
+                res.redirect('/admin/sendLinks');
+            }
+        } catch (err) {
+            console.error('Ошибка:', err);
+            res.status(500).json({ error: err.message });
+            next(err);
+        }
+    }
+
+    static sendLinksPostInstagram = async (req, res, next) => {
+        try {
+            const linkElements = await AdminModel.find()
+            const { instagram } = req.body;
+
+            if (linkElements.length === 0) {
+                const newLinkElements = new AdminModel({ instagram });
+                await newLinkElements.save();
+                res.status(201).json({ message: "Новый администратор добавлен", admin: newLinkElements });
+            } else {
+                const id = linkElements[0]._id;
+                const updatedAdmin = await AdminModel.findByIdAndUpdate(
+                    id,
+                    { instagram },
+                    { new: true }
+                );
+
+                if (!updatedAdmin) {
+                    return res.status(404).json({ message: "Администратор не найден" });
+                }
+                res.redirect('/admin/sendLinks');
+            }
+        } catch (err) {
+            console.error('Ошибка:', err);
+            res.status(500).json({ error: err.message });
+            next(err);
+        }
+    }
+
+    static sendLinksPostFacebook = async (req, res, next) => {
+        try {
+            const linkElements = await AdminModel.find()
+            const { facebook } = req.body;
+
+            if (linkElements.length === 0) {
+                const newLinkElements = new AdminModel({ facebook });
+                await newLinkElements.save();
+                res.status(201).json({ message: "Новый администратор добавлен", admin: newLinkElements });
+            } else {
+                const id = linkElements[0]._id;
+                const updatedAdmin = await AdminModel.findByIdAndUpdate(
+                    id,
+                    { facebook },
+                    { new: true }
+                );
+
+                if (!updatedAdmin) {
+                    return res.status(404).json({ message: "Администратор не найден" });
+                }
+                res.redirect('/admin/sendLinks');
+            }
+        } catch (err) {
+            console.error('Ошибка:', err);
+            res.status(500).json({ error: err.message });
             next(err);
         }
     }

@@ -1,5 +1,6 @@
 const mainContainer = document.getElementById('mainContainer');
-const myId = localStorage.getItem('id');
+// const myId = idUser
+const myId = document.getElementById('id')
 const myToken = localStorage.getItem('token');
 
 function homePageFunction() {
@@ -180,12 +181,14 @@ function weHaveAnAccount(){
     const accountImg = document.getElementById('account-img');
     if (name) {
         account.style.display = 'none'
+        account.hidden = true
         const img = localStorage.getItem('profileImage');
         accountImg.src = img;
+        accountImg.hidden = false
     }
     else{
         account.textContent = 'Мой аккаунт'
-        accountImg.style.display = 'none'
+        accountImg.hidden = true;
     }
 }
 weHaveAnAccount();
@@ -226,6 +229,33 @@ function deleteAccountMenu() {
         <div class="yes-or-no">
         <button class="no-btn" id="closeBtn">Нет</button>
         <button class="yes-btn" onclick="deleteAccount()">Да</button>
+        </div>
+        </div>`
+
+    document.body.appendChild(border);
+    document.body.appendChild(barrier);
+    barrier.addEventListener('click', () => {
+        document.body.removeChild(barrier);
+        document.body.removeChild(border);
+    })
+    document.getElementById('closeBtn').addEventListener('click', () => {
+        document.body.removeChild(barrier);
+        document.body.removeChild(border);
+    })
+}
+
+function deleteReviewMenu() {
+    const barrier = document.createElement('barrier');
+    const border = document.createElement('border');
+
+    barrier.innerHTML = `<div class="new-barrier"></div>`;
+    border.innerHTML = `
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <div class="logout-border">
+        <p style="text-align: center; color: white; margin: 30px 0; padding: 10px;">Вы уверены, что хотите удалить свой отзыв?</p>
+        <div class="yes-or-no">
+        <button class="no-btn" id="closeBtn">Нет</button>
+            <button class="yes-btn" onclick="deleteReview()">Да</button>
         </div>
         </div>`
 

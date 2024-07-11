@@ -29,7 +29,6 @@ router.post('/deleteAccount/:id', deleteUser, verifyToken, refreshToken);
 router.post('/deleteReview/:id', deleteReview);
 router.post('/changePassword/:id', authenticateJWT, changePassword);
 router.post('/refreshToken', refreshToken);
-router.post('/refreshAdmin', refreshToken);
 
 router.use('/auth', AuthRouter);
 router.use('/admin', AdminRouter);

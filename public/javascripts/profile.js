@@ -167,19 +167,24 @@ function deleteAccount() {
 }
 
 function deleteReview() {
-    fetch(`/deleteReview/${myId}`, {
-        method: 'POST',
+    fetch(`/deleteReview/${homeId}`, {
+        method: "POST",
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
     })
         .then(response => {
             if (response.ok) {
-                window.location.href = `/PersonalArea`
+                window.location.href = '/PersonalArea';
             } else {
-                dynamicMenu("Произошла ошибка при удалении учетной записи");
+                response.text().then(errorMessage => {
+                    dynamicMenu("Ошибк: " + errorMessage);
+                });
             }
         })
         .catch(error => {
-            console.error('Ошибка при отправке запроса:', error);
-            dynamicMenu("Произошла ошибка при отправке запроса");
+            dynamicMenu('Произошла ошибка при отправке запроса:', error);
+            dynamicMenu("Произошла ошибка при отправке запроса: " + error.message);
         });
 }
 

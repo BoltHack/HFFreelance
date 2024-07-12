@@ -1,3 +1,21 @@
+function refs(){
+    const refId = localStorage.getItem('id');
+    if (window.location.pathname === '/PersonalArea'){
+        const refPersonalArea = localStorage.getItem('ref');
+        if (refPersonalArea !== 'refPersonalArea'){
+            localStorage.setItem('ref', 'refPersonalArea');
+            window.location.href = '/refreshToken'
+        }
+    }
+    if (window.location.pathname === `/sendReviews/${refId}`){
+        const refSendReviews = localStorage.getItem('ref');
+        if (refSendReviews !== 'refSendReviews'){
+            localStorage.setItem('ref', 'refSendReviews');
+            window.location.href = '/refreshToken'
+        }
+    }
+}
+refs()
 function ha() {
     const sectionLinks = document.querySelectorAll('.ha');
     sectionLinks.forEach(link => {
@@ -15,6 +33,7 @@ function ha() {
     });
 }
 ha();
+
 const section = document.getElementById('headerSection');
 const back = document.getElementById('back');
 const fileId = localStorage.getItem('id');

@@ -12,7 +12,6 @@ const authenticateJWT = async (req, res, next) => {
             next();
         });
     } else {
-        // res.sendStatus(401);
         res.redirect('/')
     }
 };

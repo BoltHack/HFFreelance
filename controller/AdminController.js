@@ -30,6 +30,25 @@ class AdminController {
         const links = await AdminModel.find();
         return res.render('admin/sendLinks', {links});
     }
+    static requestUnbanAdmin = async (req, res, next) => {
+        try {
+            const users = await UsersModel.aggregate([
+                { $match: { role: 'User' } },
+                {
+                    $match: {
+                        'requestUnban': { $exists: true, $ne: [] }
+                    }
+                }
+            ]);
+
+            res.render('admin/requestUnban', { users });
+        } catch (err) {
+            console.error('Ошибка:', err);
+            res.status(500).json({ error: err.message });
+            next(err);
+        }
+    }
+
 
     static deleteUserAdmin = async (req, res, next) => {
         try {
@@ -346,6 +365,53 @@ static changePasswordAdmin = async (req, res, next) => {
         }
     }
 
+    static playerBanAdmin = async (req, res, next) => {
+        try {
+            const { id } = req.params;
+
+            const playerBan = await UsersModel.findByIdAndUpdate(
+                id,
+                { banned: true },
+                { new: true }
+            );
+
+            if (!playerBan) {
+                throw new HttpErrors('Пользователь не найден.');
+            }
+
+            setTimeout(() => {
+                res.redirect('/admin/allUsers');
+                console.log(id, ' успешно удалён!')
+            }, 500);
+        } catch (e) {
+            console.log(e);
+            next(e);
+        }
+    }
+
+    static playerUnbanAdmin = async (req, res, next) => {
+        try {
+            const { id } = req.params;
+
+            const playerBan = await UsersModel.findByIdAndUpdate(
+                id,
+                { banned: false, requestUnban: [] },
+                { new: true }
+            );
+
+            if (!playerBan) {
+                throw new HttpErrors('Пользователь не найден.');
+            }
+
+            setTimeout(() => {
+                res.redirect('/admin/allUsers');
+                console.log(id, ' успешно удалён!')
+            }, 500);
+        } catch (e) {
+            console.log(e);
+            next(e);
+        }
+    }
 }
 
 module.exports = AdminController

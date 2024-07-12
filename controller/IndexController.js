@@ -1,39 +1,65 @@
 const {UsersModel} = require("../models/UsersModel");
 const {NewsModel} = require("../models/NewsSchema");
-const HttpErrors = require("http-errors");
 const {AdminModel} = require("../models/AdminModel");
+const HttpErrors = require("http-errors");
 class IndexController {
     static mainView = async (req, res, next) => {
         try{
             const links = await AdminModel.find();
-            res.render('main', {links});
+            return res.render('main', {links});
         }catch(e) {
             next(e)
         }
     }
     static aboutUsView = async (req, res, next) => {
-        const links = await AdminModel.find();
-        return res.render('aboutUs', {links});
+        try{
+            const links = await AdminModel.find();
+            return res.render('aboutUs', {links});
+        }catch (err){
+            next(err)
+        }
     }
     static rulesView = async (req, res, next) => {
-        const links = await AdminModel.find();
-        return res.render('rules', {links});
+        try{
+            const links = await AdminModel.find();
+            return res.render('rules', {links});
+        }catch (err){
+            next(err)
+        }
     }
     static privacyPolicyView = async (req, res, next) => {
-        const links = await AdminModel.find();
-        return res.render('privacyPolicy', {links});
+        try{
+            const links = await AdminModel.find();
+            return res.render('privacyPolicy', {links});
+        }catch (err){
+            next(err)
+        }
     };
 
     static sendReviewsMenuView = async (req, res, next) => {
-        const user = req.user;
-        return res.render('sendReviews', {user});
+        try{
+            const user = req.user;
+            if (user.banned === true) {
+                res.redirect('/youAreBanned')
+            }
+
+            return res.render('sendReviews', {user});
+        }catch(err){
+            next(err)
+        }
     };
+
     static PersonalAreaView = async (req, res, next) => {
         try {
             const user = req.user;
             const news = await NewsModel.find();
 
-            const review = await UsersModel.findOne({ _id: user.id});
+            const review = await UsersModel.findOne({ _id: user._id});
+
+            if (user.banned === true) {
+                res.redirect('/youAreBanned')
+            }
+
             return res.render('PersonalArea', {user, news, review});
         }catch (err){
             next(err)
@@ -41,21 +67,28 @@ class IndexController {
     };
 
     static allReviewsView = async (req, res, next) => {
-        const {id} = req.params;
-        const userInfo = await UsersModel.findById(id);
-        return res.render('allReviews', {userInfo});
+        try{
+            const {id} = req.params;
+            const userInfo = await UsersModel.findById(id);
+            return res.render('allReviews', {userInfo});
+        }catch (err){
+            next(err)
+        }
     }
-    static reviewsView = (req, res, next) => {
-        return res.render('reviews');
-    }
-    static reviewErrorView = (req, res, next) => {
-        return res.render('reviewError');
-    }
+
     static refreshTokenView = (req, res, next) => {
         return res.render('refreshToken');
     }
     static moreDetailsView = (req, res, next) => {
-        return res.render('moreDetails');
+        try{
+            return res.render('moreDetails');
+        }catch (err){
+            next(err)
+        }
+    }
+    static youAreBannedView = (req, res, next) => {
+        const user = req.user;
+        return res.render('youAreBanned', {user});
     }
 
     static homeInfo = async (req, res, next) => {
@@ -116,13 +149,35 @@ class IndexController {
             const user = await UsersModel.findById(id);
 
             if (user.reviews && user.reviews.length > 0) {
-                return res.redirect('/reviewError')
+                throw new HttpErrors('Вы уже оставили отзыв.');
             }
 
             user.reviews.push({ review: message, grade });
             await user.save();
 
             res.redirect('/allReviews');
+        } catch (err) {
+            console.error('Ошибка:', err);
+            res.status(500).json({ error: err.message });
+            next(err);
+        }
+    }
+
+    static requestUnban = async (req, res, next) => {
+        try {
+            const { email, message } = req.body;
+            const { id } = req.user;
+
+            const user = await UsersModel.findById(id);
+
+            if (user.requestUnban && user.requestUnban.length > 0) {
+                throw new HttpErrors('Вы уже оставили запрос.');
+            }
+
+            user.requestUnban.push({ requestUnban: email, message });
+            await user.save();
+
+            res.redirect('/youAreBanned');
         } catch (err) {
             console.error('Ошибка:', err);
             res.status(500).json({ error: err.message });
@@ -146,9 +201,6 @@ class IndexController {
             next(err);
         }
     }
-
-
-
 
     static deleteUser = async (req, res, next) => {
         try {
@@ -184,7 +236,6 @@ class IndexController {
                     if (!user) {
                         return res.status(404).json({ message: "Пользователь не найден" });
                     }
-                    // res.status(200).json({ message: "Отзыв успешно удалён", user });
                     res.redirect('/PersonalArea')
                 })
                 .catch((error) => {

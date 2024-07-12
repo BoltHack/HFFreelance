@@ -1,5 +1,4 @@
 const mainContainer = document.getElementById('mainContainer');
-// const myId = idUser
 const myId = document.getElementById('id')
 const myToken = localStorage.getItem('token');
 
@@ -87,6 +86,7 @@ function admin() {
     localStorage.setItem('ref', 'refAdmin');
     window.location.href = '/refreshToken';
 }
+
 function logoutMenu() {
     const barrier = document.createElement('barrier');
     const border = document.createElement('border');

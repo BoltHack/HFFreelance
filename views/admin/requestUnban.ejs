@@ -166,49 +166,24 @@
                     <p>id: <%= user._id %></p>
                     <p>Имя: <%= user.name %></p>
                     <p>Эл. Адрес: <%= user.email %></p>
-                    <% if (user.reviews && user.reviews.length > 0) { %>
-                        <% user.reviews.forEach(review => { %>
+                    <% if (user.requestUnban && user.requestUnban.length > 0) { %>
+                        <% user.requestUnban.forEach(requestMessage => { %>
                             <div style="display: flex; gap: 10px;">
                                 <div class="have-review">
-                                    <p>Отзыв: <%= review.review %></p>
+                                    <p>Заявка: <%= requestMessage.message %></p>
                                 </div>
-                                <form action="/admin/deleteReviewsAdmin/<%= user._id %>" method="POST">
-                                    <button class="review-delete">Удалить отзыв</button>
-                                </form>
                             </div>
+                            <% if(user.banned === true) {%>
+                                <div>
+                                    <form action="/admin/playerUnban/<%= user._id %>" method="POST">
+                                        <button class="unban-btn">Разблокировать</button>
+                                    </form>
+                                </div>
+                            <%}%>
                         <% }) %>
                     <% } else { %>
-                        <p>Отзыв: отсутствует</p>
+                        <p>За: отсутствует</p>
                     <% } %>
-                    <p>Роль: <%= user.role %></p>
-                    <% if(user.banned === false) {%>
-                        <div style="display: flex; gap: 10px;">
-                            <p>Заблокирован: <%= user.banned %></p>
-                            <form action="/admin/playerBan/<%= user.id %>" method="POST">
-                                <button class="ban-btn">Заблокировать</button>
-                            </form>
-                        </div>
-                    <%} else {%>
-                        <div style="display: flex; gap: 10px;">
-                            <p>Заблокирован: <%= user.banned %></p>
-                            <form action="/admin/playerUnban/<%= user.id %>" method="POST">
-                                <button class="unban-btn">Разблокировать</button>
-                            </form>
-                        </div>
-                    <%}%>
-                    <img src="data:image/jpeg;base64,<%= user.image %>" alt="User Image" class="img">
-                    <br>
-                    <form action="/admin/deleteUserAdmin/<%= user._id%>" method="POST">
-                        <button class="button">Удалить аккаунт</button>
-                    </form>
-                </div>
-                <div class="change-password">
-                    <h2>Сменить пароль пользователю</h2>
-                    <form action="/admin/changePasswordAdmin/<%= user._id %>" method="POST">
-                        <input type="password" name="password" placeholder="Новый пароль" minlength="6" maxlength="50" required>
-                        <input type="password" name="confirmPassword" placeholder="Повтор пароля" minlength="6" maxlength="50" required><br>
-                        <button id="changePasswordBtn" class="button">Сменить пароль</button>
-                    </form>
                 </div>
             </li>
         <% }) %>

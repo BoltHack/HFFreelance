@@ -223,7 +223,8 @@ a:hover{
 }
 .yes-btn{
   background: none;
-  color: #00b4d8;
+  /*color: #00b4d8;*/
+  color: #90e0ef;
   border: none;
   padding: 10px 20px;
   width: 80px;
@@ -235,7 +236,7 @@ a:hover{
   background-color: #6c757d;
 }
 .yes-btn:hover{
-  background-color: #000814;
+  background-color: #118ab2;
 }
 .yes-or-no{
   display: flex;

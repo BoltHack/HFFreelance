@@ -35,7 +35,13 @@
     const info = document.getElementById('info');
     const err = document.getElementById('err');
     document.getElementById('back').addEventListener('click', () => {
-        window.history.back();
+        if(localStorage.getItem('ref') === 'refPersonalArea'){
+            window.history.back();
+            window.history.back();
+        }
+        else{
+            window.history.back();
+        }
     })
     document.getElementById('onSec').addEventListener('click', () => {
         section.hidden = false;

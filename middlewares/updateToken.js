@@ -39,7 +39,8 @@ async function refreshToken(req, res, next) {
                 email: user.email,
                 name: user.name,
                 registerDate: user.registerDate,
-                role: user.role
+                role: user.role,
+                banned: user.banned
             }, refreshTokenSecret, { expiresIn: '10d' });
 
             user.refreshToken = newRefreshToken;
@@ -50,7 +51,8 @@ async function refreshToken(req, res, next) {
                 email: user.email,
                 name: user.name,
                 registerDate: user.registerDate,
-                role: user.role
+                role: user.role,
+                banned: user.banned
             }, JWTSecret, { expiresIn: '15m' });
 
             await res.cookie('token', accessToken, { httpOnly: true, secure: true, maxAge: parseMaxAge('15m') });

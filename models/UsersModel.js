@@ -15,6 +15,15 @@ const ReviewSchema = new Schema({
     date: { type: String, default: dateOnly }
 });
 
+const RequestUnbanSchema = new Schema({
+    email: {
+        type: String
+    },
+    message: {
+        type: String
+    },
+});
+
 const UsersSchema = new Schema({
     name: {type: String,
         required: true},
@@ -40,6 +49,13 @@ const UsersSchema = new Schema({
         type: String,
         default: 'User'
     },
+    banned: {
+        type: Boolean,
+        default: false
+    },
+    requestUnban: {
+        type: [RequestUnbanSchema], default: []
+    }
 });
 
 const UsersModel = model('user', UsersSchema);

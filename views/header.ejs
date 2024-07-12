@@ -101,4 +101,34 @@
     </div>
 </header>
 <%- include('back.ejs') %>
+<script>
+    function allPaths(){
+        if (window.location.pathname === '/'){
+            localStorage.setItem('ref', 'refMain')
+        }
+        if (window.location.pathname === '/moreDetails'){
+            localStorage.setItem('ref', 'refMoreDetails')
+        }
+        if (window.location.pathname === '/allReviews'){
+            localStorage.setItem('ref', 'refAllReviews')
+        }
+        if (window.location.pathname === `/sendReviews/${myId}`){
+            localStorage.setItem('ref', 'refSendReviews')
+        }
+        if (window.location.pathname === '/aboutUs'){
+            localStorage.setItem('ref', 'refAboutUs')
+        }
+        if (window.location.pathname === '/rules'){
+            localStorage.setItem('ref', 'refRules')
+        }
+        if (window.location.pathname === '/privacyPolicy'){
+            localStorage.setItem('ref', 'refPrivacyPolicy')
+        }
+        if (window.location.pathname === '/PersonalArea'){
+            localStorage.setItem('ref', 'refPersonalArea')
+        }
+    }
+    allPaths()
+</script>
+<script src="/javascripts/timer.js"></script>
 <script src="/javascripts/header.js"></script>

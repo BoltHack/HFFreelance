@@ -1,6 +1,6 @@
 const homeId = localStorage.getItem('id');
 const ref = localStorage.getItem('ref');
-async function getNewTokens() {
+async function getNewTokenSendReview() {
     try {
         const response = await fetch('/refreshToken', {
             method: 'POST',
@@ -35,4 +35,4 @@ async function getNewTokens() {
     }
 }
 
-getNewTokens();
+getNewTokenSendReview();

@@ -44,7 +44,7 @@ class AuthController {
             return res.json({href: "/auth/login", message: "Успешная регистрация!"});
         } catch (err) {
             next(err);
-            return res.render('index', {error: err.message})
+            return res.render({error: err.message})
         }
     }
 
@@ -63,13 +63,13 @@ class AuthController {
             const user = await UsersModel.findOne({email});
 
             if (!user) {
-                return res.render('index', {error: "Неверный адрес или пароль."});
+                return res.render({error: "Неверный адрес или пароль."});
             }
 
             const pass = await bcrypt.compare(password, user.password);
 
             if (!pass) {
-                return res.render('index', {error: "Неверный адрес или пароль."});
+                return res.render({error: "Неверный адрес или пароль."});
             }
 
             const accessToken = jwt.sign({
@@ -79,6 +79,7 @@ class AuthController {
                 reviews: user.reviews,
                 registerDate: user.registerDate,
                 role: user.role,
+                banned: user.banned
             }, JWTSecret, {expiresIn: '15m'});
 
             const refreshToken = jwt.sign({
@@ -87,7 +88,8 @@ class AuthController {
                 name: user.name,
                 reviews: user.reviews,
                 registerDate: user.registerDate,
-                role: user.role
+                role: user.role,
+                banned: user.banned
             }, refreshTokenSecret, {expiresIn: '10d'});
 
             user.refreshToken = refreshToken;

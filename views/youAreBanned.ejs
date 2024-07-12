@@ -40,7 +40,8 @@
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 4px;
-            width: 100%;
+            max-width: 400px;
+            max-height: 300px;
             box-sizing: border-box;
         }
         button {
@@ -55,12 +56,29 @@
         button:hover {
             background-color: #2980b9;
         }
+        a{
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .description{
+            width: 400px;
+            word-wrap: break-word;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <h1>Вы заблокированы</h1>
-    <p><%= user.name %>, к сожалению, ваш аккаунт был заблокирован. Если вы считаете, что это ошибка, пожалуйста, подайте заявку на разбан.</p>
+    <p><%= user.name %>, к сожалению, ваш аккаунт был заблокирован по причине: "<%= user.banned[0].reason %>".
+        Если вы считаете, что это ошибка, пожалуйста, подайте заявку на разбан.</p>
+    <% if(user.banned[0].description) {%>
+        <a id="more">Подробнее</a>
+        <div id="description" hidden>
+            <b style="text-align: center">Доп. информация</b><br>
+            <p class="description"><%= user.banned[0].description %></p>
+            <a id="close">Закрыть</a>
+        </div>
+    <%}%>
     <form action="/requestUnban/<%= user.id %>" method="POST">
         <input type="email" name="email" placeholder="Ваш email" value="<%= user.email %>" readonly>
         <textarea name="message" rows="4" placeholder="Почему вы считаете, что должны быть разбанены" required></textarea>
@@ -72,5 +90,18 @@
     <br>
     <a href="/">В главное меню</a>
 </div>
+<script>
+    const description = document.getElementById('description');
+    const more = document.getElementById('more');
+
+    document.getElementById('more').addEventListener('click', () =>{
+        description.hidden = false
+        more.hidden = true
+    })
+    document.getElementById('close').addEventListener('click', () =>{
+        description.hidden = true
+        more.hidden = false
+    })
+</script>
 </body>
 </html>

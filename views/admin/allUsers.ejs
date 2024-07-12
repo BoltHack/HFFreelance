@@ -109,14 +109,14 @@
         .review-delete:hover {
             background-color: #3b7f3a;
         }
-        .search{
+        .search {
             text-align: center;
             margin: auto 0;
         }
-        .br{
+        .br {
             margin-top: 150px;
         }
-        .have-review{
+        .have-review {
             width: 200px;
             word-wrap: break-word;
         }
@@ -181,24 +181,28 @@
                         <p>Отзыв: отсутствует</p>
                     <% } %>
                     <p>Роль: <%= user.role %></p>
-                    <% if(user.banned === false) {%>
-                        <div style="display: flex; gap: 10px;">
-                            <p>Заблокирован: <%= user.banned %></p>
-                            <form action="/admin/playerBan/<%= user.id %>" method="POST">
-                                <button class="ban-btn">Заблокировать</button>
-                            </form>
-                        </div>
-                    <%} else {%>
-                        <div style="display: flex; gap: 10px;">
-                            <p>Заблокирован: <%= user.banned %></p>
-                            <form action="/admin/playerUnban/<%= user.id %>" method="POST">
-                                <button class="unban-btn">Разблокировать</button>
-                            </form>
-                        </div>
-                    <%}%>
+                    <% if (user.banned && user.banned.length > 0) { %>
+                        <% if (user.banned[0].banType === false) { %>
+                            <div style="display: flex; gap: 10px;">
+                                <p>Заблокирован: <%= user.banned[0].banType %></p>
+                                <form action="/admin/banMenu/<%= user._id %>">
+                                    <button class="ban-btn banMenuClick">Заблокировать</button>
+                                </form>
+                            </div>
+                        <% } else { %>
+                            <div style="display: flex; gap: 10px;">
+                                <p>Заблокирован: <%= user.banned[0].banType %></p>
+                                <form action="/admin/playerUnban/<%= user._id %>" method="POST">
+                                    <button class="unban-btn">Разблокировать</button>
+                                </form>
+                            </div>
+                        <% } %>
+                    <% } else { %>
+                        <p>Заблокирован: отсутствует</p>
+                    <% } %>
                     <img src="data:image/jpeg;base64,<%= user.image %>" alt="User Image" class="img">
                     <br>
-                    <form action="/admin/deleteUserAdmin/<%= user._id%>" method="POST">
+                    <form action="/admin/deleteUserAdmin/<%= user._id %>" method="POST">
                         <button class="button">Удалить аккаунт</button>
                     </form>
                 </div>

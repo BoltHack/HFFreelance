@@ -2,7 +2,7 @@ const express = require('express');
 const {
     mainView, aboutUsView, rulesView, privacyPolicyView, sendReviewsMenuView, displayAllReviews, deleteUser,
     deleteReview, PersonalAreaView, changeImage, sendReview, allReviewsView, refreshTokenView,
-    moreDetailsView, youAreBannedView, requestUnban
+    moreDetailsView, youAreBannedView, requestUnban, requestErrorView, reviewErrorView
 } = require('../controller/IndexController');
 const AuthRouter = require('./AuthRouter');
 const AdminRouter = require('./admin');
@@ -22,6 +22,8 @@ router.get('/sendReviews/:id', authenticateJWT, sendReviewsMenuView);
 router.get('/PersonalArea', authenticateJWT, PersonalAreaView);
 router.get('/moreDetails',  moreDetailsView);
 router.get('/youAreBanned', authenticateJWT, youAreBannedView);
+router.get('/requestError', requestErrorView);
+router.get('/reviewError', reviewErrorView);
 
 router.post('/sendReviews/:id', authenticateJWT, sendReview);
 router.post('/upload/:id', verifyToken, changeImage);

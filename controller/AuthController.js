@@ -33,18 +33,19 @@ class AuthController {
 
             const hashPassword = bcrypt.hashSync(password, 8)
 
-            const newUser = new UsersModel({
+            const newUser = await new UsersModel({
                 name,
                 email,
                 password: hashPassword,
                 confirmPassword: hashPassword,
+                banned: [{ banType: false }]
             })
 
             await newUser.save();
             return res.json({href: "/auth/login", message: "Успешная регистрация!"});
         } catch (err) {
+            console.error(err);
             next(err);
-            return res.render({error: err.message})
         }
     }
 

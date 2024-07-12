@@ -12,7 +12,13 @@ const dateOnly = `${month}.${day}.${year}`;
 const ReviewSchema = new Schema({
     review: String,
     grade: {type: String, default: ''},
-    date: { type: String, default: dateOnly }
+    date: {type: String, default: dateOnly}
+});
+
+const RequestBanSchema = new Schema({
+    banType: { type: Boolean, default: false},
+    reason: {type: String, default: ''},
+    description: {type: String, default: ''},
 });
 
 const RequestUnbanSchema = new Schema({
@@ -50,11 +56,10 @@ const UsersSchema = new Schema({
         default: 'User'
     },
     banned: {
-        type: Boolean,
-        default: false
+        type: [RequestBanSchema]
     },
     requestUnban: {
-        type: [RequestUnbanSchema], default: []
+        type: [RequestUnbanSchema]
     }
 });
 

@@ -39,7 +39,8 @@ class IndexController {
     static sendReviewsMenuView = async (req, res, next) => {
         try{
             const user = req.user;
-            if (user.banned === true) {
+
+            if (user.banned[0].banType === true) {
                 res.redirect('/youAreBanned')
             }
 
@@ -56,7 +57,7 @@ class IndexController {
 
             const review = await UsersModel.findOne({ _id: user._id});
 
-            if (user.banned === true) {
+            if (user.banned[0].banType === true) {
                 res.redirect('/youAreBanned')
             }
 
@@ -89,6 +90,12 @@ class IndexController {
     static youAreBannedView = (req, res, next) => {
         const user = req.user;
         return res.render('youAreBanned', {user});
+    }
+    static requestErrorView = (req, res, next) => {
+        return res.render('requestError');
+    }
+    static reviewErrorView = (req, res, next) => {
+        return res.render('reviewError');
     }
 
     static homeInfo = async (req, res, next) => {
@@ -149,7 +156,7 @@ class IndexController {
             const user = await UsersModel.findById(id);
 
             if (user.reviews && user.reviews.length > 0) {
-                throw new HttpErrors('Вы уже оставили отзыв.');
+                return res.redirect('/reviewError')
             }
 
             user.reviews.push({ review: message, grade });
@@ -171,7 +178,7 @@ class IndexController {
             const user = await UsersModel.findById(id);
 
             if (user.requestUnban && user.requestUnban.length > 0) {
-                throw new HttpErrors('Вы уже оставили запрос.');
+                return res.redirect('/requestError')
             }
 
             user.requestUnban.push({ requestUnban: email, message });

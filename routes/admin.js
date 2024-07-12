@@ -3,7 +3,7 @@ const {
     sendNewsAdmin, allUsersAdmin, deleteUserAdmin, changePasswordAdmin, sendNewsPost, allNewsAdmin,
     deleteNewsAdmin, deleteReviewAdmin, sendLinksAdmin, deleteFacebookLink, deleteVkLink,
     deleteDiscordLink, deleteInstagramLink, sendLinksPostVk, sendLinksPostDiscord, sendLinksPostInstagram,
-    sendLinksPostFacebook, playerBanAdmin, playerUnbanAdmin, requestUnbanAdmin
+    sendLinksPostFacebook, playerBanAdmin, playerUnbanAdmin, requestUnbanAdmin, banMenuAdmin
 } = require('../controller/AdminController');
 const {authenticateJWT} = require('../middlewares/jwtAuth');
 const {verifyPermissions} = require('../middlewares/permissionsAuthorization')
@@ -14,6 +14,7 @@ router.get('/allUsers', verifyPermissions('Admin'), authenticateJWT, allUsersAdm
 router.get('/allNews', verifyPermissions('Admin'), authenticateJWT, allNewsAdmin)
 router.get('/sendLinks', verifyPermissions('Admin'), authenticateJWT, sendLinksAdmin)
 router.get('/requestUnban', verifyPermissions('Admin'), authenticateJWT, requestUnbanAdmin)
+router.get('/banMenu/:id', verifyPermissions('Admin'), banMenuAdmin);
 
 router.post('/deleteUserAdmin/:id', verifyPermissions('Admin'), deleteUserAdmin);
 router.post('/deleteNewsAdmin/:id', verifyPermissions('Admin'), deleteNewsAdmin);
@@ -26,6 +27,7 @@ router.post('/sendLinksVk', verifyPermissions('Admin'), sendLinksPostVk);
 router.post('/sendLinksDiscord', verifyPermissions('Admin'), sendLinksPostDiscord);
 router.post('/sendLinksInstagram', verifyPermissions('Admin'), sendLinksPostInstagram);
 router.post('/sendLinksFacebook', verifyPermissions('Admin'), sendLinksPostFacebook);
+
 
 router.post('/deleteFacebookLink/:id', verifyPermissions('Admin'), deleteFacebookLink);
 router.post('/deleteVkLink/:id', verifyPermissions('Admin'), deleteVkLink);

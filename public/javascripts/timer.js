@@ -20,10 +20,6 @@ function updateTimer() {
             clearInterval(interval);
             getNewTokens()
             localStorage.removeItem('endTime');
-        } else {
-            const minutes = Math.floor(remainingTime / 60000);
-            const seconds = Math.floor((remainingTime % 60000) / 1000);
-            timerElement.innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
         }
     }, 1000);
 }

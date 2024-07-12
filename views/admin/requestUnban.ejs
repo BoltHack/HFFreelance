@@ -31,12 +31,7 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: space-between;
-        }
-        .li div.user-info,
-        .li div.change-password {
-            display: flex;
-            flex-direction: column;
-            width: 48%;
+            width: 400px;
         }
         p {
             margin: 5px 0 4px 0;
@@ -149,6 +144,10 @@
         .unban-btn:hover {
             background-color: #3a5a40;
         }
+        .description{
+            width: 400px;
+            word-wrap: break-word;
+        }
     </style>
 </head>
 <body>
@@ -164,8 +163,13 @@
             <li class="li">
                 <div class="user-info">
                     <p>id: <%= user._id %></p>
-                    <p>Имя: <%= user.name %></p>
                     <p>Эл. Адрес: <%= user.email %></p>
+                    <p>Забанен по причине: <%= user.banned[0].reason %></p>
+                    <% if(user.banned && user.banned[0].description) {%>
+                        <p class="description">Доп. инфа: <%= user.banned[0].description %></p>
+                    <%} else {%>
+                        Доп. инфа: Отсутствует
+                    <%}%>
                     <% if (user.requestUnban && user.requestUnban.length > 0) { %>
                         <% user.requestUnban.forEach(requestMessage => { %>
                             <div style="display: flex; gap: 10px;">

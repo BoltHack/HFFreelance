@@ -29,9 +29,9 @@ const login = () => {
 const register = () => {
     window.location.href = `/auth/register`
 }
-    document.getElementById('account').addEventListener('click', () => {
-        displayInfo();
-    });
+document.getElementById('account').addEventListener('click', () => {
+    displayInfo();
+});
 function displayInfo() {
         const barrier = document.createElement('barrier');
         const border = document.createElement('border');

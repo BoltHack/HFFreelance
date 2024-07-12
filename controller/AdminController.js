@@ -30,6 +30,11 @@ class AdminController {
         const links = await AdminModel.find();
         return res.render('admin/sendLinks', {links});
     }
+    static banMenuAdmin = async (req, res, next) => {
+        const {id} = req.params;
+        const user = await UsersModel.findById(id);
+        return res.render('admin/banMenu', {user});
+    }
     static requestUnbanAdmin = async (req, res, next) => {
         try {
             const users = await UsersModel.aggregate([
@@ -368,10 +373,11 @@ static changePasswordAdmin = async (req, res, next) => {
     static playerBanAdmin = async (req, res, next) => {
         try {
             const { id } = req.params;
+            const { reason, description } = req.body;
 
             const playerBan = await UsersModel.findByIdAndUpdate(
                 id,
-                { banned: true },
+                { banned: [{ banType: true, reason, description }] },
                 { new: true }
             );
 
@@ -395,7 +401,7 @@ static changePasswordAdmin = async (req, res, next) => {
 
             const playerBan = await UsersModel.findByIdAndUpdate(
                 id,
-                { banned: false, requestUnban: [] },
+                { banned: [{ banType: false, reason: '', description: '' }] },
                 { new: true }
             );
 

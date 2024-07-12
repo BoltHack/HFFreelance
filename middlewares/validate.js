@@ -34,7 +34,7 @@ const validateRegister = async (req, res, next) => {
         next()
     } catch (e) {
         next(e)
-        return res.json({error: e.message})
+        // return res.json({error: e.message})
     }
 }
 

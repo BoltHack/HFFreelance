@@ -58,6 +58,29 @@ class AdminController {
         }
     }
 
+    static banListAdmin = async (req, res, next) => {
+        try {
+            const users = await UsersModel.aggregate([
+                { $match: { role: 'User' } },
+                {
+                    $match: {
+                        'banned': {
+                            $elemMatch: {
+                                banType: true
+                            }
+                        }
+                    }
+                }
+            ]);
+
+            res.render('admin/banList', { users });
+        } catch (err) {
+            console.error('Ошибка:', err);
+            res.status(500).json({ error: err.message });
+            next(err);
+        }
+    }
+
 
     static deleteUserAdmin = async (req, res, next) => {
         try {

@@ -120,20 +120,6 @@
             width: 200px;
             word-wrap: break-word;
         }
-        .ban-btn {
-            background-color: #d90429;
-            color: white;
-            border: none;
-            padding: 4px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.3s;
-            margin-top: 3px;
-        }
-        .ban-btn:hover {
-            background-color: #ef233c;
-        }
 
         .unban-btn {
             background-color: #344e41;
@@ -155,7 +141,7 @@
 <%- include('adminHeader.ejs') %>
 <div class="br"></div>
 <div class="search">
-    <h2>Список пользователей</h2>
+    <h2>Список забаненых пользователей</h2>
     <input type="text" id="searchInput" placeholder="Поиск по имени или email">
 </div>
 <ul class="ul" id="userList">

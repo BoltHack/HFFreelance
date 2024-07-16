@@ -149,6 +149,15 @@
         .unban-btn:hover {
             background-color: #3a5a40;
         }
+        .only-banned-users{
+            text-align: center;
+            margin: auto 0;
+            color: #2a47cb;
+        }
+        .only-banned-users:hover{
+            text-decoration: underline;
+            text-decoration-color: black;
+        }
     </style>
 </head>
 <body>
@@ -157,6 +166,9 @@
 <div class="search">
     <h2>Список пользователей</h2>
     <input type="text" id="searchInput" placeholder="Поиск по имени или email">
+</div>
+<div class="only-banned-users">
+    <a href="/admin/banList">Только заблокированные пользователи</a>
 </div>
 <ul class="ul" id="userList">
     <% if (users && users.length) { %>

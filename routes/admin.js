@@ -3,7 +3,7 @@ const {
     sendNewsAdmin, allUsersAdmin, deleteUserAdmin, changePasswordAdmin, sendNewsPost, allNewsAdmin,
     deleteNewsAdmin, deleteReviewAdmin, sendLinksAdmin, deleteFacebookLink, deleteVkLink,
     deleteDiscordLink, deleteInstagramLink, sendLinksPostVk, sendLinksPostDiscord, sendLinksPostInstagram,
-    sendLinksPostFacebook, playerBanAdmin, playerUnbanAdmin, requestUnbanAdmin, banMenuAdmin
+    sendLinksPostFacebook, playerBanAdmin, playerUnbanAdmin, requestUnbanAdmin, banMenuAdmin, banListAdmin
 } = require('../controller/AdminController');
 const {authenticateJWT} = require('../middlewares/jwtAuth');
 const {verifyPermissions} = require('../middlewares/permissionsAuthorization')
@@ -11,6 +11,7 @@ const router = express.Router();
 
 router.get('/sendNews', verifyPermissions('Admin'), authenticateJWT, sendNewsAdmin);
 router.get('/allUsers', verifyPermissions('Admin'), authenticateJWT, allUsersAdmin);
+router.get('/banList', verifyPermissions('Admin'), authenticateJWT, banListAdmin);
 router.get('/allNews', verifyPermissions('Admin'), authenticateJWT, allNewsAdmin)
 router.get('/sendLinks', verifyPermissions('Admin'), authenticateJWT, sendLinksAdmin)
 router.get('/requestUnban', verifyPermissions('Admin'), authenticateJWT, requestUnbanAdmin)

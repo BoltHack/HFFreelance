@@ -111,10 +111,6 @@
         .br{
             margin-top: 150px;
         }
-        .have-review{
-            width: 200px;
-            word-wrap: break-word;
-        }
         .ban-btn {
             background-color: #d90429;
             color: white;
@@ -144,7 +140,7 @@
         .unban-btn:hover {
             background-color: #3a5a40;
         }
-        .description{
+        .description, .reason, .have-review{
             width: 400px;
             word-wrap: break-word;
         }
@@ -164,12 +160,14 @@
                 <div class="user-info">
                     <p>id: <%= user._id %></p>
                     <p>Эл. Адрес: <%= user.email %></p>
-                    <p>Забанен по причине: <%= user.banned[0].reason %></p>
+                    <br>
+                    <p class="reason">Забанен по причине: <%= user.banned[0].reason %></p>
                     <% if(user.banned && user.banned[0].description) {%>
                         <p class="description">Доп. инфа: <%= user.banned[0].description %></p>
                     <%} else {%>
                         Доп. инфа: Отсутствует
                     <%}%>
+                    <br>
                     <% if (user.requestUnban && user.requestUnban.length > 0) { %>
                         <% user.requestUnban.forEach(requestMessage => { %>
                             <div style="display: flex; gap: 10px;">
@@ -177,13 +175,11 @@
                                     <p>Заявка: <%= requestMessage.message %></p>
                                 </div>
                             </div>
-                            <% if(user.banned === true) {%>
-                                <div>
-                                    <form action="/admin/playerUnban/<%= user._id %>" method="POST">
-                                        <button class="unban-btn">Разблокировать</button>
-                                    </form>
-                                </div>
-                            <%}%>
+                            <div>
+                                <form action="/admin/playerUnban/<%= user._id %>" method="POST">
+                                    <button class="unban-btn">Разблокировать</button>
+                                </form>
+                            </div>
                         <% }) %>
                     <% } else { %>
                         <p>За: отсутствует</p>

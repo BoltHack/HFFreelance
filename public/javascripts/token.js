@@ -1,8 +1,8 @@
 const homeId = localStorage.getItem('id');
 const ref = localStorage.getItem('ref');
-async function getNewTokenSendReview() {
+async function getNewToken() {
     try {
-        const response = await fetch('/refreshToken', {
+        const response = await fetch('/accessToken', {
             method: 'POST',
             credentials: 'include'
         });
@@ -28,11 +28,11 @@ async function getNewTokenSendReview() {
                 window.location.href = `/admin/allUsers`;
             }
         } else {
-            console.error('Failed to refresh token', response.status);
+            console.error('Ошибка', response.status);
         }
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Ошибка:', error);
     }
 }
 
-getNewTokenSendReview();
+getNewToken();

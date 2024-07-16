@@ -74,17 +74,17 @@ function displayInfo() {
 
 function PersonalAreaJoin() {
     localStorage.setItem('ref', 'refPersonalArea');
-    window.location.href = '/refreshToken';
+    window.location.href = '/accessToken';
 }
 
-function sendReviews() {
+function sendReviewsJoin() {
     localStorage.setItem('ref', 'refSendReviews');
-    window.location.href = '/refreshToken';
+    window.location.href = '/accessToken';
 }
 
 function admin() {
     localStorage.setItem('ref', 'refAdmin');
-    window.location.href = '/refreshToken';
+    window.location.href = '/accessToken';
 }
 
 function logoutMenu() {
@@ -200,7 +200,7 @@ function checkTokenSendPreview() {
         displayInfo();
     }
     else{
-        sendReviews();
+        sendReviewsJoin();
     }
 }
 

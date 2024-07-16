@@ -97,51 +97,32 @@
 <main>
     <div class="news-container">
         <h2>Обновление контактов</h2>
-<!--        <form action="/admin/sendLinks" method="POST">-->
-<!--            <div class="form-group">-->
-<!--                <label for="vk">Vk:</label>-->
-<!--                <input type="text" id="vk" name="vk" placeholder="Введите ссылку на вконтакте">-->
-<!--            </div>-->
-<!--            <div class="form-group">-->
-<!--                <label for="discord">Discord:</label>-->
-<!--                <input type="text" id="discord" name="discord" placeholder="Введите ссылку на дискорд">-->
-<!--            </div>-->
-<!--            <div class="form-group">-->
-<!--                <label for="instagram">Instagram:</label>-->
-<!--                <input type="text" id="instagram" name="instagram" placeholder="Введите ссылку на инстаграм">-->
-<!--            </div>-->
-<!--            <div class="form-group">-->
-<!--                <label for="facebook">Facebook:</label>-->
-<!--                <input type="text" id="facebook" name="facebook" placeholder="Введите ссылку на фейсбук">-->
-<!--            </div>-->
-<!--            <button type="submit" class="send">Обновить контакты</button>-->
-<!--        </form>-->
         <div style="display: flex; gap: 10px;">
             <form action="/admin/sendLinksVk" method="POST">
                 <div class="form-group">
                     <label for="vk">Vk:</label>
-                    <input type="text" id="vk" name="vk" placeholder="Введите ссылку">
+                    <input type="text" id="vk" name="vk" placeholder="Введите ссылку" required>
                 </div>
                 <button type="submit" class="send">Обновить</button>
             </form>
             <form action="/admin/sendLinksDiscord" method="POST">
                 <div class="form-group">
                     <label for="discord">Discord:</label>
-                    <input type="text" id="discord" name="discord" placeholder="Введите ссылку">
+                    <input type="text" id="discord" name="discord" placeholder="Введите ссылку" required>
                 </div>
                 <button type="submit" class="send">Обновить</button>
             </form>
             <form action="/admin/sendLinksInstagram" method="POST">
                 <div class="form-group">
                     <label for="instagram">Instagram:</label>
-                    <input type="text" id="instagram" name="instagram" placeholder="Введите ссылку">
+                    <input type="text" id="instagram" name="instagram" placeholder="Введите ссылку" required>
                 </div>
                 <button type="submit" class="send">Обновить</button>
             </form>
             <form action="/admin/sendLinksFacebook" method="POST">
                 <div class="form-group">
                     <label for="facebook">Facebook:</label>
-                    <input type="text" id="facebook" name="facebook" placeholder="Введите ссылку">
+                    <input type="text" id="facebook" name="facebook" placeholder="Введите ссылку" required>
                 </div>
                 <button type="submit" class="send">Обновить</button>
             </form>

@@ -57,6 +57,9 @@
         text-transform: uppercase;
         cursor: pointer;
     }
+    .submit:hover{
+        background-color: #312e81;
+    }
 
     .signup-link {
         color: #6B7280;
@@ -74,12 +77,12 @@
     <p style="text-align: center">id: <%= user._id %></p>
     <p class="form-title">Заблокировать пользователя</p>
     <div class="input-container">
-        <input type="text" name="reason" placeholder="Причина блокировки" required>
+        <input type="text" name="reason" placeholder="Причина блокировки" maxlength="100" required>
         <span>
           </span>
     </div>
     <div class="input-container">
-        <input type="text" name="description" placeholder="Доп. инфа. (необязательно)" maxlength="100" required>
+        <input type="text" name="description" placeholder="Доп. инфа. (необязательно)" maxlength="100">
     </div>
     <button type="submit" class="submit">
         Заблокировать

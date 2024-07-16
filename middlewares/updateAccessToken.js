@@ -15,7 +15,7 @@ function parseMaxAge(duration) {
     }
 }
 
-async function refreshToken(req, res, next) {
+async function accessToken(req, res, next) {
     try {
         const { refreshToken } = req.cookies;
 
@@ -34,19 +34,7 @@ async function refreshToken(req, res, next) {
                 return res.sendStatus(403);
             }
 
-            const newRefreshToken = jwt.sign({
-                id: user._id,
-                email: user.email,
-                name: user.name,
-                registerDate: user.registerDate,
-                role: user.role,
-                banned: user.banned
-            }, refreshTokenSecret, { expiresIn: '10d' });
-
-            user.refreshToken = newRefreshToken;
-            await user.save();
-
-            const accessToken = jwt.sign({
+            const newAccessToken = jwt.sign({
                 id: user._id,
                 email: user.email,
                 name: user.name,
@@ -55,14 +43,12 @@ async function refreshToken(req, res, next) {
                 banned: user.banned
             }, JWTSecret, { expiresIn: '15m' });
 
-            await res.cookie('token', accessToken, { httpOnly: true, secure: true, maxAge: parseMaxAge('15m') });
-            await res.cookie('refreshToken', newRefreshToken, { httpOnly: true, secure: true, maxAge: parseMaxAge('10d') });
-
-            return res.json({ token: accessToken });
+            await res.cookie('token', newAccessToken, { httpOnly: true, secure: true, maxAge: parseMaxAge('15m') });
+            return res.json({ token: newAccessToken });
         });
     } catch (err) {
         next(err);
     }
 }
 
-module.exports = { refreshToken };
+module.exports = { accessToken };

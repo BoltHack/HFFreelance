@@ -21,6 +21,7 @@ const verifyToken = (req, res, next) => {
         }
     } else {
         return res.status(403).json({ error: 'No token provided' });
+        // return res.redirect('/')
     }
 };
 

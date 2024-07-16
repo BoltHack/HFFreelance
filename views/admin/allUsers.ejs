@@ -178,20 +178,20 @@
                             </div>
                         <% }) %>
                     <% } else { %>
-                        <p>Отзыв: отсутствует</p>
+                        <p>Отзыв: Отсутствует</p>
                     <% } %>
                     <p>Роль: <%= user.role %></p>
                     <% if (user.banned && user.banned.length > 0) { %>
                         <% if (user.banned[0].banType === false) { %>
                             <div style="display: flex; gap: 10px;">
-                                <p>Заблокирован: <%= user.banned[0].banType %></p>
+                                <p>Заблокирован: Нет</p>
                                 <form action="/admin/banMenu/<%= user._id %>">
                                     <button class="ban-btn banMenuClick">Заблокировать</button>
                                 </form>
                             </div>
                         <% } else { %>
                             <div style="display: flex; gap: 10px;">
-                                <p>Заблокирован: <%= user.banned[0].banType %></p>
+                                <p>Заблокирован: Да</p>
                                 <form action="/admin/playerUnban/<%= user._id %>" method="POST">
                                     <button class="unban-btn">Разблокировать</button>
                                 </form>
@@ -211,7 +211,7 @@
                     <form action="/admin/changePasswordAdmin/<%= user._id %>" method="POST">
                         <input type="password" name="password" placeholder="Новый пароль" minlength="6" maxlength="50" required>
                         <input type="password" name="confirmPassword" placeholder="Повтор пароля" minlength="6" maxlength="50" required><br>
-                        <button id="changePasswordBtn" class="button">Сменить пароль</button>
+                        <button class="button">Сменить пароль</button>
                     </form>
                 </div>
             </li>

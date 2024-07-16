@@ -91,7 +91,6 @@ function perms(){
         profile.hidden = false;
         changePassword.hidden = false;
         news.hidden = true;
-        document.body.style.overflowY = 'hidden'
     })
 
     newsMenu.addEventListener('click', () => {
@@ -100,7 +99,6 @@ function perms(){
         news.hidden = false;
         changePassword.hidden = true;
         profile.hidden = true;
-        document.body.style.overflowY = 'auto'
     })
 }
 perms()

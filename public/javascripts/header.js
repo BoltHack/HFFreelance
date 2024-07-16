@@ -4,14 +4,14 @@ function refs(){
         const refPersonalArea = localStorage.getItem('ref');
         if (refPersonalArea !== 'refPersonalArea'){
             localStorage.setItem('ref', 'refPersonalArea');
-            window.location.href = '/refreshToken'
+            window.location.href = '/accessToken'
         }
     }
     if (window.location.pathname === `/sendReviews/${refId}`){
         const refSendReviews = localStorage.getItem('ref');
         if (refSendReviews !== 'refSendReviews'){
             localStorage.setItem('ref', 'refSendReviews');
-            window.location.href = '/refreshToken'
+            window.location.href = '/accessToken'
         }
     }
 }

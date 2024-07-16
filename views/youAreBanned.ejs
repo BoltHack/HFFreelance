@@ -18,7 +18,7 @@
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             max-width: 400px;
             text-align: center;
         }
@@ -63,14 +63,19 @@
         .description{
             width: 400px;
             word-wrap: break-word;
+            font-size: 15px;
+        }
+        .banMessage{
+            width: 400px;
+            word-wrap: break-word;
         }
     </style>
 </head>
 <body>
 <div class="container">
     <h1>Вы заблокированы</h1>
-    <p><%= user.name %>, к сожалению, ваш аккаунт был заблокирован по причине: "<%= user.banned[0].reason %>".
-        Если вы считаете, что это ошибка, пожалуйста, подайте заявку на разбан.</p>
+    <div></div>
+    <p class="banMessage"><%= user.name %>, к сожалению, ваш аккаунт был заблокирован по причине: "<%= user.banned[0].reason %>".</p>
     <% if(user.banned[0].description) {%>
         <a id="more">Подробнее</a>
         <div id="description" hidden>
@@ -81,7 +86,7 @@
     <%}%>
     <form action="/requestUnban/<%= user.id %>" method="POST">
         <input type="email" name="email" placeholder="Ваш email" value="<%= user.email %>" readonly>
-        <textarea name="message" rows="4" placeholder="Почему вы считаете, что должны быть разбанены" required></textarea>
+        <textarea name="message" rows="4" placeholder="Почему вы считаете, что должны быть разбанены" maxlength="100" required></textarea>
         <button type="submit">Отправить заявку</button>
     </form>
     <br>

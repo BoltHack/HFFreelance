@@ -55,7 +55,7 @@ class IndexController {
             const user = req.user;
             const news = await NewsModel.find();
 
-            const review = await UsersModel.findOne({ _id: user._id});
+            const review = await UsersModel.findOne({ _id: user.id});
 
             if (user.banned[0].banType === true) {
                 res.redirect('/youAreBanned')
@@ -77,8 +77,8 @@ class IndexController {
         }
     }
 
-    static refreshTokenView = (req, res, next) => {
-        return res.render('refreshToken');
+    static getTokenView = (req, res, next) => {
+        return res.render('getToken');
     }
     static moreDetailsView = (req, res, next) => {
         try{

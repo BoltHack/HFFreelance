@@ -41,7 +41,11 @@ class AdminController {
                 { $match: { role: 'User' } },
                 {
                     $match: {
-                        'requestUnban': { $exists: true, $ne: [] }
+                        'requestUnban': {
+                            $elemMatch: {
+                                message: { $ne: '' }
+                            }
+                        }
                     }
                 }
             ]);
@@ -377,7 +381,7 @@ static changePasswordAdmin = async (req, res, next) => {
 
             const playerBan = await UsersModel.findByIdAndUpdate(
                 id,
-                { banned: [{ banType: true, reason, description }] },
+                { banned: [{ banType: true, reason, description }], reviews: [] },
                 { new: true }
             );
 
@@ -401,7 +405,7 @@ static changePasswordAdmin = async (req, res, next) => {
 
             const playerBan = await UsersModel.findByIdAndUpdate(
                 id,
-                { banned: [{ banType: false, reason: '', description: '' }] },
+                { banned: [{ banType: false, reason: '', description: ''}], requestUnban: [] },
                 { new: true }
             );
 

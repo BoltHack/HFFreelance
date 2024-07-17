@@ -111,7 +111,7 @@
         <li><a href="#services" class="ha">Услуги</a></li>
         <li><a href="#reviews" class="ha">Отзывы</a></li>
         <li><a href="#footerSection" class="ha">Контакты</a></li>
-        <li><a href="#readyMadeSites" class="ha" onclick="readyMadeSitesJoin()">Готовые сайты</a></li>
+        <li><a href="#readyMadeSites" class="ha" onclick="webDisplayInfo()">Готовые сайты</a></li>
     </ul>
     </div>
     <div id="types">
@@ -151,7 +151,7 @@
             localStorage.setItem('ref', 'refPersonalArea')
         }
         if (window.location.pathname === '/radyMadeSites'){
-            localStorage.setItem('ref', 'refeRadyMadeSites')
+            localStorage.setItem('ref', 'refReadyMadeSites')
         }
     }
     allPaths()

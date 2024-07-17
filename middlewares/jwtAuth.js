@@ -12,7 +12,7 @@ const authenticateJWT = async (req, res, next) => {
             next();
         });
     } else {
-        res.redirect('/')
+        res.redirect('/auth/login')
     }
 };
 

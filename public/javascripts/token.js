@@ -27,6 +27,9 @@ async function getNewToken() {
             else if(ref === 'refAdmin'){
                 window.location.href = `/admin/allUsers`;
             }
+            else if(ref === 'refReadyMadeSites'){
+                window.location.href = `/readyMadeSites`;
+            }
         } else {
             console.error('Ошибка', response.status);
         }

@@ -101,7 +101,13 @@ class IndexController {
     static readyMadeSitesView = async (req, res, next) => {
         const links = await AdminModel.find();
         const websites = await WebsitesModel.find()
-        return res.render('readyMadeSites', {links, websites});
+
+        const user = req.user;
+        if (user.banned[0].banType === true) {
+            res.redirect('/youAreBanned')
+        }
+
+        return res.render('readyMadeSites', {user, links, websites});
     }
 
     static htmlSitesView = async (req, res, next) => {
@@ -113,7 +119,13 @@ class IndexController {
                 }
             }
         ])
-        return res.render('htmlCss', {links, websites});
+
+        const user = req.user;
+        if (user.banned[0].banType === true) {
+            res.redirect('/youAreBanned')
+        }
+
+        return res.render('htmlCss', {links, websites, user});
     }
 
     static javascriptSitesView = async (req, res, next) => {
@@ -125,7 +137,13 @@ class IndexController {
                 }
             }
         ])
-        return res.render('javascript', {links, websites});
+
+        const user = req.user;
+        if (user.banned[0].banType === true) {
+            res.redirect('/youAreBanned')
+        }
+
+        return res.render('javascript', {links, websites, user});
     }
 
     static fullstackSitesView = async (req, res, next) => {
@@ -137,7 +155,13 @@ class IndexController {
                 }
             }
         ])
-        return res.render('fullstack', {links, websites});
+
+        const user = req.user;
+        if (user.banned[0].banType === true) {
+            res.redirect('/youAreBanned')
+        }
+
+        return res.render('fullstack', {links, websites, user});
     }
 
     static fileInfoView = async (req, res, next) => {

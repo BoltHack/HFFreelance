@@ -1,4 +1,4 @@
-1<link rel="stylesheet" href="/stylesheets/alert.css">
+<link rel="stylesheet" href="/stylesheets/alert.css">
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -52,6 +52,20 @@
     .ha:hover{
         color: #a2a8d3;
     }
+    .web-types{
+        display: flex;
+        flex-wrap: wrap;
+        position: absolute;
+        top: 1%;
+        right: 10%;
+    }
+    .types{
+        text-decoration: none;
+        color: #fff;
+    }
+    .types:hover{
+        color: #a2a8d3;
+    }
     #account{
         color: #fff;
         cursor: pointer;
@@ -88,7 +102,7 @@
         <a href="/"><img src="../images/logo2.png"></a>
         <h2><a class="logo" href="/">𝓗𝓕𝓕𝓻𝓮𝓮𝓵𝓪𝓷𝓬𝓮𝓻𝓼</a></h2>
     </div>
-    <div id="headerSection" hidden>
+    <div id="headerSection">
     <ul class="get">
         <li id="account">Мой аккаунт</li>
         <img src="" id="account-img" onclick="PersonalAreaJoin()">
@@ -97,7 +111,16 @@
         <li><a href="#services" class="ha">Услуги</a></li>
         <li><a href="#reviews" class="ha">Отзывы</a></li>
         <li><a href="#footerSection" class="ha">Контакты</a></li>
+        <li><a href="#readyMadeSites" class="ha" onclick="readyMadeSitesJoin()">Готовые сайты</a></li>
     </ul>
+    </div>
+    <div id="types">
+        <ul class="web-types">
+            <li><a href="/readyMadeSites/htmlCss" class="types">html css</a></li>
+            <li><a href="/readyMadeSites/javascript" class="types">javascript</a></li>
+            <li><a href="/readyMadeSites/fullstack" class="types">fullstack</a></li>
+            <li><a href="/readyMadeSites" class="types">Все типы</a></li>
+        </ul>
     </div>
 </header>
 <%- include('back.ejs') %>
@@ -126,6 +149,9 @@
         }
         if (window.location.pathname === '/PersonalArea'){
             localStorage.setItem('ref', 'refPersonalArea')
+        }
+        if (window.location.pathname === '/radyMadeSites'){
+            localStorage.setItem('ref', 'refeRadyMadeSites')
         }
     }
     allPaths()

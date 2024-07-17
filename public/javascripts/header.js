@@ -36,15 +36,26 @@ ha();
 
 const section = document.getElementById('headerSection');
 const back = document.getElementById('back');
-const fileId = localStorage.getItem('id');
+const types = document.getElementById('types');
+// const fileId = localStorage.getItem('id');
 function header(){
-    if(window.location.pathname === '/auth/login' || window.location.pathname === '/auth/register' || window.location.pathname === `/PersonalArea` || window.location.pathname === `/sendReviews/${fileId}` || window.location.pathname === `/aboutUs` || window.location.pathname === `/privacyPolicy` || window.location.pathname === `/rules` || window.location.pathname === '/allReviews' || window.location.pathname === '/moreDetails'){
+    if (window.location.pathname === '/'){
+        section.hidden = false;
+        types.hidden = true;
+    }
+    else if (window.location.pathname === '/readyMadeSites' || window.location.pathname === '/readyMadeSites/htmlCss' || window.location.pathname === '/readyMadeSites/javascript' || window.location.pathname === '/readyMadeSites/fullstack'){
         section.hidden = true;
-        back.hidden = false;
+        types.hidden = false;
     }
     else{
-        section.hidden = false;
+        section.hidden = true;
+        types.hidden = true;
         back.hidden = true;
     }
 }
 header();
+
+function readyMadeSitesJoin(){
+    window.location.href = '/readyMadeSites'
+}
+

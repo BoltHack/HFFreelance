@@ -1,8 +1,9 @@
 const express = require('express');
 const {
     mainView, aboutUsView, rulesView, privacyPolicyView, sendReviewsMenuView, displayAllReviews, deleteUser,
-    deleteReview, PersonalAreaView, changeImage, sendReview, allReviewsView, getTokenView,
-    moreDetailsView, youAreBannedView, requestUnban, requestErrorView, reviewErrorView
+    deleteReview, PersonalAreaView, changeImage, sendReview, allReviewsView, getTokenView, moreDetailsView,
+    youAreBannedView, requestUnban, requestErrorView, reviewErrorView, readyMadeSitesView, downloadFile,
+    fileInfoView, htmlSitesView, javascriptSitesView, fullstackSitesView
 } = require('../controller/IndexController');
 const AuthRouter = require('./AuthRouter');
 const AdminRouter = require('./admin');
@@ -25,6 +26,11 @@ router.get('/moreDetails',  moreDetailsView);
 router.get('/youAreBanned', authenticateJWT, youAreBannedView);
 router.get('/requestError', requestErrorView);
 router.get('/reviewError', reviewErrorView);
+router.get('/readyMadeSites', readyMadeSitesView);
+router.get('/readyMadeSites/htmlCss', htmlSitesView);
+router.get('/readyMadeSites/javascript', javascriptSitesView);
+router.get('/readyMadeSites/fullstack', fullstackSitesView);
+router.get('/fileInfo/:id', fileInfoView);
 
 router.post('/sendReviews/:id', authenticateJWT, sendReview);
 router.post('/upload/:id', verifyToken, changeImage);
@@ -34,6 +40,7 @@ router.post('/changePassword/:id', authenticateJWT, changePassword);
 router.post('/accessToken', accessToken);
 router.post('/refreshToken', refreshToken);
 router.post('/requestUnban/:id', authenticateJWT, requestUnban)
+router.post('/downloadFile/:id', authenticateJWT, downloadFile)
 
 router.use('/auth', AuthRouter);
 router.use('/admin', AdminRouter);

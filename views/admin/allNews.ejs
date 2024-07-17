@@ -54,12 +54,32 @@
             width: 800px;
             word-wrap: break-word;
         }
+        .news-info{
+            text-align: center
+        }
+        .news-info a{
+            text-align: center;
+            margin: auto 0;
+            color: #2a47cb;
+        }
+        .news-info a:hover{
+            color: #2a47cb;
+            text-decoration: underline;
+            text-decoration-color: black;
+        }
+        .br {
+            margin-top: 150px;
+        }
     </style>
 </head>
 <body>
 <%- include('adminHeader.ejs') %>
+<div class="br"></div>
+<div class="news-info">
+    <h2>Лента новостей</h2>
+    <a href="sendNews" class="ha" id="news">Создать новость</a>
+</div>
 <ul class="ul">
-        <h2 style="text-align: center">Лента новостей</h2>
         <% if (news && news.length > 0) { %>
             <ul>
                 <% news.forEach(newsItem => { %>

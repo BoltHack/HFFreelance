@@ -1,7 +1,7 @@
 const {UsersModel} = require("../models/UsersModel");
 const {NewsModel} = require("../models/NewsSchema");
 const {AdminModel} = require("../models/AdminModel");
-const HttpErrors = require("http-errors");
+const {WebsitesModel} = require("../models/WebSitesModel");
 class IndexController {
     static mainView = async (req, res, next) => {
         try{
@@ -96,6 +96,56 @@ class IndexController {
     }
     static reviewErrorView = (req, res, next) => {
         return res.render('reviewError');
+    }
+
+    static readyMadeSitesView = async (req, res, next) => {
+        const links = await AdminModel.find();
+        const websites = await WebsitesModel.find()
+        return res.render('readyMadeSites', {links, websites});
+    }
+
+    static htmlSitesView = async (req, res, next) => {
+        const links = await AdminModel.find();
+        const websites = await WebsitesModel.aggregate([
+            {
+                $match: {
+                    siteType: 'html'
+                }
+            }
+        ])
+        return res.render('htmlCss', {links, websites});
+    }
+
+    static javascriptSitesView = async (req, res, next) => {
+        const links = await AdminModel.find();
+        const websites = await WebsitesModel.aggregate([
+            {
+                $match: {
+                    siteType: 'javascript'
+                }
+            }
+        ])
+        return res.render('javascript', {links, websites});
+    }
+
+    static fullstackSitesView = async (req, res, next) => {
+        const links = await AdminModel.find();
+        const websites = await WebsitesModel.aggregate([
+            {
+                $match: {
+                    siteType: 'fullstack'
+                }
+            }
+        ])
+        return res.render('fullstack', {links, websites});
+    }
+
+    static fileInfoView = async (req, res, next) => {
+        const {id} = req.params;
+        const siteInfo = await WebsitesModel.findById(id);
+
+        const links = await AdminModel.find();
+        return res.render('fileInfo', {siteInfo, links});
     }
 
     static homeInfo = async (req, res, next) => {
@@ -253,6 +303,29 @@ class IndexController {
             next(e)
         }
     }
+
+    static downloadFile = async (req, res) => {
+        try {
+            const website = await WebsitesModel.findById(req.params.id);
+
+            if (!website) {
+                return res.status(404).json({ error: 'Файл не найден.' });
+            }
+
+            const fileBuffer = Buffer.from(website.fileUpload, 'base64');
+
+            const sanitizedFileName = `${website.title}.zip`;
+            res.set({
+                'Content-Type': 'application/zip',
+                'Content-Disposition': `attachment; filename="${encodeURIComponent(sanitizedFileName)}"`,
+            });
+
+            res.send(fileBuffer);
+        } catch (err) {
+            console.error('Ошибка:', err);
+            res.status(500).json({ error: err.message });
+        }
+    };
 
 }
 

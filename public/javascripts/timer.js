@@ -1,4 +1,5 @@
 const ACCESS_TIMER_DURATION = 900000;
+
 const homeId = localStorage.getItem('id');
 const ref = localStorage.getItem('ref');
 function accessStartTimer(duration) {

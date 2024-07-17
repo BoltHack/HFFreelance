@@ -197,7 +197,7 @@
                         <% if (user.banned[0].banType === false) { %>
                             <div style="display: flex; gap: 10px;">
                                 <p>Заблокирован: Нет</p>
-                                <form action="/admin/banMenu/<%= user._id %>">
+                                <form action="/admin/banMenu/<%= user._id %>" method="GET">
                                     <button class="ban-btn banMenuClick">Заблокировать</button>
                                 </form>
                             </div>

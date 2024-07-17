@@ -80,6 +80,23 @@
         left: 50%;
         transform: translate(-50%, -50%);
     }
+    .back{
+        position: absolute;
+        top: 15%;
+        left: 0;
+        display: flex;
+        gap: 5px;
+    }
+    .between{
+        color: black;
+    }
+    .color-btn{
+        color: #0d49d7;
+        text-decoration: none;
+    }
+    .color-btn:hover{
+        text-decoration: underline;
+    }
     @media (max-width: 900px) {
         .ha{
             display: none;
@@ -98,12 +115,22 @@
     <div id="headerSection">
         <ul class="get">
             <li><a href="allUsers" class="ha" id="allUsers">Список пользователей</a></li>
-            <li><a href="sendNews" class="ha" id="news">Создать новость</a></li>
             <li><a href="allNews" class="ha" id="allNews">Лента новостей</a></li>
-            <li><a href="sendLinks" class="ha" id="sendLinks">Обновить контакты</a></li>
+            <li><a href="sendLinks" class="ha" id="sendLinks">Обновить ссылок</a></li>
             <li><a href="requestUnban" class="ha" id="requestUnban">Заявки на разбан</a></li>
+            <li><a href="allWebsites" class="ha" id="allWebsites">Мои сайты</a></li>
         </ul>
     </div>
 </header>
+<div class="back">
+    <br><a href="#PersonalArea" class="color-btn" onclick="PersonalAreaJoin()">В личный кабинет</a>
+    <a class="between">/</a>
+</div>
 <script src="/javascripts/timer.js"></script>
 <script src="/javascripts/adminScript.js"></script>
+<script>
+    function PersonalAreaJoin(){
+        localStorage.setItem('ref', 'refPersonalArea');
+        window.location.href = '/accessToken';
+    }
+</script>

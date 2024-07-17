@@ -116,10 +116,10 @@
     </div>
     <div id="types">
         <ul class="web-types">
-            <li><a href="/readyMadeSites/htmlCss" class="types">html css</a></li>
-            <li><a href="/readyMadeSites/javascript" class="types">javascript</a></li>
-            <li><a href="/readyMadeSites/fullstack" class="types">fullstack</a></li>
-            <li><a href="/readyMadeSites" class="types">Все типы</a></li>
+            <li><a href="/readyMadeSites/htmlCss" class="types" id="htmlCss">html css</a></li>
+            <li><a href="/readyMadeSites/javascript" class="types" id="javascript">javascript</a></li>
+            <li><a href="/readyMadeSites/fullstack" class="types" id="fullstack">fullstack</a></li>
+            <li><a href="/readyMadeSites" class="types" id="allSites">Все типы</a></li>
         </ul>
     </div>
 </header>
@@ -150,7 +150,7 @@
         if (window.location.pathname === '/PersonalArea'){
             localStorage.setItem('ref', 'refPersonalArea')
         }
-        if (window.location.pathname === '/radyMadeSites'){
+        if (window.location.pathname === '/readyMadeSites'){
             localStorage.setItem('ref', 'refReadyMadeSites')
         }
     }

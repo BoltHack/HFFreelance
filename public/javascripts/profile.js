@@ -64,6 +64,8 @@ function profilePerms(){
         })
             .then(response => {
                 if(response.ok){
+                    localStorage.setItem('ref', 'refPersonalArea');
+                    window.location.href = '/accessToken';
                     dynamicMenu('<p>Изображение успешно сохранено!</p>')
                     return response.json();
                 } else {
@@ -112,6 +114,8 @@ function deleteAccount() {
     })
         .then(response => {
             if (response.ok) {
+                localStorage.setItem('ref', 'refPersonalArea');
+                window.location.href = '/accessToken';
                 localStorage.clear();
                 window.location.href = '/auth/register';
             } else {
@@ -135,7 +139,8 @@ function deleteReview() {
     })
         .then(response => {
             if (response.ok) {
-                window.location.href = '/PersonalArea';
+                localStorage.setItem('ref', 'refPersonalArea');
+                window.location.href = '/accessToken';
             } else {
                 response.text().then(errorMessage => {
                     dynamicMenu("Ошибк: " + errorMessage);
@@ -157,7 +162,8 @@ document.getElementById('changePasswordBtn').addEventListener(function () {
     })
         .then(response => {
             if(response.ok){
-                return window.location.href = '/refreshToken'
+                localStorage.setItem('ref', 'refPersonalArea');
+                window.location.href = '/accessToken';
             } else {
                 throw new Error('Ошибка при смене пароля');
             }

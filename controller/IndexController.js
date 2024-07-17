@@ -102,12 +102,7 @@ class IndexController {
         const links = await AdminModel.find();
         const websites = await WebsitesModel.find()
 
-        const user = req.user;
-        if (user.banned[0].banType === true) {
-            res.redirect('/youAreBanned')
-        }
-
-        return res.render('readyMadeSites', {user, links, websites});
+        return res.render('readyMadeSites', {links, websites});
     }
 
     static htmlSitesView = async (req, res, next) => {
@@ -120,12 +115,7 @@ class IndexController {
             }
         ])
 
-        const user = req.user;
-        if (user.banned[0].banType === true) {
-            res.redirect('/youAreBanned')
-        }
-
-        return res.render('htmlCss', {links, websites, user});
+        return res.render('htmlCss', {links, websites});
     }
 
     static javascriptSitesView = async (req, res, next) => {
@@ -138,12 +128,7 @@ class IndexController {
             }
         ])
 
-        const user = req.user;
-        if (user.banned[0].banType === true) {
-            res.redirect('/youAreBanned')
-        }
-
-        return res.render('javascript', {links, websites, user});
+        return res.render('javascript', {links, websites});
     }
 
     static fullstackSitesView = async (req, res, next) => {
@@ -156,12 +141,7 @@ class IndexController {
             }
         ])
 
-        const user = req.user;
-        if (user.banned[0].banType === true) {
-            res.redirect('/youAreBanned')
-        }
-
-        return res.render('fullstack', {links, websites, user});
+        return res.render('fullstack', {links, websites});
     }
 
     static fileInfoView = async (req, res, next) => {
@@ -286,9 +266,14 @@ class IndexController {
     static deleteUser = async (req, res, next) => {
         try {
             const { id } = req.params;
+            const permUser = req.user;
 
             const user = await UsersModel.findByIdAndDelete(id);
 
+            if (permUser.banned[0].banType === true) {
+                res.status(404).json({ message: "Пользователь заблокирован" });
+                return res.redirect('/youAreBanned')
+            }
             if (!user) {
                 return res.status(404).json({ message: "Пользователь не найден" });
             }

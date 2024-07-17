@@ -7,34 +7,6 @@ function refs(){
             window.location.href = '/accessToken'
         }
     }
-    if (window.location.pathname === '/readyMadeSites'){
-        const refReadyMadeSites = localStorage.getItem('ref');
-        if (refReadyMadeSites !== 'refReadyMadeSites'){
-            localStorage.setItem('ref', 'refReadyMadeSites');
-            window.location.href = '/accessToken'
-        }
-    }
-    if (window.location.pathname === '/readyMadeSites/htmlCss'){
-        const refReadyMadeSites = localStorage.getItem('ref');
-        if (refReadyMadeSites !== 'refReadyMadeSites'){
-            localStorage.setItem('ref', 'refReadyMadeSites');
-            window.location.href = '/accessToken'
-        }
-    }
-    if (window.location.pathname === '/readyMadeSites/javascript'){
-        const refReadyMadeSites = localStorage.getItem('ref');
-        if (refReadyMadeSites !== 'refReadyMadeSites'){
-            localStorage.setItem('ref', 'refReadyMadeSites');
-            window.location.href = '/accessToken'
-        }
-    }
-    if (window.location.pathname === '/readyMadeSites/fullstack'){
-        const refReadyMadeSites = localStorage.getItem('ref');
-        if (refReadyMadeSites !== 'refReadyMadeSites'){
-            localStorage.setItem('ref', 'refReadyMadeSites');
-            window.location.href = '/accessToken'
-        }
-    }
     if (window.location.pathname === `/sendReviews/${refId}`){
         const refSendReviews = localStorage.getItem('ref');
         if (refSendReviews !== 'refSendReviews'){
@@ -83,47 +55,25 @@ function header(){
 }
 header();
 
-function webDisplayInfo() {
-    const barrier = document.createElement('barrier');
-    const border = document.createElement('border');
-
-    const token = localStorage.getItem('token');
-
-    if (token){
-        readyMadeSitesJoin();
+function headerColor(){
+    const allSites = document.getElementById('allSites');
+    const htmlCss = document.getElementById('htmlCss');
+    const javascript = document.getElementById('javascript');
+    const fullstack = document.getElementById('fullstack');
+    if (window.location.pathname === '/readyMadeSites'){
+        allSites.style.color = '#a2a8d3'
     }
-    else {
-        barrier.innerHTML = `<div class="new-barrier"></div>`;
-        border.innerHTML = `
-<link rel="stylesheet" href="/stylesheets/style.css">
-<div class="new-border">
-<div class="border-data">
-    <h2 class="yourAccount">Ваш аккаунт</h2>
-    <br>
-<h3>Вы не авторизованы</h3>
-<p>Войдите в учётную запись или создайте аккаунт.</p>
-<button onclick="login()" class="login-btn">Войти</button>
-<button onclick="register()" class="register-btn">Создать аккаунт</button>
-<span>Продолжая, вы принимаете наши <a class="termsOfUse" href="/rules" target="_blank">Условия использования</a> и <a href="privacyPolicy" target="_blank" class="privacyPolicy">Политику конфиденциальности</a>.</span>
-</div>
-</div>
-</div>
-    `
-
-        document.body.appendChild(border);
-        document.body.appendChild(barrier);
-        barrier.addEventListener('click', () => {
-            document.body.removeChild(border);
-            document.body.removeChild(barrier);
-        })
-        document.getElementById('close').addEventListener('click', () => {
-            document.body.removeChild(border);
-            document.body.removeChild(barrier);
-        })
+    if (window.location.pathname === '/readyMadeSites/htmlCss'){
+        htmlCss.style.color = '#a2a8d3'
+    }
+    if (window.location.pathname === '/readyMadeSites/javascript'){
+        javascript.style.color = '#a2a8d3'
+    }
+    if (window.location.pathname === '/readyMadeSites/fullstack'){
+        fullstack.style.color = '#a2a8d3'
     }
 }
-
-function readyMadeSitesJoin() {
-    localStorage.setItem('ref', 'refReadyMadeSites');
-    window.location.href = '/accessToken';
+headerColor();
+function webDisplayInfo() {
+    window.location.href = '/readyMadeSites'
 }

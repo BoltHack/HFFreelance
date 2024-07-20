@@ -7,8 +7,12 @@ const HttpErrors = require("http-errors");
 
 class AdminController {
     static sendNewsAdmin = (req, res, next) => {
-        const user = req.user;
-        return res.render('admin/sendNews', {user});
+        try{
+            const user = req.user;
+            return res.render('admin/sendNews', {user});
+        }catch(err){
+            next(err)
+        }
     }
 
     static allUsersAdmin = async (req, res, next) => {
@@ -28,23 +32,40 @@ class AdminController {
         }
     }
     static sendLinksAdmin = async (req, res, next) => {
+        try{
+
+        }catch(err){
+            next(err)
+        }
         const links = await AdminModel.find();
         return res.render('admin/sendLinks', {links});
     }
     static banMenuAdmin = async (req, res, next) => {
-        const {id} = req.params;
-        const user = await UsersModel.findById(id);
-        return res.render('admin/banMenu', {user});
+        try{
+            const {id} = req.params;
+            const user = await UsersModel.findById(id);
+            return res.render('admin/banMenu', {user});
+        }catch(err){
+            next(err)
+        }
     }
     static createAWebSiteAdmin = async (req, res, next) => {
-        const {id} = req.user;
-        const user = await UsersModel.findById(id);
-        return res.render('admin/createAwebSite', {user});
+        try{
+            const {id} = req.user;
+            const user = await UsersModel.findById(id);
+            return res.render('admin/createAwebSite', {user});
+        }catch(err){
+            next(err)
+        }
     }
     static allWebsitesAdmin = async (req, res, next) => {
-        const links = await AdminModel.find();
-        const websites = await WebsitesModel.find()
-        return res.render('admin/allWebsites', {links, websites});
+        try{
+            const links = await AdminModel.find();
+            const websites = await WebsitesModel.find()
+            return res.render('admin/allWebsites', {links, websites});
+        }catch(err){
+            next(err)
+        }
     }
     static requestUnbanAdmin = async (req, res, next) => {
         try {
@@ -425,7 +446,7 @@ class AdminController {
 
             setTimeout(() => {
                 res.redirect('/admin/allUsers');
-                console.log(id, ' успешно удалён!')
+                console.log(id, ' успешно забанен!')
             }, 500);
         } catch (e) {
             console.log(e);

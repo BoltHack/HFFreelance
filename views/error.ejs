@@ -1,11 +1,35 @@
 <style>
-    .errors{
-        text-align: center;
-        position: relative;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
     }
+
+    .errors {
+        text-align: center;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        padding: 20px;
+        max-width: 500px;
+        width: 100%;
+    }
+
+    h2 {
+        color: #e74c3c;
+        font-size: 24px;
+        margin: 0 0 20px;
+    }
+
+    section {
+        margin-top: 20px;
+    }
+
     .errorButton{
         border: none;
         background: none;
@@ -16,7 +40,30 @@
     .errorButton:hover{
         text-decoration: underline;
     }
+
+    #section {
+        margin-top: 20px;
+    }
+
+    h1 {
+        font-size: 20px;
+        color: #333;
+    }
+
+    h5 {
+        color: #666;
+    }
+
+    pre {
+        text-align: left;
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 4px;
+        overflow-x: auto;
+    }
 </style>
+
 <div class="errors">
     <h2 id="err">Ой, кажется, у нас возникли проблемы :(</h2>
     <section id="info">
@@ -30,6 +77,7 @@
         <button id="closeInfo" class="errorButton">Закрыть</button>
     </section>
 </div>
+
 <script>
     const section = document.getElementById('section');
     const info = document.getElementById('info');

@@ -146,15 +146,15 @@ class AuthController {
 
 
 
-    static logout = (req, res, next)=>{
-        req.cookies.user = null;
-        res.clearCookie('token');
-        res.clearCookie('refreshToken');
-        return res.json({status: "Успешный выход!"});
-    }
-
-    static test = (req, res, next)=>{
-        return res.render('test');
+    static logout = (req, res, next)=> {
+        try {
+            req.cookies.user = null;
+            res.clearCookie('token');
+            res.clearCookie('refreshToken');
+            return res.json({status: "Успешный выход!"});
+        }catch (err){
+            next(err)
+        }
     }
 
 }

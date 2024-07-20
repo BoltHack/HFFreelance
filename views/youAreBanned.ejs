@@ -76,8 +76,9 @@
     <h1>Вы заблокированы</h1>
     <div></div>
     <p class="banMessage"><%= user.name %>, к сожалению, ваш аккаунт был заблокирован по причине: "<%= user.banned[0].reason %>".</p>
+    <p>Вы пожете подать заявку на апелляцию по форме ниже.</p>
     <% if(user.banned[0].description) {%>
-        <a id="more">Подробнее</a>
+        <a id="more">Доп. информация</a>
         <div id="description" hidden>
             <b style="text-align: center">Доп. информация</b><br>
             <p class="description"><%= user.banned[0].description %></p>

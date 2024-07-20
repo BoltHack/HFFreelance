@@ -43,7 +43,7 @@ function header(){
         section.hidden = false;
         types.hidden = true;
     }
-    else if (window.location.pathname === '/readyMadeSites' || window.location.pathname === '/readyMadeSites/htmlCss' || window.location.pathname === '/readyMadeSites/javascript' || window.location.pathname === '/readyMadeSites/fullstack'){
+    else if (window.location.pathname === '/readyMadeSites' || window.location.pathname === '/readyMadeSites/html-css-js' || window.location.pathname === '/readyMadeSites/javascript' || window.location.pathname === '/readyMadeSites/fullstack'){
         section.hidden = true;
         types.hidden = false;
     }
@@ -57,14 +57,14 @@ header();
 
 function headerColor(){
     const allSites = document.getElementById('allSites');
-    const htmlCss = document.getElementById('htmlCss');
+    const htmlCssJs = document.getElementById('htmlCssJs');
     const javascript = document.getElementById('javascript');
     const fullstack = document.getElementById('fullstack');
     if (window.location.pathname === '/readyMadeSites'){
         allSites.style.color = '#a2a8d3'
     }
-    if (window.location.pathname === '/readyMadeSites/htmlCss'){
-        htmlCss.style.color = '#a2a8d3'
+    if (window.location.pathname === '/readyMadeSites/html-css-js'){
+        htmlCssJs.style.color = '#a2a8d3'
     }
     if (window.location.pathname === '/readyMadeSites/javascript'){
         javascript.style.color = '#a2a8d3'

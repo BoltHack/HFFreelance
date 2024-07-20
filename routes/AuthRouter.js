@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/register', registerView );
 router.post('/register', validateRegister, checkEmail, registerNewUser);
 
-router.get('/login', loginView, homeInfo);
+router.get('/login', loginView);
 router.post('/login',  validateLogin, loginUser);
 
 router.post('/logout', verifyToken, logout);

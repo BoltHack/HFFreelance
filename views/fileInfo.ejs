@@ -133,16 +133,12 @@
         <div class="info-container">
             <div class="my-info">
                 <h2 style="color: #3c096c">Мои данные</h2>
-                <div style="display: flex; white-space: nowrap; gap: 5px;">
-                    <a href="/auth/login" class="href">Войдите</a>
-                    <p style="margin-top: 0">или</p>
-                    <a href="/auth/register" class="href">зарегистрируйтесь</a>
-                    <p style="margin-top: 0">, чтобы скачивать любимые сайт.</p>
+                <div style="display: flex; white-space: nowrap; gap: 5px;" id="my-details">
                 </div>
             </div>
             <div class="site-info">
                 <h2 style="color: #3c096c">Скачать zip-архив</h2>
-                <div style="display: flex; gap: 10px; margin: auto 0;">
+                <div style="display: flex; gap: 10px; margin: auto 0;" id="download-file">
                     <form action="/downloadFile/<%= siteInfo._id %>" method="POST">
                         <button class="Download-button">
                             <svg xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 640 512">
@@ -158,5 +154,23 @@
     <div class="br"></div>
 </main>
 <%- include('footer.ejs') %>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const myDetails = document.getElementById('my-details');
+        const token = localStorage.getItem('token');
+
+        if(!token){
+            myDetails.innerHTML = `
+                    <a href="/auth/login" class="href">Войдите</a>
+                    <p style="margin-top: 0">или</p>
+                    <a href="/auth/register" class="href">зарегистрируйтесь,</a>
+                    <p style="margin-top: 0">чтобы скачивать любимые сайты.</p>`
+
+        }
+        else{
+            myDetails.innerHTML = `<a>Вы авторизованы и можете скачивать файлы. Удачи!</a>`
+        }
+    })
+</script>
 </body>
 </html>

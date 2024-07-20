@@ -1,3 +1,4 @@
+
 document.getElementById('togglePassword1').addEventListener('click', function () {
     let passwordField = document.getElementById('pwd');
     let cpasswordField = document.getElementById('cpwd');
@@ -106,6 +107,7 @@ function perms(){
 perms()
 
 function deleteAccount() {
+    const homeId = idUser;
     fetch(`/deleteAccount/${homeId}`, {
         method: "POST",
         headers: {
@@ -131,6 +133,7 @@ function deleteAccount() {
 }
 
 function deleteReview() {
+    const homeId = idUser;
     fetch(`/deleteReview/${homeId}`, {
         method: "POST",
         headers: {
@@ -143,7 +146,7 @@ function deleteReview() {
                 window.location.href = '/accessToken';
             } else {
                 response.text().then(errorMessage => {
-                    dynamicMenu("Ошибк: " + errorMessage);
+                    // dynamicMenu("Ошибка: " + errorMessage);
                 });
             }
         })
@@ -154,6 +157,7 @@ function deleteReview() {
 }
 
 document.getElementById('changePasswordBtn').addEventListener(function () {
+    const homeId = idUser;
     fetch(`/changePassword/${homeId}`,{
         method: "POST",
         headers: {

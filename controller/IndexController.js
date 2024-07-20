@@ -88,68 +88,138 @@ class IndexController {
         }
     }
     static youAreBannedView = (req, res, next) => {
-        const user = req.user;
-        return res.render('youAreBanned', {user});
+        try {
+            const user = req.user;
+            return res.render('youAreBanned', {user});
+        }catch(err){
+            next(err)
+        }
     }
     static requestErrorView = (req, res, next) => {
-        return res.render('requestError');
+        try {
+            return res.render('requestError');
+        }catch(err){
+            next(err)
+        }
     }
     static reviewErrorView = (req, res, next) => {
-        return res.render('reviewError');
+        try {
+            return res.render('reviewError');
+        }catch(err){
+            next(err)
+        }
     }
 
     static readyMadeSitesView = async (req, res, next) => {
-        const links = await AdminModel.find();
-        const websites = await WebsitesModel.find()
+        try{
+            const links = await AdminModel.find();
+            const websites = await WebsitesModel.find()
 
-        return res.render('readyMadeSites', {links, websites});
+            return res.render('readyMadeSites', {links, websites});
+        }catch(err){
+            next(err)
+        }
     }
 
     static htmlSitesView = async (req, res, next) => {
-        const links = await AdminModel.find();
-        const websites = await WebsitesModel.aggregate([
-            {
-                $match: {
-                    siteType: 'html'
+        try{
+            const links = await AdminModel.find();
+            const websites = await WebsitesModel.aggregate([
+                {
+                    $match: {
+                        $or: [
+                            { siteType: 'html-css' },
+                            { siteType: 'html-css-javascript' }
+                        ]
+                    },
                 }
-            }
-        ])
+            ])
 
-        return res.render('htmlCss', {links, websites});
+            return res.render('html-css-js', {links, websites});
+        }catch(err){
+            next(err)
+        }
     }
 
     static javascriptSitesView = async (req, res, next) => {
-        const links = await AdminModel.find();
-        const websites = await WebsitesModel.aggregate([
-            {
-                $match: {
-                    siteType: 'javascript'
+        try{
+            const links = await AdminModel.find();
+            const websites = await WebsitesModel.aggregate([
+                {
+                    $match: {
+                        siteType: 'javascript'
+                    }
                 }
-            }
-        ])
+            ])
 
-        return res.render('javascript', {links, websites});
+            return res.render('javascript', {links, websites});
+        }catch(err){
+            next(err)
+        }
+    }
+
+    static nodeJsSitesView = async (req, res, next) => {
+        try {
+            const links = await AdminModel.find();
+            const websites = await WebsitesModel.aggregate([
+                {
+                    $match: {
+                        siteType: 'nodeJs'
+                    }
+                }
+            ])
+
+            return res.render('nodeJs', {links, websites});
+        }catch (err){
+            next(err)
+        }
+    }
+
+    static reactJsSitesView = async (req, res, next) => {
+        try {
+            const links = await AdminModel.find();
+            const websites = await WebsitesModel.aggregate([
+                {
+                    $match: {
+                        siteType: 'reactJs'
+                    }
+                }
+            ])
+
+            return res.render('reactJs', {links, websites});
+        }catch (err){
+            next(err)
+        }
     }
 
     static fullstackSitesView = async (req, res, next) => {
-        const links = await AdminModel.find();
-        const websites = await WebsitesModel.aggregate([
-            {
-                $match: {
-                    siteType: 'fullstack'
+        try {
+            const links = await AdminModel.find();
+            const websites = await WebsitesModel.aggregate([
+                {
+                    $match: {
+                        siteType: 'fullstack'
+                    }
                 }
-            }
-        ])
+            ])
 
-        return res.render('fullstack', {links, websites});
+            return res.render('fullstack', {links, websites});
+        }catch (err){
+            next(err)
+        }
     }
 
     static fileInfoView = async (req, res, next) => {
-        const {id} = req.params;
-        const siteInfo = await WebsitesModel.findById(id);
+        try{
+            const {id} = req.params;
+            const siteInfo = await WebsitesModel.findById(id);
 
-        const links = await AdminModel.find();
-        return res.render('fileInfo', {siteInfo, links});
+            const links = await AdminModel.find();
+
+            return res.render('fileInfo', {siteInfo, links});
+        }catch(err){
+            next(err)
+        }
     }
 
     static homeInfo = async (req, res, next) => {
@@ -315,21 +385,28 @@ class IndexController {
 
     static downloadFile = async (req, res) => {
         try {
-            const website = await WebsitesModel.findById(req.params.id);
-
-            if (!website) {
-                return res.status(404).json({ error: 'Файл не найден.' });
+            const user = req.user;
+            if (user.banned[0].banType === true) {
+                res.redirect('/youAreBanned')
             }
+            else {
 
-            const fileBuffer = Buffer.from(website.fileUpload, 'base64');
+                const website = await WebsitesModel.findById(req.params.id);
 
-            const sanitizedFileName = `${website.title}.zip`;
-            res.set({
-                'Content-Type': 'application/zip',
-                'Content-Disposition': `attachment; filename="${encodeURIComponent(sanitizedFileName)}"`,
-            });
+                if (!website) {
+                    return res.status(404).json({error: 'Файл не найден.'});
+                }
 
-            res.send(fileBuffer);
+                const fileBuffer = Buffer.from(website.fileUpload, 'base64');
+
+                const sanitizedFileName = `${website.title}.zip`;
+                res.set({
+                    'Content-Type': 'application/zip',
+                    'Content-Disposition': `attachment; filename="${encodeURIComponent(sanitizedFileName)}"`,
+                });
+
+                res.send(fileBuffer);
+            }
         } catch (err) {
             console.error('Ошибка:', err);
             res.status(500).json({ error: err.message });

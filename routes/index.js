@@ -3,7 +3,7 @@ const {
     mainView, aboutUsView, rulesView, privacyPolicyView, sendReviewsMenuView, displayAllReviews, deleteUser,
     deleteReview, PersonalAreaView, changeImage, sendReview, allReviewsView, getTokenView, moreDetailsView,
     youAreBannedView, requestUnban, requestErrorView, reviewErrorView, readyMadeSitesView, downloadFile,
-    fileInfoView, htmlSitesView, javascriptSitesView, fullstackSitesView
+    fileInfoView, htmlSitesView, javascriptSitesView, fullstackSitesView, nodeJsSitesView, reactJsSitesView
 } = require('../controller/IndexController');
 const AuthRouter = require('./AuthRouter');
 const AdminRouter = require('./admin');
@@ -27,8 +27,10 @@ router.get('/youAreBanned', authenticateJWT, youAreBannedView);
 router.get('/requestError', requestErrorView);
 router.get('/reviewError', reviewErrorView);
 router.get('/readyMadeSites', readyMadeSitesView);
-router.get('/readyMadeSites/htmlCss', htmlSitesView);
+router.get('/readyMadeSites/html-css-js', htmlSitesView);
 router.get('/readyMadeSites/javascript', javascriptSitesView);
+router.get('/readyMadeSites/nodeJs', nodeJsSitesView);
+router.get('/readyMadeSites/reactJs', reactJsSitesView);
 router.get('/readyMadeSites/fullstack', fullstackSitesView);
 router.get('/fileInfo/:id', fileInfoView);
 

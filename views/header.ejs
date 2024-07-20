@@ -48,6 +48,7 @@
     .ha{
         text-decoration: none;
         color: #fff;
+        cursor: pointer;
     }
     .ha:hover{
         color: #a2a8d3;
@@ -111,12 +112,12 @@
         <li><a href="#services" class="ha">Услуги</a></li>
         <li><a href="#reviews" class="ha">Отзывы</a></li>
         <li><a href="#footerSection" class="ha">Контакты</a></li>
-        <li><a href="#readyMadeSites" class="ha" onclick="webDisplayInfo()">Готовые сайты</a></li>
+        <li><a class="ha" onclick="webDisplayInfo()" style="color: #a7c957">Готовые сайты</a></li>
     </ul>
     </div>
     <div id="types">
         <ul class="web-types">
-            <li><a href="/readyMadeSites/htmlCss" class="types" id="htmlCss">html css</a></li>
+            <li><a href="/readyMadeSites/html-css-js" class="types" id="htmlCssJs">html, css, js</a></li>
             <li><a href="/readyMadeSites/javascript" class="types" id="javascript">javascript</a></li>
             <li><a href="/readyMadeSites/fullstack" class="types" id="fullstack">fullstack</a></li>
             <li><a href="/readyMadeSites" class="types" id="allSites">Все типы</a></li>
@@ -125,36 +126,27 @@
 </header>
 <%- include('back.ejs') %>
 <script>
-    function allPaths(){
-        if (window.location.pathname === '/'){
-            localStorage.setItem('ref', 'refMain')
-        }
-        if (window.location.pathname === '/moreDetails'){
-            localStorage.setItem('ref', 'refMoreDetails')
-        }
-        if (window.location.pathname === '/allReviews'){
-            localStorage.setItem('ref', 'refAllReviews')
-        }
-        if (window.location.pathname === `/sendReviews/${myId}`){
-            localStorage.setItem('ref', 'refSendReviews')
-        }
-        if (window.location.pathname === '/aboutUs'){
-            localStorage.setItem('ref', 'refAboutUs')
-        }
-        if (window.location.pathname === '/rules'){
-            localStorage.setItem('ref', 'refRules')
-        }
-        if (window.location.pathname === '/privacyPolicy'){
-            localStorage.setItem('ref', 'refPrivacyPolicy')
-        }
-        if (window.location.pathname === '/PersonalArea'){
-            localStorage.setItem('ref', 'refPersonalArea')
-        }
-        if (window.location.pathname === '/readyMadeSites'){
-            localStorage.setItem('ref', 'refReadyMadeSites')
+    function allPaths() {
+        const paths = {
+            '/': 'refMain',
+            '/moreDetails': 'refMoreDetails',
+            '/allReviews': 'refAllReviews',
+            '/aboutUs': 'refAboutUs',
+            '/rules': 'refRules',
+            '/privacyPolicy': 'refPrivacyPolicy',
+            '/PersonalArea': 'refPersonalArea',
+            '/readyMadeSites': 'refReadyMadeSites',
+        };
+
+        const pathname = window.location.pathname;
+        if (pathname in paths) {
+            localStorage.setItem('ref', paths[pathname]);
+        } else if (pathname.startsWith('/sendReviews/')) {
+            localStorage.setItem('ref', 'refSendReviews');
         }
     }
-    allPaths()
+
+    allPaths();
 </script>
 <script src="/javascripts/timer.js"></script>
 <script src="/javascripts/header.js"></script>

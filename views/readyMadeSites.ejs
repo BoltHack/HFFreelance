@@ -21,7 +21,7 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        max-width: 1500px;
+        max-width: 1000px;
         gap: 20px;
     }
 
@@ -102,6 +102,38 @@
         background-color: #4a2f6c;
     }
 
+    .advertising{
+        background-color: white;
+        width: 800px;
+        height: 85px;
+        position: relative;
+        left: 50%;
+        transform: translate(-50%);
+    }
+    .no-advertising{
+        border: 1px solid black;
+        background-color: white;
+        width: 800px;
+        height: 85px;
+        position: relative;
+        left: 50%;
+        transform: translate(-50%);
+    }
+    .adv-image{
+        width: 800px;
+        height: 85px;
+        position: relative;
+        left: 50%;
+        transform: translate(-50%);
+        z-index: 1;
+    }
+    .center-advertising{
+        text-align: center;
+        justify-content: center;
+        margin-top: 35px;
+        color: #040505;
+        z-index: 2;
+    }
 </style>
 <body>
 <%- include('header.ejs') %>
@@ -112,6 +144,26 @@
 <br>
 <br>
 <main>
+    <div>
+        <% if (advertising && advertising.length) { %>
+            <% if (advertising.length > 1) { %>
+                <p class="center-advertising"><%= advertising[0].title %></p>
+            <% } else { %>
+                <% advertising.forEach(adv => { %>
+                    <a href="<%= adv.link %>">
+                        <div class="advertising">
+                            <img src="data:image/png;base64,<%= adv.image %>" class="adv-image">
+                            <p class="center-advertising"><%= adv.title %></p>
+                        </div>
+                    </a>
+                <% }) %>
+            <% } %>
+        <% } else { %>
+            <div class="no-advertising">
+                <p class="center-advertising">Здесь может быть ваша реклама!</p>
+            </div>
+        <% } %>
+    </div>
     <ul class="ul">
         <% if (websites && websites.length) { %>
             <% websites.forEach(sites => { %>
@@ -141,5 +193,6 @@
         <%}%>
     </ul>
 </main>
+<script src="/javascripts/advertising.js"></script>
 </body>
 </html>

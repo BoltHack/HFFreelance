@@ -17,4 +17,5 @@ const adminSchema = new Schema({
 
 const AdminModel = model('admin', adminSchema);
 
+
 module.exports = {AdminModel}

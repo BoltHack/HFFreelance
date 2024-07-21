@@ -2,6 +2,7 @@ const {UsersModel} = require("../models/UsersModel");
 const {NewsModel} = require("../models/NewsSchema");
 const {AdminModel} = require("../models/AdminModel");
 const {WebsitesModel} = require("../models/WebSitesModel");
+const {AdvertisingModel} = require('../models/AdvertisingModel');
 class IndexController {
     static mainView = async (req, res, next) => {
         try{
@@ -114,8 +115,9 @@ class IndexController {
         try{
             const links = await AdminModel.find();
             const websites = await WebsitesModel.find()
+            const advertising = await AdvertisingModel.find();
 
-            return res.render('readyMadeSites', {links, websites});
+            return res.render('readyMadeSites', {links, websites, advertising});
         }catch(err){
             next(err)
         }

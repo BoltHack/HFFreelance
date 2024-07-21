@@ -4,7 +4,8 @@ const {
     deleteNewsAdmin, deleteReviewAdmin, sendLinksAdmin, deleteFacebookLink, deleteVkLink,
     deleteDiscordLink, deleteInstagramLink, sendLinksPostVk, sendLinksPostDiscord, sendLinksPostInstagram,
     sendLinksPostFacebook, playerBanAdmin, playerUnbanAdmin, requestUnbanAdmin, banMenuAdmin, banListAdmin,
-    createAWebSiteAdmin, createAwebsite, allWebsitesAdmin, deleteFileAdmin
+    createAWebSiteAdmin, createAwebsite, allWebsitesAdmin, deleteFileAdmin, createAdvertisingAdmin, createAdvertisingPost,
+    allAdvertisingAdmin, deleteAdvertising
 } = require('../controller/AdminController');
 const {authenticateJWT} = require('../middlewares/jwtAuth');
 const {verifyPermissions} = require('../middlewares/permissionsAuthorization')
@@ -19,6 +20,8 @@ router.get('/requestUnban', verifyPermissions('Admin'), authenticateJWT, request
 router.get('/banMenu/:id', verifyPermissions('Admin'), banMenuAdmin);
 router.get('/createAWebSite', verifyPermissions('Admin'), authenticateJWT, createAWebSiteAdmin);
 router.get('/allWebsites', verifyPermissions('Admin'), authenticateJWT, allWebsitesAdmin);
+router.get('/createAdvertising', verifyPermissions('Admin'), authenticateJWT, createAdvertisingAdmin);
+router.get('/allAdvertising', verifyPermissions('Admin'), authenticateJWT, allAdvertisingAdmin);
 
 router.post('/deleteUserAdmin/:id', verifyPermissions('Admin'), deleteUserAdmin);
 router.post('/deleteNewsAdmin/:id', verifyPermissions('Admin'), deleteNewsAdmin);
@@ -28,6 +31,7 @@ router.post('/deleteFile/:id', verifyPermissions('Admin'), deleteFileAdmin);
 
 router.post('/sendNews', verifyPermissions('Admin'), sendNewsPost);
 router.post('/createAnewWebsite', verifyPermissions('Admin'), createAwebsite);
+router.post('/createAdvertising', verifyPermissions('Admin'), authenticateJWT, createAdvertisingPost);
 
 router.post('/sendLinksVk', verifyPermissions('Admin'), sendLinksPostVk);
 router.post('/sendLinksDiscord', verifyPermissions('Admin'), sendLinksPostDiscord);
@@ -40,5 +44,6 @@ router.post('/deleteDiscordLink/:id', verifyPermissions('Admin'), deleteDiscordL
 router.post('/deleteInstagramLink/:id', verifyPermissions('Admin'), deleteInstagramLink);
 router.post('/playerBan/:id', verifyPermissions('Admin'), playerBanAdmin);
 router.post('/playerUnban/:id', verifyPermissions('Admin'), playerUnbanAdmin);
+router.post('/deleteAdvertising/:id', verifyPermissions('Admin'), deleteAdvertising);
 
 module.exports = router;

@@ -2,6 +2,7 @@ const {UsersModel} = require("../models/UsersModel");
 const {NewsModel} = require("../models/NewsSchema");
 const {AdminModel} = require("../models/AdminModel");
 const {WebsitesModel} = require("../models/WebSitesModel");
+const {AdvertisingModel} = require("../models/AdvertisingModel");
 const bcrypt = require("bcrypt");
 const HttpErrors = require("http-errors");
 
@@ -58,6 +59,13 @@ class AdminController {
             next(err)
         }
     }
+    static createAdvertisingAdmin = async (req, res, next) => {
+        try{
+            return res.render('admin/createAdvertising',);
+        }catch(err){
+            next(err)
+        }
+    }
     static allWebsitesAdmin = async (req, res, next) => {
         try{
             const links = await AdminModel.find();
@@ -67,6 +75,16 @@ class AdminController {
             next(err)
         }
     }
+
+    static allAdvertisingAdmin = async (req, res, next) => {
+        try{
+            const advertising = await AdvertisingModel.find()
+            return res.render('admin/allAdvertising', {advertising});
+        }catch(err){
+            next(err)
+        }
+    }
+
     static requestUnbanAdmin = async (req, res, next) => {
         try {
             const users = await UsersModel.aggregate([
@@ -518,6 +536,48 @@ class AdminController {
             await WebsitesModel.findByIdAndDelete(id);
             setTimeout(() => {
                 res.redirect('/admin/allWebsites');
+                console.log(id, ' успешно удалён!')
+            }, 500);
+        } catch (err) {
+            next(err)
+        }
+    }
+
+    static createAdvertisingPost = async (req, res, next) => {
+        try {
+            const { title, link, expiresInMinutes } = req.body;
+
+            if (!req.files || !req.files.image) {
+                return res.status(400).json({ error: 'Ошибка. Не удалось загрузить файлы.' });
+            }
+
+            const image = req.files.image;
+            const base64Image = image.data.toString('base64');
+
+            const newAdvertising = new AdvertisingModel({
+                title,
+                image: base64Image,
+                link,
+                expiresInMinutes
+            });
+
+            await newAdvertising.save();
+            res.redirect('/admin/createAdvertising');
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    static deleteAdvertising = async (req, res, next) => {
+        try {
+            const {id} = req.params;
+            const user = await AdvertisingModel.findById(id);
+            if (!user) {
+                res.status(404).json({error: 'id не найден.'});
+            }
+            await AdvertisingModel.findByIdAndDelete(id);
+            setTimeout(() => {
+                res.redirect('/admin/allAdvertising');
                 console.log(id, ' успешно удалён!')
             }, 500);
         } catch (err) {

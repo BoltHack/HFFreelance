@@ -36,9 +36,10 @@
         word-wrap: break-word;
     }
     .info-container{
+        max-width: 1500px;
         margin: -120px 50px;
         display: flex;
-        gap: 20px;
+        gap: 20px;;
     }
     .my-info{
         display: block;
@@ -49,8 +50,6 @@
         width: 500px;
         height: 100px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s;
-        overflow: hidden;
     }
     .site-info{
         display: block;
@@ -61,8 +60,6 @@
         width: 239px;
         height: 100px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s;
-        overflow: hidden;
     }
     .img{
         width: 200px;
@@ -130,20 +127,23 @@
                 </div>
             </div>
         </div>
+    </div>
         <div class="info-container">
             <div class="my-info">
                 <h2 style="color: #3c096c">Мои данные</h2>
                 <div style="display: flex; white-space: nowrap; gap: 5px;" id="my-details">
-                <div style="display: flex; white-space: nowrap; gap: 5px;">
-                    <a href="/auth/login" class="href">Войдите</a>
-                    <p style="margin-top: 0">или</p>
-                    <a href="/auth/register" class="href">зарегистрируйтесь,</a>
-                    <p style="margin-top: 0">чтобы скачивать любимые сайты.</p>
+                    <div style="display: flex; white-space: nowrap; gap: 5px;">
+                        <a href="/auth/login" class="href">Войдите</a>
+                        <p style="margin-top: 0">или</p>
+                        <a href="/auth/register" class="href">зарегистрируйтесь,</a>
+                        <p style="margin-top: 0">чтобы скачивать любимые сайты.</p>
+                    </div>
                 </div>
             </div>
+
             <div class="site-info">
                 <h2 style="color: #3c096c">Скачать zip-архив</h2>
-                <div style="display: flex; gap: 10px; margin: auto 0;" id="download-file">
+                <div style="display: flex; gap: 10px; margin: auto 0;">
                     <form action="/downloadFile/<%= siteInfo._id %>" method="POST">
                         <button class="Download-button">
                             <svg xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 640 512">
@@ -154,8 +154,8 @@
                     </form>
                 </div>
             </div>
+
         </div>
-    </div>
     <div class="br"></div>
 </main>
 <%- include('footer.ejs') %>

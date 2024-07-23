@@ -149,12 +149,18 @@
         .unban-btn:hover {
             background-color: #3a5a40;
         }
-        .only-banned-users{
+        .dop-pos{
             text-align: center;
             margin: auto 0;
+        }
+        .only-banned-users{
             color: #2a47cb;
         }
-        .only-banned-users:hover{
+        .request-ban-users{
+            color: #2a47cb;
+            margin-left: 20px;
+        }
+        .only-banned-users:hover, .request-ban-users:hover{
             text-decoration: underline;
             text-decoration-color: black;
         }
@@ -167,8 +173,9 @@
     <h2>Список пользователей</h2>
     <input type="text" id="searchInput" placeholder="Поиск по имени или email">
 </div>
-<div class="only-banned-users">
-    <a href="/admin/banList">Только заблокированные пользователи</a>
+<div class="dop-pos">
+    <a href="/admin/banList" class="only-banned-users">Только заблокированные пользователи</a>
+    <a href="/admin/requestUnban" class="request-ban-users">Заявки на разбан</a>
 </div>
 <ul class="ul" id="userList">
     <% if (users && users.length) { %>

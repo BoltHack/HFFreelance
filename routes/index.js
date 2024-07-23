@@ -3,7 +3,8 @@ const {
     mainView, aboutUsView, rulesView, privacyPolicyView, sendReviewsMenuView, displayAllReviews, deleteUser,
     deleteReview, PersonalAreaView, changeImage, sendReview, allReviewsView, getTokenView, moreDetailsView,
     youAreBannedView, requestUnban, requestErrorView, reviewErrorView, readyMadeSitesView, downloadFile,
-    fileInfoView, htmlSitesView, javascriptSitesView, fullstackSitesView, nodeJsSitesView, reactJsSitesView
+    fileInfoView, htmlSitesView, javascriptSitesView, fullstackSitesView, nodeJsSitesView, reactJsSitesView,
+    favoritesView
 } = require('../controller/IndexController');
 const AuthRouter = require('./AuthRouter');
 const AdminRouter = require('./admin');
@@ -32,6 +33,7 @@ router.get('/readyMadeSites/javascript', javascriptSitesView);
 router.get('/readyMadeSites/nodeJs', nodeJsSitesView);
 router.get('/readyMadeSites/reactJs', reactJsSitesView);
 router.get('/readyMadeSites/fullstack', fullstackSitesView);
+router.get('/readyMadeSites/favorites', favoritesView);
 router.get('/fileInfo/:id', fileInfoView);
 
 router.post('/sendReviews/:id', authenticateJWT, sendReview);

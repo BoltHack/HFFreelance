@@ -52,7 +52,7 @@
                 <p>
                     <button id="editImageBtn">Сменить аватара</button>
                 </p>
-                <form action="/uploadImage/<%= user.id %>" method="POST" enctype="multipart/form-data">
+                <form action="/upload/<%= user.id %>" method="POST" enctype="multipart/form-data">
                     <section id="editImagePart" hidden>
                         <p id="imageChangeError"></p>
                         <input type="file" name="file" id="attachFile">

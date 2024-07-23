@@ -21,7 +21,7 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        max-width: 1500px;
+        max-width: 1000px;
         gap: 20px;
     }
 
@@ -102,6 +102,50 @@
         background-color: #4a2f6c;
     }
 
+    .advertising{
+        background-color: white;
+        width: 800px;
+        height: 85px;
+        position: relative;
+        left: 50%;
+        transform: translate(-50%);
+    }
+    .no-advertising{
+        border: 1px solid black;
+        background-color: white;
+        width: 800px;
+        height: 85px;
+        position: relative;
+        left: 50%;
+        transform: translate(-50%);
+    }
+    .adv-image{
+        width: 800px;
+        height: 85px;
+        position: relative;
+        left: 50%;
+        transform: translate(-50%);
+        z-index: 1;
+    }
+    .center-advertising{
+        text-align: center;
+        justify-content: center;
+        margin-top: 35px;
+        color: #040505;
+        z-index: 2;
+    }
+    .love{
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    .love:hover{
+        transform: scale(1.08);
+    }
+    .love:active{
+        transform: scale(0.70);
+    }
 </style>
 <body>
 <%- include('header.ejs') %>
@@ -112,6 +156,25 @@
 <br>
 <br>
 <main>
+    <div>
+        <% if (advertising && advertising.length) { %>
+            <% if (advertising.length > 1) { %>
+                <p class="center-advertising"><%= advertising[0].title %></p>
+            <% } else { %>
+                <% advertising.forEach(adv => { %>
+                    <a href="<%= adv.link %>" target="_blank">
+                        <div class="advertising">
+                            <img src="data:image/png;base64,<%= adv.image %>" class="adv-image">
+                        </div>
+                    </a>
+                <% }) %>
+            <% } %>
+        <% } else { %>
+            <div class="no-advertising">
+                <p class="center-advertising">Здесь может быть ваша реклама!</p>
+            </div>
+        <% } %>
+    </div>
     <ul class="ul">
         <% if (websites && websites.length) { %>
             <% websites.forEach(sites => { %>
@@ -132,14 +195,19 @@
                                 <span>Скачать</span>
                             </button>
                         </form>
+                        <div>
+                            <img src="/images/love.png" class="love" id="love-<%= sites._id %>" data-id="<%= sites._id %>" data-title="<%= sites.title %>" data-type="<%= sites.siteType %>" data-img="<%= sites.fileImg %>">
+                            <img src="/images/alreadyLove.png" class="love" id="alreadyLove-<%= sites._id %>" data-id="<%= sites._id %>" data-title="<%= sites.title %>" data-type="<%= sites.siteType %>" data-img="<%= sites.fileImg %>" hidden>
+                        </div>
                     </div>
                 </div>
                 <%})%>
             </li>
         <%} else {%>
-                <p>fullstack файлов пока нет.</p>
+            <p>Лента сайтов пустая.</p>
         <%}%>
     </ul>
 </main>
+<script src="/javascripts/advertising.js"></script>
 </body>
 </html>

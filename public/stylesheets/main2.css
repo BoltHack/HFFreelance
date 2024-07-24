@@ -465,3 +465,20 @@ footer p {
     gap: 5px;
     justify-content: center;
 }
+
+.telegram{
+    width: 30px;
+    height: 30px;
+    margin: 5px 5px;
+    cursor: pointer;
+    background: none;
+}
+
+.telegram-button{
+    width: 120px;
+    height: 40px;
+    border-color: #4caf50;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #4caf50;
+}

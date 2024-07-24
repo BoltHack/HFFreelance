@@ -33,7 +33,7 @@ router.get('/readyMadeSites/javascript', javascriptSitesView);
 router.get('/readyMadeSites/nodeJs', nodeJsSitesView);
 router.get('/readyMadeSites/reactJs', reactJsSitesView);
 router.get('/readyMadeSites/fullstack', fullstackSitesView);
-router.get('/readyMadeSites/favorites', favoritesView);
+router.get('/readyMadeSites/favorites', authenticateJWT, favoritesView);
 router.get('/fileInfo/:id', fileInfoView);
 
 router.post('/sendReviews/:id', authenticateJWT, sendReview);

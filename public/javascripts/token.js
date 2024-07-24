@@ -30,6 +30,9 @@ async function getNewToken() {
             else if(ref === 'refReadyMadeSites'){
                 window.location.href = `/readyMadeSites`;
             }
+            else if(ref === 'refFavorites'){
+                window.location.href = `/readyMadeSites/favorites`;
+            }
         } else {
             console.error('Ошибка', response.status);
         }

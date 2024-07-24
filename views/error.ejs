@@ -75,9 +75,14 @@
         <button id="back" class="errorButton">Назад</button>
     </section>
     <section id="section" hidden>
-        <h1><%= message %></h1>
-        <h5>Статус ошибки: <%= error.status %></h5>
-        <pre><%= error.message %></pre>
+        <% if (!error.status) {%>
+            <h1><%= message %></h1>
+            <pre><%= error.message %></pre>
+        <%} else {%>
+                <h1><%= message %></h1>
+                <h5>Статус ошибки: <%= error.status %></h5>
+                <pre><%= error.message %></pre>
+        <%}%>
         <button id="closeInfo" class="errorButton">Закрыть</button>
     </section>
 </div>

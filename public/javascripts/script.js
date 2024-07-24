@@ -140,7 +140,8 @@ function checkTokenFunc() {
         displayInfo();
     }
     else{
-        chatFunc();
+        window.open('https://web.telegram.org/a/', '_blank');
+
     }
 }
 
@@ -152,7 +153,7 @@ function chatFunc(){
     border.innerHTML = `
         <link rel="stylesheet" href="/stylesheets/style.css">
         <div class="logout-border">
-        <p style="text-align: center">Перейти в чат с разработчиком?</p>
+        <img src="/images/discord.jpg">
         <div class="yes-or-no">
         <button class="no-btn" id="closeBtn">Нет</button>
         <button class="yes-btn" onclick="window.location.href = '/test'">Да</button>

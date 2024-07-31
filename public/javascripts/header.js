@@ -90,18 +90,8 @@ function webDisplayInfo() {
     window.location.href = '/readyMadeSites'
 }
 
-function favoritesCheck(){
-    const token = localStorage.getItem('token');
-
-    if (token){
-        favoritesJoin();
-    }
-    else{
-        displayInfo();
-    }
-}
 
 function favoritesJoin() {
     localStorage.setItem('ref', 'refFavorites');
-    window.location.href = '/accessToken';
+    window.location.href = '/readyMadeSites/favorites';
 }

@@ -140,7 +140,31 @@ function checkTokenFunc() {
         displayInfo();
     }
     else{
-        window.open('https://web.telegram.org/a/', '_blank');
+        const barrier = document.createElement('barrier');
+        const border = document.createElement('border');
+
+        barrier.innerHTML = `<div class="new-barrier"></div>`;
+        border.innerHTML = `
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <div class="logout-border">
+        <p style="text-align: center; color: white; margin: 30px 0; padding: 10px;">Перейти в телеграм-чат с разработчиком?</p>
+        <div class="yes-or-no">
+        <button class="no-btn" id="closeBtn">Нет</button>
+        <a href="https://web.telegram.org/a/" target="_blank"><button class="yes-btn">Да</button></a>
+        </div>
+        </div>`
+
+        document.body.appendChild(border);
+        document.body.appendChild(barrier);
+        barrier.addEventListener('click', () => {
+            document.body.removeChild(barrier);
+            document.body.removeChild(border);
+        })
+        document.getElementById('closeBtn').addEventListener('click', () => {
+            document.body.removeChild(barrier);
+            document.body.removeChild(border);
+        })
+        // window.open('https://web.telegram.org/a/', '_blank');
 
     }
 }

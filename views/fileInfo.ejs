@@ -146,6 +146,19 @@
         width: 500px;
         height: 500px;
     }
+
+    .love{
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    .love:hover{
+        transform: scale(1.08);
+    }
+    .love:active{
+        transform: scale(0.70);
+    }
 </style>
 <body>
 <main>
@@ -205,7 +218,8 @@
                             </svg>
                             <span>Скачать</span>
                         </button>
-                    </form>`
+                    </form>
+                    `
         }
         else{
             downloadFile.innerHTML = `
@@ -258,5 +272,6 @@
         })
     }
 </script>
+<script src="/javascripts/advertising.js"></script>
 </body>
 </html>

@@ -240,9 +240,7 @@ function deleteFavorite(id){
         favorites = JSON.parse(favorites);
         favorites = favorites.filter(item => item.id !== id);
         localStorage.setItem('favorites', JSON.stringify(favorites));
-        // document.getElementById('favorites-container').innerHTML = '';
         window.location.reload();
-
     }
     const favoritesArray = JSON.parse(favorites);
     if (Array.isArray(favoritesArray) && favoritesArray.length === 0) {

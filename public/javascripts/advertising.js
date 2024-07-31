@@ -60,10 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loveButton.forEach(button => {
         button.addEventListener('click', function() {
-            const token = localStorage.getItem('token');
-            if (!token){
-                displayInfo()
-            }
             const siteId = this.getAttribute('data-id');
             const siteTitle = this.getAttribute('data-title');
             const siteType = this.getAttribute('data-type');

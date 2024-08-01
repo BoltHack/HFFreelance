@@ -18,8 +18,20 @@ class AdminController {
 
     static allUsersAdmin = async (req, res, next) => {
         try {
-            const users = await UsersModel.find({role: 'User'});
-            res.render('admin/allUsers', {users});
+            const page = parseInt(req.query.page) || 1;
+            const limit = 10;
+            const skip = (page - 1) * limit;
+
+            const totalUsers = await UsersModel.countDocuments({role: 'User'})
+            const users = await UsersModel.find({role: 'User'})
+                .skip(skip)
+                .limit(limit);
+
+            res.render('admin/allUsers', {
+                users,
+                currentPage: page,
+                totalPages: Math.ceil(totalUsers / limit)
+            });
         } catch (err) {
             next(err);
         }
@@ -87,20 +99,41 @@ class AdminController {
 
     static requestUnbanAdmin = async (req, res, next) => {
         try {
-            const users = await UsersModel.aggregate([
-                {$match: {role: 'User'}},
-                {
-                    $match: {
-                        'requestUnban': {
-                            $elemMatch: {
-                                message: {$ne: ''}
+            const page = parseInt(req.query.page) || 1;
+            const limit = 10;
+            const skip = (page - 1) * limit;
+
+            const totalUsersResult  = await UsersModel.aggregate([
+                { $match: { role: 'User' } },
+                    {
+                        $match: {
+                            'requestUnban': {
+                                $elemMatch: {
+                                    message: {$ne: ''}
+                                }
                             }
                         }
+                    },
+                { $count: 'totalUsers' }
+            ])
+            const totalUsers = totalUsersResult.length > 0 ? totalUsersResult[0].totalUsers : 0;
+
+            const users = await UsersModel.find({
+                role: 'User',
+                'requestUnban': {
+                    $elemMatch: {
+                        message: {$ne: ''}
                     }
                 }
-            ]);
+            })
+                .skip(skip)
+                .limit(limit);
 
-            res.render('admin/requestUnban', {users});
+            res.render('admin/requestUnban', {
+                users,
+                currentPage: page,
+                totalPages: Math.ceil(totalUsers / limit)
+            });
         } catch (err) {
             console.error('Ошибка:', err);
             res.status(500).json({error: err.message});
@@ -110,8 +143,12 @@ class AdminController {
 
     static banListAdmin = async (req, res, next) => {
         try {
-            const users = await UsersModel.aggregate([
-                {$match: {role: 'User'}},
+            const page = parseInt(req.query.page) || 1;
+            const limit = 10;
+            const skip = (page - 1) * limit;
+
+            const totalUsersResult  = await UsersModel.aggregate([
+                { $match: { role: 'User' } },
                 {
                     $match: {
                         'banned': {
@@ -120,10 +157,43 @@ class AdminController {
                             }
                         }
                     }
-                }
-            ]);
+                },
+                { $count: 'totalUsers' }
+            ])
+            const totalUsers = totalUsersResult.length > 0 ? totalUsersResult[0].totalUsers : 0;
 
-            res.render('admin/banList', {users});
+            const users = await UsersModel.find({
+                role: 'User',
+                'banned': {
+                    $elemMatch: {
+                        banType: true
+                    }
+                }
+            })
+                .skip(skip)
+                .limit(limit);
+
+            res.render('admin/banList', {
+                users,
+                currentPage: page,
+                totalPages: Math.ceil(totalUsers / limit)
+            });
+
+
+            // const users = await UsersModel.aggregate([
+            //     {$match: {role: 'User'}},
+            //     {
+            //         $match: {
+            //             'banned': {
+            //                 $elemMatch: {
+            //                     banType: true
+            //                 }
+            //             }
+            //         }
+            //     }
+            // ]);
+            //
+            // res.render('admin/banList', {users});
         } catch (err) {
             console.error('Ошибка:', err);
             res.status(500).json({error: err.message});

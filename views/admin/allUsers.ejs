@@ -239,6 +239,12 @@
         <p class="users-not-found">Пользователей не найдено.</p>
     <% } %>
 </ul>
+<%- include('pagination.ejs') %>
+<br>
+<br>
+<br>
+<br>
+<br>
 <script>
     document.getElementById('searchInput').addEventListener('input', function() {
         const searchValue = this.value.toLowerCase();

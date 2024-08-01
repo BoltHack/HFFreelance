@@ -114,19 +114,41 @@ class IndexController {
 
     static readyMadeSitesView = async (req, res, next) => {
         try{
+            const page = parseInt(req.query.page) || 1;
+            const limit = 10;
+            const skip = (page - 1) * limit;
+
+            const totalWebsites = await WebsitesModel.countDocuments();
             const links = await AdminModel.find();
-            const websites = await WebsitesModel.find()
+            const websites = await WebsitesModel.find().skip(skip).limit(limit)
             const advertising = await AdvertisingModel.find();
 
-            return res.render('readyMadeSites', {links, websites, advertising});
+            return res.render('readyMadeSites', {
+                links,
+                websites,
+                advertising,
+                currentPage: page,
+                totalPages: Math.ceil(totalWebsites / limit)
+            });
         }catch(err){
             next(err)
         }
     }
 
     static htmlSitesView = async (req, res, next) => {
-        try{
-            const links = await AdminModel.find()
+        try {
+            const page = parseInt(req.query.page) || 1;
+            const limit = 10;
+            const skip = (page - 1) * limit;
+
+            const totalWebsites = await WebsitesModel.countDocuments({
+                $or: [
+                    { siteType: 'html-css' },
+                    { siteType: 'html-css-javascript' }
+                ]
+            });
+
+            const links = await AdminModel.find();
             const advertising = await AdvertisingModel.find();
             const websites = await WebsitesModel.aggregate([
                 {
@@ -135,18 +157,39 @@ class IndexController {
                             { siteType: 'html-css' },
                             { siteType: 'html-css-javascript' }
                         ]
-                    },
+                    }
+                },
+                {
+                    $skip: skip
+                },
+                {
+                    $limit: limit
                 }
-            ])
+            ]);
 
-            return res.render('html-css-js', {links, websites, advertising});
-        }catch(err){
-            next(err)
+            return res.render('html-css-js', {
+                links,
+                websites,
+                advertising,
+                currentPage: page,
+                totalPages: Math.ceil(totalWebsites / limit)
+            });
+        } catch (err) {
+            next(err);
         }
     }
 
+
     static javascriptSitesView = async (req, res, next) => {
-        try{
+        try {
+            const page = parseInt(req.query.page) || 1;
+            const limit = 10;
+            const skip = (page - 1) * limit;
+
+            const totalWebsites = await WebsitesModel.countDocuments({
+                siteType: 'javascript'
+            });
+
             const links = await AdminModel.find();
             const advertising = await AdvertisingModel.find();
             const websites = await WebsitesModel.aggregate([
@@ -154,17 +197,37 @@ class IndexController {
                     $match: {
                         siteType: 'javascript'
                     }
+                },
+                {
+                    $skip: skip
+                },
+                {
+                    $limit: limit,
                 }
             ])
 
-            return res.render('javascript', {links, websites, advertising});
-        }catch(err){
-            next(err)
+            return res.render('javascript', {
+                links,
+                websites,
+                advertising,
+                currentPage: page,
+                totalPages: Math.ceil(totalWebsites / limit)
+            });
+        } catch (err) {
+            next(err);
         }
     }
 
     static nodeJsSitesView = async (req, res, next) => {
         try {
+            const page = parseInt(req.query.page) || 1;
+            const limit = 10;
+            const skip = (page - 1) * limit;
+
+            const totalWebsites = await WebsitesModel.countDocuments({
+                siteType: 'nodeJs'
+            });
+
             const links = await AdminModel.find();
             const advertising = await AdvertisingModel.find();
             const websites = await WebsitesModel.aggregate([
@@ -172,10 +235,22 @@ class IndexController {
                     $match: {
                         siteType: 'nodeJs'
                     }
+                },
+                {
+                    $skip: skip
+                },
+                {
+                    $limit: limit,
                 }
             ])
 
-            return res.render('nodeJs', {links, websites, advertising});
+            return res.render('nodeJs', {
+                links,
+                websites,
+                advertising,
+                currentPage: page,
+                totalPages: Math.ceil(totalWebsites / limit)
+            });
         }catch (err){
             next(err)
         }
@@ -183,6 +258,14 @@ class IndexController {
 
     static reactJsSitesView = async (req, res, next) => {
         try {
+            const page = parseInt(req.query.page) || 1;
+            const limit = 10;
+            const skip = (page - 1) * limit;
+
+            const totalWebsites = await WebsitesModel.countDocuments({
+                siteType: 'reactJs'
+            });
+
             const links = await AdminModel.find();
             const advertising = await AdvertisingModel.find();
             const websites = await WebsitesModel.aggregate([
@@ -190,10 +273,22 @@ class IndexController {
                     $match: {
                         siteType: 'reactJs'
                     }
+                },
+                {
+                    $skip: skip
+                },
+                {
+                    $limit: limit,
                 }
             ])
 
-            return res.render('reactJs', {links, websites, advertising});
+            return res.render('reactJs', {
+                links,
+                websites,
+                advertising,
+                currentPage: page,
+                totalPages: Math.ceil(totalWebsites / limit)
+            });
         }catch (err){
             next(err)
         }
@@ -201,6 +296,14 @@ class IndexController {
 
     static fullstackSitesView = async (req, res, next) => {
         try {
+            const page = parseInt(req.query.page) || 1;
+            const limit = 10;
+            const skip = (page - 1) * limit;
+
+            const totalWebsites = await WebsitesModel.countDocuments({
+                siteType: 'fullstack'
+            });
+
             const links = await AdminModel.find();
             const advertising = await AdvertisingModel.find();
             const websites = await WebsitesModel.aggregate([
@@ -208,10 +311,22 @@ class IndexController {
                     $match: {
                         siteType: 'fullstack'
                     }
+                },
+                {
+                    $skip: skip
+                },
+                {
+                    $limit: limit,
                 }
             ])
 
-            return res.render('fullstack', {links, websites, advertising});
+            return res.render('fullstack', {
+                links,
+                websites,
+                advertising,
+                currentPage: page,
+                totalPages: Math.ceil(totalWebsites / limit)
+            });
         }catch (err){
             next(err)
         }

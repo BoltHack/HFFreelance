@@ -80,9 +80,25 @@ class AdminController {
     }
     static allWebsitesAdmin = async (req, res, next) => {
         try{
+            const page = parseInt(req.query.page) || 1;
+            const limit = 10;
+            const skip = (page - 1) * limit;
+
+            const totalWebsites = await WebsitesModel.countDocuments();
             const links = await AdminModel.find();
-            const websites = await WebsitesModel.find()
-            return res.render('admin/allWebsites', {links, websites});
+            const websites = await WebsitesModel.find().skip(skip).limit(limit);
+
+            res.render('admin/allWebsites', {
+                links,
+                websites,
+                currentPage: page,
+                totalPages: Math.ceil(totalWebsites / limit)
+            });
+
+
+            // const links = await AdminModel.find();
+            // const websites = await WebsitesModel.find()
+            // return res.render('admin/allWebsites', {links, websites});
         }catch(err){
             next(err)
         }
@@ -178,22 +194,6 @@ class AdminController {
                 currentPage: page,
                 totalPages: Math.ceil(totalUsers / limit)
             });
-
-
-            // const users = await UsersModel.aggregate([
-            //     {$match: {role: 'User'}},
-            //     {
-            //         $match: {
-            //             'banned': {
-            //                 $elemMatch: {
-            //                     banType: true
-            //                 }
-            //             }
-            //         }
-            //     }
-            // ]);
-            //
-            // res.render('admin/banList', {users});
         } catch (err) {
             console.error('Ошибка:', err);
             res.status(500).json({error: err.message});

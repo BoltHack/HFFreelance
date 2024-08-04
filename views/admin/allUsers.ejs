@@ -203,14 +203,13 @@
                     <% if (user.banned && user.banned.length > 0) { %>
                         <% if (user.banned[0].banType === false) { %>
                             <div style="display: flex; gap: 10px;">
-                                <p>Заблокирован: Нет</p>
                                 <form action="/admin/banMenu/<%= user._id %>" method="GET">
                                     <button class="ban-btn banMenuClick">Заблокировать</button>
                                 </form>
                             </div>
                         <% } else { %>
                             <div style="display: flex; gap: 10px;">
-                                <p>Заблокирован: Да</p>
+                                <p>Пользователь забанен</p>
                                 <form action="/admin/playerUnban/<%= user._id %>" method="POST">
                                     <button class="unban-btn">Разблокировать</button>
                                 </form>

@@ -152,7 +152,11 @@
     <div>
         <% if (advertising && advertising.length) { %>
             <% if (advertising.length > 1) { %>
-                <p class="center-advertising"><%= advertising[0].title %></p>
+                <a href="<%= advertising[0].link %>" target="_blank">
+                    <div class="advertising">
+                        <img src="data:image/png;base64,<%= advertising[0].image %>" class="adv-image">
+                    </div>
+                </a>
             <% } else { %>
                 <% advertising.forEach(adv => { %>
                     <a href="<%= adv.link %>" target="_blank">
@@ -203,6 +207,19 @@
     <br>
     <%- include('footer.ejs') %>
 </main>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ads = document.querySelectorAll('.center-advertising');
+
+        if (ads.length > 1) {
+            for (let i = 1; i < ads.length; i++) {
+                ads[i].style.display = 'none';
+            }
+        }
+    });
+</script>
 <script src="/javascripts/advertising.js"></script>
+<script src="/javascripts/love.js"></script>
+<script src="/javascripts/checkDownload.js"></script>
 </body>
 </html>

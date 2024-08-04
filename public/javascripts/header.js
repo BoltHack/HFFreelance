@@ -65,21 +65,27 @@ function headerColor(){
     const favorites = document.getElementById('favorites');
     if (window.location.pathname === '/readyMadeSites'){
         allSites.style.color = '#a2a8d3'
+        allSites.style.backgroundColor = '#ddd'
     }
     if (window.location.pathname === '/readyMadeSites/html-css-js'){
         htmlCssJs.style.color = '#a2a8d3'
+        htmlCssJs.style.backgroundColor = '#ddd'
     }
     if (window.location.pathname === '/readyMadeSites/javascript'){
         javascript.style.color = '#a2a8d3'
+        javascript.style.backgroundColor = '#ddd'
     }
     if (window.location.pathname === '/readyMadeSites/fullstack'){
         fullstack.style.color = '#a2a8d3'
+        fullstack.style.backgroundColor = '#ddd'
     }
     if (window.location.pathname === '/readyMadeSites/nodeJs'){
         nodeJs.style.color = '#a2a8d3'
+        nodeJs.style.backgroundColor = '#ddd'
     }
     if (window.location.pathname === '/readyMadeSites/reactJs'){
         reactJs.style.color = '#a2a8d3'
+        reactJs.style.backgroundColor = '#ddd'
     }
     if (window.location.pathname === '/readyMadeSites/favorites'){
         favorites.style.color = '#a2a8d3'

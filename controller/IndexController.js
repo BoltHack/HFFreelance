@@ -1,13 +1,13 @@
 const {UsersModel} = require("../models/UsersModel");
 const {NewsModel} = require("../models/NewsSchema");
-const {AdminModel} = require("../models/AdminModel");
+const {LinksModel} = require("../models/LinksModel");
 const {WebsitesModel} = require("../models/WebSitesModel");
 const {AdvertisingModel} = require('../models/AdvertisingModel');
 const httpErrors = require('http-errors')
 class IndexController {
     static mainView = async (req, res, next) => {
         try{
-            const links = await AdminModel.find();
+            const links = await LinksModel.find();
             return res.render('main', {links});
         }catch(e) {
             next(e)
@@ -15,7 +15,7 @@ class IndexController {
     }
     static aboutUsView = async (req, res, next) => {
         try{
-            const links = await AdminModel.find();
+            const links = await LinksModel.find();
             return res.render('aboutUs', {links});
         }catch (err){
             next(err)
@@ -23,7 +23,7 @@ class IndexController {
     }
     static rulesView = async (req, res, next) => {
         try{
-            const links = await AdminModel.find();
+            const links = await LinksModel.find();
             return res.render('rules', {links});
         }catch (err){
             next(err)
@@ -31,7 +31,7 @@ class IndexController {
     }
     static privacyPolicyView = async (req, res, next) => {
         try{
-            const links = await AdminModel.find();
+            const links = await LinksModel.find();
             return res.render('privacyPolicy', {links});
         }catch (err){
             next(err)
@@ -119,7 +119,7 @@ class IndexController {
             const skip = (page - 1) * limit;
 
             const totalWebsites = await WebsitesModel.countDocuments();
-            const links = await AdminModel.find();
+            const links = await LinksModel.find();
             const websites = await WebsitesModel.find().skip(skip).limit(limit)
             const advertising = await AdvertisingModel.find();
 
@@ -148,7 +148,7 @@ class IndexController {
                 ]
             });
 
-            const links = await AdminModel.find();
+            const links = await LinksModel.find();
             const advertising = await AdvertisingModel.find();
             const websites = await WebsitesModel.aggregate([
                 {
@@ -190,7 +190,7 @@ class IndexController {
                 siteType: 'javascript'
             });
 
-            const links = await AdminModel.find();
+            const links = await LinksModel.find();
             const advertising = await AdvertisingModel.find();
             const websites = await WebsitesModel.aggregate([
                 {
@@ -228,7 +228,7 @@ class IndexController {
                 siteType: 'nodeJs'
             });
 
-            const links = await AdminModel.find();
+            const links = await LinksModel.find();
             const advertising = await AdvertisingModel.find();
             const websites = await WebsitesModel.aggregate([
                 {
@@ -266,7 +266,7 @@ class IndexController {
                 siteType: 'reactJs'
             });
 
-            const links = await AdminModel.find();
+            const links = await LinksModel.find();
             const advertising = await AdvertisingModel.find();
             const websites = await WebsitesModel.aggregate([
                 {
@@ -304,7 +304,7 @@ class IndexController {
                 siteType: 'fullstack'
             });
 
-            const links = await AdminModel.find();
+            const links = await LinksModel.find();
             const advertising = await AdvertisingModel.find();
             const websites = await WebsitesModel.aggregate([
                 {
@@ -334,7 +334,7 @@ class IndexController {
 
     static favoritesView = async (req, res, next) => {
         try {
-            const links = await AdminModel.find();
+            const links = await LinksModel.find();
             const advertising = await AdvertisingModel.find();
 
             return res.render('favorites', {links, advertising});
@@ -352,7 +352,7 @@ class IndexController {
                 res.status(404).json({error: '404'})
             }
 
-            const links = await AdminModel.find();
+            const links = await LinksModel.find();
 
             return res.render('fileInfo', {siteInfo, links});
         }catch(err){

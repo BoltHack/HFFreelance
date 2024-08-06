@@ -148,10 +148,11 @@
     }
 
     .love{
-        width: 30px;
-        height: 30px;
+        width: 35px;
+        height: 32px;
         cursor: pointer;
         transition: transform 0.2s;
+        margin-top: 4px;
     }
     .love:hover{
         transform: scale(1.08);
@@ -196,7 +197,13 @@
 
             <div class="site-info">
                 <h2 style="color: #3c096c">Скачать zip-архив</h2>
-                <div style="display: flex; gap: 10px; margin: auto 0;" id="download-file">
+                <div style="display: flex; gap: 20px;">
+                    <div style="display: flex; gap: 10px; margin: auto 0;" id="download-file">
+                    </div>
+                    <div>
+                        <img src="/images/love.png" class="love" id="love-<%= siteInfo._id %>" data-id="<%= siteInfo._id %>" data-title="<%= siteInfo.title %>" data-type="<%= siteInfo.siteType %>" data-img="<%= siteInfo.fileImg %>">
+                        <img src="/images/alreadyLove.png" class="love" id="alreadyLove-<%= siteInfo._id %>" data-id="<%= siteInfo._id %>" data-title="<%= siteInfo.title %>" data-type="<%= siteInfo.siteType %>" data-img="<%= siteInfo.fileImg %>" hidden>
+                    </div>
                 </div>
             </div>
 
@@ -273,5 +280,6 @@
     }
 </script>
 <script src="/javascripts/advertising.js"></script>
+<script src="/javascripts/love.js"></script>
 </body>
 </html>

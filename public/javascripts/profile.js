@@ -1,43 +1,68 @@
 
 document.getElementById('togglePassword1').addEventListener('click', function () {
     let passwordField = document.getElementById('pwd');
-    let cpasswordField = document.getElementById('cpwd');
+    let cPasswordField = document.getElementById('cpwd');
+    let oldPasswordField = document.getElementById('oldPwd');
     let passwordFieldType = passwordField.getAttribute('type');
     if (passwordFieldType === 'password') {
         passwordField.setAttribute('type', 'text');
-        cpasswordField.setAttribute('type', 'text');
+        cPasswordField.setAttribute('type', 'text');
+        oldPasswordField.setAttribute('type', 'text');
         this.innerHTML = '&#128065;';
     } else {
         passwordField.setAttribute('type', 'password');
-        cpasswordField.setAttribute('type', 'password');
+        cPasswordField.setAttribute('type', 'password');
+        oldPasswordField.setAttribute('type', 'password');
         this.innerHTML = '&#128065;';
     }
 });
 
 function profilePerms(){
-    let profileImg = document.getElementById('userImage');
+    let profileImg = document.getElementById('userImage')
+    let userImageEdit = document.getElementById('userImageEdit')
     let homeId = idUser;
-    let email = localStorage.getItem('email');
 
-    let editImageBtn = document.querySelector('#editImageBtn');
-    let attachFile = document.querySelector('#attachFile');
-    let editImagePart = document.querySelector('#editImagePart');
-    let changeBtn = document.querySelector('#changeBtn');
-    let cancelChangeBtn = document.querySelector('#cancelChangeBtn');
+    let editImageBtn = document.getElementById('editImageBtn');
+    let attachFile = document.getElementById('attachFile');
+    let editImagePart = document.getElementById('editImagePart');
+    let changeBtn = document.getElementById('changeBtn');
+    let cancelChangeBtn = document.getElementById('cancelChangeBtn');
+
+    let changePasswordBtn = document.getElementById('changePasswordBtn');
+    let changePassword = document.getElementById('changePassword');
+
+    const barrier = document.createElement('barrier');
+
+    changePasswordBtn.addEventListener('click', () => {
+        barrier.innerHTML = `<div class="new-barrier"></div>`;
+        document.body.appendChild(barrier);
+        changePassword.hidden = false;
+    })
 
     editImageBtn.addEventListener('click', () => {
+        barrier.innerHTML = `<div class="new-barrier"></div>`;
+        document.body.appendChild(barrier);
         editImageBtn.hidden = true;
         editImagePart.hidden = false
+    })
+
+    barrier.addEventListener('click', () => {
+        document.body.removeChild(barrier);
+        editImageBtn.hidden = false;
+        editImagePart.hidden = true;
+        changePassword.hidden = true;
     })
 
     cancelChangeBtn.addEventListener('click', () => {
         editImageBtn.hidden = false;
         editImagePart.hidden = true;
+        document.body.removeChild(barrier);
     })
 
     attachFile.addEventListener('change', () => {
         let href = URL.createObjectURL(attachFile.files[0])
         profileImg.src = href
+        userImageEdit.src = href
 
         const reader = new FileReader();
         reader.readAsDataURL(attachFile.files[0]);
@@ -85,14 +110,12 @@ function perms(){
     let newsMenu = document.getElementById('newsMenu');
 
     let profile = document.getElementById('profile');
-    let changePassword = document.getElementById('changePassword');
     let news = document.getElementById('news');
 
     profileMenu.addEventListener('click', () => {
         profileMenu.style.backgroundColor = '#34495e'
         newsMenu.style.background = 'none'
         profile.hidden = false;
-        changePassword.hidden = false;
         news.hidden = true;
     })
 
@@ -100,7 +123,6 @@ function perms(){
         newsMenu.style.backgroundColor = '#34495e'
         profileMenu.style.background = 'none'
         news.hidden = false;
-        changePassword.hidden = true;
         profile.hidden = true;
     })
 }

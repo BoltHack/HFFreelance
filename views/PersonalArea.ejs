@@ -33,7 +33,7 @@
             <% if (user && user.id) { %>
             <h1>Профиль</h1>
             <div class="profile-info">
-                <img src="" class="profile-pic" id="userImage">
+                <img src="" class="profile-pic" id="userImage" style="cursor: pointer">
                 <div class="pers-info">
                     <h2 id="profileName"><%= user.name %></h2>
                     <p>Email: <%= user.email %></p>
@@ -51,10 +51,11 @@
             <div class="redaction">
                 <p>
                     <button id="editImageBtn">Сменить аватара</button>
+                    <button id="changePasswordBtn">Сменить Пароль</button>
                 </p>
                 <form action="/upload/<%= user.id %>" method="POST" enctype="multipart/form-data">
                     <section id="editImagePart" hidden>
-                        <p id="imageChangeError"></p>
+                        <img src="" class="profile-pic" id="userImageEdit" style="cursor: pointer">
                         <input type="file" name="file" id="attachFile">
                         <p>
                             <input type="button" value="Сохранить" id="changeBtn">
@@ -66,11 +67,12 @@
             <% } %>
         </section>
 
-        <section id="changePassword" class="section">
+        <section id="changePassword" class="changePassword-section" hidden>
             <h1>Смена пароля</h1>
             <p><%= user._id %></p>
             <form action="/changePassword/<%= user.id %>" method="POST">
                 <div class="password-container">
+                    <input type="password" name="oldPassword" id="oldPwd" placeholder="Старый пароль" minlength="6" maxlength="50" required>
                     <input type="password" name="password" id="pwd" placeholder="Новый пароль" minlength="6" maxlength="50" required>
                     <input type="password" name="confirmPassword" id="cpwd" placeholder="Повтор пароля" minlength="6" maxlength="50" required>
                     <span class="toggle-password" id="togglePassword1">&#128065;</span>
@@ -101,6 +103,8 @@
 <script src="/javascripts/script.js"></script>
 <script>
     const userImage = document.getElementById('userImage');
+    const userImageEdit = document.getElementById('userImageEdit');
     const img = localStorage.getItem('profileImage');
     userImage.src = img;
+    userImageEdit.src = img;
 </script>

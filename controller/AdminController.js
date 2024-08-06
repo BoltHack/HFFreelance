@@ -1,6 +1,6 @@
 const {UsersModel} = require("../models/UsersModel");
 const {NewsModel} = require("../models/NewsSchema");
-const {AdminModel} = require("../models/AdminModel");
+const {LinksModel} = require("../models/LinksModel");
 const {WebsitesModel} = require("../models/WebSitesModel");
 const {AdvertisingModel} = require("../models/AdvertisingModel");
 const bcrypt = require("bcrypt");
@@ -50,7 +50,7 @@ class AdminController {
         }catch(err){
             next(err)
         }
-        const links = await AdminModel.find();
+        const links = await LinksModel.find();
         return res.render('admin/sendLinks', {links});
     }
     static banMenuAdmin = async (req, res, next) => {
@@ -85,7 +85,7 @@ class AdminController {
             const skip = (page - 1) * limit;
 
             const totalWebsites = await WebsitesModel.countDocuments();
-            const links = await AdminModel.find();
+            const links = await LinksModel.find();
             const websites = await WebsitesModel.find().skip(skip).limit(limit);
 
             res.render('admin/allWebsites', {
@@ -96,7 +96,7 @@ class AdminController {
             });
 
 
-            // const links = await AdminModel.find();
+            // const links = await LinksModel.find();
             // const websites = await WebsitesModel.find()
             // return res.render('admin/allWebsites', {links, websites});
         }catch(err){
@@ -323,16 +323,16 @@ class AdminController {
 
     static sendLinksPostVk = async (req, res, next) => {
         try {
-            const linkElements = await AdminModel.find()
+            const linkElements = await LinksModel.find()
             const {vk} = req.body;
 
             if (linkElements.length === 0) {
-                const newLinkElements = new AdminModel({vk});
+                const newLinkElements = new LinksModel({vk});
                 await newLinkElements.save();
                 res.status(201).json({message: "Новый администратор добавлен", admin: newLinkElements});
             } else {
                 const id = linkElements[0]._id;
-                const updatedAdmin = await AdminModel.findByIdAndUpdate(
+                const updatedAdmin = await LinksModel.findByIdAndUpdate(
                     id,
                     {vk},
                     {new: true}
@@ -352,16 +352,16 @@ class AdminController {
 
     static sendLinksPostDiscord = async (req, res, next) => {
         try {
-            const linkElements = await AdminModel.find()
+            const linkElements = await LinksModel.find()
             const {discord} = req.body;
 
             if (linkElements.length === 0) {
-                const newLinkElements = new AdminModel({discord});
+                const newLinkElements = new LinksModel({discord});
                 await newLinkElements.save();
                 res.status(201).json({message: "Новый администратор добавлен", admin: newLinkElements});
             } else {
                 const id = linkElements[0]._id;
-                const updatedAdmin = await AdminModel.findByIdAndUpdate(
+                const updatedAdmin = await LinksModel.findByIdAndUpdate(
                     id,
                     {discord},
                     {new: true}
@@ -381,16 +381,16 @@ class AdminController {
 
     static sendLinksPostInstagram = async (req, res, next) => {
         try {
-            const linkElements = await AdminModel.find()
+            const linkElements = await LinksModel.find()
             const {instagram} = req.body;
 
             if (linkElements.length === 0) {
-                const newLinkElements = new AdminModel({instagram});
+                const newLinkElements = new LinksModel({instagram});
                 await newLinkElements.save();
                 res.status(201).json({message: "Новый администратор добавлен", admin: newLinkElements});
             } else {
                 const id = linkElements[0]._id;
-                const updatedAdmin = await AdminModel.findByIdAndUpdate(
+                const updatedAdmin = await LinksModel.findByIdAndUpdate(
                     id,
                     {instagram},
                     {new: true}
@@ -410,16 +410,16 @@ class AdminController {
 
     static sendLinksPostFacebook = async (req, res, next) => {
         try {
-            const linkElements = await AdminModel.find()
+            const linkElements = await LinksModel.find()
             const {facebook} = req.body;
 
             if (linkElements.length === 0) {
-                const newLinkElements = new AdminModel({facebook});
+                const newLinkElements = new LinksModel({facebook});
                 await newLinkElements.save();
                 res.status(201).json({message: "Новый администратор добавлен", admin: newLinkElements});
             } else {
                 const id = linkElements[0]._id;
-                const updatedAdmin = await AdminModel.findByIdAndUpdate(
+                const updatedAdmin = await LinksModel.findByIdAndUpdate(
                     id,
                     {facebook},
                     {new: true}
@@ -441,7 +441,7 @@ class AdminController {
         try {
             const {id} = req.params;
 
-            await AdminModel.findByIdAndUpdate(id, {$unset: {facebook: ""}})
+            await LinksModel.findByIdAndUpdate(id, {$unset: {facebook: ""}})
                 .then((user) => {
                     if (!user) {
                         return res.status(404).json({message: "Пользователь не найден"});
@@ -461,7 +461,7 @@ class AdminController {
         try {
             const {id} = req.params;
 
-            await AdminModel.findByIdAndUpdate(id, {$unset: {vk: ""}})
+            await LinksModel.findByIdAndUpdate(id, {$unset: {vk: ""}})
                 .then((user) => {
                     if (!user) {
                         return res.status(404).json({message: "Пользователь не найден"});
@@ -481,7 +481,7 @@ class AdminController {
         try {
             const {id} = req.params;
 
-            await AdminModel.findByIdAndUpdate(id, {$unset: {discord: ""}})
+            await LinksModel.findByIdAndUpdate(id, {$unset: {discord: ""}})
                 .then((user) => {
                     if (!user) {
                         return res.status(404).json({message: "Пользователь не найден"});
@@ -501,7 +501,7 @@ class AdminController {
         try {
             const {id} = req.params;
 
-            await AdminModel.findByIdAndUpdate(id, {$unset: {instagram: ""}})
+            await LinksModel.findByIdAndUpdate(id, {$unset: {instagram: ""}})
                 .then((user) => {
                     if (!user) {
                         return res.status(404).json({message: "Пользователь не найден"});

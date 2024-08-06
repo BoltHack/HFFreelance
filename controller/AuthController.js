@@ -107,21 +107,30 @@ class AuthController {
 
     static changePassword = async (req, res, next) => {
         try {
-            const { id } = req.params;
-            const { password, confirmPassword } = req.body;
+            const { id } = req.user;  // предположительно, id - это объект
+            const { oldPassword, password, confirmPassword } = req.body;
 
-            if (!password || !confirmPassword) {
-                throw new HttpErrors('Неверный адрес или пароль.');
+            const user = await UsersModel.findById(id);
+
+            if (!user) {
+                return res.render('error', { error: "Неверный старый пароль." });
             }
 
-            if(password !== confirmPassword) {
+            const pass = await bcrypt.compare(oldPassword, user.password);
+
+            if (!pass) {
+               throw new HttpErrors("Неверный старый пароль.");
+            }
+
+            if (!password || !confirmPassword) {
+                throw new HttpErrors('Пароль и подтверждение пароля обязательны.');
+            }
+
+            if (password !== confirmPassword) {
                 throw new HttpErrors('Пароли не совпадают.');
             }
 
-            if(password.length < 6 || password.length > 50){
-                throw new HttpErrors('Пароль должен содержать минимум 6 символов и максимум 50 символов.');
-            }
-            if(confirmPassword.length < 6 || confirmPassword.length > 50){
+            if (password.length < 6 || password.length > 50) {
                 throw new HttpErrors('Пароль должен содержать минимум 6 символов и максимум 50 символов.');
             }
 
@@ -137,12 +146,13 @@ class AuthController {
                 throw new HttpErrors('Пользователь не найден.');
             }
 
-            res.redirect('/')
+            res.redirect('/');
         } catch (e) {
             console.log(e);
             next(e);
         }
     }
+
 
 
 

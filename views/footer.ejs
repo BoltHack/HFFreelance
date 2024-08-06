@@ -81,9 +81,9 @@
                 <a href="/privacyPolicy">Политика конфиденциальности</a>
             </div>
             <div class="footer-contacts">
-                <h3>Контакты</h3>
                 <% if (links) { %>
                     <% links.forEach(linksItem => { %>
+                        <h3>Контакты</h3>
                         <% if(linksItem.vk) {%>
                             <a href="<%= linksItem.vk %>" target="_blank">VK</a>
                         <%}%>
@@ -97,9 +97,7 @@
                                 <a href="<%= linksItem.facebook %>" target="_blank">facebook</a>
                             <%}%>
                         <% }); %>
-                <% } else { %>
-                    <p>Новых ссылок пока нет.</p>
-                <% } %>
+                <%}%>
             </div>
         </div>
         <div class="line"></div>

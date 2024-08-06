@@ -1,31 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const loveButton = document.querySelectorAll('.love');
 
-    function checkLoveState() {
-        loveButton.forEach(button => {
-            const siteId = button.getAttribute('data-id');
-            const love = document.getElementById('love-' + siteId);
-            const alreadyLove = document.getElementById('alreadyLove-' + siteId);
-
-            let favorites = localStorage.getItem('favorites');
-            if (favorites) {
-                favorites = JSON.parse(favorites);
-                const favoritesIndex = favorites.findIndex(item => item.id === siteId);
-                if (favoritesIndex !== -1) {
-                    love.hidden = true;
-                    alreadyLove.hidden = false;
-                } else {
-                    love.hidden = false;
-                    alreadyLove.hidden = true;
-                }
-            } else {
-                love.hidden = false;
-                alreadyLove.hidden = true;
-            }
-        });
-    }
-    checkLoveState()
-
     loveButton.forEach(button => {
         button.addEventListener('click', function() {
             const siteId = this.getAttribute('data-id');

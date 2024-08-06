@@ -1,6 +1,6 @@
 const {Schema, model} = require("mongoose");
 
-const adminSchema = new Schema({
+const linksSchema = new Schema({
     vk: {
         type: String
     },
@@ -15,7 +15,7 @@ const adminSchema = new Schema({
     }
 });
 
-const AdminModel = model('admin', adminSchema);
+const LinksModel = model('links', linksSchema);
 
 
-module.exports = {AdminModel}
+module.exports = {LinksModel}

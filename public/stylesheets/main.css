@@ -4,7 +4,6 @@ body {
     padding: 0;
     display: flex;
     height: 100vh;
-    /*background-color: #f4f4f4;*/
     background-color: #e8e8e8;
     overflow-x: hidden;
 }
@@ -267,18 +266,17 @@ form button:hover {
 }
 
 .changePassword-section {
-    width: 600px;
+    flex-direction: column;
+    margin-top: 20px;
     background-color: #2a2a2a;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    list-style: none;
-    z-index: 4;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 400px;
+    border-radius: 10px;
+    z-index: 4;
+    padding: 30px;
 }
 .new-barrier{
     width: 100%;

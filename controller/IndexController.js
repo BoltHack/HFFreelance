@@ -3,20 +3,46 @@ const {NewsModel} = require("../models/NewsSchema");
 const {LinksModel} = require("../models/LinksModel");
 const {WebsitesModel} = require("../models/WebSitesModel");
 const {AdvertisingModel} = require('../models/AdvertisingModel');
-const httpErrors = require('http-errors')
+const {authenticateJWT} = require('../middlewares/jwtAuth');
+// const httpErrors = require('http-errors')
 class IndexController {
     static mainView = async (req, res, next) => {
-        try{
+        try {
             const links = await LinksModel.find();
-            return res.render('main', {links});
-        }catch(e) {
-            next(e)
+
+            if (req.cookies['token']) {
+                authenticateJWT(req, res, () => {
+                    const user = req.user;
+                    if (user.banned[0].banType === true) {
+                        res.redirect('/youAreBanned')
+                    }
+                    return res.render('main', {user, links});
+                });
+            }
+            else {
+                return res.render('main', {links});
+            }
+        } catch (e) {
+            next(e);
         }
     }
+
     static aboutUsView = async (req, res, next) => {
         try{
             const links = await LinksModel.find();
-            return res.render('aboutUs', {links});
+
+            if (req.cookies['token']) {
+                authenticateJWT(req, res, () => {
+                    const user = req.user;
+                    if (user.banned[0].banType === true) {
+                        res.redirect('/youAreBanned')
+                    }
+                    return res.render('aboutUs', {user, links});
+                });
+            }
+            else {
+                return res.render('aboutUs', {links});
+            }
         }catch (err){
             next(err)
         }
@@ -24,7 +50,19 @@ class IndexController {
     static rulesView = async (req, res, next) => {
         try{
             const links = await LinksModel.find();
-            return res.render('rules', {links});
+
+            if (req.cookies['token']) {
+                authenticateJWT(req, res, () => {
+                    const user = req.user;
+                    if (user.banned[0].banType === true) {
+                        res.redirect('/youAreBanned')
+                    }
+                    return res.render('rules', {user, links});
+                });
+            }
+            else {
+                return res.render('rules', {links});
+            }
         }catch (err){
             next(err)
         }
@@ -32,7 +70,19 @@ class IndexController {
     static privacyPolicyView = async (req, res, next) => {
         try{
             const links = await LinksModel.find();
-            return res.render('privacyPolicy', {links});
+
+            if (req.cookies['token']) {
+                authenticateJWT(req, res, () => {
+                    const user = req.user;
+                    if (user.banned[0].banType === true) {
+                        res.redirect('/youAreBanned')
+                    }
+                    return res.render('privacyPolicy', {user, links});
+                });
+            }
+            else {
+                return res.render('privacyPolicy', {links});
+            }
         }catch (err){
             next(err)
         }
@@ -71,9 +121,20 @@ class IndexController {
 
     static allReviewsView = async (req, res, next) => {
         try{
-            const {id} = req.params;
             const userInfo = await UsersModel.findById(id);
-            return res.render('allReviews', {userInfo});
+            const {id} = req.params;
+            if (req.cookies['token']) {
+                authenticateJWT(req, res, () => {
+                    const user = req.user;
+                    if (user.banned[0].banType === true) {
+                        res.redirect('/youAreBanned')
+                    }
+                    return res.render('allReviews', {user, userInfo});
+                });
+            }
+            else {
+                return res.render('allReviews', {userInfo});
+            }
         }catch (err){
             next(err)
         }
@@ -84,7 +145,18 @@ class IndexController {
     }
     static moreDetailsView = (req, res, next) => {
         try{
-            return res.render('moreDetails');
+            if (req.cookies['token']) {
+                authenticateJWT(req, res, () => {
+                    const user = req.user;
+                    if (user.banned[0].banType === true) {
+                        res.redirect('/youAreBanned')
+                    }
+                    return res.render('moreDetails', {user});
+                });
+            }
+            else {
+                return res.render('moreDetails');
+            }
         }catch (err){
             next(err)
         }
@@ -123,13 +195,31 @@ class IndexController {
             const websites = await WebsitesModel.find().skip(skip).limit(limit)
             const advertising = await AdvertisingModel.find();
 
-            return res.render('readyMadeSites', {
-                links,
-                websites,
-                advertising,
-                currentPage: page,
-                totalPages: Math.ceil(totalWebsites / limit)
-            });
+            if (req.cookies['token']) {
+                authenticateJWT(req, res, () => {
+                    const user = req.user;
+                    if (user.banned[0].banType === true) {
+                        res.redirect('/youAreBanned')
+                    }
+                    return res.render('readyMadeSites', {
+                        user,
+                        links,
+                        websites,
+                        advertising,
+                        currentPage: page,
+                        totalPages: Math.ceil(totalWebsites / limit)
+                    });
+                });
+            }
+            else {
+                return res.render('readyMadeSites', {
+                    links,
+                    websites,
+                    advertising,
+                    currentPage: page,
+                    totalPages: Math.ceil(totalWebsites / limit)
+                });
+            }
         }catch(err){
             next(err)
         }
@@ -167,13 +257,31 @@ class IndexController {
                 }
             ]);
 
-            return res.render('html-css-js', {
-                links,
-                websites,
-                advertising,
-                currentPage: page,
-                totalPages: Math.ceil(totalWebsites / limit)
-            });
+            if (req.cookies['token']) {
+                authenticateJWT(req, res, () => {
+                    const user = req.user;
+                    if (user.banned[0].banType === true) {
+                        res.redirect('/youAreBanned')
+                    }
+                    return res.render('html-css-js', {
+                        user,
+                        links,
+                        websites,
+                        advertising,
+                        currentPage: page,
+                        totalPages: Math.ceil(totalWebsites / limit)
+                    });
+                });
+            }
+            else {
+                return res.render('html-css-js', {
+                    links,
+                    websites,
+                    advertising,
+                    currentPage: page,
+                    totalPages: Math.ceil(totalWebsites / limit)
+                });
+            }
         } catch (err) {
             next(err);
         }
@@ -206,13 +314,31 @@ class IndexController {
                 }
             ])
 
-            return res.render('javascript', {
-                links,
-                websites,
-                advertising,
-                currentPage: page,
-                totalPages: Math.ceil(totalWebsites / limit)
-            });
+            if (req.cookies['token']) {
+                authenticateJWT(req, res, () => {
+                    const user = req.user;
+                    if (user.banned[0].banType === true) {
+                        res.redirect('/youAreBanned')
+                    }
+                    return res.render('javascript', {
+                        user,
+                        links,
+                        websites,
+                        advertising,
+                        currentPage: page,
+                        totalPages: Math.ceil(totalWebsites / limit)
+                    });
+                });
+            }
+            else {
+                return res.render('javascript', {
+                    links,
+                    websites,
+                    advertising,
+                    currentPage: page,
+                    totalPages: Math.ceil(totalWebsites / limit)
+                });
+            }
         } catch (err) {
             next(err);
         }
@@ -244,13 +370,31 @@ class IndexController {
                 }
             ])
 
-            return res.render('nodeJs', {
-                links,
-                websites,
-                advertising,
-                currentPage: page,
-                totalPages: Math.ceil(totalWebsites / limit)
-            });
+            if (req.cookies['token']) {
+                authenticateJWT(req, res, () => {
+                    const user = req.user;
+                    if (user.banned[0].banType === true) {
+                        res.redirect('/youAreBanned')
+                    }
+                    return res.render('nodeJs', {
+                        user,
+                        links,
+                        websites,
+                        advertising,
+                        currentPage: page,
+                        totalPages: Math.ceil(totalWebsites / limit)
+                    });
+                });
+            }
+            else {
+                return res.render('nodeJs', {
+                    links,
+                    websites,
+                    advertising,
+                    currentPage: page,
+                    totalPages: Math.ceil(totalWebsites / limit)
+                });
+            }
         }catch (err){
             next(err)
         }
@@ -282,13 +426,31 @@ class IndexController {
                 }
             ])
 
-            return res.render('reactJs', {
-                links,
-                websites,
-                advertising,
-                currentPage: page,
-                totalPages: Math.ceil(totalWebsites / limit)
-            });
+            if (req.cookies['token']) {
+                authenticateJWT(req, res, () => {
+                    const user = req.user;
+                    if (user.banned[0].banType === true) {
+                        res.redirect('/youAreBanned')
+                    }
+                    return res.render('reactJs', {
+                        user,
+                        links,
+                        websites,
+                        advertising,
+                        currentPage: page,
+                        totalPages: Math.ceil(totalWebsites / limit)
+                    });
+                });
+            }
+            else {
+                return res.render('reactJs', {
+                    links,
+                    websites,
+                    advertising,
+                    currentPage: page,
+                    totalPages: Math.ceil(totalWebsites / limit)
+                });
+            }
         }catch (err){
             next(err)
         }
@@ -320,13 +482,31 @@ class IndexController {
                 }
             ])
 
-            return res.render('fullstack', {
-                links,
-                websites,
-                advertising,
-                currentPage: page,
-                totalPages: Math.ceil(totalWebsites / limit)
-            });
+            if (req.cookies['token']) {
+                authenticateJWT(req, res, () => {
+                    const user = req.user;
+                    if (user.banned[0].banType === true) {
+                        res.redirect('/youAreBanned')
+                    }
+                    return res.render('fullstack', {
+                        user,
+                        links,
+                        websites,
+                        advertising,
+                        currentPage: page,
+                        totalPages: Math.ceil(totalWebsites / limit)
+                    });
+                });
+            }
+            else {
+                return res.render('fullstack', {
+                    links,
+                    websites,
+                    advertising,
+                    currentPage: page,
+                    totalPages: Math.ceil(totalWebsites / limit)
+                });
+            }
         }catch (err){
             next(err)
         }
@@ -337,7 +517,18 @@ class IndexController {
             const links = await LinksModel.find();
             const advertising = await AdvertisingModel.find();
 
-            return res.render('favorites', {links, advertising});
+            if (req.cookies['token']) {
+                authenticateJWT(req, res, () => {
+                    const user = req.user;
+                    if (user.banned[0].banType === true) {
+                        res.redirect('/youAreBanned')
+                    }
+                    return res.render('favorites', {user, links, advertising});
+                });
+            }
+            else {
+                return res.render('favorites', {links, advertising});
+            }
         }catch (err){
             next(err)
         }
@@ -354,27 +545,38 @@ class IndexController {
 
             const links = await LinksModel.find();
 
-            return res.render('fileInfo', {siteInfo, links});
+            if (req.cookies['token']) {
+                authenticateJWT(req, res, () => {
+                    const user = req.user;
+                    if (user.banned[0].banType === true) {
+                        res.redirect('/youAreBanned')
+                    }
+                    return res.render('fileInfo', {user, siteInfo, links});
+                });
+            }
+            else {
+                return res.render('fileInfo', {siteInfo, links});
+            }
         }catch(err){
             next(err)
         }
     }
 
-    static homeInfo = async (req, res, next) => {
-        try {
-            const user = await UsersModel.findOne({_id: req.user.id});
-            const userInfo = {
-                id: req.user.id,
-                name: user.name,
-                email: user.email,
-                image: user.image,
-            }
-            return res.json({userInfo})
-        } catch (e) {
-            console.log(e);
-            next(e)
-        }
-    }
+    // static homeInfo = async (req, res, next) => {
+    //     try {
+    //         const user = await UsersModel.findOne({_id: req.user.id});
+    //         const userInfo = {
+    //             id: req.user.id,
+    //             name: user.name,
+    //             email: user.email,
+    //             image: user.image,
+    //         }
+    //         return res.json({userInfo})
+    //     } catch (e) {
+    //         console.log(e);
+    //         next(e)
+    //     }
+    // }
 
     static userInfo = async(req, res, next) => {
         try {
@@ -465,7 +667,19 @@ class IndexController {
                 date: review.date
             })));
 
-            res.render('allReviews', { reviews });
+            // res.render('allReviews', { reviews });
+            if (req.cookies['token']) {
+                authenticateJWT(req, res, () => {
+                    const user = req.user;
+                    if (user.banned[0].banType === true) {
+                        res.redirect('/youAreBanned')
+                    }
+                    return res.render('allReviews', {user, reviews});
+                });
+            }
+            else {
+                return res.render('allReviews', {reviews});
+            }
         } catch (err) {
             next(err);
         }

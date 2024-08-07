@@ -1,113 +1,80 @@
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f9;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ошибка</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-    .errors {
-        text-align: center;
-        background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-        padding: 20px;
-        max-width: 500px;
-        width: 100%;
-    }
+        .container {
+            text-align: center;
+        }
 
-    h2 {
-        color: #e74c3c;
-        font-size: 24px;
-        margin: 0 0 20px;
-    }
+        .error-box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            min-width: 300px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
 
-    section {
-        margin-top: 20px;
-    }
+        .error-box h1 {
+            color: #d9534f;
+        }
 
-    .errorButton{
-        border: none;
-        background: none;
-        color: #24527a;
-        font-size: 15px;
-        cursor: pointer;
-    }
-    .errorButton:hover{
-        text-decoration: underline;
-    }
+        .error-box h5 {
+            color: #5a5a5a;
+        }
 
-    #section {
-        margin-top: 20px;
-    }
+        .error-box pre {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
 
-    h1 {
-        font-size: 20px;
-        color: #333;
-        word-wrap: break-word;
-        max-width: 500px;
-    }
+        .home-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #5cb85c;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
 
-    h5 {
-        color: #666;
-    }
+        .home-link:hover {
+            background-color: #4cae4c;
+        }
 
-    pre {
-        text-align: left;
-        background: #f9f9f9;
-        border: 1px solid #ddd;
-        padding: 10px;
-        border-radius: 4px;
-        overflow-x: auto;
-        word-wrap: break-word;
-        max-width: 500px;
-    }
-</style>
-
-<div class="errors">
-    <h2 id="err">Ой, кажется, у нас возникли проблемы :(</h2>
-    <section id="info">
-        <button id="onSec" class="errorButton">Подробнее</button>
-        <button id="back" class="errorButton">Назад</button>
-    </section>
-    <section id="section" hidden>
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Ошибка</h2>
+    <div class="error-box">
         <% if (!error.status) {%>
             <pre><%= error.message %></pre>
         <%} else {%>
                 <h1><%= message %></h1>
                 <h5>Статус ошибки: <%= error.status %></h5>
                 <pre><%= error.message %></pre>
-        <%}%>
-        <button id="closeInfo" class="errorButton">Закрыть</button>
-    </section>
+            <%}%>
+    </div>
+    <a href="/" class="home-link">Вернуться на главную</a>
 </div>
-
-<script>
-    const section = document.getElementById('section');
-    const info = document.getElementById('info');
-    const err = document.getElementById('err');
-    document.getElementById('back').addEventListener('click', () => {
-        // if(localStorage.getItem('ref') === 'refPersonalArea'){
-        //     window.history.back();
-        //     window.history.back();
-        // }
-        // else{
-            window.history.back();
-        // }
-    })
-    document.getElementById('onSec').addEventListener('click', () => {
-        section.hidden = false;
-        info.hidden = true;
-        err.hidden = true;
-    })
-
-    document.getElementById('closeInfo').addEventListener('click', () => {
-        section.hidden = true;
-        info.hidden = false;
-        err.hidden = false;
-    })
-</script>
+</body>
+</html>

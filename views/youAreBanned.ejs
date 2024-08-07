@@ -83,7 +83,7 @@
         <div id="description" hidden>
             <b style="text-align: center">Доп. информация</b><br>
             <p class="description"><%= user.banned[0].description %></p>
-            <a id="close">Закрыть</a>
+            <a id="close" style="text-decoration: underline">Закрыть</a>
         </div>
     <%}%>
     <form action="/requestUnban/<%= user.id %>" method="POST">

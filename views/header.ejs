@@ -39,7 +39,7 @@
         flex-wrap: wrap;
         position: absolute;
         top: 1%;
-        right: 10%;
+        right: 5%;
     }
     li{
         margin: 20px 10px;
@@ -115,8 +115,9 @@
     }
     details summary {
         color: #a7c957;
-        font-size: 18px;
-        font-weight: bold;
+        /*font-size: 18px;*/
+        /*font-weight: bold;*/
+        white-space: nowrap;
         outline: none;
         user-select: none;
     }
@@ -166,7 +167,20 @@
         <li><a href="#services" class="ha">Услуги</a></li>
         <li><a href="#reviews" class="ha">Отзывы</a></li>
         <li><a href="#footerSection" class="ha">Контакты</a></li>
-        <li class="ha" onclick="webDisplayInfo()" style="color: #a7c957">Бесплатные сайты</li>
+        <details>
+            <summary>Бесплатные сайты</summary>
+            <div>
+                <ul>
+                    <li><a href="/readyMadeSites/html-css-js" id="htmlCssJs">html, css, js</a></li>
+                    <li><a href="/readyMadeSites/javascript" id="javascript">javascript</a></li>
+                    <li><a href="/readyMadeSites/nodeJs" id="nodeJs">nodeJs</a></li>
+                    <li><a href="/readyMadeSites/reactJs" id="reactJs">reactJs</a></li>
+                    <li><a href="/readyMadeSites/fullstack" id="fullstack">fullstack</a></li>
+                    <li><a href="/readyMadeSites" id="allSites">Все типы</a></li>
+                </ul>
+            </div>
+        </details>
+<!--        <li class="ha" onclick="webDisplayInfo()" style="color: #a7c957">Бесплатные сайты</li>-->
     </ul>
     </div>
     <div id="types">

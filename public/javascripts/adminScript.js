@@ -1,3 +1,27 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const deleteBtn = document.querySelectorAll('.deleteAccountBtn');
+    const barrier = document.querySelector('.new-barrier');
+
+    deleteBtn.forEach(button => {
+        button.addEventListener('click', function () {
+            const dataId = this.getAttribute('data-id');
+            const deleteMenu = document.getElementById('deleteMenu-'+dataId);
+            const closeBtn = document.getElementById('closeBtn-'+dataId);
+            barrier.hidden = false;
+            deleteMenu.hidden = false;
+
+            closeBtn.addEventListener('click', () => {
+                barrier.hidden = true;
+                deleteMenu.hidden = true;
+            })
+            barrier.addEventListener('click', () => {
+                barrier.hidden = true;
+                deleteMenu.hidden = true;
+            })
+        })
+    })
+})
+
 function adminWindow(){
     const allUsers = document.getElementById('allUsers')
     const sendLinks = document.getElementById('sendLinks')

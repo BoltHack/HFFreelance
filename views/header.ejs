@@ -180,7 +180,6 @@
                 </ul>
             </div>
         </details>
-<!--        <li class="ha" onclick="webDisplayInfo()" style="color: #a7c957">Бесплатные сайты</li>-->
     </ul>
     </div>
     <div id="types">
@@ -203,28 +202,6 @@
     </div>
 </header>
 <%- include('back.ejs') %>
-<script>
-    function allPaths() {
-        const paths = {
-            '/': 'refMain',
-            '/moreDetails': 'refMoreDetails',
-            '/allReviews': 'refAllReviews',
-            '/aboutUs': 'refAboutUs',
-            '/rules': 'refRules',
-            '/privacyPolicy': 'refPrivacyPolicy',
-            '/PersonalArea': 'refPersonalArea',
-            '/readyMadeSites': 'refReadyMadeSites',
-        };
-
-        const pathname = window.location.pathname;
-        if (pathname in paths) {
-            localStorage.setItem('ref', paths[pathname]);
-        } else if (pathname.startsWith('/sendReviews/')) {
-            localStorage.setItem('ref', 'refSendReviews');
-        }
-    }
-
-    allPaths();
-</script>
 <script src="/javascripts/timer.js"></script>
 <script src="/javascripts/header.js"></script>
+<script src="/javascripts/paths.js"></script>

@@ -183,7 +183,7 @@ document.getElementById('changePasswordBtn').addEventListener(function () {
     fetch(`/changePassword/${homeId}`,{
         method: "POST",
         headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token")
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
         },
     })
         .then(response => {

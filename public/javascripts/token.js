@@ -33,6 +33,21 @@ async function getNewToken() {
             else if(ref === 'refFavorites'){
                 window.location.href = `/readyMadeSites/favorites`;
             }
+            else if(ref === 'refMoreDetails'){
+                window.location.href = `/moreDetails`;
+            }
+            else if(ref === 'refMain'){
+                window.location.href = `/`;
+            }
+            else if(ref === 'refAboutUs'){
+                window.location.href = `/aboutUs`;
+            }
+            else if(ref === 'refRules'){
+                window.location.href = `/rules`;
+            }
+            else if(ref === 'refPrivacyPolicy'){
+                window.location.href = `/privacyPolicy`;
+            }
         } else {
             console.error('Ошибка', response.status);
         }

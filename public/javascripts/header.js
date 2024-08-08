@@ -1,15 +1,15 @@
 function refs(){
     const refId = localStorage.getItem('id');
+    const ref = localStorage.getItem('ref');
     if (window.location.pathname === '/PersonalArea'){
-        const refPersonalArea = localStorage.getItem('ref');
-        if (refPersonalArea !== 'refPersonalArea'){
+        if (ref !== 'refPersonalArea'){
             localStorage.setItem('ref', 'refPersonalArea');
-            window.location.href = '/accessToken'
+            // window.location.href = '/accessToken'
+            console.log(1)
         }
     }
     if (window.location.pathname === `/sendReviews/${refId}`){
-        const refSendReviews = localStorage.getItem('ref');
-        if (refSendReviews !== 'refSendReviews'){
+        if (ref !== 'refSendReviews'){
             localStorage.setItem('ref', 'refSendReviews');
             window.location.href = '/accessToken'
         }
@@ -37,7 +37,6 @@ ha();
 const section = document.getElementById('headerSection');
 const back = document.getElementById('back');
 const types = document.getElementById('types');
-// const fileId = localStorage.getItem('id');
 function header(){
     if (window.location.pathname === '/'){
         section.hidden = false;
@@ -92,12 +91,31 @@ function headerColor(){
     }
 }
 headerColor();
-function webDisplayInfo() {
-    window.location.href = '/readyMadeSites'
-}
-
 
 function favoritesJoin() {
     localStorage.setItem('ref', 'refFavorites');
     window.location.href = '/readyMadeSites/favorites';
+}
+
+async function getNewToken() {
+    try {
+        const response = await fetch('/accessToken', {
+            method: 'POST',
+            credentials: 'include'
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const {token} = data;
+
+            if (!token) {
+                console.log('Токен не найден')
+                return;
+            }
+
+            localStorage.setItem('token', token);
+        }
+    } catch (error) {
+        console.error('Ошибка:', error);
+    }
 }

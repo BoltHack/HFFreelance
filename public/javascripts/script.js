@@ -164,36 +164,7 @@ function checkTokenFunc() {
             document.body.removeChild(barrier);
             document.body.removeChild(border);
         })
-        // window.open('https://web.telegram.org/a/', '_blank');
-
     }
-}
-
-function chatFunc(){
-    const barrier = document.createElement('barrier');
-    const border = document.createElement('border');
-
-    barrier.innerHTML = `<div class="new-barrier"></div>`;
-    border.innerHTML = `
-        <link rel="stylesheet" href="/stylesheets/style.css">
-        <div class="logout-border">
-        <img src="/images/discord.jpg">
-        <div class="yes-or-no">
-        <button class="no-btn" id="closeBtn">Нет</button>
-        <button class="yes-btn" onclick="window.location.href = '/test'">Да</button>
-        </div>
-        </div>`
-
-    document.body.appendChild(border);
-    document.body.appendChild(barrier);
-    barrier.addEventListener('click', () => {
-        document.body.removeChild(barrier);
-        document.body.removeChild(border);
-    })
-    document.getElementById('closeBtn').addEventListener('click', () => {
-        document.body.removeChild(barrier);
-        document.body.removeChild(border);
-    })
 }
 
 function moreDetails() {

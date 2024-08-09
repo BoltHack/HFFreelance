@@ -3,8 +3,12 @@ body{
     margin: 0;
     padding: 0;
     flex-direction: column;
+<<<<<<< HEAD
     height: 100vh;
     /*background-color: #e8e8e8;*/
+=======
+    max-height: 100vh;
+>>>>>>> c3d20c0bd548910655d6645354780930e040a8a9
     background-color: #dadde2;
     display: grid;
     grid-template-rows: auto 1fr auto;

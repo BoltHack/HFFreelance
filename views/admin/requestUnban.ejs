@@ -161,6 +161,7 @@
                     <p>id: <%= user._id %></p>
                     <p>Эл. Адрес: <%= user.email %></p>
                     <br>
+                    <p>Автор бана: <%= user.banned[0].author %></p>
                     <p class="reason">Забанен по причине: <%= user.banned[0].reason %></p>
                     <% if(user.banned && user.banned[0].description) {%>
                         <p class="description">Доп. инфа: <%= user.banned[0].description %></p>

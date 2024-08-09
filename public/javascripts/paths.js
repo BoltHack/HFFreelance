@@ -1,4 +1,4 @@
-function allPaths() {
+async function allPaths() {
     const paths = {
         '/': 'refMain',
         '/moreDetails': 'refMoreDetails',
@@ -13,7 +13,7 @@ function allPaths() {
     const pathname = window.location.pathname;
     if (pathname in paths) {
         localStorage.setItem('ref', paths[pathname]);
-        getNewToken()
+        await getNewToken()
     } else if (pathname.startsWith('/sendReviews/')) {
         localStorage.setItem('ref', 'refSendReviews');
     }

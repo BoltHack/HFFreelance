@@ -91,7 +91,7 @@
 <%- include('header.ejs') %>
 <main>
     <div class="review-container">
-        <h2>Напишите отзыв</h2>
+        <h2>Оставьте свой отзыв</h2>
         <form action="/sendReviews/<%= user.id %>" method="POST" id="reviewForm">
             <div class="form-group">
                 <textarea id="message" name="message" placeholder="Ваш отзыв" maxlength="150" required></textarea>

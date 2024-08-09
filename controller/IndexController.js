@@ -106,6 +106,7 @@ class IndexController {
         try {
             const user = req.user;
             const news = await NewsModel.find();
+            const links = await LinksModel.find();
 
             const review = await UsersModel.findOne({ _id: user.id});
 
@@ -113,7 +114,7 @@ class IndexController {
                 res.redirect('/youAreBanned')
             }
 
-            return res.render('PersonalArea', {user, news, review});
+            return res.render('PersonalArea', {user, links, news, review});
         }catch (err){
             next(err)
         }
@@ -143,19 +144,20 @@ class IndexController {
     static getTokenView = (req, res, next) => {
         return res.render('getToken');
     }
-    static moreDetailsView = (req, res, next) => {
+    static moreDetailsView = async (req, res, next) => {
         try{
+            const links = await LinksModel.find();
             if (req.cookies['token']) {
                 authenticateJWT(req, res, () => {
                     const user = req.user;
                     if (user.banned[0].banType === true) {
                         res.redirect('/youAreBanned')
                     }
-                    return res.render('moreDetails', {user});
+                    return res.render('moreDetails', {user, links});
                 });
             }
             else {
-                return res.render('moreDetails');
+                return res.render('moreDetails', {links});
             }
         }catch (err){
             next(err)

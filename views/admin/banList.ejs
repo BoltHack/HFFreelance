@@ -173,6 +173,11 @@
                             <button class="unban-btn">Разблокировать</button>
                         </form>
                     </div>
+                    <p>Причина бана: <%= user.banned[0].reason %></p>
+                    <p>Автор бана: <%= user.banned[0].author %></p>
+                    <% if(user.banned[0].description) {%>
+                        <p>Доп. информация: <%= user.banned[0].description %></p>
+                    <%}%>
                     <img src="data:image/jpeg;base64,<%= user.image %>" alt="User Image" class="img">
                     <br>
                     <form action="/admin/deleteUserAdmin/<%= user._id %>" method="POST">

@@ -283,7 +283,7 @@
                             </div>
                         <% } %>
                     <% } else { %>
-                        <p>Заблокирован: отсутствует</p>
+                        <p>Заблокирован</p>
                     <% } %>
                     <img src="data:image/jpeg;base64,<%= user.image %>" alt="User Image" class="img">
                     <br>
@@ -309,6 +309,10 @@
             </li>
         <% }) %>
     <% } else { %>
+            <br>
+            <br>
+            <br>
+            <br>
         <p class="users-not-found">Пользователей не найдено.</p>
     <% } %>
 </ul>

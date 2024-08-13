@@ -1,8 +1,8 @@
 const express = require('express');
 const {
     mainView, aboutUsView, rulesView, privacyPolicyView, sendReviewsMenuView, displayAllReviews, deleteUser,
-    deleteReview, PersonalAreaView, changeImage, sendReview, allReviewsView, getTokenView, moreDetailsView,
-    youAreBannedView, requestUnban, requestErrorView, reviewErrorView, readyMadeSitesView, downloadFile,
+    deleteReview, PersonalAreaView, changeImage, sendReview, getTokenView, moreDetailsView,
+    youAreBannedView, requestUnban, readyMadeSitesView, downloadFile,
     fileInfoView, htmlSitesView, javascriptSitesView, fullstackSitesView, nodeJsSitesView, reactJsSitesView,
     favoritesView
 } = require('../controller/IndexController');
@@ -19,14 +19,12 @@ router.get('/', mainView);
 router.get('/aboutUs', aboutUsView);
 router.get('/rules', rulesView);
 router.get('/privacyPolicy', privacyPolicyView);
-router.get('/allReviews', displayAllReviews, allReviewsView);
+router.get('/allReviews', displayAllReviews);
 router.get('/accessToken', getTokenView);
 router.get('/sendReviews/:id', authenticateJWT, sendReviewsMenuView);
 router.get('/PersonalArea', authenticateJWT, PersonalAreaView);
 router.get('/moreDetails',  moreDetailsView);
 router.get('/youAreBanned', authenticateJWT, youAreBannedView);
-router.get('/requestError', requestErrorView);
-router.get('/reviewError', reviewErrorView);
 router.get('/readyMadeSites', readyMadeSitesView);
 router.get('/readyMadeSites/html-css-js', htmlSitesView);
 router.get('/readyMadeSites/javascript', javascriptSitesView);
@@ -38,7 +36,7 @@ router.get('/fileInfo/:id', fileInfoView);
 
 router.post('/sendReviews/:id', authenticateJWT, sendReview);
 router.post('/upload/:id', authenticateJWT, verifyToken, changeImage);
-router.post('/deleteAccount/:id', authenticateJWT, deleteUser, verifyToken, accessToken);
+router.post('/deleteAccount/:id', authenticateJWT, deleteUser, accessToken);
 router.post('/deleteReview/:id', authenticateJWT, deleteReview);
 router.post('/changePassword/:id', authenticateJWT, changePassword);
 router.post('/accessToken', accessToken);

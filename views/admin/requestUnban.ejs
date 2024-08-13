@@ -166,7 +166,7 @@
                     <% if(user.banned && user.banned[0].description) {%>
                         <p class="description">Доп. инфа: <%= user.banned[0].description %></p>
                     <%} else {%>
-                        Доп. инфа: Отсутствует
+                        <p>Доп. инфа: Отсутствует</p>
                     <%}%>
                     <br>
                     <% if (user.requestUnban && user.requestUnban.length > 0) { %>
@@ -183,7 +183,7 @@
                             </div>
                         <% }) %>
                     <% } else { %>
-                        <p>За: отсутствует</p>
+                        <p>Заявка: отсутствует</p>
                     <% } %>
                 </div>
             </li>

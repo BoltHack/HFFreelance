@@ -28,14 +28,11 @@
             min-width: 300px;
             max-width: 500px;
             margin: 0 auto;
+            word-wrap: break-word;
         }
 
-        .error-box h1 {
+        .error-box h4 {
             color: #d9534f;
-        }
-
-        .error-box h5 {
-            color: #5a5a5a;
         }
 
         .error-box pre {
@@ -65,14 +62,8 @@
 <body>
 <div class="container">
     <div class="error-box">
-        <h2>Ошибка</h2>
-        <% if (!error.status) {%>
-            <pre><%= error.message %></pre>
-        <%} else {%>
-                <h1><%= message %></h1>
-                <h5>Статус ошибки: <%= error.status %></h5>
-                <pre><%= error.message %></pre>
-            <%}%>
+        <h2>Возникла ошибка</h2>
+        <h4><%= message %></h4>
     </div>
     <a href="/" class="home-link">Вернуться на главную</a>
     <a href="#" class="home-link" onclick="window.history.back()">Назад</a>

@@ -4,6 +4,9 @@ const {LinksModel} = require("../models/LinksModel");
 const {WebsitesModel} = require("../models/WebSitesModel");
 const {AdvertisingModel} = require('../models/AdvertisingModel');
 const {authenticateJWT} = require('../middlewares/jwtAuth');
+const bcrypt = require("bcrypt");
+const HttpErrors = require("http-errors");
+const http = require("http");
 // const httpErrors = require('http-errors')
 class IndexController {
     static mainView = async (req, res, next) => {
@@ -120,27 +123,6 @@ class IndexController {
         }
     };
 
-    static allReviewsView = async (req, res, next) => {
-        try{
-            const userInfo = await UsersModel.findById(id);
-            const {id} = req.params;
-            if (req.cookies['token']) {
-                authenticateJWT(req, res, () => {
-                    const user = req.user;
-                    if (user.banned[0].banType === true) {
-                        res.redirect('/youAreBanned')
-                    }
-                    return res.render('allReviews', {user, userInfo});
-                });
-            }
-            else {
-                return res.render('allReviews', {userInfo});
-            }
-        }catch (err){
-            next(err)
-        }
-    }
-
     static getTokenView = (req, res, next) => {
         return res.render('getToken');
     }
@@ -167,21 +149,7 @@ class IndexController {
         try {
             const user = req.user;
             return res.render('youAreBanned', {user});
-        }catch(err){
-            next(err)
-        }
-    }
-    static requestErrorView = (req, res, next) => {
-        try {
-            return res.render('requestError');
-        }catch(err){
-            next(err)
-        }
-    }
-    static reviewErrorView = (req, res, next) => {
-        try {
-            return res.render('reviewError');
-        }catch(err){
+        } catch (err) {
             next(err)
         }
     }
@@ -564,22 +532,6 @@ class IndexController {
         }
     }
 
-    // static homeInfo = async (req, res, next) => {
-    //     try {
-    //         const user = await UsersModel.findOne({_id: req.user.id});
-    //         const userInfo = {
-    //             id: req.user.id,
-    //             name: user.name,
-    //             email: user.email,
-    //             image: user.image,
-    //         }
-    //         return res.json({userInfo})
-    //     } catch (e) {
-    //         console.log(e);
-    //         next(e)
-    //     }
-    // }
-
     static userInfo = async(req, res, next) => {
         try {
             const { id } = req.params;
@@ -622,7 +574,7 @@ class IndexController {
             const user = await UsersModel.findById(id);
 
             if (user.reviews && user.reviews.length > 0) {
-                return res.redirect('/reviewError')
+                return res.render('error', {message: "Неверный адрес или пароль."});
             }
 
             user.reviews.push({ review: message, grade });
@@ -669,7 +621,6 @@ class IndexController {
                 date: review.date
             })));
 
-            // res.render('allReviews', { reviews });
             if (req.cookies['token']) {
                 authenticateJWT(req, res, () => {
                     const user = req.user;
@@ -690,27 +641,37 @@ class IndexController {
     static deleteUser = async (req, res, next) => {
         try {
             const { id } = req.params;
-            const permUser = req.user;
+            const {password} = req.body;
+            const user = await UsersModel.findById(id);
 
-            const user = await UsersModel.findByIdAndDelete(id);
-
-            if (permUser.banned[0].banType === true) {
-                res.status(404).json({ message: "Пользователь заблокирован" });
-                return res.redirect('/youAreBanned')
-            }
             if (!user) {
-                return res.status(404).json({ message: "Пользователь не найден" });
+                return res.render('error', {message: "Пользователь не найден."});
             }
 
-            res.clearCookie('token', { path: '/' });
-            res.clearCookie('refreshToken', { path: '/' });
+            const pass = await bcrypt.compare(password, user.password);
 
-            return res.status(200).json({ message: "Пользователь успешно удален" });
+            if (!pass) {
+                return res.render('error', {message: "Неверный пароль."});
+            }
+            await UsersModel.findByIdAndDelete(id);
+            res.clearCookie('token');
+            res.clearCookie('refreshToken');
+            console.log('delete', id)
+            res.send(
+                `<script>
+                    function localstorageClear(){
+                        localStorage.clear();
+                        window.location.href = '/auth/register'
+                    }
+                    localstorageClear()
+                </script>`
+            )
         } catch (error) {
             console.error(error);
             return res.status(500).json({ error: error.message });
         }
     }
+
 
 
     static deleteReview = async (req, res, next) => {

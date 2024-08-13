@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function (){
                     localStorage.setItem('name', user.name);
                     localStorage.setItem('profileImage', 'data:image/png;base64,' + user.image);
                     localStorage.setItem('id', user._id);
+                    localStorage.setItem('ref', 'refMain');
                     setTimeout(function () {
                         window.location.href = `/`;
                         setTimeout(function () {

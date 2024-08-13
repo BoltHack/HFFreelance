@@ -128,31 +128,14 @@ function perms(){
 }
 perms()
 
-function deleteAccount() {
-    const homeId = idUser;
-    fetch(`/deleteAccount/${homeId}`, {
-        method: "POST",
-        headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem("token")
-        },
-    })
-        .then(response => {
-            if (response.ok) {
-                localStorage.setItem('ref', 'refPersonalArea');
-                window.location.href = '/accessToken';
-                localStorage.clear();
-                window.location.href = '/auth/register';
-            } else {
-                response.text().then(errorMessage => {
-                    dynamicMenu("Ошибка при удалении учетной записи: " + errorMessage);
-                });
-            }
-        })
-        .catch(error => {
-            dynamicMenu('Произошла ошибка при отправке запроса:', error);
-            dynamicMenu("Произошла ошибка при отправке запроса: " + error.message);
-        });
-}
+document.querySelectorAll('form').forEach(function(form) {
+    form.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+        }
+    });
+});
+
 
 function deleteReview() {
     const homeId = idUser;
@@ -168,7 +151,7 @@ function deleteReview() {
                 window.location.href = '/accessToken';
             } else {
                 response.text().then(errorMessage => {
-                    // dynamicMenu("Ошибка: " + errorMessage);
+                    console.log("Ошибка: " + errorMessage);
                 });
             }
         })

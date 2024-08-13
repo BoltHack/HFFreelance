@@ -44,7 +44,7 @@ const validateLogin = async (req, res, next) => {
 
         const existingUser = await UsersModel.findOne({ email });
         if (!existingUser) {
-            return res.status(400).json({ error: 'Адрес электронной почти не найден.' });
+            return res.status(400).json({ error: 'Адрес электронной почты не найден.' });
         }
 
         const passwordMatch = await bcrypt.compare(password, existingUser.password);

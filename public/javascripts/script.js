@@ -1,5 +1,4 @@
 const mainContainer = document.getElementById('mainContainer');
-const myId = document.getElementById('id')
 const myToken = localStorage.getItem('token');
 
 function homePageFunction() {
@@ -183,7 +182,7 @@ function weHaveAnAccount(){
         accountImg.hidden = false
     }
     else{
-        account.textContent = 'Мой аккаунт'
+        // account.textContent = 'Мой аккаунт'
         accountImg.hidden = true;
     }
 }
@@ -211,32 +210,21 @@ document.getElementById('invincibleReviews').addEventListener('click', () => {
     moreReviews.hidden = false;
 })
 
-
-
 function deleteAccountMenu() {
-    const barrier = document.createElement('barrier');
-    const border = document.createElement('border');
+    const barrier = document.querySelector('.new-barrier');
+    const border = document.querySelector('.popup');
+    const close = document.getElementById('close');
 
-    barrier.innerHTML = `<div class="new-barrier"></div>`;
-    border.innerHTML = `
-        <link rel="stylesheet" href="/stylesheets/style.css">
-        <div class="logout-border">
-        <p style="text-align: center; color: white; margin: 30px 0; padding: 10px;">Вы уверены, что хотите удалить свою учётную запись?</p>
-        <div class="yes-or-no">
-        <button class="no-btn" id="closeBtn">Нет</button>
-        <button class="yes-btn" onclick="deleteAccount()">Да</button>
-        </div>
-        </div>`
+    barrier.hidden = false;
+    border.hidden = false;
 
-    document.body.appendChild(border);
-    document.body.appendChild(barrier);
     barrier.addEventListener('click', () => {
-        document.body.removeChild(barrier);
-        document.body.removeChild(border);
+        barrier.hidden = true;
+        border.hidden = true;
     })
-    document.getElementById('closeBtn').addEventListener('click', () => {
-        document.body.removeChild(barrier);
-        document.body.removeChild(border);
+    close.addEventListener('click', () => {
+        barrier.hidden = true;
+        border.hidden = true;
     })
 }
 

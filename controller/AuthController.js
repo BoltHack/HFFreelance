@@ -107,14 +107,10 @@ class AuthController {
 
     static changePassword = async (req, res, next) => {
         try {
-            const { id } = req.user;  // предположительно, id - это объект
+            const { id } = req.user;
             const { oldPassword, password, confirmPassword } = req.body;
 
             const user = await UsersModel.findById(id);
-
-            if (!user) {
-                return res.render('error', { error: "Неверный старый пароль." });
-            }
 
             const pass = await bcrypt.compare(oldPassword, user.password);
 

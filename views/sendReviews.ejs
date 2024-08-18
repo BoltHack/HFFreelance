@@ -95,7 +95,7 @@
         <form action="/sendReviews/<%= user.id %>" method="POST" id="reviewForm">
             <div class="form-group">
                 <textarea id="message" name="message" placeholder="Ваш отзыв" maxlength="150" required></textarea>
-                <input id="grade" type="number" name="grade" placeholder="Оценка" min="1" max="5">
+                <input id="grade" type="number" name="grade" placeholder="Оценка (1-5)" min="1" max="5">
             </div>
             <button type="submit" id="sendReview">Отправить</button>
         </form>

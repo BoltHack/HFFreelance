@@ -86,7 +86,11 @@
 <main>
     <div class="news-container">
         <h2>Напишите новость</h2>
-        <form action="/admin/sendNews" method="POST" id="newsForm">
+        <form action="/admin/sendNews" method="POST" id="newsForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="image">Картина:</label>
+                <input type="file" id="image" name="image">
+            </div>
             <div class="form-group">
                 <label for="title">Заголовок новости:</label>
                 <input type="text" id="title" name="title" placeholder="Введите заголовок новости" required>

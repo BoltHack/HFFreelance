@@ -44,6 +44,7 @@ async function accessToken(req, res, next) {
             }, JWTSecret, { expiresIn: '15m' });
 
             await res.cookie('token', newAccessToken, { httpOnly: true, secure: true, maxAge: parseMaxAge('15m') });
+
             return res.json({ token: newAccessToken });
         });
     } catch (err) {

@@ -18,13 +18,14 @@
             <li id="profileMenu"><a href="#profilePage">Мой профиль</a></li>
 
             <li id="newsMenu"><a href="#news">Новости</a></li>
+<!--            <li><a href="#newsMenu" onclick="newsMenu()">Последние новости</a></li>-->
             <br>
             <% if (user.role === 'Admin') {%>
                 <li><a onclick="admin()">Админ панель</a></li>
             <br>
             <% } %>
             <li><a href="/">В главное меню</a></li>
-            <li><a onclick="deleteAccountMenu()" style="cursor:pointer;">Удалить Уч. запись</a></li>
+            <li><a href="#deleteAccount" onclick="deleteAccountMenu()" style="cursor:pointer;">Удалить Уч. запись</a></li>
             <li><a href="#logout" onclick="logoutMenu()">Выйти</a></li>
         </ul>
     </aside>
@@ -35,7 +36,7 @@
             <div class="profile-info">
                 <img src="" class="profile-pic" id="userImage" style="cursor: pointer">
                 <div class="pers-info">
-                    <h2 id="profileName"><%= user.name %></h2>
+                    <h2 style="margin-left: 100px;"><%= user.name %></h2>
                     <p>Email: <%= user.email %></p>
                     <p>Дата регистрации: <%= user.registerDate %></p>
                     <% if(review && review.reviews && review.reviews.length > 0 && review.reviews[0].review) {%>
@@ -68,26 +69,40 @@
         </section>
 
         <div id="changePassword" class="changePassword-section" hidden>
-            <h1 style="color: white; text-align: center">Сменить пароль</h1>
-            <p><%= user._id %></p>
-            <form action="/changePassword/<%= user.id %>" method="POST">
-                <div class="password-container">
+            <div class="password-container">
+                <h1 style="color: white; text-align: center">Сменить пароль</h1>
+                <p><%= user._id %></p>
+                <form action="/changePassword/<%= user.id %>" method="POST">
                     <input type="password" name="oldPassword" id="oldPwd" placeholder="Старый пароль" minlength="6" maxlength="50" required>
                     <input type="password" name="password" id="pwd" placeholder="Новый пароль" minlength="6" maxlength="50" required>
                     <input type="password" name="confirmPassword" id="cpwd" placeholder="Повтор пароля" minlength="6" maxlength="50" required>
                     <span class="toggle-password" id="togglePassword1">&#128065;</span>
-                </div>
-                <button id="changePasswordBtn">Сменить пароль</button>
-            </form>
+                    <button>Сменить пароль</button>
+                </form>
+            </div>
         </div>
+
+<!--        <section class="newsMenu-section" hidden>-->
+<!--            <div class="newsMenu-item">-->
+<!--                <% if (news && news.length) { %>-->
+<!--                    <img class="newsMenu-image" src="data:image/jpeg;base64,<%= news[news.length - 1].image %>">-->
+<!--                    <p class="newsMenu-title"><%= news[news.length - 1].title %></p>-->
+<!--                    <p class="newsMenu-content"><%= news[news.length - 1].content %></p>-->
+<!--                    <p class="newsMenu-date"><%= news[news.length - 1].date %></p>-->
+<!--                <% } %>-->
+<!--            </div>-->
+<!--        </section>-->
 
         <section id="news" hidden>
             <h2 class="center">Лента новостей</h2>
             <% if (news && news.length > 0) { %>
                 <ul>
-                    <% news.forEach(newsItem => { %>
+                    <% news.reverse().forEach(newsItem => { %>
                         <li class="news-section">
                             <h3 class="news-title"><%= newsItem.title %></h3>
+                            <% if(newsItem.image) {%>
+                            <img src="data:image/jpeg;base64,<%= newsItem.image %>" class="news-image">
+                            <%}%>
                             <p class="news-content"><%= newsItem.content %></p>
                             <p class="date"><%= newsItem.date %></p>
                         </li>
@@ -114,9 +129,8 @@
             <label class="title">Удаление аккаунта <%= user.email %>.</label>
             <span class="subtitle">Чтобы удалить аккаунт, нужно ввести текущий пароль от аккаунта.</span>
         </div>
-
         <div style="display: block">
-            <form action="/deleteAccount/<%= user.id %>" method="post">
+            <form action="/deleteAccount/<%= user.id %>" method="post" id="deleteForm">
                 <input placeholder="Введите пароль" name="password" type="password" class="input_field" style="margin-top: 20px;" required>
                 <button type="submit" class="yes-btn" style="width: 100px;">Удалить</button>
             </form>

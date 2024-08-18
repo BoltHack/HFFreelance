@@ -241,7 +241,15 @@ class AdminController {
         try {
             const {title, content} = req.body;
 
+            if (!req.files || !req.files.image) {
+                return res.status(400).json({ error: 'Ошибка. Не удалось загрузить файл.' });
+            }
+
+            const image = req.files.image;
+            const base64Image = image.data.toString('base64');
+
             const newNews = new NewsModel({
+                image: base64Image,
                 title: title,
                 content: content
             });

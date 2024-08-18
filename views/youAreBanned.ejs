@@ -1,111 +1,180 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вы заблокированы</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f4f4f4;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            color: #333;
         }
+
         .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            max-width: 400px;
+            background-color: #ffffff;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            max-width: 420px;
+            width: 100%;
             text-align: center;
+            transition: transform 0.3s ease;
         }
+
         h1 {
             color: #e74c3c;
+            font-size: 24px;
+            margin-bottom: 20px;
         }
+
         p {
             margin: 20px 0;
             font-size: 1.1em;
+            line-height: 1.6;
         }
+
         form {
             display: flex;
             flex-direction: column;
+            gap: 10px;
         }
+
         input[type="text"],
         input[type="email"],
         textarea {
-            padding: 10px;
-            margin: 10px 0;
+            padding: 12px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            max-width: 400px;
-            max-height: 300px;
             box-sizing: border-box;
+            width: 100%;
+            font-size: 1em;
         }
+
+        textarea {
+            resize: vertical;
+        }
+
         button {
-            padding: 10px;
+            padding: 12px;
             background-color: #3498db;
             color: #fff;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            margin-top: 10px;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
         }
+
         button:hover {
             background-color: #2980b9;
         }
-        a{
+
+        a {
             cursor: pointer;
-            text-decoration: none
-        ;
+            text-decoration: none;
+            color: #3498db;
+            transition: color 0.3s ease;
         }
-        .description{
-            width: 400px;
-            word-wrap: break-word;
-            font-size: 15px;
+
+        .accessToken{
+            color: #4a00e0;
         }
-        .banMessage{
-            width: 400px;
+
+        a:hover {
+            color: #2980b9;
+        }
+
+        .description,
+        .banMessage {
             word-wrap: break-word;
+            font-size: 1em;
+        }
+
+        #description,
+        #requestBanForm {
+            display: none;
+        }
+
+        .more-details {
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
     </style>
 </head>
+
 <body>
 <div class="container">
     <h1>Вы заблокированы</h1>
-    <div></div>
-    <p class="banMessage"><%= user.name %>, к сожалению, ваш аккаунт был заблокирован по причине: "<%= user.banned[0].reason %>".</p>
-    <p>Вы пожете подать заявку на апелляцию по форме ниже.</p>
-    <% if(user.banned[0].description) {%>
-        <a id="more" style="text-decoration: underline">Доп. информация</a>
-        <div id="description" hidden>
-            <b style="text-align: center">Доп. информация</b><br>
-            <p class="description"><%= user.banned[0].description %></p>
-            <a id="close" style="text-decoration: underline">Закрыть</a>
+    <p class="banMessage"><%= user.name %>, к сожалению, ваш аккаунт был заблокирован по причине:
+        "<%= user.banned[0].reason %>".
+    </p>
+    <% if(user.banned[0].description) { %>
+        <div class="more-details">
+            <a id="more" onclick="moreDetails()">Доп. информация</a>
         </div>
-    <%}%>
-    <form action="/requestUnban/<%= user.id %>" method="POST">
-        <input type="email" name="email" placeholder="Ваш email" value="<%= user.email %>" readonly>
-        <textarea name="message" rows="4" placeholder="Почему вы считаете, что должны быть разбанены" maxlength="100" required></textarea>
-        <button type="submit">Отправить заявку</button>
-    </form>
+        <div id="description" class="fade-in">
+            <b>Доп. информация</b><br>
+            <p class="description"><%= user.banned[0].description %></p>
+            <a id="close" onclick="closeAll()">Закрыть</a>
+        </div>
+    <% } %>
+    <p>Вы можете подать заявку на апелляцию по форме ниже.</p>
+    <a id="requestBan" onclick="request()">Подать заявку</a>
+    <div id="requestBanForm" class="fade-in">
+        <form action="/requestUnban/<%= user.id %>" method="POST">
+            <input type="email" name="email" placeholder="Ваш email" value="<%= user.email %>" readonly>
+            <textarea name="message" rows="4" placeholder="Почему вы считаете, что должны быть разбанены"
+                      maxlength="100" required></textarea>
+            <button type="submit">Отправить заявку</button>
+        </form>
+    </div>
     <br>
-    <a href="/accessToken">Попробовать войти снова</a>
+    <br>
+    <a href="/accessToken" class="accessToken">Попробовать войти снова</a>
 </div>
+
 <script>
     const description = document.getElementById('description');
     const more = document.getElementById('more');
+    const requestBan = document.getElementById('requestBan');
+    const requestBanForm = document.getElementById('requestBanForm');
 
-    document.getElementById('more').addEventListener('click', () =>{
-        description.hidden = false
-        more.hidden = true
-    })
-    document.getElementById('close').addEventListener('click', () =>{
-        description.hidden = true
-        more.hidden = false
-    })
+    function moreDetails() {
+        description.style.display = 'block';
+        more.style.display = 'none';
+    }
+
+    function closeAll() {
+        description.style.display = 'none';
+        more.style.display = 'block';
+    }
+
+    function request() {
+        requestBanForm.style.display = 'block';
+        requestBan.style.display = 'none';
+    }
 </script>
 </body>
+
 </html>

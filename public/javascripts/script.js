@@ -228,6 +228,24 @@ function deleteAccountMenu() {
     })
 }
 
+function newsMenu() {
+    const barrier = document.querySelector('.new-barrier');
+    const border = document.querySelector('.newsMenu');
+    const close = document.getElementById('close');
+
+    barrier.hidden = false;
+    border.hidden = false;
+
+    barrier.addEventListener('click', () => {
+        barrier.hidden = true;
+        border.hidden = true;
+    })
+    close.addEventListener('click', () => {
+        barrier.hidden = true;
+        border.hidden = true;
+    })
+}
+
 function deleteReviewMenu() {
     const barrier = document.createElement('barrier');
     const border = document.createElement('border');

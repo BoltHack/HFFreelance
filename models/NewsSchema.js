@@ -10,6 +10,10 @@ const day = currentDate.getDate().toString().padStart(2, '0');
 const dateOnly = `${month}.${day}.${year}`;
 
 const NewsSchema = new Schema({
+    image: {
+        type: String,
+        required: true
+    },
     title: {
         type: String,
         required: true

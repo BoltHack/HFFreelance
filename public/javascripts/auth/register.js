@@ -1,16 +1,23 @@
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('togglePassword1').addEventListener('click', function () {
-        let passwordField = document.getElementById('pwd');
-        let cpasswordField = document.getElementById('cpwd');
-        let passwordFieldType = passwordField.getAttribute('type');
+document.addEventListener('DOMContentLoaded', function (){
+    const togglePassword1 = document.getElementById('togglePassword1');
+    const togglePassword2 = document.getElementById('togglePassword2');
+    let passwordField = document.getElementById('pwd');
+    let confirmPasswordField = document.getElementById('cpwd');
+    let passwordFieldType = passwordField.getAttribute('type');
+    togglePassword1.addEventListener('click', function () {
         if (passwordFieldType === 'password') {
             passwordField.setAttribute('type', 'text');
-            cpasswordField.setAttribute('type', 'text');
-            this.innerHTML = '&#128065;';
-        } else {
+            confirmPasswordField.setAttribute('type', 'text');
+            togglePassword2.hidden = false;
+            togglePassword1.hidden = true;
+        }
+    })
+    togglePassword2.addEventListener('click', function () {
+        if (passwordFieldType === 'password') {
             passwordField.setAttribute('type', 'password');
-            cpasswordField.setAttribute('type', 'password');
-            this.innerHTML = '&#128065;';
+            confirmPasswordField.setAttribute('type', 'password');
+            togglePassword2.hidden = true;
+            togglePassword1.hidden = false;
         }
     });
 

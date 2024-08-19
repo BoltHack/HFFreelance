@@ -76,7 +76,8 @@
                     <input type="password" name="oldPassword" id="oldPwd" placeholder="Старый пароль" minlength="6" maxlength="50" required>
                     <input type="password" name="password" id="pwd" placeholder="Новый пароль" minlength="6" maxlength="50" required>
                     <input type="password" name="confirmPassword" id="cpwd" placeholder="Повтор пароля" minlength="6" maxlength="50" required>
-                    <span class="toggle-password" id="togglePassword1">&#128065;</span>
+                    <img src="/images/invisiblePassword.png" class="toggle-password" id="togglePassword1">
+                    <img src="/images/visiblePassword.png" class="toggle-password" id="togglePassword2" hidden>
                     <button>Сменить пароль</button>
                 </form>
             </div>
@@ -115,7 +116,6 @@
     </main>
 </div>
 <div class="popup" hidden>
-    <p id="close">X</p>
     <div class="del-form">
         <div class="icon">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 34 34" height="34" width="34">

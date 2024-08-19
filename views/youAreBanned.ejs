@@ -83,10 +83,6 @@
             transition: color 0.3s ease;
         }
 
-        .accessToken{
-            color: #4a00e0;
-        }
-
         a:hover {
             color: #2980b9;
         }
@@ -120,6 +116,58 @@
                 opacity: 1;
             }
         }
+
+        .animated-button {
+            position: relative;
+            display: inline-block;
+            padding: 12px 24px;
+            border: none;
+            font-size: 16px;
+            background-color: inherit;
+            border-radius: 100px;
+            font-weight: 600;
+            color: #2196F3;
+            box-shadow: 0 0 0 2px #ffffff20;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .animated-button span:last-child {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background-color: #2196F3;
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .animated-button span:first-child {
+            position: relative;
+            z-index: 1;
+        }
+
+        .animated-button:hover {
+            box-shadow: 0 0 0 5px #2195f360;
+            color: #ffffff;
+        }
+
+        .animated-button:active {
+            scale: 0.95;
+        }
+
+        .animated-button:hover span:last-child {
+            width: 150px;
+            height: 150px;
+            opacity: 1;
+        }
+
+
+
     </style>
 </head>
 
@@ -139,7 +187,8 @@
             <a id="close" onclick="closeAll()">Закрыть</a>
         </div>
     <% } %>
-    <p>Вы можете подать заявку на апелляцию по форме ниже.</p>
+    <p id="requestMsg">Вы можете подать заявку на апелляцию.</p>
+    <p></p>
     <a id="requestBan" onclick="request()">Подать заявку</a>
     <div id="requestBanForm" class="fade-in">
         <form action="/requestUnban/<%= user.id %>" method="POST">
@@ -151,7 +200,12 @@
     </div>
     <br>
     <br>
-    <a href="/accessToken" class="accessToken">Попробовать войти снова</a>
+    <a href="/accessToken">
+        <button class="animated-button">
+            <span>Попробовать войти</span>
+            <span></span>
+        </button>
+    </a>
 </div>
 
 <script>
@@ -159,6 +213,7 @@
     const more = document.getElementById('more');
     const requestBan = document.getElementById('requestBan');
     const requestBanForm = document.getElementById('requestBanForm');
+    const requestMsg = document.getElementById('requestMsg');
 
     function moreDetails() {
         description.style.display = 'block';
@@ -173,6 +228,7 @@
     function request() {
         requestBanForm.style.display = 'block';
         requestBan.style.display = 'none';
+        requestMsg.style.display = 'none';
     }
 </script>
 </body>

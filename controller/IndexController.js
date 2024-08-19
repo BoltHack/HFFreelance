@@ -596,7 +596,7 @@ class IndexController {
             const user = await UsersModel.findById(id);
 
             if (user.requestUnban && user.requestUnban.length > 0) {
-                return res.redirect('/requestError')
+                return res.render('error', {message: "Вы уже отправили запрос за разбан. Пожалуйста, ждите решения модерации."});
             }
 
             user.requestUnban.push({ requestUnban: email, message });

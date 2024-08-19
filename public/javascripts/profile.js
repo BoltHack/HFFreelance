@@ -1,20 +1,29 @@
 
 document.getElementById('togglePassword1').addEventListener('click', function () {
-    let passwordField = document.getElementById('pwd');
-    let cPasswordField = document.getElementById('cpwd');
+    const togglePassword1 = document.getElementById('togglePassword1');
+    const togglePassword2 = document.getElementById('togglePassword2');
     let oldPasswordField = document.getElementById('oldPwd');
+    let passwordField = document.getElementById('pwd');
+    let confirmPasswordField = document.getElementById('cpwd');
     let passwordFieldType = passwordField.getAttribute('type');
-    if (passwordFieldType === 'password') {
-        passwordField.setAttribute('type', 'text');
-        cPasswordField.setAttribute('type', 'text');
-        oldPasswordField.setAttribute('type', 'text');
-        this.innerHTML = '&#128065;';
-    } else {
-        passwordField.setAttribute('type', 'password');
-        cPasswordField.setAttribute('type', 'password');
-        oldPasswordField.setAttribute('type', 'password');
-        this.innerHTML = '&#128065;';
-    }
+    togglePassword1.addEventListener('click', function () {
+        if (passwordFieldType === 'password') {
+            oldPasswordField.setAttribute('type', 'text');
+            passwordField.setAttribute('type', 'text');
+            confirmPasswordField.setAttribute('type', 'text');
+            togglePassword2.hidden = false;
+            togglePassword1.hidden = true;
+        }
+    })
+    togglePassword2.addEventListener('click', function () {
+        if (passwordFieldType === 'password') {
+            oldPasswordField.setAttribute('type', 'password');
+            passwordField.setAttribute('type', 'password');
+            confirmPasswordField.setAttribute('type', 'password');
+            togglePassword2.hidden = true;
+            togglePassword1.hidden = false;
+        }
+    });
 });
 
 function profilePerms(){

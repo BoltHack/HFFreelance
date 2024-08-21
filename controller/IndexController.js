@@ -5,34 +5,52 @@ const {WebsitesModel} = require("../models/WebSitesModel");
 const {AdvertisingModel} = require('../models/AdvertisingModel');
 const {authenticateJWT} = require('../middlewares/jwtAuth');
 const bcrypt = require("bcrypt");
-const HttpErrors = require("http-errors");
-const http = require("http");
-// const httpErrors = require('http-errors')
 class IndexController {
     static mainView = async (req, res, next) => {
         try {
             const links = await LinksModel.find();
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
 
             if (req.cookies['token']) {
                 authenticateJWT(req, res, () => {
                     const user = req.user;
                     if (user.banned[0].banType === true) {
-                        res.redirect('/youAreBanned')
+                        res.redirect('/youAreBanned');
+                    } else {
+                        if (locale === 'en'){
+                            return res.render('en/main', { user, locale, links });
+                        }
+                        else{
+                            return res.render('ru/main', { user, locale, links });
+                        }
                     }
-                    return res.render('main', {user, links});
                 });
-            }
-            else {
-                return res.render('main', {links});
+            } else {
+                if (locale === 'en'){
+                    return res.render('en/main', { locale, links });
+                }
+                else{
+                    return res.render('ru/main', { locale, links });
+                }
             }
         } catch (e) {
             next(e);
         }
     }
 
+
     static aboutUsView = async (req, res, next) => {
         try{
             const links = await LinksModel.find();
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
 
             if (req.cookies['token']) {
                 authenticateJWT(req, res, () => {
@@ -40,11 +58,23 @@ class IndexController {
                     if (user.banned[0].banType === true) {
                         res.redirect('/youAreBanned')
                     }
-                    return res.render('aboutUs', {user, links});
+                    else{
+                        if (locale === 'en') {
+                            return res.render('en/aboutUs', {user, locale, links});
+                        }
+                        else{
+                            return res.render('ru/aboutUs', {locale, links});
+                        }
+                    }
                 });
             }
             else {
-                return res.render('aboutUs', {links});
+                if (locale === 'en') {
+                    return res.render('en/aboutUs', {locale, links});
+                }
+                else{
+                    return res.render('ru/aboutUs', {locale, links});
+                }
             }
         }catch (err){
             next(err)
@@ -53,6 +83,11 @@ class IndexController {
     static rulesView = async (req, res, next) => {
         try{
             const links = await LinksModel.find();
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
 
             if (req.cookies['token']) {
                 authenticateJWT(req, res, () => {
@@ -60,11 +95,23 @@ class IndexController {
                     if (user.banned[0].banType === true) {
                         res.redirect('/youAreBanned')
                     }
-                    return res.render('rules', {user, links});
+                    else{
+                        if (locale === 'en'){
+                            return res.render('en/rules', {user, links});
+                        }
+                        else{
+                            return res.render('ru/rules', {user, links});
+                        }
+                    }
                 });
             }
             else {
-                return res.render('rules', {links});
+                if (locale === 'en'){
+                    return res.render('en/rules', {links});
+                }
+                else{
+                    return res.render('ru/rules', {links});
+                }
             }
         }catch (err){
             next(err)
@@ -73,6 +120,11 @@ class IndexController {
     static privacyPolicyView = async (req, res, next) => {
         try{
             const links = await LinksModel.find();
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
 
             if (req.cookies['token']) {
                 authenticateJWT(req, res, () => {
@@ -80,11 +132,23 @@ class IndexController {
                     if (user.banned[0].banType === true) {
                         res.redirect('/youAreBanned')
                     }
-                    return res.render('privacyPolicy', {user, links});
+                    else{
+                        if (locale === 'en'){
+                            return res.render('en/privacyPolicy', {user, links});
+                        }
+                        else{
+                            return res.render('ru/privacyPolicy', {user, links});
+                        }
+                    }
                 });
             }
             else {
-                return res.render('privacyPolicy', {links});
+                if (locale === 'en'){
+                    return res.render('en/privacyPolicy', {links});
+                }
+                else{
+                    return res.render('ru/privacyPolicy', {links});
+                }
             }
         }catch (err){
             next(err)
@@ -94,12 +158,22 @@ class IndexController {
     static sendReviewsMenuView = async (req, res, next) => {
         try{
             const user = req.user;
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
 
             if (user.banned[0].banType === true) {
                 res.redirect('/youAreBanned')
             }
 
-            return res.render('sendReviews', {user});
+            if (locale === 'en'){
+                return res.render('en/sendReviews', {user});
+            }
+            else{
+                return res.render('ru/sendReviews', {user});
+            }
         }catch(err){
             next(err)
         }
@@ -110,6 +184,11 @@ class IndexController {
             const user = req.user;
             const news = await NewsModel.find();
             const links = await LinksModel.find();
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
 
             const review = await UsersModel.findOne({ _id: user.id});
 
@@ -117,29 +196,58 @@ class IndexController {
                 res.redirect('/youAreBanned')
             }
 
-            return res.render('PersonalArea', {user, links, news, review});
+            if (locale === 'en'){
+                return res.render('en/PersonalArea', {user, links, news, review, locale});
+            }
+            else{
+                return res.render('ru/PersonalArea', {user, links, news, review, locale});
+            }
         }catch (err){
             next(err)
         }
     };
 
     static getTokenView = (req, res, next) => {
-        return res.render('getToken');
+        let locale = req.cookies['locale'] || 'en';
+
+        if (!req.cookies['locale']) {
+            res.cookie('locale', locale, { httpOnly: true });
+        }
+        if (locale === 'en'){
+            return res.render('en/getToken');
+        }
+        else{
+            return res.render('ru/getToken');
+        }
     }
     static moreDetailsView = async (req, res, next) => {
         try{
             const links = await LinksModel.find();
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
+
             if (req.cookies['token']) {
                 authenticateJWT(req, res, () => {
                     const user = req.user;
                     if (user.banned[0].banType === true) {
                         res.redirect('/youAreBanned')
                     }
-                    return res.render('moreDetails', {user, links});
+                    else{
+                        if (locale === 'en'){
+                            return res.render('en/moreDetails', {user, locale, links});
+                        }
+                        return res.render('ru/moreDetails', {user, locale, links});
+                    }
                 });
             }
             else {
-                return res.render('moreDetails', {links});
+                if (locale === 'en'){
+                    return res.render('en/moreDetails', {locale, links});
+                }
+                return res.render('ru/moreDetails', {locale, links});
             }
         }catch (err){
             next(err)
@@ -148,6 +256,12 @@ class IndexController {
     static youAreBannedView = (req, res, next) => {
         try {
             const user = req.user;
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
+
             return res.render('youAreBanned', {user});
         } catch (err) {
             next(err)
@@ -160,10 +274,17 @@ class IndexController {
             const limit = 10;
             const skip = (page - 1) * limit;
 
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
+
             const totalWebsites = await WebsitesModel.countDocuments();
             const links = await LinksModel.find();
             const websites = await WebsitesModel.find().skip(skip).limit(limit)
             const advertising = await AdvertisingModel.find();
+
 
             if (req.cookies['token']) {
                 authenticateJWT(req, res, () => {
@@ -171,24 +292,49 @@ class IndexController {
                     if (user.banned[0].banType === true) {
                         res.redirect('/youAreBanned')
                     }
-                    return res.render('readyMadeSites', {
-                        user,
+                    else {
+                        if (locale === 'en'){
+                            return res.render('en/readyMadeSites', {
+                                user,
+                                links,
+                                websites,
+                                advertising,
+                                currentPage: page,
+                                totalPages: Math.ceil(totalWebsites / limit)
+                            });
+                        }
+                        else {
+                            return res.render('ru/readyMadeSites', {
+                                user,
+                                links,
+                                websites,
+                                advertising,
+                                currentPage: page,
+                                totalPages: Math.ceil(totalWebsites / limit)
+                            });
+                        }
+                    }
+                });
+            }
+            else {
+                if (locale === 'en'){
+                    return res.render('en/readyMadeSites', {
                         links,
                         websites,
                         advertising,
                         currentPage: page,
                         totalPages: Math.ceil(totalWebsites / limit)
                     });
-                });
-            }
-            else {
-                return res.render('readyMadeSites', {
-                    links,
-                    websites,
-                    advertising,
-                    currentPage: page,
-                    totalPages: Math.ceil(totalWebsites / limit)
-                });
+                }
+                else {
+                    return res.render('ru/readyMadeSites', {
+                        links,
+                        websites,
+                        advertising,
+                        currentPage: page,
+                        totalPages: Math.ceil(totalWebsites / limit)
+                    });
+                }
             }
         }catch(err){
             next(err)
@@ -200,6 +346,12 @@ class IndexController {
             const page = parseInt(req.query.page) || 1;
             const limit = 10;
             const skip = (page - 1) * limit;
+
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
 
             const totalWebsites = await WebsitesModel.countDocuments({
                 $or: [
@@ -233,24 +385,49 @@ class IndexController {
                     if (user.banned[0].banType === true) {
                         res.redirect('/youAreBanned')
                     }
-                    return res.render('html-css-js', {
-                        user,
+                    else{
+                        if (locale === 'en'){
+                            return res.render('en/html-css-js', {
+                                user,
+                                links,
+                                websites,
+                                advertising,
+                                currentPage: page,
+                                totalPages: Math.ceil(totalWebsites / limit)
+                            });
+                        }
+                        else{
+                            return res.render('ru/html-css-js', {
+                                user,
+                                links,
+                                websites,
+                                advertising,
+                                currentPage: page,
+                                totalPages: Math.ceil(totalWebsites / limit)
+                            });
+                        }
+                    }
+                });
+            }
+            else {
+                if (locale === 'en'){
+                    return res.render('en/html-css-js', {
                         links,
                         websites,
                         advertising,
                         currentPage: page,
                         totalPages: Math.ceil(totalWebsites / limit)
                     });
-                });
-            }
-            else {
-                return res.render('html-css-js', {
-                    links,
-                    websites,
-                    advertising,
-                    currentPage: page,
-                    totalPages: Math.ceil(totalWebsites / limit)
-                });
+                }
+                else {
+                    return res.render('ru/html-css-js', {
+                        links,
+                        websites,
+                        advertising,
+                        currentPage: page,
+                        totalPages: Math.ceil(totalWebsites / limit)
+                    });
+                }
             }
         } catch (err) {
             next(err);
@@ -263,6 +440,12 @@ class IndexController {
             const page = parseInt(req.query.page) || 1;
             const limit = 10;
             const skip = (page - 1) * limit;
+
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
 
             const totalWebsites = await WebsitesModel.countDocuments({
                 siteType: 'javascript'
@@ -290,24 +473,49 @@ class IndexController {
                     if (user.banned[0].banType === true) {
                         res.redirect('/youAreBanned')
                     }
-                    return res.render('javascript', {
-                        user,
+                    else{
+                        if (locale === 'en'){
+                            return res.render('en/javascript', {
+                                user,
+                                links,
+                                websites,
+                                advertising,
+                                currentPage: page,
+                                totalPages: Math.ceil(totalWebsites / limit)
+                            });
+                        }
+                        else{
+                            return res.render('ru/javascript', {
+                                user,
+                                links,
+                                websites,
+                                advertising,
+                                currentPage: page,
+                                totalPages: Math.ceil(totalWebsites / limit)
+                            });
+                        }
+                    }
+                });
+            }
+            else {
+                if (locale === 'en'){
+                    return res.render('en/javascript', {
                         links,
                         websites,
                         advertising,
                         currentPage: page,
                         totalPages: Math.ceil(totalWebsites / limit)
                     });
-                });
-            }
-            else {
-                return res.render('javascript', {
-                    links,
-                    websites,
-                    advertising,
-                    currentPage: page,
-                    totalPages: Math.ceil(totalWebsites / limit)
-                });
+                }
+                else {
+                    return res.render('ru/javascript', {
+                        links,
+                        websites,
+                        advertising,
+                        currentPage: page,
+                        totalPages: Math.ceil(totalWebsites / limit)
+                    });
+                }
             }
         } catch (err) {
             next(err);
@@ -319,6 +527,12 @@ class IndexController {
             const page = parseInt(req.query.page) || 1;
             const limit = 10;
             const skip = (page - 1) * limit;
+
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
 
             const totalWebsites = await WebsitesModel.countDocuments({
                 siteType: 'nodeJs'
@@ -346,24 +560,49 @@ class IndexController {
                     if (user.banned[0].banType === true) {
                         res.redirect('/youAreBanned')
                     }
-                    return res.render('nodeJs', {
-                        user,
+                    else{
+                        if (locale === 'en'){
+                            return res.render('en/nodeJs', {
+                                user,
+                                links,
+                                websites,
+                                advertising,
+                                currentPage: page,
+                                totalPages: Math.ceil(totalWebsites / limit)
+                            });
+                        }
+                        else{
+                            return res.render('ru/nodeJs', {
+                                user,
+                                links,
+                                websites,
+                                advertising,
+                                currentPage: page,
+                                totalPages: Math.ceil(totalWebsites / limit)
+                            });
+                        }
+                    }
+                });
+            }
+            else {
+                if (locale === 'en'){
+                    return res.render('en/nodeJs', {
                         links,
                         websites,
                         advertising,
                         currentPage: page,
                         totalPages: Math.ceil(totalWebsites / limit)
                     });
-                });
-            }
-            else {
-                return res.render('nodeJs', {
-                    links,
-                    websites,
-                    advertising,
-                    currentPage: page,
-                    totalPages: Math.ceil(totalWebsites / limit)
-                });
+                }
+                else {
+                    return res.render('ru/nodeJs', {
+                        links,
+                        websites,
+                        advertising,
+                        currentPage: page,
+                        totalPages: Math.ceil(totalWebsites / limit)
+                    });
+                }
             }
         }catch (err){
             next(err)
@@ -375,6 +614,12 @@ class IndexController {
             const page = parseInt(req.query.page) || 1;
             const limit = 10;
             const skip = (page - 1) * limit;
+
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
 
             const totalWebsites = await WebsitesModel.countDocuments({
                 siteType: 'reactJs'
@@ -402,24 +647,49 @@ class IndexController {
                     if (user.banned[0].banType === true) {
                         res.redirect('/youAreBanned')
                     }
-                    return res.render('reactJs', {
-                        user,
+                    else{
+                        if (locale === 'en'){
+                            return res.render('en/reactJs', {
+                                user,
+                                links,
+                                websites,
+                                advertising,
+                                currentPage: page,
+                                totalPages: Math.ceil(totalWebsites / limit)
+                            });
+                        }
+                        else{
+                            return res.render('ru/reactJs', {
+                                user,
+                                links,
+                                websites,
+                                advertising,
+                                currentPage: page,
+                                totalPages: Math.ceil(totalWebsites / limit)
+                            });
+                        }
+                    }
+                });
+            }
+            else {
+                if (locale === 'en'){
+                    return res.render('en/reactJs', {
                         links,
                         websites,
                         advertising,
                         currentPage: page,
                         totalPages: Math.ceil(totalWebsites / limit)
                     });
-                });
-            }
-            else {
-                return res.render('reactJs', {
-                    links,
-                    websites,
-                    advertising,
-                    currentPage: page,
-                    totalPages: Math.ceil(totalWebsites / limit)
-                });
+                }
+                else {
+                    return res.render('ru/reactJs', {
+                        links,
+                        websites,
+                        advertising,
+                        currentPage: page,
+                        totalPages: Math.ceil(totalWebsites / limit)
+                    });
+                }
             }
         }catch (err){
             next(err)
@@ -431,6 +701,12 @@ class IndexController {
             const page = parseInt(req.query.page) || 1;
             const limit = 10;
             const skip = (page - 1) * limit;
+
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
 
             const totalWebsites = await WebsitesModel.countDocuments({
                 siteType: 'fullstack'
@@ -458,24 +734,49 @@ class IndexController {
                     if (user.banned[0].banType === true) {
                         res.redirect('/youAreBanned')
                     }
-                    return res.render('fullstack', {
-                        user,
+                    else{
+                        if (locale === 'en'){
+                            return res.render('en/fullstack', {
+                                user,
+                                links,
+                                websites,
+                                advertising,
+                                currentPage: page,
+                                totalPages: Math.ceil(totalWebsites / limit)
+                            });
+                        }
+                        else{
+                            return res.render('ru/fullstack', {
+                                user,
+                                links,
+                                websites,
+                                advertising,
+                                currentPage: page,
+                                totalPages: Math.ceil(totalWebsites / limit)
+                            });
+                        }
+                    }
+                });
+            }
+            else {
+                if (locale === 'en'){
+                    return res.render('en/fullstack', {
                         links,
                         websites,
                         advertising,
                         currentPage: page,
                         totalPages: Math.ceil(totalWebsites / limit)
                     });
-                });
-            }
-            else {
-                return res.render('fullstack', {
-                    links,
-                    websites,
-                    advertising,
-                    currentPage: page,
-                    totalPages: Math.ceil(totalWebsites / limit)
-                });
+                }
+                else {
+                    return res.render('ru/fullstack', {
+                        links,
+                        websites,
+                        advertising,
+                        currentPage: page,
+                        totalPages: Math.ceil(totalWebsites / limit)
+                    });
+                }
             }
         }catch (err){
             next(err)
@@ -487,17 +788,35 @@ class IndexController {
             const links = await LinksModel.find();
             const advertising = await AdvertisingModel.find();
 
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
+
             if (req.cookies['token']) {
                 authenticateJWT(req, res, () => {
                     const user = req.user;
                     if (user.banned[0].banType === true) {
                         res.redirect('/youAreBanned')
                     }
-                    return res.render('favorites', {user, links, advertising});
+                    else{
+                        if (locale === 'en'){
+                            return res.render('en/favorites', {user, links, advertising});
+                        }
+                        else{
+                            return res.render('ru/favorites', {user, links, advertising});
+                        }
+                    }
                 });
             }
             else {
-                return res.render('favorites', {links, advertising});
+                if (locale === 'en'){
+                    return res.render('en/favorites', {links, advertising});
+                }
+                else{
+                    return res.render('ru/favorites', {links, advertising});
+                }
             }
         }catch (err){
             next(err)
@@ -508,6 +827,12 @@ class IndexController {
         try{
             const {id} = req.params;
             const siteInfo = await WebsitesModel.findById(id);
+
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
 
             if (siteInfo === undefined){
                 res.status(404).json({error: '404'})
@@ -521,25 +846,26 @@ class IndexController {
                     if (user.banned[0].banType === true) {
                         res.redirect('/youAreBanned')
                     }
-                    return res.render('fileInfo', {user, siteInfo, links});
+                    else{
+                        if (locale === 'en'){
+                            return res.render('en/fileInfo', {user, siteInfo, links});
+                        }
+                        else{
+                            return res.render('ru/fileInfo', {user, siteInfo, links});
+                        }
+                    }
                 });
             }
             else {
-                return res.render('fileInfo', {siteInfo, links});
+                if (locale === 'en'){
+                    return res.render('en/fileInfo', {siteInfo, links});
+                }
+                else{
+                    return res.render('ru/fileInfo', {siteInfo, links});
+                }
             }
         }catch(err){
             next(err)
-        }
-    }
-
-    static userInfo = async(req, res, next) => {
-        try {
-            const { id } = req.params;
-            const userInfo = await UsersModel.findById(id);
-            res.render('PersonalArea', { userInfo });
-        } catch (error) {
-            console.error(error);
-            next(error);
         }
     }
 
@@ -547,8 +873,15 @@ class IndexController {
         try{
             const {id} = req.params;
 
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
+
             if(!req.files || !req.files.image){
-                return res.status(400).json( 'Ошибка. Не удалось загрузить изменения.' );
+                const errorMsg = locale === 'en' ? 'Failed to load changes.' : 'Не удалось загрузить изменения.';
+                return res.redirect(`/error?message=${encodeURIComponent(errorMsg)}`);
             }
 
             const imageFile = req.files.image;
@@ -573,8 +906,15 @@ class IndexController {
 
             const user = await UsersModel.findById(id);
 
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
+
             if (user.reviews && user.reviews.length > 0) {
-                return res.render('error', {message: "Неверный адрес или пароль."});
+                const errorMsg = locale === 'en' ? 'You have already posted your review.' : 'Вы уже выложили свой отзыв.';
+                return res.redirect(`/error?message=${encodeURIComponent(errorMsg)}`);
             }
 
             user.reviews.push({ review: message, grade });
@@ -593,10 +933,17 @@ class IndexController {
             const { email, message } = req.body;
             const { id } = req.user;
 
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
+
             const user = await UsersModel.findById(id);
 
             if (user.requestUnban && user.requestUnban.length > 0) {
-                return res.render('error', {message: "Вы уже отправили запрос за разбан. Пожалуйста, ждите решения модерации."});
+                const errorMsg = locale === 'en' ? 'You have already sent a request for unban. Please wait for a moderation decision.' : 'Вы уже отправили запрос за разбан. Пожалуйста, ждите решения модерации.';
+                return res.redirect(`/error?message=${encodeURIComponent(errorMsg)}`);
             }
 
             user.requestUnban.push({ requestUnban: email, message });
@@ -613,6 +960,11 @@ class IndexController {
     static displayAllReviews = async (req, res, next) => {
         try {
             const users = await UsersModel.find();
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
             const reviews = users.flatMap(user => user.reviews.map(review => ({
                 name: user.name,
                 image: user.image,
@@ -627,11 +979,23 @@ class IndexController {
                     if (user.banned[0].banType === true) {
                         res.redirect('/youAreBanned')
                     }
-                    return res.render('allReviews', {user, reviews});
+                    else{
+                        if (locale === 'en'){
+                            return res.render('en/allReviews', {user, reviews});
+                        }
+                        else{
+                            return res.render('ru/allReviews', {user, reviews});
+                        }
+                    }
                 });
             }
             else {
-                return res.render('allReviews', {reviews});
+                if (locale === 'en'){
+                    return res.render('en/allReviews', {reviews});
+                }
+                else{
+                    return res.render('ru/allReviews', {reviews});
+                }
             }
         } catch (err) {
             next(err);
@@ -644,14 +1008,22 @@ class IndexController {
             const {password} = req.body;
             const user = await UsersModel.findById(id);
 
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
+
             if (!user) {
-                return res.render('error', {message: "Пользователь не найден."});
+                const errorMsg = locale === 'en' ? 'User not found.' : 'Пользователь не найден.';
+                return res.redirect(`/error?message=${encodeURIComponent(errorMsg)}`);
             }
 
             const pass = await bcrypt.compare(password, user.password);
 
-            if (!pass) {
-                return res.render('error', {message: "Неверный пароль."});
+            if (!pass){
+                const errorMsg = locale === 'en' ? 'Invalid password.' : 'Неверный пароль.';
+                return res.redirect(`/error?message=${encodeURIComponent(errorMsg)}`);
             }
             await UsersModel.findByIdAndDelete(id);
             res.clearCookie('token');
@@ -660,7 +1032,13 @@ class IndexController {
             res.send(
                 `<script>
                     function localstorageClear(){
-                        localStorage.clear();
+                        localStorage.removeItem('id');
+                        localStorage.removeItem('profileImage');
+                        localStorage.removeItem('accessTokenEndTime');
+                        localStorage.removeItem('name');
+                        localStorage.removeItem('refreshTokenEndTime');
+                        localStorage.removeItem('token');
+                        localStorage.removeItem('ref');
                         window.location.href = '/auth/register'
                     }
                     localstorageClear()
@@ -678,6 +1056,12 @@ class IndexController {
         try{
             const { id } = req.params;
 
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
+
             await UsersModel.findByIdAndUpdate(
                 id,
                 { reviews: [] },
@@ -685,7 +1069,8 @@ class IndexController {
             )
                 .then((user) => {
                     if (!user) {
-                        return res.status(404).json({ message: "Пользователь не найден" });
+                        const errorMsg = locale === 'en' ? 'User not found.' : 'Пользователь не найден.';
+                        return res.redirect(`/error?message=${encodeURIComponent(errorMsg)}`);
                     }
                     res.redirect('/PersonalArea')
                 })
@@ -701,15 +1086,24 @@ class IndexController {
     static downloadFile = async (req, res) => {
         try {
             const user = req.user;
+
             if (user.banned[0].banType === true) {
                 res.redirect('/youAreBanned')
             }
+
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
+
             else {
 
                 const website = await WebsitesModel.findById(req.params.id);
 
                 if (!website) {
-                    return res.status(404).json({error: 'Файл не найден.'});
+                    const errorMsg = locale === 'en' ? 'File not found.' : 'Файл не найден.';
+                    return res.redirect(`/error?message=${encodeURIComponent(errorMsg)}`);
                 }
 
                 const fileBuffer = Buffer.from(website.fileUpload, 'base64');
@@ -727,6 +1121,22 @@ class IndexController {
             res.status(500).json({ error: err.message });
         }
     };
+
+
+    static changeLocal = async (req, res) => {
+        try {
+            let locale = req.cookies['locale'] || 'en';
+
+            locale = locale === 'en' ? 'ru' : 'en';
+            res.cookie('locale', locale, { httpOnly: true });
+
+            res.json({ locale });
+        } catch (err) {
+            console.error('Ошибка:', err);
+            res.status(500).json({ error: err.message });
+        }
+    };
+
 
 }
 

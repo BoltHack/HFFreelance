@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const love = document.getElementById('love-'+siteId)
             const alreadyLove = document.getElementById('alreadyLove-'+siteId)
 
+            const local = localStorage.getItem('local');
+
             let favorites = localStorage.getItem('favorites');
 
             if (favorites){
@@ -28,7 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
             love.hidden = true;
             alreadyLove.hidden = false;
             localStorage.setItem('favorites', JSON.stringify(favorites))
-            dynamicMenu(`${siteTitle} добавлен в избранное!`)
+            if (local === 'en'){
+                dynamicMenu(`${siteTitle} added to favorites!`)
+            }
+            else{
+                dynamicMenu(`${siteTitle} добавлен в избранное!`)
+            }
         })
     })
 })

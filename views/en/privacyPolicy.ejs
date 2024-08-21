@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HFFreelance | Privacy policy</title>
+    <link rel="stylesheet" href="/stylesheets/main2.css">
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .privacyPolicy-container {
+        max-width: 800px;
+        margin: 70px auto;
+        padding: 20px;
+    }
+
+    .section {
+        margin-bottom: 40px;
+    }
+
+    h2 {
+        color: #333;
+        font-size: 24px;
+    }
+
+    ol {
+        padding-left: 20px;
+    }
+
+    ol li {
+        margin-bottom: 10px;
+        line-height: 1.5;
+    }
+
+</style>
+<body>
+<%- include('header.ejs') %>
+<main>
+    <br>
+    <%- include('back.ejs') %>
+    <div class="privacyPolicy-container">
+        <div class="section">
+            <h2>Privacy Policy</h2>
+            <ol>
+                <li>Collection and Use of Information: We collect only the information necessary to provide our website services. This may include your name, email address, IP address, and other data that you voluntarily provide to us.</li>
+                <li>Data Storage and Protection: We ensure the secure storage of your data and apply appropriate security measures to protect it from unauthorized access or loss.</li>
+                <li>Sharing Data with Third Parties: Your data may be shared with third parties only in cases provided by law or with your explicit consent.</li>
+                <li>User Rights: You have the right to request access to your personal data, its correction, or deletion. You can also withdraw your consent to data processing at any time.</li>
+                <li>Changes to the Privacy Policy: We reserve the right to make changes to our privacy policy. If changes are made, we will notify you through our communication channels.</li>
+            </ol>
+        </div>
+    </div>
+</main>
+<%- include('footer.ejs') %>
+</body>
+</html>

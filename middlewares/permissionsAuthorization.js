@@ -6,16 +6,16 @@ function verifyPermissions(role) {
         const token = req.cookies.token;
 
         if (!token) {
-            return next(new HttpErrors.Unauthorized("Требуется аутентификация."));
+            return res.redirect(`/error?message=${encodeURIComponent("Требуется аутентификация.")}`);
         }
 
         jwt.verify(token, process.env.JWTSecret, (err, decoded) => {
             if (err) {
-                return next(new HttpErrors.Unauthorized("Недействительный токен."));
+                return res.redirect(`/error?message=${encodeURIComponent("Недействительный токен.")}`);
             }
 
             if (!decoded.role || decoded.role !== role) {
-                return next(new HttpErrors.Forbidden("У вас нет доступа к этому ресурсу."));
+                return res.redirect(`/error?message=${encodeURIComponent("У вас нет доступа к этому ресурсу.")}`);
             }
 
             req.user = decoded;

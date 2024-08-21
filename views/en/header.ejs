@@ -1,0 +1,262 @@
+<link rel="stylesheet" href="/stylesheets/alert.css">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        background-color: #dadde2;
+    }
+    header{
+        width: 100%;
+        height: 80px;
+        background: rgb(32,30,32);
+        background: linear-gradient(184deg, rgba(32,30,32,1) 54%, rgba(16,16,17,1) 76%);
+        /*background-color: #43655a;*/
+        position: fixed;
+        top: 0;
+        z-index: 2;
+        transition: top 0.3s;
+    }
+    img {
+        width: 60px;
+        height: 60px;
+        border-radius: 10px;
+    }
+    .container-logo{
+        display: flex;
+        padding: 10px;
+        z-index: 2;
+        margin: 0 100px;
+    }
+    .logo{
+        color: #21f0df;
+        font-weight: 1000;
+        margin: 10px;
+        position: absolute;
+        top: 12%;
+    }
+    .get{
+        display: flex;
+        flex-wrap: wrap;
+        position: absolute;
+        top: 1%;
+        right: 5%;
+    }
+    li{
+        margin: 20px 10px;
+        list-style-type: none;
+    }
+    .ha{
+        text-decoration: none;
+        color: #fff;
+        cursor: pointer;
+    }
+    .ha:hover{
+        color: #a2a8d3;
+    }
+    .web-types{
+        display: flex;
+        flex-wrap: wrap;
+        position: absolute;
+        top: 1%;
+        right: 10%;
+    }
+    .types{
+        text-decoration: none;
+        color: #fff;
+    }
+    .types:hover{
+        color: #a2a8d3;
+    }
+    #account{
+        color: #fff;
+        cursor: pointer;
+        margin-left: 50px;
+    }
+    #account:hover{
+        color: #a2a8d3;
+    }
+    a{
+        text-decoration: none;
+    }
+    #account-img{
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        margin-top: 5px;
+        cursor: pointer;
+    }
+    @media (max-width: 1200px) {
+        .ha{
+            display: none;
+        }
+        .logo{
+            display: none;
+        }
+        #account{
+            display: flex;
+        }
+    }
+    details {
+        margin: 10px;
+        padding: 10px;
+        width: 150px;
+        border-radius: 5px;
+        cursor: pointer;
+        background: none;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+    details summary {
+        color: white;
+        white-space: nowrap;
+        outline: none;
+        user-select: none;
+    }
+    details div {
+        margin-top: 10px;
+        padding: 10px;
+        border-top: 1px solid #ccc;
+    }
+    details ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        border: 1px solid #a7c957;
+        background-color: #fff;
+    }
+    details ul li {
+        margin: 10px 0;
+    }
+    details ul li a {
+        text-decoration: none;
+        color: #333;
+        padding: 8px 12px;
+        display: block;
+        border-radius: 3px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    details ul li a:hover {
+        background-color: #ddd;
+        color: #000;
+    }
+    :root{
+        --background-color: #1C2025;
+        --hover-background-color: #303740;
+        --color: #DAE2ED;
+        --padding: 8px;
+        --border-radius: 8px;
+        --title-content-space: 4px;
+    }
+    .dropdown{
+        width: 50px;
+        text-align: center;
+        position: absolute;
+        right: -10%;
+        top: -1px;
+    }
+    .dropdown-title{
+        position: relative;
+        margin-bottom: var(--title-content-space);
+        background: none;
+    }
+    .dropdown-title::after{
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: var(--title-content-space);
+        bottom: 0;
+        left: 0;
+        transform: translateY(100%);
+    }
+    .dropdown-title, .dropdown-content{
+        padding: var(--padding);
+        border-radius: var(--border-radius);
+        color: var(--color);
+        cursor: pointer;
+    }
+
+    .dropdown-title:hover + .dropdown-content, .dropdown-content:hover{
+        transform: scaleY(1);
+    }
+    .dropdown-content{
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.35s ease;
+        transform-origin: top;
+        transform: scaleY(0);
+    }
+    .dropdown-content a {
+        text-decoration: none;
+        padding: var(--padding);
+        color: var(--color);
+        border-radius: var(--border-radius);
+    }
+</style>
+<body>
+<header>
+    <div class="container-logo">
+        <a href="/"><img src="../images/logo2.png" alt="Logo"></a>
+        <h2><a class="logo" href="/">𝓗𝓕𝓕𝓻𝓮𝓮𝓵𝓪𝓷𝓬𝓮𝓻𝓼</a></h2>
+    </div>
+    <div id="headerSection">
+        <ul class="get">
+            <li id="account">My Account</li>
+            <img src="" id="account-img" onclick="PersonalAreaJoin()">
+            <li><a href="#home" class="ha">Home</a></li>
+            <li><a href="#about" class="ha">About</a></li>
+            <li><a href="#services" class="ha">Services</a></li>
+            <li><a href="#reviews" class="ha">Reviews</a></li>
+            <li><a href="#footerSection" class="ha">Contacts</a></li>
+            <details>
+                <summary>Free</summary>
+                <div>
+                    <ul>
+                        <li><a href="/readyMadeSites/html-css-js" id="htmlCssJs">html, css, js</a></li>
+                        <li><a href="/readyMadeSites/javascript" id="javascript">javascript</a></li>
+                        <li><a href="/readyMadeSites/nodeJs" id="nodeJs">nodeJs</a></li>
+                        <li><a href="/readyMadeSites/reactJs" id="reactJs">reactJs</a></li>
+                        <li><a href="/readyMadeSites/fullstack" id="fullstack">fullstack</a></li>
+                        <li><a href="/readyMadeSites" id="allSites">All Types</a></li>
+                    </ul>
+                </div>
+            </details>
+        </ul>
+    </div>
+    <div id="types">
+        <ul class="web-types">
+            <details>
+                <summary>Types</summary>
+                <div>
+                    <ul>
+                        <li><a href="/readyMadeSites/html-css-js" id="htmlCssJs">html, css, js</a></li>
+                        <li><a href="/readyMadeSites/javascript" id="javascript">javascript</a></li>
+                        <li><a href="/readyMadeSites/nodeJs" id="nodeJs">nodeJs</a></li>
+                        <li><a href="/readyMadeSites/reactJs" id="reactJs">reactJs</a></li>
+                        <li><a href="/readyMadeSites/fullstack" id="fullstack">fullstack</a></li>
+                        <li><a href="/readyMadeSites" id="allSites">All Types</a></li>
+                    </ul>
+                </div>
+            </details>
+            <li><a class="types" id="favorites" onclick="favoritesJoin()" style="cursor: pointer">Favorites</a></li>
+        </ul>
+    </div>
+    <div class="dropdown" id="local" style="position: absolute; top: 15%; right: 1%;">
+        <div class="dropdown-title">
+            <img src="/images/usa-flag.jpg" style="width: 40px; height: 40px;">
+        </div>
+        <div class="dropdown-content">
+            <button type="submit" style="background: none; border: none; padding: 0;" onclick="localsF()">
+                <img src="/images/russia-flag.png" style="width: 40px; height: 40px; cursor:pointer;">
+            </button>
+        </div>
+    </div>
+
+
+</header>
+<%- include('back.ejs') %>
+<script src="/javascripts/timer.js"></script>
+<script src="/javascripts/header.js"></script>
+<script src="/javascripts/paths.js"></script>
+<script src="/javascripts/local.js"></script>

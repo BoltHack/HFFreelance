@@ -21,7 +21,17 @@ function parseMaxAge(duration) {
 class AuthController {
     static registerView = (req, res, next) => {
         try {
-            return res.render("auth/register");
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
+            if (locale === 'en'){
+                return res.render('en/auth/register')
+            }
+            else{
+                return res.render('ru/auth/register')
+            }
         } catch (e) {
             next(e)
         }
@@ -52,7 +62,17 @@ class AuthController {
 
     static loginView = (req, res, next) => {
         try {
-            return res.render('auth/login')
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
+            if (locale === 'en'){
+                return res.render('en/auth/login')
+            }
+            else{
+                return res.render('ru/auth/login')
+            }
         } catch (e) {
             next(e)
         }
@@ -80,7 +100,7 @@ class AuthController {
                 reviews: user.reviews,
                 registerDate: user.registerDate,
                 role: user.role,
-                banned: user.banned
+                banned: user.banned,
             }, JWTSecret, {expiresIn: '15m'});
 
             const refreshToken = jwt.sign({
@@ -90,7 +110,7 @@ class AuthController {
                 reviews: user.reviews,
                 registerDate: user.registerDate,
                 role: user.role,
-                banned: user.banned
+                banned: user.banned,
             }, refreshTokenSecret, {expiresIn: '10d'});
 
             user.refreshToken = refreshToken;
@@ -110,24 +130,34 @@ class AuthController {
             const { id } = req.user;
             const { oldPassword, password, confirmPassword } = req.body;
 
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
+
             const user = await UsersModel.findById(id);
 
             const pass = await bcrypt.compare(oldPassword, user.password);
 
             if (!pass) {
-               throw new HttpErrors("Неверный старый пароль.");
+                const errorMsg = locale === 'en' ? 'The old password is incorrect.' : 'Неверный старый пароль.';
+                return res.redirect(`/error?message=${encodeURIComponent(errorMsg)}`);
             }
 
             if (!password || !confirmPassword) {
-                throw new HttpErrors('Пароль и подтверждение пароля обязательны.');
+                const errorMsg = locale === 'en' ? 'Password and password confirmation are required.\n' : 'Пароль и подтверджение пароля обязательны.';
+                return res.redirect(`/error?message=${encodeURIComponent(errorMsg)}`);
             }
 
             if (password !== confirmPassword) {
-                throw new HttpErrors('Пароли не совпадают.');
+                const errorMsg = locale === 'en' ? 'The passwords do not match.' : 'Пароли не совпадают.';
+                return res.redirect(`/error?message=${encodeURIComponent(errorMsg)}`);
             }
 
             if (password.length < 6 || password.length > 50) {
-                throw new HttpErrors('Пароль должен содержать минимум 6 символов и максимум 50 символов.');
+                const errorMsg = locale === 'en' ? 'The password must contain a minimum of 6 characters and a maximum of 50 characters.\n' : 'Пароль должен содержать минимум 6 символов и максимум 50 символов.';
+                return res.redirect(`/error?message=${encodeURIComponent(errorMsg)}`);
             }
 
             const hashedPassword = await bcrypt.hash(password, 10);
@@ -139,7 +169,8 @@ class AuthController {
             );
 
             if (!updatePassword) {
-                throw new HttpErrors('Пользователь не найден.');
+                const errorMsg = locale === 'en' ? 'User not found.' : 'Пользователь не найден.';
+                return res.redirect(`/error?message=${encodeURIComponent(errorMsg)}`);
             }
 
             res.redirect('/');

@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', function (){
     let pwd = document.getElementById('pwd');
     let cpwd = document.getElementById('cpwd');
 
+    const local = localStorage.getItem('local');
+
     registerButton.addEventListener('click', (evt) => {
         evt.preventDefault();
 
@@ -67,7 +69,12 @@ document.addEventListener('DOMContentLoaded', function (){
                 }
                 const correctRegister = document.getElementById('correctRegister');
                 registerErr.innerHTML = '';
-                correctRegister.innerHTML = `<p>Успешная регистрация!</p>`;
+                if (local === 'en'){
+                    correctRegister.innerHTML = '<p>Successful registration!</p>'
+                }
+                else{
+                    correctRegister.innerHTML = `<p>Успешная регистрация!</p>`;
+                }
                 name.style.border = '1px solid #0d2818';
                 email.style.border = '1px solid #0d2818';
                 pwd.style.border = '1px solid #0d2818';

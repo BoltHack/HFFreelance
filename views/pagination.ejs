@@ -42,9 +42,9 @@
 
 <div class="pagination">
     <% if (currentPage > 1) { %>
-        <a href="?page=<%= currentPage - 1 %>">Назад</a>
+        <a href="?page=<%= currentPage - 1 %>"> < </a>
     <% } else { %>
-        <a class="disabled">Назад</a>
+        <a class="disabled"> < </a>
     <% } %>
 
     <%
@@ -75,8 +75,8 @@
     <% } %>
 
     <% if (currentPage < totalPages) { %>
-        <a href="?page=<%= currentPage + 1 %>">Вперёд</a>
+        <a href="?page=<%= currentPage + 1 %>"> > </a>
     <% } else { %>
-        <a class="disabled">Вперёд</a>
+        <a class="disabled"> > </a>
     <% } %>
 </div>

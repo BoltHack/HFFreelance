@@ -188,7 +188,6 @@
         </div>
     <% } %>
     <p id="requestMsg">Вы можете подать заявку на апелляцию.</p>
-    <p></p>
     <a id="requestBan" onclick="request()">Подать заявку</a>
     <div id="requestBanForm" class="fade-in">
         <form action="/requestUnban/<%= user.id %>" method="POST">
@@ -196,6 +195,7 @@
             <textarea name="message" rows="4" placeholder="Почему вы считаете, что должны быть разбанены"
                       maxlength="100" required></textarea>
             <button type="submit">Отправить заявку</button>
+            <a onclick="closeForm()">Закрыть форму</a>
         </form>
     </div>
     <br>
@@ -229,6 +229,12 @@
         requestBanForm.style.display = 'block';
         requestBan.style.display = 'none';
         requestMsg.style.display = 'none';
+    }
+
+    function closeForm() {
+        requestBanForm.style.display = 'none';
+        requestMsg.style.display = 'block';
+        requestBan.style.display = 'block';
     }
 </script>
 </body>

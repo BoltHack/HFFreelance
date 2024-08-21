@@ -87,7 +87,7 @@
         margin-top: 5px;
         cursor: pointer;
     }
-    @media (max-width: 900px) {
+    @media (max-width: 1200px) {
         .ha{
             display: none;
         }
@@ -99,28 +99,20 @@
         }
     }
     details {
-        margin: 10px 20px;
+        margin: 8px;
         padding: 10px;
         width: 150px;
         border-radius: 5px;
         cursor: pointer;
-        /*border: 1px solid #ccc;*/
-        /*background-color: #f9f9f9;*/
         background: none;
-        /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
         transition: all 0.3s ease;
         text-align: center;
     }
     details summary {
-        color: #a7c957;
-        /*font-size: 18px;*/
-        /*font-weight: bold;*/
+        color: white;
         white-space: nowrap;
         outline: none;
         user-select: none;
-    }
-    details summary:hover {
-        color: #84a441;
     }
     details div {
         margin-top: 10px;
@@ -149,102 +141,88 @@
         background-color: #ddd;
         color: #000;
     }
+    :root{
+        --background-color: #1C2025;
+        --hover-background-color: #303740;
+        --color: #DAE2ED;
+        --padding: 8px;
+        --border-radius: 8px;
+        --title-content-space: 4px;
+    }
+    .dropdown{
+        width: 50px;
+        text-align: center;
+        position: absolute;
+        right: -10%;
+        top: -1px;
+    }
+    .dropdown-title{
+        position: relative;
+        margin-bottom: var(--title-content-space);
+        background: none;
+    }
+    .dropdown-title::after{
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: var(--title-content-space);
+        bottom: 0;
+        left: 0;
+        transform: translateY(100%);
+    }
+    .dropdown-title, .dropdown-content{
+        padding: var(--padding);
+        border-radius: var(--border-radius);
+        color: var(--color);
+        cursor: pointer;
+    }
 
-    /*:root{*/
-    /*    --background-color: #1C2025;*/
-    /*    --hover-background-color: #303740;*/
-    /*    --color: #DAE2ED;*/
-    /*    --padding: 8px;*/
-    /*    --border-radius: 8px;*/
-    /*    --title-content-space: 4px;*/
-    /*}*/
-    /*.dropdown{*/
-    /*    width: 200px;*/
-    /*    text-align: center;*/
-    /*    position: relative;*/
-    /*    right: 1px;*/
-    /*}*/
-    /*.dropdown-title{*/
-    /*    position: relative;*/
-    /*    margin-bottom: var(--title-content-space);*/
-    /*    background: none;*/
-    /*}*/
-    /*.dropdown-title::after{*/
-    /*    content: "";*/
-    /*    position: absolute;*/
-    /*    width: 100%;*/
-    /*    height: var(--title-content-space);*/
-    /*    bottom: 0;*/
-    /*    left: 0;*/
-    /*    transform: translateY(100%);*/
-    /*}*/
-    /*.dropdown-title, .dropdown-content{*/
-    /*    padding: var(--padding);*/
-    /*    border-radius: var(--border-radius);*/
-    /*    background-color: var(--background-color);*/
-    /*    color: var(--color);*/
-    /*    cursor: pointer;*/
-    /*}*/
-    /*.dropdown-title:hover, .dropdown-content a:hover{*/
-    /*    background-color: var(--hover-background-color);*/
-    /*}*/
-    /*.dropdown-title:hover + .dropdown-content, .dropdown-content:hover{*/
-    /*    transform: scaleY(1);*/
-    /*}*/
-    /*.dropdown-content{*/
-    /*    display: flex;*/
-    /*    flex-direction: column;*/
-    /*    transition: transform 0.35s ease;*/
-    /*    transform-origin: top;*/
-    /*    transform: scaleY(0);*/
-    /*}*/
-    /*.dropdown-content a {*/
-    /*    text-decoration: none;*/
-    /*    padding: var(--padding);*/
-    /*    color: var(--color);*/
-    /*    border-radius: var(--border-radius);*/
-    /*}*/
+    .dropdown-title:hover + .dropdown-content, .dropdown-content:hover{
+        transform: scaleY(1);
+    }
+    .dropdown-content{
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.35s ease;
+        transform-origin: top;
+        transform: scaleY(0);
+    }
+    .dropdown-content a {
+        text-decoration: none;
+        padding: var(--padding);
+        color: var(--color);
+        border-radius: var(--border-radius);
+    }
 </style>
 <body>
 <header>
     <div class="container-logo">
-        <a href="/"><img src="../images/logo2.png"></a>
+        <a href="/"><img src="../images/logo2.png" alt="Logo"></a>
         <h2><a class="logo" href="/">𝓗𝓕𝓕𝓻𝓮𝓮𝓵𝓪𝓷𝓬𝓮𝓻𝓼</a></h2>
     </div>
     <div id="headerSection">
-    <ul class="get">
-        <li id="account">Мой аккаунт</li>
-        <img src="" id="account-img" onclick="PersonalAreaJoin()">
-        <li><a href="#home" class="ha">Главная</a></li>
-        <li><a href="#about" class="ha">О сайте</a></li>
-        <li><a href="#services" class="ha">Услуги</a></li>
-        <li><a href="#reviews" class="ha">Отзывы</a></li>
-        <li><a href="#footerSection" class="ha">Контакты</a></li>
-        <details>
-            <summary>Бесплатное</summary>
-            <div>
-                <ul>
-                    <li><a href="/readyMadeSites/html-css-js" id="htmlCssJs">html, css, js</a></li>
-                    <li><a href="/readyMadeSites/javascript" id="javascript">javascript</a></li>
-                    <li><a href="/readyMadeSites/nodeJs" id="nodeJs">nodeJs</a></li>
-                    <li><a href="/readyMadeSites/reactJs" id="reactJs">reactJs</a></li>
-                    <li><a href="/readyMadeSites/fullstack" id="fullstack">fullstack</a></li>
-                    <li><a href="/readyMadeSites" id="allSites">Все типы</a></li>
-                </ul>
-            </div>
-        </details>
-<!--        <div class="dropdown">-->
-<!--            <p class="dropdown-title">Бесплатное</p>-->
-<!--            <div class="dropdown-content">-->
-<!--                <a href="/readyMadeSites/html-css-js" id="htmlCssJs">html, css, js</a>-->
-<!--                <a href="/readyMadeSites/javascript" id="javascript">javascript</a>-->
-<!--                <a href="/readyMadeSites/nodeJs" id="nodeJs">nodeJs</a>-->
-<!--                <a href="/readyMadeSites/reactJs" id="reactJs">reactJs</a>-->
-<!--                <a href="/readyMadeSites/fullstack" id="fullstack">fullstack</a>-->
-<!--                <a href="/readyMadeSites" id="allSites">Все типы</a>-->
-<!--            </div>-->
-<!--        </div>-->
-    </ul>
+        <ul class="get">
+            <li id="account">Мой аккаунт</li>
+            <img src="" id="account-img" onclick="PersonalAreaJoin()">
+            <li><a href="#home" class="ha">Главная</a></li>
+            <li><a href="#about" class="ha">О сайте</a></li>
+            <li><a href="#services" class="ha">Услуги</a></li>
+            <li><a href="#reviews" class="ha">Отзывы</a></li>
+            <li><a href="#footerSection" class="ha">Контакты</a></li>
+            <details>
+                <summary>Бесплатное</summary>
+                <div>
+                    <ul>
+                        <li><a href="/readyMadeSites/html-css-js" id="htmlCssJs">html, css, js</a></li>
+                        <li><a href="/readyMadeSites/javascript" id="javascript">javascript</a></li>
+                        <li><a href="/readyMadeSites/nodeJs" id="nodeJs">nodeJs</a></li>
+                        <li><a href="/readyMadeSites/reactJs" id="reactJs">reactJs</a></li>
+                        <li><a href="/readyMadeSites/fullstack" id="fullstack">fullstack</a></li>
+                        <li><a href="/readyMadeSites" id="allSites">Все типы</a></li>
+                    </ul>
+                </div>
+            </details>
+        </ul>
     </div>
     <div id="types">
         <ul class="web-types">
@@ -264,8 +242,20 @@
             <li><a class="types" id="favorites" onclick="favoritesJoin()" style="cursor: pointer">Избранное</a></li>
         </ul>
     </div>
+    <div class="dropdown" id="local" style="position: absolute; top: 15%; right: 1%;">
+        <div class="dropdown-title">
+            <img src="/images/russia-flag.png" style="width: 40px; height: 40px;">
+        </div>
+        <div class="dropdown-content">
+            <button type="submit" style="background: none; border: none; padding: 0;" onclick="localsF()">
+                <img src="/images/usa-flag.jpg" style="width: 40px; height: 40px; cursor:pointer;">
+            </button>
+        </div>
+    </div>
 </header>
 <%- include('back.ejs') %>
 <script src="/javascripts/timer.js"></script>
 <script src="/javascripts/header.js"></script>
 <script src="/javascripts/paths.js"></script>
+<script src="/javascripts/local.js"></script>
+

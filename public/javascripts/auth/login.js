@@ -18,12 +18,15 @@ document.addEventListener('DOMContentLoaded', function (){
         }
     });
 
+
     let loginButton = document.getElementById('loginButton');
 
     let loginErr = document.getElementById('loginErr');
     let loginForm = document.getElementById('loginForm');
     let email = document.getElementById('email');
     let pwd = document.getElementById('pwd');
+
+    const local = localStorage.getItem('local');
 
     loginButton.addEventListener('click', (ev) => {
         ev.preventDefault();
@@ -60,7 +63,12 @@ document.addEventListener('DOMContentLoaded', function (){
                 if (token) {
                     const correctJoin = document.getElementById('correctJoin');
                     loginErr.innerHTML = '';
-                    correctJoin.innerHTML = '<p>Успешный вход!</p>';
+                    if (local === 'en'){
+                        correctJoin.innerHTML = '<p>Successful login!</p>'
+                    }
+                    else{
+                        correctJoin.innerHTML = '<p>Успешный вход!</p>';
+                    }
                     email.style.border = '1px solid #0d2818';
                     pwd.style.border = '1px solid #0d2818';
                     localStorage.setItem('token', token);

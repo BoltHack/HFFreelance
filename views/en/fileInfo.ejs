@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website View | <%= siteInfo.title %></title>
+</head>
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f0f2f5;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+    .info {
+        display: block;
+        margin: 150px 50px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        width: 800px;
+        height: 350px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+        overflow: hidden;
+    }
+    .description {
+        color: #666;
+        margin-left: 10px;
+        width: 500px;
+        word-wrap: break-word;
+    }
+    .info-container {
+        max-width: 1500px;
+        margin: -120px 50px;
+        display: flex;
+        gap: 20px;
+    }
+    .my-info {
+        display: block;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        width: 500px;
+        height: 100px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .site-info {
+        display: block;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        width: 239px;
+        height: 100px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .img {
+        width: 200px;
+        height: 200px;
+        border-radius: 8px;
+        border: 2px solid #007bff;
+        margin-right: 20px;
+        cursor: zoom-in;
+    }
+    .href {
+        color: #4a00e0;
+    }
+    .href:hover {
+        text-decoration: underline;
+        text-decoration-color: black;
+    }
+
+    .Download-button {
+        display: flex;
+        align-items: center;
+        background: rgb(103, 92, 156);
+        border: none;
+        padding: 8px 12px;
+        color: white;
+        border-radius: 5px;
+        position: relative;
+        margin-top: 1px;
+        width: 100px;
+        cursor: pointer;
+    }
+
+    .Download-button svg {
+        margin-right: 8px;
+        width: 20px;
+    }
+
+    .Download-button:hover {
+        background-color: #5b3d8b;
+    }
+
+    .Download-button:active {
+        background-color: #4a2f6c;
+    }
+    .br {
+        margin: 200px auto;
+    }
+    .new-barrier {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: black;
+        opacity: 0.6;
+        z-index: 3;
+    }
+    .new-border {
+        width: 600px;
+        height: 500px;
+        background-color: #f4f1de;
+        border-radius: 10px;
+        z-index: 4;
+        opacity: 1;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .logout-border {
+        border: 1px solid blue;
+        width: 500px;
+        height: 500px;
+        background-color: #212529;
+        border-radius: 10px;
+        z-index: 4;
+        opacity: 1;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    .new-image {
+        width: 500px;
+        height: 500px;
+    }
+</style>
+<body>
+<main>
+    <%- include('header.ejs') %>
+    <br>
+    <br>
+    <div style="display: block">
+        <div class="info">
+            <h2 style="color: #3c096c; margin-left: 2px;">Information</h2>
+            <div style="display: flex;">
+                <img src="data:image/jpeg;base64,<%= siteInfo.fileImg %>" class="img" onclick="imageMenu()" title="Zoom in">
+                <div style="display: block; margin-left: 20px; margin-top: -40px;">
+                    <b style="color: #3c096c">- Title:</b>
+                    <p style="margin-left: 10px; color: #666;"><%= siteInfo.title %></p>
+                    <b style="color: #3c096c">- Type:</b>
+                    <p style="margin-left: 10px; color: #666;"><%= siteInfo.siteType %></p>
+                    <b style="color: #3c096c">- Description:</b>
+                    <p class="description"><%= siteInfo.description %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="info-container">
+        <div class="my-info">
+            <h2 style="color: #3c096c">My Information</h2>
+            <div style="display: flex; white-space: nowrap; gap: 5px;" id="my-details">
+                <div style="display: flex; white-space: nowrap; gap: 5px;">
+                    <a href="/auth/login" class="href">Log in</a>
+                    <p style="margin-top: 0">or</p>
+                    <a href="/auth/register" class="href">register,</a>
+                    <p style="margin-top: 0">to download your favorite websites.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="site-info">
+            <h2 style="color: #3c096c">Download Archive</h2>
+            <div style="display: flex; gap: 10px; margin: auto 0;" id="download-file">
+            </div>
+        </div>
+    </div>
+    <div class="br"></div>
+</main>
+<%- include('footer.ejs') %>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const downloadFile = document.getElementById('download-file');
+        const token = localStorage.getItem('token');
+
+        if(token){
+            downloadFile.innerHTML = `
+                <form action="/downloadFile/<%= siteInfo._id %>" method="POST">
+                    <button class="Download-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 640 512">
+                            <path d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-167l80 80c9.4 9.4 24.6 9.4 33.9 0l80-80c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-39 39V184c0-13.3-10.7-24-24-24s-24 10.7-24 24V318.1l-39-39c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9z" fill="white"></path>
+                        </svg>
+                        <span>Download</span>
+                    </button>
+                </form>
+            `
+        }
+        else{
+            downloadFile.innerHTML = `
+                <button class="Download-button" onclick="displayInfo()">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 640 512">
+                        <path d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-167l80 80c9.4 9.4 24.6 9.4 33.9 0l80-80c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-39 39V184c0-13.3-10.7-24-24-24s-24 10.7-24 24V318.1l-39-39c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9z" fill="white"></path>
+                    </svg>
+                    <span>Download</span>
+                </button>
+            `
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const myDetails = document.getElementById('my-details');
+        const token = localStorage.getItem('token');
+
+        if(!token){
+            myDetails.innerHTML = `
+                    <a href="/auth/login" class="href">Login</a>
+                    <p style="margin-top: 0">or</p>
+                    <a href="/auth/register" class="href">register</a>
+                    <p style="margin-top: 0">to download your favorite sites.</p>`
+
+        }
+        else{
+            myDetails.innerHTML = `<a>You are logged in and can download files. Good luck!</a>`
+        }
+    })
+
+    function imageMenu(){
+        const zoomedImage = document.createElement('div');
+        zoomedImage.innerHTML = `
+            <div class="new-barrier" onclick="removeMenu()"></div>
+            <div class="new-border">
+                <img src="data:image/jpeg;base64,<%= siteInfo.fileImg %>" class="new-image">
+            </div>
+        `;
+        document.body.appendChild(zoomedImage);
+    }
+
+    function removeMenu(){
+        document.querySelector('.new-barrier').remove();
+        document.querySelector('.new-border').remove();
+    }
+</script>
+<script src="/javascripts/advertising.js"></script>
+<script src="/javascripts/love.js"></script>
+</body>
+</html>

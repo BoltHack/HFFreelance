@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/login-register.css">
+    <title>Registration</title>
+</head>
+<body>
+<div class="login-register-container">
+    <form action="/auth/register" method="post" class="form-register" id="loginForm">
+        <div style="display: flex">
+            <a href="/" style="text-decoration: none"><h1>&#11013;</h1></a>
+            <h3 style="text-align: center; padding: 10px; margin: 20px 0; font-size: 18px;">Create an Account</h3>
+        </div>
+        <div style="padding: 10px">
+            <input type="text" class="form-control" id="name" placeholder="Name or Full Name" name="name" required>
+            <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
+            <div class="password-container">
+                <input type="password" class="form-control" id="pwd" placeholder="Password" name="password" required>
+                <img src="/images/invisiblePassword.png" class="toggle-password" id="togglePassword1">
+                <img src="/images/visiblePassword.png" class="toggle-password" id="togglePassword2" hidden>
+            </div>
+            <div class="password-container">
+                <input type="password" class="form-control" id="cpwd" placeholder="Confirm Password" name="confirmPassword" required>
+            </div>
+        </div>
+        <div class="rules">
+            <span>By registering, you agree to our <a href="/rules" target="_blank">Terms of Use</a> and <a href="/privacyPolicy" target="_blank">Privacy Policy.</a></span>
+        </div>
+        <br>
+        <button type="submit" class="btn-register" id="registerButton">Register</button>
+        <p id="registerErr"></p>
+        <p id="correctRegister"></p>
+    </form>
+    <div class="already-have-account">
+    <span>
+        <p class="login">Already have an account?</p>
+        <a href="/auth/login" class="register">Log In</a>
+    </span>
+    </div>
+</div>
+<script src="/javascripts/auth/register.js"></script>
+</body>
+</html>

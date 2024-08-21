@@ -36,13 +36,32 @@ function displayInfo() {
         const border = document.createElement('border');
 
         const token = localStorage.getItem('token');
+        const local = localStorage.getItem('local');
 
         if (token){
             PersonalAreaJoin();
         }
         else {
             barrier.innerHTML = `<div class="new-barrier"></div>`;
-            border.innerHTML = `
+            if (local === 'en'){
+                border.innerHTML = `
+<link rel="stylesheet" href="/stylesheets/style.css">
+<div class="new-border">
+<div class="border-data">
+    <h2 class="yourAccount">Your account</h2>
+    <br>
+<h3>You are not logged in</h3>
+<p>Sign in or create an account.</p>
+<button onclick="login()" class="login-btn">Login</button>
+<button onclick="register()" class="register-btn">Create an account</button>
+<span>By continuing, you accept our <a class="termsOfUse" href="/rules" target="_blank">Terms of Use</a> and <a href="/privacyPolicy" target="_blank" class="privacyPolicy">Privacy Policy</a>.</span>
+</div>
+</div>
+</div>
+    `
+            }
+            else{
+                border.innerHTML = `
 <link rel="stylesheet" href="/stylesheets/style.css">
 <div class="new-border">
 <div class="border-data">
@@ -57,6 +76,8 @@ function displayInfo() {
 </div>
 </div>
     `
+            }
+
 
             document.body.appendChild(border);
             document.body.appendChild(barrier);
@@ -89,9 +110,22 @@ function admin() {
 function logoutMenu() {
     const barrier = document.createElement('barrier');
     const border = document.createElement('border');
+    const local = localStorage.getItem('local');
 
     barrier.innerHTML = `<div class="new-barrier"></div>`;
-    border.innerHTML = `
+    if (local === 'en'){
+        border.innerHTML = `
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <div class="logout-border">
+        <p style="text-align: center; color: white; margin: 40px 0">Are you sure you want to go out?</p>
+        <div class="yes-or-no">
+        <button class="no-btn" id="closeBtn">No</button>
+        <button class="yes-btn" onclick="logout()">Yes</button>  
+        </div>
+        </div>`
+    }
+    else{
+        border.innerHTML = `
         <link rel="stylesheet" href="/stylesheets/style.css">
         <div class="logout-border">
         <p style="text-align: center; color: white; margin: 40px 0">Вы точно хотите выйти?</p>
@@ -100,6 +134,7 @@ function logoutMenu() {
         <button class="yes-btn" onclick="logout()">Да</button>  
         </div>
         </div>`
+    }
 
     document.body.appendChild(border);
     document.body.appendChild(barrier);
@@ -107,6 +142,10 @@ function logoutMenu() {
         document.body.removeChild(barrier);
         document.body.removeChild(border);
         window.location.href = '#';
+    })
+    document.getElementById('closeBtn').addEventListener('click', () => {
+        document.body.removeChild(barrier);
+        document.body.removeChild(border);
     })
 }
 function logout() {
@@ -122,7 +161,13 @@ function logout() {
         }
 
         if (status) {
-            localStorage.clear();
+            localStorage.removeItem('id');
+            localStorage.removeItem('profileImage');
+            localStorage.removeItem('accessTokenEndTime');
+            localStorage.removeItem('name');
+            localStorage.removeItem('refreshTokenEndTime');
+            localStorage.removeItem('token');
+            localStorage.removeItem('ref');
             window.location.href = "/auth/login";
             return;
         }
@@ -138,9 +183,23 @@ function checkTokenFunc() {
     else{
         const barrier = document.createElement('barrier');
         const border = document.createElement('border');
+        const locale = localStorage.getItem('local');
 
         barrier.innerHTML = `<div class="new-barrier"></div>`;
-        border.innerHTML = `
+        if (locale === 'en'){
+            border.innerHTML = `
+            <link rel="stylesheet" href="/stylesheets/style.css">
+<div class="logout-border">
+    <p style="text-align: center; color: white; margin: 30px 0; padding: 10px;">Go to the Telegram chat with the developer?</p>
+    <div class="yes-or-no">
+        <button class="no-btn" id="closeBtn">No</button>
+        <a href="https://web.telegram.org/a/" target="_blank"><button class="yes-btn">Yes</button></a>
+    </div>
+</div>
+`
+        }
+        else{
+            border.innerHTML = `
         <link rel="stylesheet" href="/stylesheets/style.css">
         <div class="logout-border">
         <p style="text-align: center; color: white; margin: 30px 0; padding: 10px;">Перейти в телеграм-чат с разработчиком?</p>
@@ -149,6 +208,7 @@ function checkTokenFunc() {
         <a href="https://web.telegram.org/a/" target="_blank"><button class="yes-btn">Да</button></a>
         </div>
         </div>`
+        }
 
         document.body.appendChild(border);
         document.body.appendChild(barrier);
@@ -248,9 +308,22 @@ function newsMenu() {
 function deleteReviewMenu() {
     const barrier = document.createElement('barrier');
     const border = document.createElement('border');
+    const local = localStorage.getItem('local');
 
     barrier.innerHTML = `<div class="new-barrier"></div>`;
-    border.innerHTML = `
+    if (local === 'en'){
+        border.innerHTML = `
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <div class="logout-border">
+        <p style="text-align: center; color: white; margin: 30px 0; padding: 10px;">Are you sure you want to delete your review?</p>
+        <div class="yes-or-no">
+        <button class="no-btn" id="closeBtn">No</button>
+            <button class="yes-btn" onclick="deleteReview()">Yes</button>
+        </div>
+        </div>`
+    }
+    else {
+        border.innerHTML = `
         <link rel="stylesheet" href="/stylesheets/style.css">
         <div class="logout-border">
         <p style="text-align: center; color: white; margin: 30px 0; padding: 10px;">Вы уверены, что хотите удалить свой отзыв?</p>
@@ -259,6 +332,7 @@ function deleteReviewMenu() {
             <button class="yes-btn" onclick="deleteReview()">Да</button>
         </div>
         </div>`
+    }
 
     document.body.appendChild(border);
     document.body.appendChild(barrier);

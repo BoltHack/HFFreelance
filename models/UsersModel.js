@@ -61,6 +61,10 @@ const UsersSchema = new Schema({
     },
     requestUnban: {
         type: [RequestUnbanSchema]
+    },
+    locale: {
+        type: String,
+        default: 'en'
     }
 });
 

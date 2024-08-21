@@ -9,7 +9,7 @@ const verifyToken = (req, res, next) => {
             const token = req.headers['authorization'].split(' ')[1];
             jwt.verify(token, JWTSecret, (err, decoded) => {
                 if (err) {
-                    return res.status(401).json({ error: 'Failed to authenticate token' });
+                    return res.redirect(`/error?message=${encodeURIComponent("Не удалось аутентифицировать токен.")}`);
                 }
                 req.user = decoded;
 
@@ -17,11 +17,10 @@ const verifyToken = (req, res, next) => {
             });
         } catch (e) {
             next(e)
-            return res.status(400).json({ error: 'Invalid token' });
+            return res.redirect(`/error?message=${encodeURIComponent("Неверный токен.")}`);
         }
     } else {
-        return res.status(403).json({ error: 'No token provided' });
-        // return res.redirect('/')
+        return res.redirect(`/error?message=${encodeURIComponent("Токен не предоставлен.")}`);
     }
 };
 

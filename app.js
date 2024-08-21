@@ -6,6 +6,7 @@ const logger = require('morgan');
 const fileUpload = require('express-fileupload');
 const start = require('./services/db');
 const indexRouter = require('./routes/index');
+const {LinksModel} = require("./models/LinksModel");
 
 const app = express();
 start();
@@ -35,7 +36,20 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  const message = req.query.message || err.message;
+
+  const links = LinksModel.find();
+  let locale = req.cookies['locale'] || 'en';
+
+  if (!req.cookies['locale']) {
+    res.cookie('locale', locale, { httpOnly: true });
+  }
+  if (locale === 'en'){
+    res.render('en/error', { message });
+  }
+  else{
+    res.render('ru/error', { message });
+  }
 });
 
 module.exports = app;

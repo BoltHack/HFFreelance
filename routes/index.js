@@ -4,7 +4,7 @@ const {
     deleteReview, PersonalAreaView, changeImage, sendReview, getTokenView, moreDetailsView,
     youAreBannedView, requestUnban, readyMadeSitesView, downloadFile,
     fileInfoView, htmlSitesView, javascriptSitesView, fullstackSitesView, nodeJsSitesView, reactJsSitesView,
-    favoritesView
+    favoritesView, changeLocal
 } = require('../controller/IndexController');
 const AuthRouter = require('./AuthRouter');
 const AdminRouter = require('./admin');
@@ -43,6 +43,7 @@ router.post('/accessToken', accessToken);
 router.post('/refreshToken', refreshToken);
 router.post('/requestUnban/:id', authenticateJWT, requestUnban);
 router.post('/downloadFile/:id', authenticateJWT, downloadFile);
+router.post('/changeLocal', changeLocal);
 
 router.use('/auth', AuthRouter);
 router.use('/admin', AdminRouter);

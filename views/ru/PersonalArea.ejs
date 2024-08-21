@@ -83,17 +83,6 @@
             </div>
         </div>
 
-<!--        <section class="newsMenu-section" hidden>-->
-<!--            <div class="newsMenu-item">-->
-<!--                <% if (news && news.length) { %>-->
-<!--                    <img class="newsMenu-image" src="data:image/jpeg;base64,<%= news[news.length - 1].image %>">-->
-<!--                    <p class="newsMenu-title"><%= news[news.length - 1].title %></p>-->
-<!--                    <p class="newsMenu-content"><%= news[news.length - 1].content %></p>-->
-<!--                    <p class="newsMenu-date"><%= news[news.length - 1].date %></p>-->
-<!--                <% } %>-->
-<!--            </div>-->
-<!--        </section>-->
-
         <section id="news" hidden>
             <h2 class="center">Лента новостей</h2>
             <% if (news && news.length > 0) { %>
@@ -130,8 +119,8 @@
             <span class="subtitle">Чтобы удалить аккаунт, нужно ввести текущий пароль от аккаунта.</span>
         </div>
         <div style="display: block">
-            <form action="/deleteAccount/<%= user.id %>" method="post" id="deleteForm">
-                <input placeholder="Введите пароль" name="password" type="password" class="input_field" style="margin-top: 20px;" required>
+            <form action="/deleteAccount/<%= user.id %>" method="post">
+                <input placeholder="Введите пароль" name="password" type="password" id="password" class="input_field" style="margin-top: 20px;" required>
                 <button type="submit" class="yes-btn" style="width: 100px;">Удалить</button>
             </form>
         </div>

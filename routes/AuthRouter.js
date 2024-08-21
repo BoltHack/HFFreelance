@@ -3,7 +3,6 @@ const {registerView, registerNewUser, loginView, loginUser, logout} = require('.
 const {validateRegister, validateLogin} =require('../middlewares/validate')
 const {checkEmail} = require("../middlewares/checkEmail");
 const {verifyToken} = require("../middlewares/authorization");
-const {homeInfo} = require("../controller/IndexController");
 const router = express.Router();
 
 router.get('/register', registerView );

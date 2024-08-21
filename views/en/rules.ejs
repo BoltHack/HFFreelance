@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HFFreelance | Rules</title>
+    <link rel="stylesheet" href="/stylesheets/main2.css">
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .rules-container {
+        max-width: 800px;
+        margin: 70px auto;
+        padding: 20px;
+    }
+
+    .section {
+        margin-bottom: 40px;
+    }
+
+    h2 {
+        color: #333;
+        font-size: 24px;
+    }
+
+    ol {
+        padding-left: 20px;
+    }
+
+    ol li {
+        margin-bottom: 10px;
+        line-height: 1.5;
+    }
+
+</style>
+<body>
+<%- include('header.ejs') %>
+<main>
+    <%- include('back.ejs') %>
+    <div class="rules-container">
+        <div class="section">
+            <h2>Terms of Use</h2>
+            <ol>
+                <li>Site Purpose: The HFFreelancers website is intended to provide information about our web development services, sell ready-made web projects, and offer custom development services.</li>
+                <li>User Rights and Responsibilities: Users are required to comply with applicable laws when using our website. It is prohibited to post dishonest or harmful information, infringe on copyright, or use the site for illegal activities.</li>
+                <li>Intellectual Property: All content posted on the HFFreelancers website is protected by copyright law. Reprinting, copying, or using the site's materials without the copyright holder's consent is prohibited.</li>
+                <li>Limitation of Liability: The administration of the HFFreelancers website is not responsible for any losses or damages resulting from the use of the information provided on the site. We do not guarantee the completeness, accuracy, or timeliness of the provided data.</li>
+                <li>Links to Third-Party Resources: Our website may contain links to third-party resources, but we are not responsible for the content or privacy policies of these resources. Use of them is at your own risk.</li>
+            </ol>
+        </div>
+    </div>
+</main>
+<%- include('footer.ejs') %>
+</body>
+</html>

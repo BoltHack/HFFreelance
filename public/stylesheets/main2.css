@@ -379,23 +379,11 @@ ul {
     background-color: #012a4a;
 }
 @media (max-width: 1500px) {
-    /*.about-container{*/
-    /*    width: 800px;*/
-    /*    flex-wrap: wrap;*/
-    /*    margin: auto 220px;*/
-    /*}*/
-    /*.data{*/
-    /*    margin: 20px 100px;*/
-    /*}*/
-    /*.content{*/
-    /*    position: relative;*/
-    /*    left: 25%;*/
-    /*}*/
     body{
         overflow-x: auto;
     }
 }
-@media (max-width: 1400px) {
+@media (max-width: 1500px) {
     .r-container{
         display: block;
         width: 800px;
@@ -414,7 +402,18 @@ ul {
         margin-right: 1000px;
     }
     .content{
-        max-width: 400px;
+        max-width: 300px;
+        position: relative;
+        left: 50%;
+        transform: translate(-50%);
+    }
+    .about-container{
+        max-width: 800px;
+    }
+    .data{
+        position: relative;
+        left: 50%;
+        transform: translate(-50%);
     }
 }
 @media (max-width: 1200px) {

@@ -119,3 +119,11 @@ async function getNewToken() {
         console.error('Ошибка:', error);
     }
 }
+
+function local(){
+    const local = localStorage.getItem('local');
+    if (!local){
+        localStorage.setItem('local', 'en');
+    }
+}
+local()

@@ -1,22 +1,3 @@
-const mainContainer = document.getElementById('mainContainer');
-const myToken = localStorage.getItem('token');
-
-function homePageFunction() {
-    mainContainer.innerHTML = "";
-    fetch('/', {
-        method: 'post',
-        headers: {
-            'Authorization': 'Bearer ' + myToken
-        },
-    }).then(response => response.text())
-        .then(data => {
-            mainContainer.insertAdjacentHTML('afterbegin', data);
-        })
-        .catch(error => {
-            console.error('Fetch error:', error);
-        });
-}
-
 const join = () => {
     localStorage.clear()
     window.location.href = `/auth/login`

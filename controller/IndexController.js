@@ -12,7 +12,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
             if (req.cookies['token']) {
@@ -49,7 +49,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
             if (req.cookies['token']) {
@@ -86,7 +86,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
             if (req.cookies['token']) {
@@ -123,7 +123,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
             if (req.cookies['token']) {
@@ -161,7 +161,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
             if (user.banned[0].banType === true) {
@@ -187,7 +187,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
             const review = await UsersModel.findOne({ _id: user.id});
@@ -211,7 +211,7 @@ class IndexController {
         let locale = req.cookies['locale'] || 'en';
 
         if (!req.cookies['locale']) {
-            res.cookie('locale', locale, { httpOnly: true });
+            res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
         }
         if (locale === 'en'){
             return res.render('en/getToken');
@@ -226,7 +226,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
             if (req.cookies['token']) {
@@ -259,10 +259,15 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
-            return res.render('youAreBanned', {user});
+            if(locale === 'en'){
+                return res.render('en/youAreBanned', {user});
+            }
+            else{
+                return res.render('ru/youAreBanned', {user});
+            }
         } catch (err) {
             next(err)
         }
@@ -277,7 +282,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
             const totalWebsites = await WebsitesModel.countDocuments();
@@ -350,7 +355,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
             const totalWebsites = await WebsitesModel.countDocuments({
@@ -444,7 +449,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
             const totalWebsites = await WebsitesModel.countDocuments({
@@ -531,7 +536,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
             const totalWebsites = await WebsitesModel.countDocuments({
@@ -618,7 +623,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
             const totalWebsites = await WebsitesModel.countDocuments({
@@ -705,7 +710,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
             const totalWebsites = await WebsitesModel.countDocuments({
@@ -791,7 +796,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
             if (req.cookies['token']) {
@@ -831,7 +836,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
             if (siteInfo === undefined){
@@ -876,7 +881,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
             if(!req.files || !req.files.image){
@@ -909,7 +914,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
             if (user.reviews && user.reviews.length > 0) {
@@ -936,7 +941,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
             const user = await UsersModel.findById(id);
@@ -963,7 +968,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
             const reviews = users.flatMap(user => user.reviews.map(review => ({
                 name: user.name,
@@ -1011,7 +1016,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
             if (!user) {
@@ -1059,7 +1064,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
             await UsersModel.findByIdAndUpdate(
@@ -1094,7 +1099,7 @@ class IndexController {
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true });
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
             else {
@@ -1125,10 +1130,24 @@ class IndexController {
 
     static changeLocal = async (req, res) => {
         try {
+            // let locale = req.cookies['locale'] || 'en';
+
+            // if (req.cookies['token']) {
+            //     const user = req.user;
+            //     console.log('id', user._id)
+            //
+            //     locale = locale === 'en' ? 'ru' : 'en';
+            //     await UsersModel.findByIdAndUpdate(
+            //         user._id,
+            //         { locale },
+            //         { new: true }
+            //     );
+            // }
+
             let locale = req.cookies['locale'] || 'en';
 
             locale = locale === 'en' ? 'ru' : 'en';
-            res.cookie('locale', locale, { httpOnly: true });
+            res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000 });
 
             res.json({ locale });
         } catch (err) {
@@ -1136,6 +1155,7 @@ class IndexController {
             res.status(500).json({ error: err.message });
         }
     };
+
 
 
 }

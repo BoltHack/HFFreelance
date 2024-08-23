@@ -48,7 +48,7 @@ class AuthController {
                 email,
                 password: hashPassword,
                 confirmPassword: hashPassword,
-                banned: [{ banType: false }]
+                banned: [{ banType: false }],
             })
 
             await newUser.save();
@@ -101,6 +101,7 @@ class AuthController {
                 registerDate: user.registerDate,
                 role: user.role,
                 banned: user.banned,
+                locale: user.locale
             }, JWTSecret, {expiresIn: '15m'});
 
             const refreshToken = jwt.sign({
@@ -111,6 +112,7 @@ class AuthController {
                 registerDate: user.registerDate,
                 role: user.role,
                 banned: user.banned,
+                locale: user.locale
             }, refreshTokenSecret, {expiresIn: '10d'});
 
             user.refreshToken = refreshToken;

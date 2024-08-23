@@ -266,6 +266,7 @@
                     <% } else { %>
                         <p>Отзыв: Отсутствует</p>
                     <% } %>
+                    <p>Язык: <%= user.locale %></p>
                     <p>Роль: <%= user.role %></p>
                     <% if (user.banned && user.banned.length > 0) { %>
                         <% if (user.banned[0].banType === false) { %>

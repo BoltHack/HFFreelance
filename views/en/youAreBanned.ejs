@@ -165,10 +165,70 @@
             height: 150px;
             opacity: 1;
         }
+
+        :root{
+            --background-color: #1C2025;
+            --hover-background-color: #303740;
+            --color: #DAE2ED;
+            --padding: 8px;
+            --border-radius: 8px;
+            --title-content-space: 4px;
+        }
+        .dropdown{
+            width: 50px;
+            text-align: center;
+        }
+        .dropdown-title{
+            position: relative;
+            margin-bottom: var(--title-content-space);
+            background: none;
+        }
+        .dropdown-title::after{
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: var(--title-content-space);
+            bottom: 0;
+            left: 0;
+            transform: translateY(100%);
+        }
+        .dropdown-title, .dropdown-content{
+            padding: var(--padding);
+            border-radius: var(--border-radius);
+            color: var(--color);
+            cursor: pointer;
+        }
+
+        .dropdown-title:hover + .dropdown-content, .dropdown-content:hover{
+            transform: scaleY(1);
+        }
+        .dropdown-content{
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.35s ease;
+            transform-origin: top;
+            transform: scaleY(0);
+        }
+        .dropdown-content a {
+            text-decoration: none;
+            padding: var(--padding);
+            color: var(--color);
+            border-radius: var(--border-radius);
+        }
     </style>
 </head>
 
 <body>
+<div class="dropdown" id="local" style="position: absolute; top: 0; right: 1%;">
+    <div class="dropdown-title">
+        <img src="/images/usa-flag.jpg" style="width: 40px; height: 40px;">
+    </div>
+    <div class="dropdown-content">
+        <button type="submit" style="background: none; border: none; padding: 0;" onclick="localsF()">
+            <img src="/images/russia-flag.png" style="width: 40px; height: 40px; cursor:pointer;">
+        </button>
+    </div>
+</div>
 <div class="container">
     <h1>You Are Banned</h1>
     <p class="banMessage"><%= user.name %>, unfortunately, your account has been banned for the following reason:
@@ -187,6 +247,7 @@
     <p id="requestMsg">You can submit an appeal request.</p>
     <a id="requestBan" onclick="request()">Submit a request</a>
     <div id="requestBanForm" class="fade-in">
+        <br>
         <form action="/requestUnban/<%= user.id %>" method="POST">
             <input type="email" name="email" placeholder="Your email" value="<%= user.email %>" readonly>
             <textarea name="message" rows="4" placeholder="Why do you think you should be unbanned"
@@ -234,6 +295,6 @@
         requestBan.style.display = 'block';
     }
 </script>
+<script src="/javascripts/local.js"></script>
 </body>
-
 </html>

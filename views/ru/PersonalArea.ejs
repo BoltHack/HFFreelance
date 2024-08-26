@@ -2,7 +2,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HFFreelance | Личный кабинет</title>
-    <link rel="stylesheet" href="/stylesheets/main.css">
+<!--    <link rel="stylesheet" href="/stylesheets/main.css">-->
+    <link rel="stylesheet" href="/stylesheets/PersonalArea.css">
     <link rel="stylesheet" href="/stylesheets/alert.css">
     <% if (user && user.id) { %>
         <script>
@@ -18,15 +19,14 @@
             <li id="profileMenu"><a href="#profilePage">Мой профиль</a></li>
 
             <li id="newsMenu"><a href="#news">Новости</a></li>
-<!--            <li><a href="#newsMenu" onclick="newsMenu()">Последние новости</a></li>-->
             <br>
             <% if (user.role === 'Admin') {%>
-                <li><a onclick="admin()">Админ панель</a></li>
+                <li><a onclick="admin()" style="cursor: pointer">Админ панель</a></li>
             <br>
             <% } %>
             <li><a href="/">В главное меню</a></li>
-            <li><a href="#deleteAccount" onclick="deleteAccountMenu()" style="cursor:pointer;">Удалить Уч. запись</a></li>
-            <li><a href="#logout" onclick="logoutMenu()">Выйти</a></li>
+            <li><a onclick="deleteAccountMenu()" style="cursor: pointer">Удалить Уч. запись</a></li>
+            <li><a onclick="logoutMenu()" style="cursor: pointer">Выйти</a></li>
         </ul>
     </aside>
     <main class="main-content">
@@ -36,7 +36,7 @@
             <div class="profile-info">
                 <img src="" class="profile-pic" id="userImage" style="cursor: pointer">
                 <div class="pers-info">
-                    <h2 style="margin-left: 100px;"><%= user.name %></h2>
+                    <h2><%= user.name %></h2>
                     <p>Email: <%= user.email %></p>
                     <p>Дата регистрации: <%= user.registerDate %></p>
                     <% if(review && review.reviews && review.reviews.length > 0 && review.reviews[0].review) {%>
@@ -49,6 +49,9 @@
                     <%}%>
                 </div>
             </div>
+                <div>
+
+                </div>
             <div class="redaction">
                 <p>
                     <button id="editImageBtn">Сменить аватара</button>
@@ -56,7 +59,7 @@
                 </p>
                 <form action="/upload/<%= user.id %>" method="POST" enctype="multipart/form-data">
                     <section id="editImagePart" hidden>
-                        <img src="" class="profile-pic" id="userImageEdit" style="cursor: pointer">
+                        <img src="" class="profile-pic-edit" id="userImageEdit" style="cursor: pointer">
                         <input type="file" name="file" id="attachFile">
                         <p>
                             <input type="button" value="Сохранить" id="changeBtn">
@@ -68,18 +71,22 @@
             <% } %>
         </section>
 
-        <div id="changePassword" class="changePassword-section" hidden>
-            <div class="password-container">
-                <h1 style="color: white; text-align: center">Сменить пароль</h1>
-                <p><%= user._id %></p>
-                <form action="/changePassword/<%= user.id %>" method="POST">
-                    <input type="password" name="oldPassword" id="oldPwd" placeholder="Старый пароль" minlength="6" maxlength="50" required>
-                    <input type="password" name="password" id="pwd" placeholder="Новый пароль" minlength="6" maxlength="50" required>
-                    <input type="password" name="confirmPassword" id="cpwd" placeholder="Повтор пароля" minlength="6" maxlength="50" required>
-                    <img src="/images/invisiblePassword.png" class="toggle-password" id="togglePassword1">
-                    <img src="/images/visiblePassword.png" class="toggle-password" id="togglePassword2" hidden>
-                    <button>Сменить пароль</button>
-                </form>
+        <div id="changePassword" hidden>
+            <div class="changePassword-section">
+                <div class="password-container">
+                    <h1 style="color: white; text-align: center">Сменить пароль</h1>
+                    <p><%= user._id %></p>
+                    <form action="/changePassword/<%= user.id %>" method="POST">
+                        <input type="password" name="oldPassword" id="oldPwd" placeholder="Старый пароль" minlength="6" maxlength="50" required>
+                        <input type="password" name="password" id="pwd" placeholder="Новый пароль" minlength="6" maxlength="50" required>
+                        <input type="password" name="confirmPassword" id="cpwd" placeholder="Повтор пароля" minlength="6" maxlength="50" required>
+                        <img src="/images/invisiblePassword.png" class="toggle-password" id="togglePassword1">
+                        <img src="/images/visiblePassword.png" class="toggle-password" id="togglePassword2" hidden>
+                        <br>
+                        <br>
+                        <button>Сменить пароль</button>
+                    </form>
+                </div>
             </div>
         </div>
 
@@ -116,11 +123,14 @@
         </div>
         <div class="note">
             <label class="title">Удаление аккаунта <%= user.email %>.</label>
+            <br>
             <span class="subtitle">Чтобы удалить аккаунт, нужно ввести текущий пароль от аккаунта.</span>
         </div>
         <div style="display: block">
             <form action="/deleteAccount/<%= user.id %>" method="post">
                 <input placeholder="Введите пароль" name="password" type="password" id="password" class="input_field" style="margin-top: 20px;" required>
+                <br>
+                <br>
                 <button type="submit" class="yes-btn" style="width: 100px;">Удалить</button>
             </form>
         </div>

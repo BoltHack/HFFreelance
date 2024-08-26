@@ -122,7 +122,6 @@ function logoutMenu() {
     barrier.addEventListener('click', () => {
         document.body.removeChild(barrier);
         document.body.removeChild(border);
-        window.location.href = '#';
     })
     document.getElementById('closeBtn').addEventListener('click', () => {
         document.body.removeChild(barrier);
@@ -259,12 +258,10 @@ function deleteAccountMenu() {
     barrier.addEventListener('click', () => {
         barrier.hidden = true;
         border.hidden = true;
-        window.location.href = '#';
     })
     close.addEventListener('click', () => {
         barrier.hidden = true;
         border.hidden = true;
-        window.location.href = '#';
     })
 }
 

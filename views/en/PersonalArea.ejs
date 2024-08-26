@@ -2,7 +2,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HFFreelance | Personal Account</title>
-    <link rel="stylesheet" href="/stylesheets/main.css">
+    <link rel="stylesheet" href="/stylesheets/PersonalArea.css">
     <link rel="stylesheet" href="/stylesheets/alert.css">
     <% if (user && user.id) { %>
         <script>
@@ -18,15 +18,14 @@
             <li id="profileMenu"><a href="#profilePage">My Profile</a></li>
 
             <li id="newsMenu"><a href="#news">News</a></li>
-            <!--            <li><a href="#newsMenu" onclick="newsMenu()">Latest News</a></li>-->
             <br>
             <% if (user.role === 'Admin') {%>
-                <li><a onclick="admin()">Admin Panel</a></li>
+                <li><a onclick="admin()" style="cursor:pointer;">Admin Panel</a></li>
                 <br>
             <% } %>
             <li><a href="/">Main Menu</a></li>
-            <li><a href="#deleteAccount" onclick="deleteAccountMenu()" style="cursor:pointer;">Delete Account</a></li>
-            <li><a href="#logout" onclick="logoutMenu()">Logout</a></li>
+            <li><a onclick="deleteAccountMenu()" style="cursor:pointer;">Delete Account</a></li>
+            <li><a onclick="logoutMenu()" style="cursor:pointer;">Logout</a></li>
         </ul>
     </aside>
     <main class="main-content">
@@ -36,7 +35,7 @@
                 <div class="profile-info">
                     <img src="" class="profile-pic" id="userImage" style="cursor: pointer">
                     <div class="pers-info">
-                        <h2 style="margin-left: 100px;"><%= user.name %></h2>
+                        <h2><%= user.name %></h2>
                         <p>Email: <%= user.email %></p>
                         <p>Registration Date: <%= user.registerDate %></p>
                         <% if(review && review.reviews && review.reviews.length > 0 && review.reviews[0].review) {%>
@@ -56,7 +55,7 @@
                     </p>
                     <form action="/upload/<%= user.id %>" method="POST" enctype="multipart/form-data">
                         <section id="editImagePart" hidden>
-                            <img src="" class="profile-pic" id="userImageEdit" style="cursor: pointer">
+                            <img src="" class="profile-pic-edit" id="userImageEdit" style="cursor: pointer">
                             <input type="file" name="file" id="attachFile">
                             <p>
                                 <input type="button" value="Save" id="changeBtn">
@@ -78,6 +77,8 @@
                     <input type="password" name="confirmPassword" id="cpwd" placeholder="Confirm Password" minlength="6" maxlength="50" required>
                     <img src="/images/invisiblePassword.png" class="toggle-password" id="togglePassword1">
                     <img src="/images/visiblePassword.png" class="toggle-password" id="togglePassword2" hidden>
+                    <br>
+                    <br>
                     <button>Change Password</button>
                 </form>
             </div>
@@ -121,6 +122,8 @@
         <div style="display: block">
             <form action="/deleteAccount/<%= user.id %>" method="post">
                 <input placeholder="Enter your password" name="password" type="password" id="password" class="input_field" style="margin-top: 20px;" required>
+                <br>
+                <br>
                 <button type="submit" class="yes-btn" style="width: 100px;">Delete</button>
             </form>
         </div>

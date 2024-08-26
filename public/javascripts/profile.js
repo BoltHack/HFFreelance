@@ -80,6 +80,7 @@ function profilePerms(){
             localStorage.setItem('profileImage', imageDataUrl);
         };
     })
+
     changeBtn.addEventListener('click', () => {
         let formData = new FormData();
         const selectedFile = attachFile.files[0];

@@ -15,7 +15,7 @@
     <aside class="sidebar">
         <h2>Menu</h2>
         <ul>
-            <li id="profileMenu"><a href="#profilePage">My Profile</a></li>
+            <li id="profileMenu" style="background-color: #34495e"><a href="#profilePage">My Profile</a></li>
 
             <li id="newsMenu"><a href="#news">News</a></li>
             <br>
@@ -34,6 +34,9 @@
                 <h1>Profile</h1>
                 <div class="profile-info">
                     <img src="" class="profile-pic" id="userImage" style="cursor: pointer">
+                    <div class="zoomImageDiv" id="zoomImageDiv" hidden>
+                        <img src="" class="zoomImage" id="zoomImage">
+                    </div>
                     <div class="pers-info">
                         <h2><%= user.name %></h2>
                         <p>Email: <%= user.email %></p>

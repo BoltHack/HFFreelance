@@ -10,11 +10,11 @@ function localsF() {
                 const local = localStorage.getItem('local');
                 if (local === 'en'){
                     localStorage.setItem('local', 'ru');
-                    window.location.reload();
+                    window.location.href = '/';
                 }
                 else{
                     localStorage.setItem('local', 'en');
-                    window.location.reload();
+                    window.location.href = '/';
                 }
 
             } else {

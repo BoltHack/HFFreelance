@@ -37,6 +37,9 @@ class IndexController {
                     return res.render('ru/main', { locale, links });
                 }
             }
+            res.send(`
+            <script>alert(4545)</script>
+            `)
         } catch (e) {
             next(e);
         }

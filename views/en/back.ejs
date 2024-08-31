@@ -19,31 +19,6 @@
 </style>
 <div class="back">
     <br><a href="/" class="color-btn">Home</a>
-<!--    <a class="between">/</a>-->
-<!--    <a href="#" class="back-button color-btn" onclick="goBack()">Back</a>-->
-<!--    <p id="text" style="margin-top: 0"></p>-->
+    <a class="between">/</a>
+    <a href="#" class="back-button color-btn" onclick="goBack()">Back</a>
 </div>
-<script>
-    function goBack() {
-        const id = localStorage.getItem('id')
-        if (window.location.pathname === `/sendReviews/${id}` || window.location.pathname === '/PersonalArea') {
-            window.history.back();
-            window.history.back();
-        }
-        else{
-            window.history.back();
-        }
-    }
-    // function removeString(str, index){
-    //     if (index < 0 || index >= str.length){
-    //         return str;
-    //     }
-    //     return str.slice(0, index) + str.slice(index + 1);
-    // }
-    // function test(){
-    //     const text = document.getElementById('text');
-    //     const path = window.location.pathname
-    //     text.innerHTML = path.slice(0)
-    // }
-    // test()
-</script>

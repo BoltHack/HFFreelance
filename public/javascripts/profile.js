@@ -27,9 +27,10 @@ document.getElementById('togglePassword1').addEventListener('click', function ()
 });
 
 function profilePerms(){
-    let profileImg = document.getElementById('userImage')
-    let userImageEdit = document.getElementById('userImageEdit')
+    let profileImg = document.getElementById('userImage');
+    let userImageEdit = document.getElementById('userImageEdit');
     let homeId = idUser;
+    let image = localStorage.getItem('profileImage');
 
     let editImageBtn = document.getElementById('editImageBtn');
     let attachFile = document.getElementById('attachFile');
@@ -39,8 +40,17 @@ function profilePerms(){
 
     let changePasswordBtn = document.getElementById('changePasswordBtn');
     let changePassword = document.getElementById('changePassword');
+    let zoomImage = document.getElementById('zoomImage');
+    let zoomImageDiv = document.getElementById('zoomImageDiv');
 
     const barrier = document.createElement('barrier');
+
+    profileImg.addEventListener('click', () => {
+        barrier.innerHTML = `<div class="new-barrier"></div>`;
+        document.body.appendChild(barrier);
+        zoomImageDiv.hidden = false;
+        zoomImage.src = image;
+    })
 
     changePasswordBtn.addEventListener('click', () => {
         barrier.innerHTML = `<div class="new-barrier"></div>`;
@@ -60,6 +70,7 @@ function profilePerms(){
         editImageBtn.hidden = false;
         editImagePart.hidden = true;
         changePassword.hidden = true;
+        zoomImageDiv.hidden = true;
     })
 
     cancelChangeBtn.addEventListener('click', () => {

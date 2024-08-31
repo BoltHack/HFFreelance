@@ -100,7 +100,7 @@ body {
 }
 
 .redaction button {
-    background-color: #115dfc;
+    background-color: #2c3e50;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -474,4 +474,15 @@ drop-shadow(0px 1px 0.5px rgba(239, 239, 239, 0.5));
 #news{
     max-height: 500px;
     overflow-y: auto;
+}
+
+.zoomImage{
+    width: 400px;
+    height: 400px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    border-radius: 50%;
 }

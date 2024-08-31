@@ -4,18 +4,10 @@ body{
     padding: 0;
     flex-direction: column;
     height: 100vh;
-    /*background-color: #e8e8e8;*/
-<<<<<<< HEAD
-    /*max-height: 100vh;*/
-=======
     max-height: 100vh;
->>>>>>> origin/main
     background-color: #dadde2;
-    /*background-color: #2a272a;*/
-    /*background-color: #121212;*/
     display: grid;
     grid-template-rows: auto 1fr auto;
-    /*opacity: 0.6;*/
 }
 main{
     flex: 1;
@@ -58,11 +50,11 @@ main{
     width: 100%;
     height: 150%;
     /*background-color: #43655a;*/
-    background: rgb(32,30,32);
-    background: linear-gradient(184deg, rgba(32,30,32,1) 54%, rgba(16,16,17,1) 76%);
-    /*background-image: url("../images/ai-generated-8237711_1920.jpg");*/
+    /*background: rgb(32,30,32);*/
+    /*background: linear-gradient(184deg, rgba(32,30,32,1) 54%, rgba(16,16,17,1) 76%);*/
+    background-image: url("../images/programming.jpg");
     flex-wrap: wrap;
-    border-radius: 100% 0% 100% 0% / 0% 84% 16% 100%
+    border-radius: 100% 0% 100% 0% / 0% 84% 16% 100%;
 }
 .info{
     position: absolute;

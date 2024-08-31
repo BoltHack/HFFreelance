@@ -68,6 +68,10 @@
         border: 2px solid #007bff;
         margin-right: 20px;
         cursor: zoom-in;
+        transition: transform 0.3s;
+    }
+    .img:hover{
+        transform: scale(1.1);
     }
     .href {
         color: #4a00e0;
@@ -87,7 +91,7 @@
         border-radius: 5px;
         position: relative;
         margin-top: 1px;
-        width: 100px;
+        width: 110px;
         cursor: pointer;
     }
 
@@ -237,19 +241,26 @@
     })
 
     function imageMenu(){
-        const zoomedImage = document.createElement('div');
-        zoomedImage.innerHTML = `
-            <div class="new-barrier" onclick="removeMenu()"></div>
-            <div class="new-border">
-                <img src="data:image/jpeg;base64,<%= siteInfo.fileImg %>" class="new-image">
-            </div>
-        `;
-        document.body.appendChild(zoomedImage);
-    }
+        const barrier = document.createElement('barrier');
+        const border = document.createElement('border');
 
-    function removeMenu(){
-        document.querySelector('.new-barrier').remove();
-        document.querySelector('.new-border').remove();
+        barrier.innerHTML = `<div class="new-barrier"></div>`;
+        border.innerHTML = `
+        <div class="logout-border">
+        <img src="data:image/jpeg;base64,<%= siteInfo.fileImg %>" class="new-image">
+        </div>
+        </div>`
+
+        document.body.appendChild(border);
+        document.body.appendChild(barrier);
+        barrier.addEventListener('click', () => {
+            document.body.removeChild(barrier);
+            document.body.removeChild(border);
+        })
+        document.getElementById('closeBtn').addEventListener('click', () => {
+            document.body.removeChild(barrier);
+            document.body.removeChild(border);
+        })
     }
 </script>
 <script src="/javascripts/advertising.js"></script>

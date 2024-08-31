@@ -127,3 +127,13 @@ function local(){
     }
 }
 local()
+
+function goBack() {
+    const id = localStorage.getItem('id');
+    if (window.location.pathname === `/sendReviews/${id}` || window.location.pathname === '/PersonalArea') {
+        window.history.back();
+        window.history.back();
+    } else {
+        window.history.back();
+    }
+}

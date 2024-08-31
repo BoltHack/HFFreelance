@@ -1,6 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
     const loveButton = document.querySelectorAll('.love');
 
+    function checkLoveState() {
+        loveButton.forEach(button => {
+            const siteId = button.getAttribute('data-id');
+            const love = document.getElementById('love-' + siteId);
+            const alreadyLove = document.getElementById('alreadyLove-' + siteId);
+
+            let favorites = localStorage.getItem('favorites');
+            if (favorites) {
+                favorites = JSON.parse(favorites);
+                const favoritesIndex = favorites.findIndex(item => item.id === siteId);
+                if (favoritesIndex !== -1) {
+                    love.style.display = 'none';
+                    alreadyLove.hidden = false;
+                } else {
+                    love.style.display = '';
+                    alreadyLove.hidden = true;
+                }
+            } else {
+                love.style.display = '';
+                alreadyLove.hidden = true;
+            }
+        });
+    }
+
     loveButton.forEach(button => {
         button.addEventListener('click', function() {
             const siteId = this.getAttribute('data-id');
@@ -38,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         })
     })
+    checkLoveState();
 })
 
 function dynamicMenu(text) {

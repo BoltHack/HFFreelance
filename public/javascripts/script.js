@@ -62,12 +62,15 @@ function displayInfo() {
 
             document.body.appendChild(border);
             document.body.appendChild(barrier);
+            document.body.style.overflow = 'hidden';
             barrier.addEventListener('click', () => {
                 document.body.removeChild(border);
+                document.body.style.overflow = 'auto';
                 document.body.removeChild(barrier);
             })
             document.getElementById('close').addEventListener('click', () => {
                 document.body.removeChild(border);
+                document.body.style.overflow = 'auto';
                 document.body.removeChild(barrier);
             })
         }
@@ -119,13 +122,16 @@ function logoutMenu() {
 
     document.body.appendChild(border);
     document.body.appendChild(barrier);
+    document.body.style.overflow = 'hidden';
     barrier.addEventListener('click', () => {
         document.body.removeChild(barrier);
         document.body.removeChild(border);
+        document.body.style.overflow = 'auto';
     })
     document.getElementById('closeBtn').addEventListener('click', () => {
         document.body.removeChild(barrier);
         document.body.removeChild(border);
+        document.body.style.overflow = 'auto';
     })
 }
 function logout() {
@@ -192,13 +198,16 @@ function checkTokenFunc() {
 
         document.body.appendChild(border);
         document.body.appendChild(barrier);
+        document.body.style.overflow = 'hidden';
         barrier.addEventListener('click', () => {
             document.body.removeChild(barrier);
             document.body.removeChild(border);
+            document.body.style.overflow = 'auto';
         })
         document.getElementById('closeBtn').addEventListener('click', () => {
             document.body.removeChild(barrier);
             document.body.removeChild(border);
+            document.body.style.overflow = 'auto';
         })
     }
 }
@@ -314,13 +323,16 @@ function deleteReviewMenu() {
 
     document.body.appendChild(border);
     document.body.appendChild(barrier);
+    document.body.style.overflow = 'hidden';
     barrier.addEventListener('click', () => {
         document.body.removeChild(barrier);
         document.body.removeChild(border);
+        document.body.style.overflow = 'auto';
     })
     document.getElementById('closeBtn').addEventListener('click', () => {
         document.body.removeChild(barrier);
         document.body.removeChild(border);
+        document.body.style.overflow = 'auto';
     })
 }
 

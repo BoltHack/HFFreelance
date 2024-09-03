@@ -29,7 +29,7 @@ function localsF() {
             }
         })
         .catch(error => {
-            dynamicMenu('Произошла ошибка при отправке запроса:', error);
-            dynamicMenu("Произошла ошибка при отправке запроса: " + error.message);
+            console.log('Произошла ошибка при отправке запроса:', error);
+            console.log("Произошла ошибка при отправке запроса: " + error.message);
         });
 }

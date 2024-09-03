@@ -42,14 +42,6 @@
                         <h2><%= user.name %></h2>
                         <p>Email: <%= user.email %></p>
                         <p>Registration Date: <%= user.registerDate %></p>
-                        <% if(review && review.reviews && review.reviews.length > 0 && review.reviews[0].review) {%>
-                            <div>
-                                <p class="reviews-limit">Review: <%= review.reviews[0].review %></p>
-                                <button onclick="deleteReviewMenu()" class="review-delete">Delete Review</button>
-                            </div>
-                        <% } else {%>
-                            <p>Review: None</p>
-                        <%}%>
                     </div>
                 </div>
                 <div class="redaction">

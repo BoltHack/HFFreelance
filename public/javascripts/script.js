@@ -313,7 +313,7 @@ function deleteReviewMenu() {
         border.innerHTML = `
         <link rel="stylesheet" href="/stylesheets/style.css">
         <div class="logout-border">
-        <p style="text-align: center; color: white; margin: 30px 0; padding: 10px;">Вы уверены, что хотите удалить свой отзыв?</p>
+        <p style="text-align: center; color: white; margin: 30px 0; padding: 10px;">Вы уверены, что хотите удалить отзыв?</p>
         <div class="yes-or-no">
         <button class="no-btn" id="closeBtn">Нет</button>
             <button class="yes-btn" onclick="deleteReview()">Да</button>

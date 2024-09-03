@@ -267,12 +267,12 @@ class IndexController {
                         res.redirect('/youAreBanned')
                     }
                     else{
-                        return res.render(locale === 'en' ? 'en/fileInfo' : 'ru/fileInfo', { user, locale, links });
+                        return res.render(locale === 'en' ? 'en/fileInfo' : 'ru/fileInfo', { user, locale, links, siteInfo });
                     }
                 });
             }
             else {
-                return res.render(locale === 'en' ? 'en/fileInfo' : 'ru/fileInfo', {locale, links});
+                return res.render(locale === 'en' ? 'en/fileInfo' : 'ru/fileInfo', {locale, links, siteInfo});
             }
         }catch(err){
             next(err)

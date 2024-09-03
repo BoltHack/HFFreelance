@@ -132,11 +132,13 @@ function perms(){
 
     let profile = document.getElementById('profile');
     let news = document.getElementById('news');
+    let myReview = document.getElementById('myReview');
 
     profileMenu.addEventListener('click', () => {
         profileMenu.style.backgroundColor = '#34495e'
         newsMenu.style.background = 'none'
         profile.hidden = false;
+        myReview.hidden = false;
         news.hidden = true;
     })
 
@@ -145,6 +147,7 @@ function perms(){
         profileMenu.style.background = 'none'
         news.hidden = false;
         profile.hidden = true;
+        myReview.hidden = true;
     })
 }
 perms()

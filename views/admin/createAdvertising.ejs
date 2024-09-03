@@ -104,20 +104,24 @@
         <form action="/admin/createAdvertising" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Название:</label>
-                <input type="text" id="title" name="title" placeholder="Введите название">
+                <input type="text" id="title" name="title" placeholder="Введите название" required>
             </div>
             <div class="form-group">
                 <label for="image">Изображение:</label>
-                <input type="file" id="image" name="image">
+                <input type="file" id="image" name="image" required>
             </div>
             <div class="form-group">
                 <label for="link">Ссылка:</label>
-                <input type="text" id="link" name="link" placeholder="Введите ссылку">
+                <input type="text" id="link" name="link" placeholder="Введите ссылку" required>
             </div>
             <div class="form-group">
                 <label for="expireTime">Время хранения (минуты):</label>
-                <input type="number" id="expireTime" name="expiresInMinutes" placeholder="Введите время хранения">
+                <input type="number" id="expireTime" name="expiresInMinutes" placeholder="Введите время хранения" required>
             </div>
+            <select name="locale" required>
+                <option value="ru">ru</option>
+                <option value="en">en</option>
+            </select>
             <button type="submit">Добавить</button>
         </form>
     </div>

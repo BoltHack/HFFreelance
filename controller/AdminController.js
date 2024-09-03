@@ -624,7 +624,7 @@ class AdminController {
 
     static createAdvertisingPost = async (req, res, next) => {
         try {
-            const { title, link, expiresInMinutes } = req.body;
+            const { title, link, expiresInMinutes, locale } = req.body;
 
             if (!req.files || !req.files.image) {
                 return res.status(400).json({ error: 'Ошибка. Не удалось загрузить файлы.' });
@@ -637,7 +637,8 @@ class AdminController {
                 title,
                 image: base64Image,
                 link,
-                expiresInMinutes
+                expiresInMinutes,
+                locale
             });
 
             await newAdvertising.save();

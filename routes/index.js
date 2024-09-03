@@ -1,11 +1,12 @@
 const express = require('express');
 const {
     mainView, aboutUsView, rulesView, privacyPolicyView, sendReviewsMenuView, displayAllReviews, deleteUser,
-    deleteReview, PersonalAreaView, changeImage, sendReview, getTokenView, moreDetailsView,
-    youAreBannedView, requestUnban, readyMadeSitesView, downloadFile,
-    fileInfoView, htmlSitesView, javascriptSitesView, fullstackSitesView, nodeJsSitesView, reactJsSitesView,
-    favoritesView, changeLocal
+    deleteReview, PersonalAreaView, changeImage, sendReview, getTokenView, moreDetailsView, youAreBannedView,
+    requestUnban, downloadFile, fileInfoView, favoritesView, changeLocal, changeLocalAuth
 } = require('../controller/IndexController');
+const {
+    readyMadeSitesView, htmlSitesView, javascriptSitesView, nodeJsSitesView, reactJsSitesView, fullstackSitesView
+} = require('../controller/SitesController')
 const AuthRouter = require('./AuthRouter');
 const AdminRouter = require('./admin');
 const {changePassword} = require("../controller/AuthController");
@@ -44,6 +45,7 @@ router.post('/refreshToken', refreshToken);
 router.post('/requestUnban/:id', authenticateJWT, requestUnban);
 router.post('/downloadFile/:id', authenticateJWT, downloadFile);
 router.post('/changeLocal', changeLocal);
+router.post('/changeLocalAuth/:id', changeLocalAuth);
 
 router.use('/auth', AuthRouter);
 router.use('/admin', AdminRouter);

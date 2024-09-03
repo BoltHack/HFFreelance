@@ -20,6 +20,9 @@ const advertisingSchema = new Schema({
     },
     expiresAt: {
         type: Date
+    },
+    locale: {
+        type: String
     }
 });
 

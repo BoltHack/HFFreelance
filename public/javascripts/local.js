@@ -1,5 +1,8 @@
 function localsF() {
-    fetch(`/changeLocal`, {
+    const homeId = localStorage.getItem('id');
+    const token = localStorage.getItem('token');
+    const url = token ? `/changeLocalAuth/${homeId}` : '/changeLocal';
+    fetch(url, {
         method: "POST",
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem("token")
@@ -10,15 +13,17 @@ function localsF() {
                 const local = localStorage.getItem('local');
                 if (local === 'en'){
                     localStorage.setItem('local', 'ru');
+                    console.log(url)
                     window.location.href = '/';
                 }
                 else{
                     localStorage.setItem('local', 'en');
+                    console.log(url)
                     window.location.href = '/';
                 }
 
             } else {
-                response.text().then(errorMessage => {
+                response.json().then(errorMessage => {
                     console.log("Ошибка: " + errorMessage);
                 });
             }

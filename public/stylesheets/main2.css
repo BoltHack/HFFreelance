@@ -4,7 +4,6 @@ body{
     padding: 0;
     flex-direction: column;
     height: 100vh;
-    max-height: 100vh;
     background-color: #dadde2;
     display: grid;
     grid-template-rows: auto 1fr auto;

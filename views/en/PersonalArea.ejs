@@ -71,6 +71,19 @@
             <% } %>
         </section>
 
+        <div class="my-review" id="myReview">
+            <h3 style="text-align: center">My review</h3>
+            <% if(review && review.reviews && review.reviews.length > 0 && review.reviews[0].review) {%>
+                <div>
+                    <p class="reviews-limit"><%= review.reviews[0].review %></p>
+                    <div style="text-align: center"><button onclick="deleteReviewMenu()" class="review-delete">Delete review</button></div>
+                </div>
+            <% } else {%>
+                <p style="text-align: center">You haven't left any feedback.</p>
+                <button class="my-review-send" onclick="sendReviewsJoin()">Write a review</button>
+            <%}%>
+        </div>
+
         <div id="changePassword" class="changePassword-section" hidden>
             <div class="password-container">
                 <h1 style="color: white; text-align: center">Change Password</h1>

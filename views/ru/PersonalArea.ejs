@@ -16,9 +16,9 @@
     <aside class="sidebar">
         <h2>Меню</h2>
         <ul>
-            <li id="profileMenu" style="background-color: #34495e"><a href="#profilePage">Мой профиль</a></li>
+            <li id="profileMenu" style="background-color: #34495e; cursor:pointer;"><a>Мой профиль</a></li>
 
-            <li id="newsMenu"><a href="#news">Новости</a></li>
+            <li id="newsMenu" style="cursor:pointer;"><a>Новости</a></li>
             <br>
             <% if (user.role === 'Admin') {%>
                 <li><a onclick="admin()" style="cursor: pointer">Админ панель</a></li>
@@ -42,19 +42,8 @@
                     <h2><%= user.name %></h2>
                     <p>Email: <%= user.email %></p>
                     <p>Дата регистрации: <%= user.registerDate %></p>
-                    <% if(review && review.reviews && review.reviews.length > 0 && review.reviews[0].review) {%>
-                        <div>
-                            <p class="reviews-limit">Отзыв: <%= review.reviews[0].review %></p>
-                            <button onclick="deleteReviewMenu()" class="review-delete">Удалить отзыв</button>
-                        </div>
-                    <% } else {%>
-                        <p>Отзыв: Отсутствует</p>
-                    <%}%>
                 </div>
             </div>
-                <div>
-
-                </div>
             <div class="redaction">
                 <p>
                     <button id="editImageBtn">Сменить аватара</button>
@@ -73,6 +62,19 @@
             </div>
             <% } %>
         </section>
+
+        <div class="my-review" id="myReview">
+            <h3 style="text-align: center">Мой отзыв</h3>
+            <% if(review && review.reviews && review.reviews.length > 0 && review.reviews[0].review) {%>
+                <div>
+                    <p class="reviews-limit"><%= review.reviews[0].review %></p>
+                    <div style="text-align: center"><button onclick="deleteReviewMenu()" class="review-delete">Удалить отзыв</button></div>
+                </div>
+            <% } else {%>
+                <p style="text-align: center">Вы не оставляли никаких отзывов.</p>
+                <button class="my-review-send" onclick="sendReviewsJoin()">Написать отзыв</button>
+            <%}%>
+        </div>
 
         <div id="changePassword" hidden>
             <div class="changePassword-section">

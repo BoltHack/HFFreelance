@@ -26,12 +26,7 @@ class AuthController {
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true });
             }
-            if (locale === 'en'){
-                return res.render('en/auth/register')
-            }
-            else{
-                return res.render('ru/auth/register')
-            }
+            return res.render(locale === 'en' ? 'en/auth/register' : 'ru/auth/register');
         } catch (e) {
             next(e)
         }
@@ -49,6 +44,7 @@ class AuthController {
                 password: hashPassword,
                 confirmPassword: hashPassword,
                 banned: [{ banType: false }],
+                locale: 'en',
             })
 
             await newUser.save();
@@ -67,12 +63,7 @@ class AuthController {
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true });
             }
-            if (locale === 'en'){
-                return res.render('en/auth/login')
-            }
-            else{
-                return res.render('ru/auth/login')
-            }
+            return res.render(locale === 'en' ? 'en/auth/login' : 'ru/auth/login');
         } catch (e) {
             next(e)
         }

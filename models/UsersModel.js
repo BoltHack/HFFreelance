@@ -64,7 +64,6 @@ const UsersSchema = new Schema({
     },
     locale: {
         type: String,
-        default: 'en'
     }
 });
 

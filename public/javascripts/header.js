@@ -4,8 +4,7 @@ function refs(){
     if (window.location.pathname === '/PersonalArea'){
         if (ref !== 'refPersonalArea'){
             localStorage.setItem('ref', 'refPersonalArea');
-            // window.location.href = '/accessToken'
-            console.log(1)
+            window.location.href = '/accessToken'
         }
     }
     if (window.location.pathname === `/sendReviews/${refId}`){

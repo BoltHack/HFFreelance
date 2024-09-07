@@ -1,11 +1,14 @@
 const ACCESS_TIMER_DURATION = 900000;
+const token = localStorage.getItem('token');
 
 const ref = localStorage.getItem('ref');
 function accessStartTimer(duration) {
     const startTime = Date.now();
     const endTime = startTime + duration;
 
-    localStorage.setItem('accessTokenEndTime', endTime);
+    if (token){
+        localStorage.setItem('accessTokenEndTime', endTime);
+    }
 
     accessUpdateTimer();
 }
@@ -50,7 +53,9 @@ async function getAccessTokens() {
                 return;
             }
 
-            localStorage.setItem('token', token);
+            if (token){
+                localStorage.setItem('token', token);
+            }
 
             window.location.reload();
 
@@ -72,7 +77,9 @@ function refreshStartTimer(duration) {
     const startTime = Date.now();
     const endTime = startTime + duration;
 
-    localStorage.setItem('refreshTokenEndTime', endTime);
+    if (token) {
+        localStorage.setItem('refreshTokenEndTime', endTime);
+    }
 
     refreshUpdateTimer();
 }
@@ -117,7 +124,9 @@ async function getRefreshTokens() {
                 return;
             }
 
-            localStorage.setItem('token', token);
+            if (token){
+                localStorage.setItem('token', token);
+            }
 
             window.location.reload();
 

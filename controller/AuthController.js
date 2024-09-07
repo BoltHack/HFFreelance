@@ -71,20 +71,26 @@ class AuthController {
 
     static loginUser = async (req, res, next) => {
         try {
-            const {email, password} = req.body;
-            const user = await UsersModel.findOne({email});
+            const { email, password } = req.body;
+            const user = await UsersModel.findOne({ email });
+
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000 });
+            }
 
             if (!user) {
-                return res.render({error: "Неверный адрес или пароль."});
+                return res.status(401).json({ error: "Неверный адрес или пароль." });
             }
 
             const pass = await bcrypt.compare(password, user.password);
 
             if (!pass) {
-                return res.render({error: "Неверный адрес или пароль."});
+                return res.status(401).json({ error: "Неверный адрес или пароль." });
             }
 
-            const accessToken = jwt.sign({
+            const payload = {
                 id: user._id,
                 email: user.email,
                 name: user.name,
@@ -93,30 +99,23 @@ class AuthController {
                 role: user.role,
                 banned: user.banned,
                 locale: user.locale
-            }, JWTSecret, {expiresIn: '15m'});
+            };
 
-            const refreshToken = jwt.sign({
-                id: user._id,
-                email: user.email,
-                name: user.name,
-                reviews: user.reviews,
-                registerDate: user.registerDate,
-                role: user.role,
-                banned: user.banned,
-                locale: user.locale
-            }, refreshTokenSecret, {expiresIn: '10d'});
+            const accessToken = jwt.sign(payload, JWTSecret, { expiresIn: '15m' });
+            const refreshToken = jwt.sign(payload, refreshTokenSecret, { expiresIn: '10d' });
 
             user.refreshToken = refreshToken;
             await user.save();
 
-            res.cookie('token', accessToken, {httpOnly: true, secure: true, maxAge: parseMaxAge('15m')});
-            res.cookie('refreshToken', refreshToken, {httpOnly: true, secure: true, maxAge: parseMaxAge('10d')});
+            res.cookie('token', accessToken, { httpOnly: true, secure: true, maxAge: parseMaxAge('15m') });
+            res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: true, maxAge: parseMaxAge('10d') });
 
-            return res.json({token: accessToken, refreshToken, user});
+            return res.json({ token: accessToken, refreshToken, user, locale });
         } catch (e) {
             next(e);
         }
     }
+
 
     static changePassword = async (req, res, next) => {
         try {

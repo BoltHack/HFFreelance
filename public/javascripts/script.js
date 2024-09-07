@@ -112,7 +112,7 @@ function logoutMenu() {
         border.innerHTML = `
         <link rel="stylesheet" href="/stylesheets/style.css">
         <div class="logout-border">
-        <p style="text-align: center; color: white; margin: 40px 0">Вы точно хотите выйти?</p>
+        <p style="text-align: center; color: white; margin: 40px 0">Вы уверены, что хотите выйти?</p>
         <div class="yes-or-no">
         <button class="no-btn" id="closeBtn">Нет</button>
         <button class="yes-btn" onclick="logout()">Да</button>  

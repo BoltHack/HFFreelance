@@ -29,7 +29,7 @@ function displayInfo() {
 <link rel="stylesheet" href="/stylesheets/style.css">
 <div class="new-border">
 <div class="border-data">
-    <h2 class="yourAccount">Your account</h2>
+    <h2 class="yourAccount">My account</h2>
     <br>
 <h3>You are not logged in</h3>
 <p>Sign in or create an account.</p>
@@ -46,7 +46,7 @@ function displayInfo() {
 <link rel="stylesheet" href="/stylesheets/style.css">
 <div class="new-border">
 <div class="border-data">
-    <h2 class="yourAccount">Ваш аккаунт</h2>
+    <h2 class="yourAccount">Мой аккаунт</h2>
     <br>
 <h3>Вы не авторизованы</h3>
 <p>Войдите в учётную запись или создайте аккаунт.</p>

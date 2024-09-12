@@ -30,6 +30,21 @@ async function getNewToken() {
             else if(ref === 'refReadyMadeSites'){
                 window.location.href = `/readyMadeSites`;
             }
+            else if(ref === 'refHtmlCssJs'){
+                window.location.href = `/readyMadeSites/html-css-js`;
+            }
+            else if(ref === 'refJavascript'){
+                window.location.href = `/readyMadeSites/javascript`;
+            }
+            else if(ref === 'refNodeJs'){
+                window.location.href = `/readyMadeSites/nodeJs`;
+            }
+            else if(ref === 'refReactJs'){
+                window.location.href = `/readyMadeSites/reactJs`;
+            }
+            else if(ref === 'refFullstack'){
+                window.location.href = `/readyMadeSites/fullstack`;
+            }
             else if(ref === 'refFavorites'){
                 window.location.href = `/readyMadeSites/favorites`;
             }

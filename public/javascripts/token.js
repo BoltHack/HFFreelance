@@ -27,42 +27,7 @@ async function getNewToken() {
             else if(ref === 'refAdmin'){
                 window.location.href = `/admin/allUsers`;
             }
-            else if(ref === 'refReadyMadeSites'){
-                window.location.href = `/readyMadeSites`;
-            }
-            else if(ref === 'refHtmlCssJs'){
-                window.location.href = `/readyMadeSites/html-css-js`;
-            }
-            else if(ref === 'refJavascript'){
-                window.location.href = `/readyMadeSites/javascript`;
-            }
-            else if(ref === 'refNodeJs'){
-                window.location.href = `/readyMadeSites/nodeJs`;
-            }
-            else if(ref === 'refReactJs'){
-                window.location.href = `/readyMadeSites/reactJs`;
-            }
-            else if(ref === 'refFullstack'){
-                window.location.href = `/readyMadeSites/fullstack`;
-            }
-            else if(ref === 'refFavorites'){
-                window.location.href = `/readyMadeSites/favorites`;
-            }
-            else if(ref === 'refMoreDetails'){
-                window.location.href = `/moreDetails`;
-            }
-            else if(ref === 'refMain'){
-                window.location.href = `/`;
-            }
-            else if(ref === 'refAboutUs'){
-                window.location.href = `/aboutUs`;
-            }
-            else if(ref === 'refRules'){
-                window.location.href = `/rules`;
-            }
-            else if(ref === 'refPrivacyPolicy'){
-                window.location.href = `/privacyPolicy`;
-            }
+
         } else {
             console.error('Ошибка', response.status);
         }
@@ -72,3 +37,43 @@ async function getNewToken() {
 }
 
 getNewToken();
+
+function refs(){
+    if(ref === 'refReadyMadeSites'){
+        window.location.href = `/readyMadeSites`;
+    }
+    else if(ref === 'refHtmlCssJs'){
+        window.location.href = `/readyMadeSites/html-css-js`;
+    }
+    else if(ref === 'refJavascript'){
+        window.location.href = `/readyMadeSites/javascript`;
+    }
+    else if(ref === 'refNodeJs'){
+        window.location.href = `/readyMadeSites/nodeJs`;
+    }
+    else if(ref === 'refReactJs'){
+        window.location.href = `/readyMadeSites/reactJs`;
+    }
+    else if(ref === 'refFullstack'){
+        window.location.href = `/readyMadeSites/fullstack`;
+    }
+    else if(ref === 'refFavorites'){
+        window.location.href = `/readyMadeSites/favorites`;
+    }
+    else if(ref === 'refMoreDetails'){
+        window.location.href = `/moreDetails`;
+    }
+    else if(ref === 'refMain'){
+        window.location.href = `/`;
+    }
+    else if(ref === 'refAboutUs'){
+        window.location.href = `/aboutUs`;
+    }
+    else if(ref === 'refRules'){
+        window.location.href = `/rules`;
+    }
+    else if(ref === 'refPrivacyPolicy'){
+        window.location.href = `/privacyPolicy`;
+    }
+}
+refs()

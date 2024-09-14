@@ -26,11 +26,6 @@ async function allPaths() {
 
 allPaths();
 
-document.getElementById('htmlCssJs').addEventListener('click', () => {
-    localStorage.setItem('ref', 'refHtmlCssJs');
-    window.location.href = '/accessToken';
-})
-
 function redirections(){
     document.getElementById('htmlCssJs').addEventListener('click', () => {
         localStorage.setItem('ref', 'refHtmlCssJs');

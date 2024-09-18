@@ -76,4 +76,8 @@ function refs(){
         window.location.href = `/privacyPolicy`;
     }
 }
+<<<<<<< HEAD
 refs()
+=======
+refs()
+>>>>>>> 9e2da00a97fa298ff1e58453a790d952caf1988a

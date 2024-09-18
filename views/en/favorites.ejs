@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Готовые Сайты | Избранное</title>
+    <link rel="icon" type="image/png" href="/images/logo2.png">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -13,7 +14,7 @@
             padding: 20px;
         }
 
-        .ul {
+        #favorites-container {
             list-style: none;
             padding: 0;
             margin: 30px auto;
@@ -207,7 +208,7 @@
 
                 if(token){
                     favoriteItem.innerHTML = `
-            <ul class="ul">
+            <ul>
                 <li class="project">
                     <img src="data:image/jpeg;base64,${item.img}" class="img">
                     <div class="sites-info">
@@ -237,7 +238,7 @@
                 }
                 else{
                     favoriteItem.innerHTML = `
-            <ul class="ul">
+            <ul>
                 <li class="project">
                     <img src="data:image/jpeg;base64,${item.img}" class="img">
                     <div class="sites-info">

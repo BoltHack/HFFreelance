@@ -2,10 +2,11 @@ const express = require('express');
 const {
     mainView, aboutUsView, rulesView, privacyPolicyView, sendReviewsMenuView, displayAllReviews, deleteUser,
     deleteReview, PersonalAreaView, changeImage, sendReview, getTokenView, moreDetailsView, youAreBannedView,
-    requestUnban, downloadFile, fileInfoView, favoritesView, changeLocal, changeLocalAuth
+    requestUnban, downloadFile, fileInfoView, changeLocal, changeLocalAuth, sendCommentsMenuView, sendCommentsPost
 } = require('../controller/IndexController');
 const {
-    readyMadeSitesView, htmlSitesView, javascriptSitesView, nodeJsSitesView, reactJsSitesView, fullstackSitesView
+    readyMadeSitesView, htmlSitesView, javascriptSitesView, nodeJsSitesView, reactJsSitesView, fullstackSitesView,
+    favoritesView
 } = require('../controller/SitesController')
 const AuthRouter = require('./AuthRouter');
 const AdminRouter = require('./admin');
@@ -23,6 +24,7 @@ router.get('/privacyPolicy', privacyPolicyView);
 router.get('/allReviews', displayAllReviews);
 router.get('/accessToken', getTokenView);
 router.get('/sendReviews/:id', authenticateJWT, sendReviewsMenuView);
+router.get('/sendComments', authenticateJWT, sendCommentsMenuView);
 router.get('/PersonalArea', authenticateJWT, PersonalAreaView);
 router.get('/moreDetails',  moreDetailsView);
 router.get('/youAreBanned', authenticateJWT, youAreBannedView);
@@ -36,6 +38,7 @@ router.get('/readyMadeSites/favorites', favoritesView);
 router.get('/fileInfo/:id', fileInfoView);
 
 router.post('/sendReviews/:id', authenticateJWT, sendReview);
+router.post('/sendCommentsPost/:id', authenticateJWT, sendCommentsPost);
 router.post('/upload/:id', authenticateJWT, verifyToken, changeImage);
 router.post('/deleteAccount/:id', authenticateJWT, deleteUser, accessToken);
 router.post('/deleteReview/:id', authenticateJWT, deleteReview);

@@ -53,7 +53,7 @@ main{
     /*background: linear-gradient(184deg, rgba(32,30,32,1) 54%, rgba(16,16,17,1) 76%);*/
     background-image: url("../images/programming.jpg");
     flex-wrap: wrap;
-    border-radius: 100% 0% 100% 0% / 0% 84% 16% 100%;
+    /*border-radius: 100% 0% 100% 0% / 0% 84% 16% 100%;*/
 }
 .info{
     position: absolute;

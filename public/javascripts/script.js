@@ -35,6 +35,8 @@ function displayInfo() {
 <p>Sign in or create an account.</p>
 <button onclick="login()" class="login-btn">Login</button>
 <button onclick="register()" class="register-btn">Create an account</button>
+<br>
+<br>
 <span>By continuing, you accept our <a class="termsOfUse" href="/rules" target="_blank">Terms of Use</a> and <a href="/privacyPolicy" target="_blank" class="privacyPolicy">Privacy Policy</a>.</span>
 </div>
 </div>
@@ -52,6 +54,8 @@ function displayInfo() {
 <p>Войдите в учётную запись или создайте аккаунт.</p>
 <button onclick="login()" class="login-btn">Войти</button>
 <button onclick="register()" class="register-btn">Создать аккаунт</button>
+<br>
+<br>
 <span>Продолжая, вы принимаете наши <a class="termsOfUse" href="/rules" target="_blank">Условия использования</a> и <a href="privacyPolicy" target="_blank" class="privacyPolicy">Политику конфиденциальности</a>.</span>
 </div>
 </div>

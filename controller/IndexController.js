@@ -2,9 +2,23 @@ const {UsersModel} = require("../models/UsersModel");
 const {NewsModel} = require("../models/NewsSchema");
 const {LinksModel} = require("../models/LinksModel");
 const {WebsitesModel} = require("../models/WebSitesModel");
-const {AdvertisingModel} = require('../models/AdvertisingModel');
 const {authenticateJWT} = require('../middlewares/jwtAuth');
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const favoritesEnv = process.env.FAVORITES_SECRET;
+
+function parseMaxAge(duration) {
+    const unit = duration.slice(-1);
+    const amount = parseInt(duration.slice(0, -1), 10);
+
+    switch (unit) {
+        case 's': return amount * 1000;
+        case 'm': return amount * 60 * 1000;
+        case 'h': return amount * 60 * 60 * 1000;
+        case 'd': return amount * 24 * 60 * 60 * 1000;
+        default: throw new Error('Выбраное время не найдено');
+    }
+}
 class IndexController {
     static mainView = async (req, res, next) => {
         try {
@@ -213,36 +227,6 @@ class IndexController {
         }
     }
 
-    static favoritesView = async (req, res, next) => {
-        try {
-            const links = await LinksModel.find();
-            const advertising = await AdvertisingModel.find();
-
-            let locale = req.cookies['locale'] || 'en';
-
-            if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
-            }
-
-            if (req.cookies['token']) {
-                await authenticateJWT(req, res, () => {
-                    const user = req.user;
-                    if (user.banned[0].banType === true) {
-                        res.redirect('/youAreBanned')
-                    }
-                    else{
-                        return res.render(locale === 'en' ? 'en/favorites' : 'ru/favorites', {user, links, advertising});
-                    }
-                });
-            }
-            else {
-                return res.render(locale === 'en' ? 'en/favorites' : 'ru/favorites', {links, advertising});
-            }
-        }catch (err){
-            next(err)
-        }
-    }
-
     static fileInfoView = async (req, res, next) => {
         try{
             const {id} = req.params;
@@ -254,9 +238,22 @@ class IndexController {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
-            if (siteInfo === undefined){
-                res.status(404).json({error: '404'})
+            if (!siteInfo){
+                const errorMsg = locale === 'en' ? 'page not found.' : 'Страница не найдена.';
+                return res.redirect(`/error?message=${encodeURIComponent(errorMsg)}`);
             }
+
+            const viewedPages = req.cookies['viewedPages'] || [];
+
+            if (!viewedPages.includes(id)) {
+                await WebsitesModel.findByIdAndUpdate(id, {
+                    $set: { views: (siteInfo.views || 0) + 1 }
+                });
+
+                viewedPages.push(id);
+                res.cookie('viewedPages', viewedPages, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000 });
+            }
+
 
             const links = await LinksModel.find();
 
@@ -485,6 +482,8 @@ class IndexController {
 
     static downloadFile = async (req, res) => {
         try {
+            const {id} = req.params;
+            const saveSite = await WebsitesModel.findById(id);
             const user = req.user;
 
             if (user.banned[0].banType === true) {
@@ -504,6 +503,17 @@ class IndexController {
                 if (!website) {
                     const errorMsg = locale === 'en' ? 'File not found.' : 'Файл не найден.';
                     return res.redirect(`/error?message=${encodeURIComponent(errorMsg)}`);
+                }
+
+                const saveCheck = req.cookies['saveCheck'] || [];
+
+                if (!saveCheck.includes(id)) {
+                    await WebsitesModel.findByIdAndUpdate(id, {
+                        $set: { saves: (saveSite.saves || 0) + 1 }
+                    });
+
+                    saveCheck.push(id);
+                    res.cookie('saveCheck', saveCheck, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000 });
                 }
 
                 const fileBuffer = Buffer.from(website.fileUpload, 'base64');
@@ -557,9 +567,55 @@ class IndexController {
             res.status(500).json({ error: err.message });
         }
     };
+    static sendCommentsMenuView = async (req, res, next) => {
+        try{
+            const user = req.user;
+            let locale = req.cookies['locale'] || 'en';
 
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
+            }
 
+            if (user.banned[0].banType === true) {
+                res.redirect('/youAreBanned')
+            }
 
+            return res.render(locale === 'en' ? 'en/sendComments' : 'ru/sendComments', { user });
+        }catch(err){
+            next(err)
+        }
+    };
+
+    static sendCommentsPost = async (req, res, next) => {
+        try {
+            const { message } = req.body;
+            const { id } = req.params;
+
+            const user = req.user;
+            const image = await UsersModel.findById(user.id)
+            console.log('image', image)
+
+            const siteComment = await WebsitesModel.findById(id);
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
+            }
+
+            await WebsitesModel.findByIdAndUpdate(id, {
+                $set: { commentsNumber: (siteComment.commentsNumber || 0) + 1 }
+            });
+
+            siteComment.comments.push({ message: message, author: user.name, avatar: image.image });
+            await siteComment.save();
+
+            res.redirect(`/fileInfo/${id}`);
+        } catch (err) {
+            console.error('Ошибка:', err);
+            res.status(500).json({ error: err.message });
+            next(err);
+        }
+    }
 }
 
 module.exports = IndexController;

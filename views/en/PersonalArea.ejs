@@ -68,15 +68,42 @@
             <% if(review && review.reviews && review.reviews.length > 0 && review.reviews[0].review) {%>
                 <div>
                     <p class="reviews-limit"><%= review.reviews[0].review %></p>
+                    <div class="grade-data">
+                        <div class="grade">
+                            <% if (review.reviews[0].grade) {%>
+                                <% if (review.reviews[0].grade === "1") { %>
+                                    <p>&#11088;</p>
+                                <% } %>
+                                <% if (review.reviews[0].grade === "2") { %>
+                                    <p>&#11088;</p>
+                                    <p>&#11088;</p>
+                                <% } %>
+                                <% if (review.reviews[0].grade === "3") { %>
+                                    <p>&#11088;</p>
+                                    <p>&#11088;</p>
+                                    <p>&#11088;</p>
+                                <% } %>
+                                <% if (review.reviews[0].grade === "4") { %>
+                                    <p>&#11088;</p>
+                                    <p>&#11088;</p>
+                                    <p>&#11088;</p>
+                                    <p>&#11088;</p>
+                                <% } %>
+                                <% if (review.reviews[0].grade === "5") { %>
+                                    <p>&#11088;</p>
+                                    <p>&#11088;</p>
+                                    <p>&#11088;</p>
+                                    <p>&#11088;</p>
+                                    <p>&#11088;</p>
+                                <% } %>
+                            <% } %>
+                        </div>
+                    </div>
                     <div style="text-align: center"><button onclick="deleteReviewMenu()" class="review-delete">Delete review</button></div>
                 </div>
             <% } else {%>
                 <p style="text-align: center">You haven't left any feedback.</p>
-<<<<<<< HEAD
                 <div style="text-align: center"><button class="my-review-send" onclick="sendReviewsJoin()">Write a review</button></div>
-=======
-                <div style="text-align: center"><button class="my-review-send" onclick="sendReviewsJoin()">Write a review</button></div
->>>>>>> 7cfffbe3685c2bc7d7723bde9cddfe35c9ca5fdb
             <%}%>
         </div>
 

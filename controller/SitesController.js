@@ -421,6 +421,44 @@ class SitesController {
             next(err);
         }
     }
+
+
+    static favoritesView = async (req, res, next) => {
+        try {
+            const links = await LinksModel.find();
+            const advertising = await AdvertisingModel.find();
+
+            let locale = req.cookies['locale'] || 'en';
+            let favorites = req.cookies['favorites']
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
+            }
+
+            const renderData = {
+                links,
+                advertising,
+                favorites
+            }
+
+            if (req.cookies['token']) {
+                await authenticateJWT(req, res, () => {
+                    const user = req.user;
+                    if (user.banned[0].banType === true) {
+                        res.redirect('/youAreBanned')
+                    }
+                    else{
+                        return res.render(locale === 'en' ? 'en/favorites' : 'ru/favorites', {user, ...renderData});
+                    }
+                });
+            }
+            else {
+                return res.render(locale === 'en' ? 'en/favorites' : 'ru/favorites', {...renderData});
+            }
+        }catch (err){
+            next(err)
+        }
+    }
 }
 
 module.exports = SitesController;

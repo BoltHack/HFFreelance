@@ -1,6 +1,5 @@
 const {UsersModel } = require("../models/UsersModel");
 const bcrypt = require("bcrypt");
-const HttpErrors = require("http-errors");
 const jwt = require("jsonwebtoken");
 
 const {JWTSecret, refreshTokenSecret} = process.env;
@@ -98,7 +97,7 @@ class AuthController {
                 registerDate: user.registerDate,
                 role: user.role,
                 banned: user.banned,
-                locale: user.locale
+                locale: user.locale,
             };
 
             const accessToken = jwt.sign(payload, JWTSecret, { expiresIn: '15m' });

@@ -127,16 +127,17 @@
             color: #040505;
             z-index: 2;
         }
-        .love{
+        .love, .alreadyLove{
             width: 30px;
             height: 30px;
             cursor: pointer;
             transition: transform 0.2s;
+            /*border-radius: 10px;*/
         }
-        .love:hover{
+        .love:hover, .alreadyLove:hover{
             transform: scale(1.08);
         }
-        .love:active{
+        .love:active, .alreadyLove:active{
             transform: scale(0.70);
         }
     </style>
@@ -189,8 +190,12 @@
 
                             </div>
                             <div>
-                                <img src="/images/love.png" class="love" id="love-<%= sites._id %>" data-id="<%= sites._id %>" data-title="<%= sites.title %>" data-type="<%= sites.siteType %>" data-img="<%= sites.fileImg %>">
-                                <img src="/images/alreadyLove.png" class="love" id="alreadyLove-<%= sites._id %>" data-id="<%= sites._id %>" data-title="<%= sites.title %>" data-type="<%= sites.siteType %>" data-img="<%= sites.fileImg %>" hidden>
+                                <form action="/likeSite/<%= sites._id %>" method="POST">
+                                    <input type="image" src="/images/love.png" class="love" id="love-<%= sites._id %>" data-id="<%= sites._id %>" data-title="<%= sites.title %>" data-type="<%= sites.siteType %>" data-img="<%= sites.fileImg %>">
+                                </form>
+                                <form action="/dislikeSite/<%= sites._id %>" method="POST">
+                                    <input type="image" src="/images/alreadyLove.png" class="alreadyLove" id="alreadyLove-<%= sites._id %>" data-id="<%= sites._id %>" data-title="<%= sites.title %>" data-type="<%= sites.siteType %>" data-img="<%= sites.fileImg %>" hidden>
+                                </form>
                             </div>
                         </div>
                     </div>

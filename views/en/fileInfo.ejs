@@ -17,7 +17,7 @@
         min-height: 100vh;
         overflow-x: hidden;
     }
-    .info {
+    .info{
         display: block;
         margin: 150px 50px;
         background: #fff;
@@ -26,24 +26,24 @@
         padding: 20px;
         /*width: 800px;*/
         width: 900px;
-        height: 350px;
+        height: 380px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         transition: transform 0.2s;
         overflow: hidden;
     }
-    .description {
+    .description{
         color: #666;
         margin-left: 10px;
         width: 500px;
         word-wrap: break-word;
     }
-    .info-container {
+    .info-container{
         max-width: 1500px;
         margin: -120px 50px;
         display: flex;
-        gap: 20px;
+        gap: 20px;;
     }
-    .my-info {
+    .my-info{
         display: block;
         background: #fff;
         border: 1px solid #ddd;
@@ -53,7 +53,7 @@
         height: 100px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
-    .site-info {
+    .site-info{
         display: block;
         background: #fff;
         border: 1px solid #ddd;
@@ -63,7 +63,7 @@
         height: 100px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
-    .img {
+    .img{
         width: 200px;
         height: 200px;
         border-radius: 8px;
@@ -75,10 +75,10 @@
     .img:hover{
         transform: scale(1.1);
     }
-    .href {
+    .href{
         color: #4a00e0;
     }
-    .href:hover {
+    .href:hover{
         text-decoration: underline;
         text-decoration-color: black;
     }
@@ -109,10 +109,10 @@
     .Download-button:active {
         background-color: #4a2f6c;
     }
-    .br {
+    .br{
         margin: 200px auto;
     }
-    .new-barrier {
+    .new-barrier{
         width: 100%;
         height: 100%;
         position: fixed;
@@ -122,7 +122,7 @@
         opacity: 0.6;
         z-index: 3;
     }
-    .new-border {
+    .new-border{
         width: 600px;
         height: 500px;
         background-color: #f4f1de;
@@ -134,7 +134,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
     }
-    .logout-border {
+    .logout-border{
         border: 1px solid blue;
         width: 500px;
         height: 500px;
@@ -148,29 +148,40 @@
         transform: translate(-50%, -50%);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
-    .new-image {
+    .new-image{
         width: 500px;
         height: 500px;
+    }
+    .show-details img{
+        width: 30px;
+        height: 30px;
+        border: 1px solid white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 50%;
+        cursor: pointer;
     }
     .comment-container{
         display: block;
         /*margin-top: -562px;*/
-        position: absolute;
-        top: 12%;
+        position: fixed;
+        /*top: 12%;*/
+        top: 0;
         right: 0;
         background: #fff;
         border: 1px solid #ddd;
-        border-radius: 8px;
+        /*border-radius: 8px;*/
         padding: 20px;
         width: 400px;
-        height: 480px;
+        /*height: 680px;*/
+        height: 100vh;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 3;
     }
     .comments{
         overflow-x: hidden;
         overflow-y: auto;
         width: 400px;
-        height: 400px;
+        height: 500px;
     }
     .comment-form{
         display: block;
@@ -179,6 +190,7 @@
         background: #fff;
         position: relative;
         left: 50%;
+        top: -2%;
         transform: translate(-50%);
         border: 1px solid #ddd;
         border-radius: 8px;
@@ -217,7 +229,8 @@
     .close{
         cursor: pointer;
         font-size: 20px;
-        margin: 17px -10px;
+        position: absolute;
+        right: 3%;
     }
     .checkComments img{
         position: absolute;
@@ -303,12 +316,6 @@
             <%}%>
         </div>
         <div class="comment-form" id="commentForm">
-<!--            <form action="/sendCommentsPost/<%= siteInfo.id %>" method="POST" id="commentForm">-->
-<!--                <div style="display: flex; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">-->
-<!--                    <input type="text" id="message" name="message" placeholder="Your comment" class="input" maxlength="150" required>-->
-<!--                    <button type="submit" id="sendComment" style="background: none; border: none"><img src="/images/send.png" style="width: 25px; height: 25px; cursor:pointer;"></button>-->
-<!--                </div>-->
-<!--            </form>-->
         </div>
     </div>
     <div class="br"></div>
@@ -415,7 +422,7 @@
             commentForm.innerHTML = `
             <form action="/sendCommentsPost/<%= siteInfo.id %>" method="POST" id="commentForm">
                 <div style="display: flex; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
-                    <input type="text" id="message" name="message" placeholder="Your comment" class="input" maxlength="150" required>
+                    <input type="text" id="message" name="message" placeholder="Write comment" class="input" maxlength="150" required>
                     <button type="submit" id="sendComment" style="background: none; border: none"><img src="/images/send.png" style="width: 25px; height: 25px; cursor:pointer;"></button>
                 </div>
             </form>`

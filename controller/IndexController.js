@@ -616,6 +616,54 @@ class IndexController {
             next(err);
         }
     }
+
+    static likeSite = async (req, res, next) => {
+        try{
+            const {id} = req.params;
+
+            const likeSite = await WebsitesModel.findById(id);
+
+            const likeCheck = req.cookies['likeCheck'] || [];
+
+            if (!likeCheck.includes(id)) {
+                await WebsitesModel.findByIdAndUpdate(id, {
+                    $set: { likes: (likeSite.likes || 0) + 1 }
+                });
+
+                likeCheck.push(id);
+                res.cookie('likeCheck', likeCheck, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000 });
+            }
+            res.send(`
+            <script>window.history.back()</script>
+            `)
+        }catch(err){
+            console.error('Ошибка:', err);
+            res.status(500).json({ error: err.message });
+            next(err);
+        }
+    }
+
+    static dislikeSite = async (req, res, next) => {
+        try{
+            const {id} = req.params;
+
+            const dislikeSite = await WebsitesModel.findById(id);
+
+            await WebsitesModel.findByIdAndUpdate(id, {
+                $set: { likes: (dislikeSite.likes !== 0) - 1 }
+            });
+
+            res.clearCookie('likeCheck');
+
+            res.send(`
+            <script>window.history.back()</script>
+            `)
+        }catch(err){
+            console.error('Ошибка:', err);
+            res.status(500).json({ error: err.message });
+            next(err);
+        }
+    }
 }
 
 module.exports = IndexController;

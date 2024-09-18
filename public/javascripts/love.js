@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const loveButton = document.querySelectorAll('.love');
+    const alreadyLove = document.querySelectorAll('.alreadyLove');
 
     function checkLoveState() {
         loveButton.forEach(button => {
@@ -12,10 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 favorites = JSON.parse(favorites);
                 const favoritesIndex = favorites.findIndex(item => item.id === siteId);
                 if (favoritesIndex !== -1) {
-                    love.style.display = 'none';
+                    love.hidden = true;
                     alreadyLove.hidden = false;
                 } else {
-                    love.style.display = '';
+                    love.hidden = false;
                     alreadyLove.hidden = true;
                 }
             } else {
@@ -31,8 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const siteTitle = this.getAttribute('data-title');
             const siteType = this.getAttribute('data-type');
             const siteImg = this.getAttribute('data-img');
-            const love = document.getElementById('love-'+siteId)
-            const alreadyLove = document.getElementById('alreadyLove-'+siteId)
+            const love = document.getElementById('love-'+siteId);
+            const alreadyLove = document.getElementById('alreadyLove-'+siteId);
 
             const local = localStorage.getItem('local');
 
@@ -60,10 +61,42 @@ document.addEventListener('DOMContentLoaded', () => {
             else{
                 dynamicMenu(`${siteTitle} добавлен в избранное!`)
             }
-        })
-    })
+        });
+    });
     checkLoveState();
-})
+
+    alreadyLove.forEach(button => {
+        button.addEventListener('click', function (){
+            const siteId = this.getAttribute('data-id');
+            const siteTitle = this.getAttribute('data-title');
+            const siteType = this.getAttribute('data-type');
+            const siteImg = this.getAttribute('data-img');
+            const love = document.getElementById('love-'+siteId);
+            const alreadyLove = document.getElementById('alreadyLove-'+siteId);
+
+            const local = localStorage.getItem('local');
+
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+            const favoritesIndex = favorites.findIndex(item => item.id === siteId)
+
+            if(favoritesIndex !== -1){
+                favorites.splice(favoritesIndex, 1);
+            }
+
+            love.hidden = false;
+            alreadyLove.hidden = true;
+            localStorage.setItem('favorites', JSON.stringify(favorites))
+            if (local === 'en'){
+                dynamicMenu(`${siteTitle} removed from favorites!`)
+            }
+            else{
+                dynamicMenu(`${siteTitle} удалён из избранного!`)
+            }
+        });
+    });
+    checkLoveState();
+});
 
 function dynamicMenu(text) {
     const alert = document.createElement('div');

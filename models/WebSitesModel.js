@@ -62,6 +62,10 @@ const WebsiteSchema = new Schema({
         type: Number,
         default: 0
     },
+    likes: {
+        type: Number,
+        default: 0
+    },
     date: {
         type: String,
         default: dateOnly

@@ -2,7 +2,8 @@ const express = require('express');
 const {
     mainView, aboutUsView, rulesView, privacyPolicyView, sendReviewsMenuView, displayAllReviews, deleteUser,
     deleteReview, PersonalAreaView, changeImage, sendReview, getTokenView, moreDetailsView, youAreBannedView,
-    requestUnban, downloadFile, fileInfoView, changeLocal, changeLocalAuth, sendCommentsMenuView, sendCommentsPost
+    requestUnban, downloadFile, fileInfoView, changeLocal, changeLocalAuth, sendCommentsMenuView, sendCommentsPost,
+    likeSite, dislikeSite
 } = require('../controller/IndexController');
 const {
     readyMadeSitesView, htmlSitesView, javascriptSitesView, nodeJsSitesView, reactJsSitesView, fullstackSitesView,
@@ -49,6 +50,8 @@ router.post('/requestUnban/:id', authenticateJWT, requestUnban);
 router.post('/downloadFile/:id', authenticateJWT, downloadFile);
 router.post('/changeLocal', changeLocal);
 router.post('/changeLocalAuth/:id', changeLocalAuth);
+router.post('/likeSite/:id', likeSite);
+router.post('/dislikeSite/:id', dislikeSite);
 
 router.use('/auth', AuthRouter);
 router.use('/admin', AdminRouter);

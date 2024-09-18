@@ -22,7 +22,7 @@
             <br>
             <% if (user.role === 'Admin') {%>
                 <li><a onclick="admin()" style="cursor: pointer">Админ панель</a></li>
-            <br>
+                <br>
             <% } %>
             <li><a href="/">В главное меню</a></li>
             <li><a onclick="deleteAccountMenu()" style="cursor: pointer">Удалить Уч. запись</a></li>
@@ -32,34 +32,34 @@
     <main class="main-content">
         <section id="profile" class="section">
             <% if (user && user.id) { %>
-            <h1>Профиль</h1>
-            <div class="profile-info">
-                <img src="" class="profile-pic" id="userImage" style="cursor: pointer">
-                <div class="zoomImageDiv" id="zoomImageDiv" hidden>
-                    <img src="" class="zoomImage" id="zoomImage">
+                <h1>Профиль</h1>
+                <div class="profile-info">
+                    <img src="" class="profile-pic" id="userImage" style="cursor: pointer">
+                    <div class="zoomImageDiv" id="zoomImageDiv" hidden>
+                        <img src="" class="zoomImage" id="zoomImage">
+                    </div>
+                    <div class="pers-info">
+                        <h2><%= user.name %></h2>
+                        <p>Email: <%= user.email %></p>
+                        <p>Дата регистрации: <%= user.registerDate %></p>
+                    </div>
                 </div>
-                <div class="pers-info">
-                    <h2><%= user.name %></h2>
-                    <p>Email: <%= user.email %></p>
-                    <p>Дата регистрации: <%= user.registerDate %></p>
+                <div class="redaction">
+                    <p>
+                        <button id="editImageBtn">Сменить аватара</button>
+                        <button id="changePasswordBtn">Сменить Пароль</button>
+                    </p>
+                    <form action="/upload/<%= user.id %>" method="POST" enctype="multipart/form-data">
+                        <section id="editImagePart" hidden>
+                            <img src="" class="profile-pic-edit" id="userImageEdit" style="cursor: pointer">
+                            <input type="file" name="file" id="attachFile">
+                            <p>
+                                <input type="button" value="Сохранить" id="changeBtn">
+                                <input type="button" value="Назад" id="cancelChangeBtn">
+                            </p>
+                        </section>
+                    </form>
                 </div>
-            </div>
-            <div class="redaction">
-                <p>
-                    <button id="editImageBtn">Сменить аватара</button>
-                    <button id="changePasswordBtn">Сменить Пароль</button>
-                </p>
-                <form action="/upload/<%= user.id %>" method="POST" enctype="multipart/form-data">
-                    <section id="editImagePart" hidden>
-                        <img src="" class="profile-pic-edit" id="userImageEdit" style="cursor: pointer">
-                        <input type="file" name="file" id="attachFile">
-                        <p>
-                            <input type="button" value="Сохранить" id="changeBtn">
-                            <input type="button" value="Назад" id="cancelChangeBtn">
-                        </p>
-                    </section>
-                </form>
-            </div>
             <% } %>
         </section>
 
@@ -96,7 +96,9 @@
                                     <p>&#11088;</p>
                                     <p>&#11088;</p>
                                 <% } %>
-                            <% } %>
+                            <% } else { %>
+                                <br>
+                            <%}%>
                         </div>
                     </div>
                     <div style="text-align: center"><button onclick="deleteReviewMenu()" class="review-delete">Удалить отзыв</button></div>
@@ -134,7 +136,7 @@
                         <li class="news-section">
                             <h3 class="news-title"><%= newsItem.title %></h3>
                             <% if(newsItem.image) {%>
-                            <img src="data:image/jpeg;base64,<%= newsItem.image %>" class="news-image">
+                                <img src="data:image/jpeg;base64,<%= newsItem.image %>" class="news-image">
                             <%}%>
                             <p class="news-content"><%= newsItem.content %></p>
                             <p class="date"><%= newsItem.date %></p>

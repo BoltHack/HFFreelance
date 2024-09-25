@@ -1,5 +1,6 @@
 const {Schema, model} = require("mongoose");
-
+const mongoose = require('mongoose');
+const socketIo = require('socket.io');
 const currentDate = new Date();
 
 const year = currentDate.getFullYear();
@@ -12,16 +13,12 @@ const dateOnly = `${month}.${day}.${year}`;
 const CommentsModel = new Schema({
     author: {
         type: String,
-        default: ''
     },
     avatar: {
         type: String,
-        default: ''
     },
     message: {
         type: String,
-        default: '',
-        required: true
     },
     date: {
         type: String,

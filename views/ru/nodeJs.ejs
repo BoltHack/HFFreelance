@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Готовые Сайты | nodejs</title>
+    <title>Готовые Сайты | html css js</title>
     <link rel="icon" type="image/png" href="/images/logo2.png">
     <link rel="stylesheet" href="/stylesheets/websites.css">
 </head>
@@ -56,7 +56,23 @@
                             </div>
                             <div>
                                 <img src="/images/love.png" class="love" id="love-<%= sites._id %>" data-id="<%= sites._id %>" data-title="<%= sites.title %>" data-type="<%= sites.siteType %>" data-img="<%= sites.fileImg %>">
-                                <img src="/images/alreadyLove.png" class="love" id="alreadyLove-<%= sites._id %>" data-id="<%= sites._id %>" data-title="<%= sites.title %>" data-type="<%= sites.siteType %>" data-img="<%= sites.fileImg %>" hidden>
+                                <div id="load-<%= sites._id %>" hidden>
+                                    <div class="spinner center">
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                    </div>
+                                </div>
+                                <img src="/images/alreadyLove.png" class="alreadyLove" id="alreadyLove-<%= sites._id %>" data-id="<%= sites._id %>" data-title="<%= sites.title %>" data-type="<%= sites.siteType %>" data-img="<%= sites.fileImg %>">
                             </div>
                         </div>
                     </div>

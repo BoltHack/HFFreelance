@@ -96,29 +96,6 @@ function favoritesJoin() {
     window.location.href = '/readyMadeSites/favorites';
 }
 
-async function getNewToken() {
-    try {
-        const response = await fetch('/accessToken', {
-            method: 'POST',
-            credentials: 'include'
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            const {token} = data;
-
-            if (!token) {
-                console.log('Токен не найден')
-                return;
-            }
-
-            localStorage.setItem('token', token);
-        }
-    } catch (error) {
-        console.error('Ошибка:', error);
-    }
-}
-
 function local(){
     const local = localStorage.getItem('local');
     if (!local){

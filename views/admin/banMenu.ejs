@@ -1,4 +1,5 @@
 <title>Забанить пользователя</title>
+<link rel="icon" type="image/png" href="/images/logo2.png">
 <style>
     .form {
         background-color: #fff;
@@ -75,8 +76,8 @@
 </style>
 
 <form action="/admin/playerBan/<%= user._id %>" method="POST" class="form">
-    <p style="text-align: center">id: <%= user._id %></p>
     <p class="form-title">Заблокировать пользователя</p>
+    <p style="text-align: center"><%= user._id %></p>
     <div class="input-container">
         <input type="text" name="reason" placeholder="Причина блокировки" maxlength="100" required>
         <span>

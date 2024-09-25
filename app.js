@@ -1,14 +1,14 @@
 const createError = require('http-errors');
-const express = require('express');
 const path = require('path');
+const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const fileUpload = require('express-fileupload');
 const start = require('./services/db');
 const indexRouter = require('./routes/index');
-const {LinksModel} = require("./models/LinksModel");
 
 const app = express();
+
 start();
 
 app.set('views', path.join(__dirname, 'views'));
@@ -38,7 +38,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   const message = req.query.message || err.message;
 
-  const links = LinksModel.find();
   let locale = req.cookies['locale'] || 'en';
 
   if (!req.cookies['locale']) {

@@ -56,7 +56,23 @@
                             </div>
                             <div>
                                 <img src="/images/love.png" class="love" id="love-<%= sites._id %>" data-id="<%= sites._id %>" data-title="<%= sites.title %>" data-type="<%= sites.siteType %>" data-img="<%= sites.fileImg %>">
-                                <img src="/images/alreadyLove.png" class="love" id="alreadyLove-<%= sites._id %>" data-id="<%= sites._id %>" data-title="<%= sites.title %>" data-type="<%= sites.siteType %>" data-img="<%= sites.fileImg %>" hidden>
+                                <div id="load-<%= sites._id %>" hidden>
+                                    <div class="spinner center">
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                    </div>
+                                </div>
+                                <img src="/images/alreadyLove.png" class="alreadyLove" id="alreadyLove-<%= sites._id %>" data-id="<%= sites._id %>" data-title="<%= sites.title %>" data-type="<%= sites.siteType %>" data-img="<%= sites.fileImg %>">
                             </div>
                         </div>
                     </div>

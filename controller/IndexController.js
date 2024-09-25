@@ -4,21 +4,7 @@ const {LinksModel} = require("../models/LinksModel");
 const {WebsitesModel} = require("../models/WebSitesModel");
 const {authenticateJWT} = require('../middlewares/jwtAuth');
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const favoritesEnv = process.env.FAVORITES_SECRET;
 
-function parseMaxAge(duration) {
-    const unit = duration.slice(-1);
-    const amount = parseInt(duration.slice(0, -1), 10);
-
-    switch (unit) {
-        case 's': return amount * 1000;
-        case 'm': return amount * 60 * 1000;
-        case 'h': return amount * 60 * 60 * 1000;
-        case 'd': return amount * 24 * 60 * 60 * 1000;
-        default: throw new Error('Выбраное время не найдено');
-    }
-}
 class IndexController {
     static mainView = async (req, res, next) => {
         try {
@@ -567,24 +553,6 @@ class IndexController {
             res.status(500).json({ error: err.message });
         }
     };
-    static sendCommentsMenuView = async (req, res, next) => {
-        try{
-            const user = req.user;
-            let locale = req.cookies['locale'] || 'en';
-
-            if (!req.cookies['locale']) {
-                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
-            }
-
-            if (user.banned[0].banType === true) {
-                res.redirect('/youAreBanned')
-            }
-
-            return res.render(locale === 'en' ? 'en/sendComments' : 'ru/sendComments', { user });
-        }catch(err){
-            next(err)
-        }
-    };
 
     static sendCommentsPost = async (req, res, next) => {
         try {
@@ -650,7 +618,7 @@ class IndexController {
             const dislikeSite = await WebsitesModel.findById(id);
 
             await WebsitesModel.findByIdAndUpdate(id, {
-                $set: { likes: (dislikeSite.likes !== 0) - 1 }
+                $set: { likes: (dislikeSite.likes || 0) - 1 }
             });
 
             res.clearCookie('likeCheck');

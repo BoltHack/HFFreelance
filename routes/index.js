@@ -2,8 +2,7 @@ const express = require('express');
 const {
     mainView, aboutUsView, rulesView, privacyPolicyView, sendReviewsMenuView, displayAllReviews, deleteUser,
     deleteReview, PersonalAreaView, changeImage, sendReview, getTokenView, moreDetailsView, youAreBannedView,
-    requestUnban, downloadFile, fileInfoView, changeLocal, changeLocalAuth, sendCommentsMenuView, sendCommentsPost,
-    likeSite, dislikeSite
+    requestUnban, downloadFile, fileInfoView, changeLocal, changeLocalAuth, sendCommentsPost, likeSite, dislikeSite
 } = require('../controller/IndexController');
 const {
     readyMadeSitesView, htmlSitesView, javascriptSitesView, nodeJsSitesView, reactJsSitesView, fullstackSitesView,
@@ -25,7 +24,6 @@ router.get('/privacyPolicy', privacyPolicyView);
 router.get('/allReviews', displayAllReviews);
 router.get('/accessToken', getTokenView);
 router.get('/sendReviews/:id', authenticateJWT, sendReviewsMenuView);
-router.get('/sendComments', authenticateJWT, sendCommentsMenuView);
 router.get('/PersonalArea', authenticateJWT, PersonalAreaView);
 router.get('/moreDetails',  moreDetailsView);
 router.get('/youAreBanned', authenticateJWT, youAreBannedView);

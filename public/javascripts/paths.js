@@ -26,6 +26,29 @@ async function allPaths() {
 
 allPaths();
 
+async function getNewToken() {
+    try {
+        const response = await fetch('/accessToken', {
+            method: 'POST',
+            credentials: 'include'
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const {token} = data;
+
+            if (!token) {
+                console.log('Токен не найден')
+                return;
+            }
+
+            localStorage.setItem('token', token);
+        }
+    } catch (error) {
+        console.error('Ошибка:', error);
+    }
+}
+
 function redirections(){
     document.getElementById('htmlCssJs').addEventListener('click', () => {
         localStorage.setItem('ref', 'refHtmlCssJs');

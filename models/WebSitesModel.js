@@ -1,6 +1,4 @@
 const {Schema, model} = require("mongoose");
-const mongoose = require('mongoose');
-const socketIo = require('socket.io');
 const currentDate = new Date();
 
 const year = currentDate.getFullYear();

@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function (){
                     loginErr.innerHTML = error;
                     email.style.border = '1px solid #780000';
                     pwd.style.border = '1px solid #780000';
+                    loginButton.classList.remove('loader')
                     return;
                 }
 
@@ -76,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function (){
                     localStorage.setItem('profileImage', 'data:image/png;base64,' + user.image);
                     localStorage.setItem('id', user._id);
                     localStorage.setItem('ref', 'refMain');
+                    localStorage.setItem('favorites', JSON.stringify(user.favorites));
                     setTimeout(function () {
                         window.location.href = `/`;
                         setTimeout(function () {
@@ -90,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function (){
 function checkToken () {
     const token = localStorage.getItem('token');
     if(token){
-        window.location.href = '/'
+        window.location.href = '/';
     }
 }
-checkToken()
+checkToken();

@@ -40,7 +40,8 @@ async function refreshToken(req, res, next) {
                 name: user.name,
                 registerDate: user.registerDate,
                 role: user.role,
-                banned: user.banned
+                banned: user.banned,
+                favorites: user.favorites
             }, refreshTokenSecret, { expiresIn: '10d' });
 
             user.refreshToken = newRefreshToken;

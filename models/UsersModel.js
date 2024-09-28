@@ -28,10 +28,7 @@ const RequestUnbanSchema = new Schema({
     message: { type: String },
 });
 const FavoritesSchema = new Schema({
-    favId: { type: String, default: '' },
-    favImage: { type: String, default: '' },
-    favTitle: { type: String, default: '' },
-    favType: { type: String, default: '' }
+    favId: { type: String },
 })
 
 const UsersSchema = new Schema({
@@ -65,11 +62,12 @@ const UsersSchema = new Schema({
     requestUnban: {
         type: [RequestUnbanSchema]
     },
-    favorites: {
-        type: [FavoritesSchema]
-    },
     locale: {
         type: String,
+    },
+    favorites: {
+        type: [FavoritesSchema],
+        default: []
     }
 });
 

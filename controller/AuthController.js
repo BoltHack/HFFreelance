@@ -98,6 +98,7 @@ class AuthController {
                 role: user.role,
                 banned: user.banned,
                 locale: user.locale,
+                favorites: user.favorites
             };
 
             const accessToken = jwt.sign(payload, JWTSecret, { expiresIn: '15m' });

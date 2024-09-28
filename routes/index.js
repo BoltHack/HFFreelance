@@ -2,7 +2,8 @@ const express = require('express');
 const {
     mainView, aboutUsView, rulesView, privacyPolicyView, sendReviewsMenuView, displayAllReviews, deleteUser,
     deleteReview, PersonalAreaView, changeImage, sendReview, getTokenView, moreDetailsView, youAreBannedView,
-    requestUnban, downloadFile, fileInfoView, changeLocal, changeLocalAuth, sendCommentsPost, likeSite, dislikeSite
+    requestUnban, downloadFile, fileInfoView, changeLocal, changeLocalAuth, likeSite, dislikeSite, sendCommentsPost,
+    getFavorites
 } = require('../controller/IndexController');
 const {
     readyMadeSitesView, htmlSitesView, javascriptSitesView, nodeJsSitesView, reactJsSitesView, fullstackSitesView,
@@ -33,7 +34,7 @@ router.get('/readyMadeSites/javascript', javascriptSitesView);
 router.get('/readyMadeSites/nodeJs', nodeJsSitesView);
 router.get('/readyMadeSites/reactJs', reactJsSitesView);
 router.get('/readyMadeSites/fullstack', fullstackSitesView);
-router.get('/readyMadeSites/favorites', favoritesView);
+router.get('/readyMadeSites/favorites', authenticateJWT, favoritesView);
 router.get('/fileInfo/:id', fileInfoView);
 
 router.post('/sendReviews/:id', authenticateJWT, sendReview);
@@ -48,8 +49,8 @@ router.post('/requestUnban/:id', authenticateJWT, requestUnban);
 router.post('/downloadFile/:id', authenticateJWT, downloadFile);
 router.post('/changeLocal', changeLocal);
 router.post('/changeLocalAuth/:id', changeLocalAuth);
-router.post('/likeSite/:id', likeSite);
-router.post('/dislikeSite/:id', dislikeSite);
+router.post('/likeSite/:id', authenticateJWT, likeSite);
+router.post('/dislikeSite/:id', authenticateJWT, dislikeSite);
 
 router.use('/auth', AuthRouter);
 router.use('/admin', AdminRouter);

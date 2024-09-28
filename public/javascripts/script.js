@@ -158,6 +158,7 @@ function logout() {
             localStorage.removeItem('refreshTokenEndTime');
             localStorage.removeItem('token');
             localStorage.removeItem('ref');
+            localStorage.removeItem('favorites');
             window.location.href = "/auth/login";
             return;
         }

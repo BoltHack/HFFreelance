@@ -1,17 +1,20 @@
+const checkToken = localStorage.getItem('token');
 document.addEventListener('DOMContentLoaded', () => {
     const loveButton = document.querySelectorAll('.love');
     const alreadyLove = document.querySelectorAll('.alreadyLove');
+    const deleteFavoritesButton = document.querySelectorAll('.delete-favorites');
 
     function checkLoveState() {
         loveButton.forEach(button => {
             const siteId = button.getAttribute('data-id');
             const love = document.getElementById('love-' + siteId);
             const alreadyLove = document.getElementById('alreadyLove-' + siteId);
+            console.log('love', love)
 
             let favorites = localStorage.getItem('favorites');
             if (favorites) {
                 favorites = JSON.parse(favorites);
-                const favoritesIndex = favorites.findIndex(item => item.id === siteId);
+                const favoritesIndex = favorites.findIndex(item => item.favId === siteId);
                 if (favoritesIndex !== -1) {
                     love.hidden = true;
                     alreadyLove.hidden = false;
@@ -28,51 +31,120 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loveButton.forEach(button => {
         button.addEventListener('click', function() {
+            if (checkToken){
+                const siteId = this.getAttribute('data-id');
+                const siteTitle = this.getAttribute('data-title');
+                const love = document.getElementById('love-' + siteId);
+                const alreadyLove = document.getElementById('alreadyLove-' + siteId);
+                const load = document.getElementById('load-' + siteId);
+
+                load.hidden = false;
+                love.hidden = true;
+
+                fetch(`/likeSite/${siteId}`, {
+                    method: "POST",
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem("token")
+                    },
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            alreadyLove.hidden = false;
+                            love.hidden = true;
+                            load.hidden = true;
+
+                            let favorites = localStorage.getItem('favorites');
+
+                            if (favorites) {
+                                try {
+                                    favorites = JSON.parse(favorites);
+                                } catch (e) {
+                                    favorites = [];
+                                }
+                            } else {
+                                favorites = [];
+                            }
+
+                            const favoritesIndex = favorites.findIndex(item => item.id === siteId);
+
+                            if (favoritesIndex === -1) {
+                                favorites.push({ favId: siteId });
+                            }
+
+                            localStorage.setItem('favorites', JSON.stringify(favorites));
+
+                            const message = local === 'en' ? `${siteTitle} added to favorites!` : `${siteTitle} добавлен в избранное!`;
+                            dynamicMenu(message);
+                        } else {
+                            response.text().then(errorMessage => {
+                                console.log("Ошибка: " + errorMessage);
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        dynamicMenu("Произошла ошибка при отправке запроса: " + error.message);
+                    });
+            }
+            else{
+                displayInfo();
+            }
+
+
+        });
+    });
+    checkLoveState();
+
+    alreadyLove.forEach(button => {
+        button.addEventListener('click', function (){
             const siteId = this.getAttribute('data-id');
             const siteTitle = this.getAttribute('data-title');
-            const siteType = this.getAttribute('data-type');
-            const siteImg = this.getAttribute('data-img');
-            const love = document.getElementById('love-' + siteId);
-            const alreadyLove = document.getElementById('alreadyLove-' + siteId);
+            const love = document.getElementById('love-'+siteId);
+            const alreadyLove = document.getElementById('alreadyLove-'+siteId);
             const load = document.getElementById('load-' + siteId);
 
             load.hidden = false;
-            love.hidden = true;
+            alreadyLove.hidden = true;
 
-            fetch(`/likeSite/${siteId}`, {
+            fetch(`/dislikeSite/${siteId}`, {
                 method: "POST",
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("token")
+                },
             })
                 .then(response => {
                     if (response.ok) {
-                        alreadyLove.hidden = false;
-                        love.hidden = true;
+                        love.hidden = false;
+                        alreadyLove.hidden = true;
                         load.hidden = true;
+                        const local = localStorage.getItem('local');
 
-                        let favorites = localStorage.getItem('favorites');
+                        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-                        if (favorites) {
-                            try {
-                                favorites = JSON.parse(favorites);
-                            } catch (e) {
-                                favorites = [];
-                            }
-                        } else {
-                            favorites = [];
+                        const favoritesIndex = favorites.findIndex(item => item.favId === siteId)
+
+                        if(favoritesIndex !== -1){
+                            favorites.splice(favoritesIndex, 1);
                         }
 
-                        const favoritesIndex = favorites.findIndex(item => item.id === siteId);
-
-                        if (favoritesIndex === -1) {
-                            favorites.push({ id: siteId, title: siteTitle, type: siteType, img: siteImg });
-                        }
-
-                        localStorage.setItem('favorites', JSON.stringify(favorites));
-
-                        const message = local === 'en' ? `${siteTitle} added to favorites!` : `${siteTitle} добавлен в избранное!`;
-                        dynamicMenu(message);
+                        localStorage.setItem('favorites', JSON.stringify(favorites))
+                        const message = local === 'ru' ? `${siteTitle} удалён из избранного!` : `${siteTitle} removed from favorites!`
+                        dynamicMenu(message)
                     } else {
                         response.text().then(errorMessage => {
                             console.log("Ошибка: " + errorMessage);
+                            dynamicMenu('Произашла ошибка. Перенаправление на главную страницу');
+                            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+                            const favoritesIndex = favorites.findIndex(item => item.favId === siteId)
+
+                            if(favoritesIndex !== -1){
+                                favorites.splice(favoritesIndex, 1);
+                            }
+
+                            localStorage.setItem('favorites', JSON.stringify(favorites));
+                            setTimeout(function (){
+                                window.location.href = '/';
+                            }, 5000)
                         });
                     }
                 })
@@ -84,52 +156,69 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     checkLoveState();
 
-    alreadyLove.forEach(button => {
-        button.addEventListener('click', function (){
-            const siteId = this.getAttribute('data-id');
-            const siteTitle = this.getAttribute('data-title');
-            const siteType = this.getAttribute('data-type');
-            const siteImg = this.getAttribute('data-img');
-            const love = document.getElementById('love-'+siteId);
-            const alreadyLove = document.getElementById('alreadyLove-'+siteId);
-            const load = document.getElementById('load-' + siteId);
+    deleteFavoritesButton.forEach(button => {
+        button.addEventListener('click', function () {
+            const deleteId = button.getAttribute('data-deleteFav');
+            const deleteFav = document.getElementById('deleteFav-'+deleteId);
+            const load = document.getElementById('load-'+deleteId);
 
+            deleteFav.hidden = true;
             load.hidden = false;
-            alreadyLove.hidden = true;
 
-            fetch(`/dislikeSite/${siteId}`, {
+            fetch(`/dislikeSite/${deleteId}`, {
                 method: "POST",
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("token")
+                },
             })
                 .then(response => {
                     if (response.ok) {
-                        love.hidden = false;
-                        alreadyLove.hidden = true;
-                        load.hidden = true;
-                        const local = localStorage.getItem('local');
+                        fetch(`/accessToken`, {
+                            method: "POST",
+                            headers: {
+                                'Authorization': 'Bearer ' + localStorage.getItem("token")
+                            },
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-                        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+                                    const favoritesIndex = favorites.findIndex(item => item.favId === deleteId)
 
-                        const favoritesIndex = favorites.findIndex(item => item.id === siteId)
+                                    if(favoritesIndex !== -1){
+                                        favorites.splice(favoritesIndex, 1);
+                                    }
 
-                        if(favoritesIndex !== -1){
-                            favorites.splice(favoritesIndex, 1);
-                        }
+                                    localStorage.setItem('favorites', JSON.stringify(favorites))
+                                    window.location.reload()
+                                }
+                            })
+                            .catch(error => {
+                                console.log(error)
+                                response.text().then(errorMessage => {
+                                    console.log("Ошибка: " + errorMessage);
+                                    dynamicMenu('Произашла ошибка. Перенаправление на главную страницу');
+                                    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-                        localStorage.setItem('favorites', JSON.stringify(favorites))
-                        const message = local === 'ru' ? 'siteTitle удалён из избранного!' : 'siteTitle removed from favorites!'
-                            dynamicMenu(message)
-                    } else {
-                        response.text().then(errorMessage => {
-                            console.log("Ошибка: " + errorMessage);
-                        });
+                                    const favoritesIndex = favorites.findIndex(item => item.favId === deleteId)
+
+                                    if(favoritesIndex !== -1){
+                                        favorites.splice(favoritesIndex, 1);
+                                    }
+
+                                    localStorage.setItem('favorites', JSON.stringify(favorites))
+                                    setTimeout(function (){
+                                        window.location.href = '/';
+                                    }, 5000)
+                                });
+                            })
                     }
                 })
                 .catch(error => {
                     dynamicMenu("Произошла ошибка при отправке запроса: " + error.message);
                 });
-
-        });
-    });
+        })
+    })
     checkLoveState();
 });
 

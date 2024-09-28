@@ -13,6 +13,12 @@ function refs(){
             window.location.href = '/accessToken'
         }
     }
+    if (window.location.pathname === `/readyMadeSites/favorites`){
+        if (ref !== 'refFavorites'){
+            localStorage.setItem('ref', 'refFavorites');
+            window.location.href = '/accessToken'
+        }
+    }
 }
 refs()
 function ha() {
@@ -54,46 +60,48 @@ function header(){
 header();
 
 function headerColor(){
-    const allSites = document.getElementById('allSites');
-    const htmlCssJs = document.getElementById('htmlCssJs');
-    const javascript = document.getElementById('javascript');
-    const fullstack = document.getElementById('fullstack');
-    const nodeJs = document.getElementById('nodeJs');
-    const reactJs = document.getElementById('reactJs');
+    const allSites = document.getElementById('allSitesColor');
+    const htmlCssJs = document.getElementById('htmlCssJsColor');
+    const javascript = document.getElementById('javascriptColor');
+    const fullstack = document.getElementById('fullstackColor');
+    const nodeJs = document.getElementById('nodeJsColor');
+    const reactJs = document.getElementById('reactJsColor');
     const favorites = document.getElementById('favorites');
+    const favoritesHeader = document.getElementById('favoritesHeader');
     if (window.location.pathname === '/readyMadeSites'){
-        allSites.style.color = '#a2a8d3'
+        // allSites.style.color = '#a2a8d3'
         allSites.style.backgroundColor = '#ddd'
     }
     if (window.location.pathname === '/readyMadeSites/html-css-js'){
-        htmlCssJs.style.color = '#a2a8d3'
+        // htmlCssJs.style.color = '#a2a8d3'
         htmlCssJs.style.backgroundColor = '#ddd'
     }
     if (window.location.pathname === '/readyMadeSites/javascript'){
-        javascript.style.color = '#a2a8d3'
+        // javascript.style.color = '#a2a8d3'
         javascript.style.backgroundColor = '#ddd'
     }
     if (window.location.pathname === '/readyMadeSites/fullstack'){
-        fullstack.style.color = '#a2a8d3'
+        // fullstack.style.color = '#a2a8d3'
         fullstack.style.backgroundColor = '#ddd'
     }
     if (window.location.pathname === '/readyMadeSites/nodeJs'){
-        nodeJs.style.color = '#a2a8d3'
+        // nodeJs.style.color = '#a2a8d3'
         nodeJs.style.backgroundColor = '#ddd'
     }
     if (window.location.pathname === '/readyMadeSites/reactJs'){
-        reactJs.style.color = '#a2a8d3'
+        // reactJs.style.color = '#a2a8d3'
         reactJs.style.backgroundColor = '#ddd'
     }
     if (window.location.pathname === '/readyMadeSites/favorites'){
-        favorites.style.color = '#a2a8d3'
+        favoritesHeader.style.color = '#a2a8d3'
+        favorites.style.backgroundColor = '#ddd'
     }
 }
 headerColor();
 
 function favoritesJoin() {
     localStorage.setItem('ref', 'refFavorites');
-    window.location.href = '/readyMadeSites/favorites';
+    window.location.href = '/accessToken';
 }
 
 function local(){

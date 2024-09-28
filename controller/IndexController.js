@@ -27,9 +27,6 @@ class IndexController {
             } else {
                 return res.render(locale === 'en' ? 'en/main' : 'ru/main', { locale, links });
             }
-            res.send(`
-            <script>alert(4545)</script>
-            `)
         } catch (e) {
             next(e);
         }
@@ -588,6 +585,8 @@ class IndexController {
     static likeSite = async (req, res, next) => {
         try{
             const {id} = req.params;
+            const user = req.user;
+            const userId = await UsersModel.findById(user.id);
 
             const likeSite = await WebsitesModel.findById(id);
 
@@ -601,6 +600,12 @@ class IndexController {
                 likeCheck.push(id);
                 res.cookie('likeCheck', likeCheck, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000 });
             }
+
+            if (!userId.favorites.some(fav => fav.favId.toString() === id.toString())) {
+                userId.favorites.push({favId: id});
+                await userId.save();
+            }
+
             res.send(`
             <script>window.history.back()</script>
             `)
@@ -614,6 +619,8 @@ class IndexController {
     static dislikeSite = async (req, res, next) => {
         try{
             const {id} = req.params;
+            const user = req.user;
+            const userId = await UsersModel.findById(user.id);
 
             const dislikeSite = await WebsitesModel.findById(id);
 
@@ -622,6 +629,12 @@ class IndexController {
             });
 
             res.clearCookie('likeCheck');
+
+            if (userId.favorites.some(favorite => favorite.favId.toString() === id.toString())) {
+                userId.favorites = userId.favorites.filter(favorite => favorite.favId.toString() !== id.toString());
+                await userId.save();
+            }
+
 
             res.send(`
             <script>window.history.back()</script>

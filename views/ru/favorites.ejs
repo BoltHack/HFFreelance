@@ -14,7 +14,7 @@
             padding: 20px;
         }
 
-        #favorites-container {
+        .ul {
             list-style: none;
             padding: 0;
             margin: 30px auto;
@@ -149,6 +149,135 @@
             background-color: #761c19;
             color: white;
         }
+
+        .spinner {
+            font-size: 22px;
+            position: relative;
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            margin-top: 5px;
+        }
+
+        .spinner .spinner-blade {
+            position: absolute;
+            left: 0.4629em;
+            bottom: 0;
+            width: 0.074em;
+            height: 0.2777em;
+            border-radius: 0.0555em;
+            background-color: transparent;
+            -webkit-transform-origin: center -0.2222em;
+            -ms-transform-origin: center -0.2222em;
+            transform-origin: center -0.2222em;
+            animation: spinner-fade9234 1s infinite linear;
+        }
+
+        .spinner .spinner-blade:nth-child(1) {
+            -webkit-animation-delay: 0s;
+            animation-delay: 0s;
+            -webkit-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        .spinner .spinner-blade:nth-child(2) {
+            -webkit-animation-delay: 0.083s;
+            animation-delay: 0.083s;
+            -webkit-transform: rotate(30deg);
+            -ms-transform: rotate(30deg);
+            transform: rotate(30deg);
+        }
+
+        .spinner .spinner-blade:nth-child(3) {
+            -webkit-animation-delay: 0.166s;
+            animation-delay: 0.166s;
+            -webkit-transform: rotate(60deg);
+            -ms-transform: rotate(60deg);
+            transform: rotate(60deg);
+        }
+
+        .spinner .spinner-blade:nth-child(4) {
+            -webkit-animation-delay: 0.249s;
+            animation-delay: 0.249s;
+            -webkit-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+
+        .spinner .spinner-blade:nth-child(5) {
+            -webkit-animation-delay: 0.332s;
+            animation-delay: 0.332s;
+            -webkit-transform: rotate(120deg);
+            -ms-transform: rotate(120deg);
+            transform: rotate(120deg);
+        }
+
+        .spinner .spinner-blade:nth-child(6) {
+            -webkit-animation-delay: 0.415s;
+            animation-delay: 0.415s;
+            -webkit-transform: rotate(150deg);
+            -ms-transform: rotate(150deg);
+            transform: rotate(150deg);
+        }
+
+        .spinner .spinner-blade:nth-child(7) {
+            -webkit-animation-delay: 0.498s;
+            animation-delay: 0.498s;
+            -webkit-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+
+        .spinner .spinner-blade:nth-child(8) {
+            -webkit-animation-delay: 0.581s;
+            animation-delay: 0.581s;
+            -webkit-transform: rotate(210deg);
+            -ms-transform: rotate(210deg);
+            transform: rotate(210deg);
+        }
+
+        .spinner .spinner-blade:nth-child(9) {
+            -webkit-animation-delay: 0.664s;
+            animation-delay: 0.664s;
+            -webkit-transform: rotate(240deg);
+            -ms-transform: rotate(240deg);
+            transform: rotate(240deg);
+        }
+
+        .spinner .spinner-blade:nth-child(10) {
+            -webkit-animation-delay: 0.747s;
+            animation-delay: 0.747s;
+            -webkit-transform: rotate(270deg);
+            -ms-transform: rotate(270deg);
+            transform: rotate(270deg);
+        }
+
+        .spinner .spinner-blade:nth-child(11) {
+            -webkit-animation-delay: 0.83s;
+            animation-delay: 0.83s;
+            -webkit-transform: rotate(300deg);
+            -ms-transform: rotate(300deg);
+            transform: rotate(300deg);
+        }
+
+        .spinner .spinner-blade:nth-child(12) {
+            -webkit-animation-delay: 0.913s;
+            animation-delay: 0.913s;
+            -webkit-transform: rotate(330deg);
+            -ms-transform: rotate(330deg);
+            transform: rotate(330deg);
+        }
+
+        @keyframes spinner-fade9234 {
+            0% {
+                background-color: #69717d;
+            }
+
+            100% {
+                background-color: transparent;
+            }
+        }
     </style>
 </head>
 <body>
@@ -184,108 +313,58 @@
         <% } %>
     </div>
     <div id="favorites-container">
-        <%= favorites %>
+        <ul class="ul">
+            <% if (favorites && favorites.length > 0) { %>
+                <% favorites.forEach(favorite => { %>
+                    <li class="project">
+                        <img src="data:image/jpeg;base64,<%= favorite.fileImg %>" class="img">
+                        <div class="sites-info">
+                            <p>Название: <%= favorite.title %></p>
+                            <p>Тип: <%= favorite.siteType %></p>
+                            <div style="display: flex; gap: 10px; margin: auto 0;">
+                                <form action="/fileInfo/<%= favorite._id %>" method="GET">
+                                    <button class="button">Посмотреть</button>
+                                </form>
+                                <form action="/downloadFile/<%= favorite._id %>" method="POST">
+                                    <button class="Download-button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 640 512">
+                                            <path d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-167l80 80c9.4 9.4 24.6 9.4 33.9 0l80-80c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-39 39V184c0-13.3-10.7-24-24-24s-24 10.7-24 24V318.1l-39-39c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9z" fill="white"></path>
+                                        </svg>
+                                        <span>Скачать</span>
+                                    </button>
+                                </form>
+                            </div>
+                            <br>
+                            <div>
+                                <button class="delete-favorites" id="deleteFav-<%= favorite._id %>" data-deleteFav="<%= favorite._id %>">Удалить</button>
+                                <div id="load-<%= favorite._id %>" hidden>
+                                    <div class="spinner center">
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                        <div class="spinner-blade"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                <% }); %>
+            <% } else { %>
+                <li>Нет избранных элементов.</li>
+            <% } %>
+        </ul>
     </div>
 </main>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const favoritesContainer = document.getElementById('favorites-container');
-
-        function displayFavorites() {
-            let favorites = localStorage.getItem('favorites');
-
-            if (favorites) {
-                favorites = JSON.parse(favorites);
-            } else {
-                favorites = [];
-            }
-
-            favoritesContainer.innerHTML = '';
-
-            favorites.forEach(item => {
-                const favoriteItem = document.createElement('div');
-                const token = localStorage.getItem('token');
-
-                if(token){
-                    favoriteItem.innerHTML = `
-            <ul>
-                <li class="project">
-                    <img src="data:image/jpeg;base64,${item.img}" class="img">
-                    <div class="sites-info">
-                        <p>Название: ${item.title}</p>
-                        <p>Тип: ${item.type}</p>
-                        <div style="display: flex; gap: 10px; margin: auto 0;">
-                            <form action="/fileInfo/${item.id}" method="GET">
-                                <button class="button">Посмотреть</button>
-                            </form>
-                            <form action="/downloadFile/${item.id}" method="POST">
-                                <button class="Download-button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 640 512">
-                                        <path d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-167l80 80c9.4 9.4 24.6 9.4 33.9 0l80-80c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-39 39V184c0-13.3-10.7-24-24-24s-24 10.7-24 24V318.1l-39-39c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9z" fill="white"></path>
-                                    </svg>
-                                    <span>Скачать</span>
-                                </button>
-                            </form>
-                        </div>
-                        <br>
-                        <div>
-                            <button onclick="deleteFavorite('${item.id}')" class="delete-favorites">Удалить</button>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-                    `;
-                }
-                else{
-                    favoriteItem.innerHTML = `
-            <ul>
-                <li class="project">
-                    <img src="data:image/jpeg;base64,${item.img}" class="img">
-                    <div class="sites-info">
-                        <p>Название: ${item.title}</p>
-                        <p>Тип: ${item.type}</p>
-                        <div style="display: flex; gap: 10px; margin: auto 0;">
-                            <form action="/fileInfo/${item.id}" method="GET">
-                                <button class="button">Посмотреть</button>
-                            </form>
-                                <button class="Download-button" onclick="displayInfo()">
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 640 512">
-                                        <path d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-167l80 80c9.4 9.4 24.6 9.4 33.9 0l80-80c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-39 39V184c0-13.3-10.7-24-24-24s-24 10.7-24 24V318.1l-39-39c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9z" fill="white"></path>
-                                    </svg>
-                                    <span>Скачать</span>
-                                </button>
-                        </div>
-                        <br>
-                        <div>
-                            <button onclick="deleteFavorite('${item.id}')" class="delete-favorites">Удалить</button>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-                    `;
-                }
-                favoritesContainer.appendChild(favoriteItem);
-            });
-        }
-
-        displayFavorites();
-    });
-
-    function deleteFavorite(id){
-        let favorites = localStorage.getItem('favorites');
-        if (favorites){
-            favorites = JSON.parse(favorites);
-            favorites = favorites.filter(item => item.id !== id);
-            localStorage.setItem('favorites', JSON.stringify(favorites));
-            window.location.reload();
-        }
-        const favoritesArray = JSON.parse(favorites);
-        if (Array.isArray(favoritesArray) && favoritesArray.length === 0) {
-            document.getElementById('favorites-container').innerHTML = '<p style="margin-top: 200px;">В избранных пусто</p>';
-        }
-    }
-</script>
 <script src="/javascripts/advertising.js"></script>
 <script src="/javascripts/script.js"></script>
+<script src="/javascripts/love.js"></script>
 </body>
 </html>

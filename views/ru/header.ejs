@@ -125,7 +125,7 @@
         }
     }
     details {
-        margin: 8px;
+        margin: 10px;
         padding: 10px;
         width: 150px;
         border-radius: 5px;
@@ -246,6 +246,7 @@
                         <li><a id="reactJs">reactJs</a></li>
                         <li><a id="fullstack">fullstack</a></li>
                         <li><a id="allSites">Все типы</a></li>
+                        <li><a onclick="favoritesJoin()">Избранное</a></li>
                     </ul>
                 </div>
             </details>
@@ -257,16 +258,17 @@
                 <summary>Типы</summary>
                 <div>
                     <ul>
-                        <li><a href="/readyMadeSites/html-css-js" idz="htmlCssJs">html, css, js</a></li>
-                        <li><a href="/readyMadeSites/javascript" id="javascript">javascript</a></li>
-                        <li><a href="/readyMadeSites/nodeJs" id="nodeJs">nodeJs</a></li>
-                        <li><a href="/readyMadeSites/reactJs" id="reactJs">reactJs</a></li>
-                        <li><a href="/readyMadeSites/fullstack" id="fullstack">fullstack</a></li>
-                        <li><a href="/readyMadeSites" id="allSites">Все типы</a></li>
+                        <li><a href="/readyMadeSites/html-css-js" id="htmlCssJsColor">html, css, js</a></li>
+                        <li><a href="/readyMadeSites/javascript" id="javascriptColor">javascript</a></li>
+                        <li><a href="/readyMadeSites/nodeJs" id="nodeJsColor">nodeJs</a></li>
+                        <li><a href="/readyMadeSites/reactJs" id="reactJsColor">reactJs</a></li>
+                        <li><a href="/readyMadeSites/fullstack" id="fullstackColor">fullstack</a></li>
+                        <li><a href="/readyMadeSites" id="allSitesColor">Все типы</a></li>
+                        <li><a onclick="favoritesJoin()" id="favorites">Избранное</a></li>
                     </ul>
                 </div>
             </details>
-            <li><a class="types" id="favorites" onclick="favoritesJoin()" style="cursor: pointer">Избранное</a></li>
+            <li><a class="types" id="favoritesHeader" onclick="favoritesJoin()" style="cursor: pointer">Избранное</a></li>
         </ul>
     </div>
     <div class="dropdown" id="local" style="position: absolute; top: 15%; right: 1%;">

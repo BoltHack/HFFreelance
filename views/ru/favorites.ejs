@@ -55,9 +55,6 @@
             white-space: nowrap;
         }
 
-        .project:hover {
-            transform: scale(1.03);
-        }
 
         .button, .Download-button {
             background: none;
@@ -337,7 +334,7 @@
                             <br>
                             <div>
                                 <button class="delete-favorites" id="deleteFav-<%= favorite._id %>" data-deleteFav="<%= favorite._id %>">Удалить</button>
-                                <div id="load-<%= favorite._id %>" hidden>
+                                <div id="load-<%= favorite._id %>" style="margin-left: 26px;" hidden>
                                     <div class="spinner center">
                                         <div class="spinner-blade"></div>
                                         <div class="spinner-blade"></div>
@@ -363,6 +360,13 @@
         </ul>
     </div>
 </main>
+<script>
+    const reloadWindow = localStorage.getItem('reload');
+    if (reloadWindow === 'on'){
+        window.location.reload();
+        localStorage.setItem('reload', 'off')
+    }
+</script>
 <script src="/javascripts/advertising.js"></script>
 <script src="/javascripts/script.js"></script>
 <script src="/javascripts/love.js"></script>

@@ -1,6 +1,7 @@
 const {UsersModel } = require("../models/UsersModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const https = require('https')
 
 const {JWTSecret, refreshTokenSecret} = process.env;
 

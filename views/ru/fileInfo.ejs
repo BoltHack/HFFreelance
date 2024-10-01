@@ -11,9 +11,6 @@
     const infoId = `<%= siteInfo._id %>`
     const infoImage = `<%= siteInfo.fileImg %>`
 </script>
-<style>
-
-</style>
 <body>
 <main>
     <%- include('header.ejs') %>
@@ -90,16 +87,16 @@
                             <h3 style="margin-left: 5px"><%= comment.author %></h3>
                             <p class="date"><%= comment.date %></p>
                         </div>
-                        <p class="comment"><%= comment.message %></p><br>
+                        <p class="comment"><%= comment.message %></p>
+                        <br>
+                        <div class="line"></div>
                     </div>
                 <% }); %>
             <% } else {%>
                 <p>Комментариев не найдено</p>
             <%}%>
         </div>
-        <div class="comment-form" id="commentForm">
-
-        </div>
+        <div class="comment-form" id="commentForm"></div>
     </div>
     <div class="br"></div>
 </main>

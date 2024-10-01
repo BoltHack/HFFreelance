@@ -100,8 +100,15 @@ function headerColor(){
 headerColor();
 
 function favoritesJoin() {
-    localStorage.setItem('ref', 'refFavorites');
-    window.location.href = '/accessToken';
+    const token = localStorage.getItem('token');
+    if (token){
+        localStorage.setItem('ref', 'refFavorites');
+        localStorage.setItem('reload', 'on');
+        window.location.href = '/accessToken';
+    }
+    else{
+        displayInfo();
+    }
 }
 
 function local(){

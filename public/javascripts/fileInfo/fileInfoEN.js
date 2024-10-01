@@ -72,10 +72,10 @@ const commentContainer = document.querySelector('.comment-container');
 function offCommentMenu(){
     commentContainer.classList.add('slide-out');
     localStorage.setItem('commentsMenu', 'false');
-    checkComments.style.display = 'block';
     setTimeout(function (){
         commentContainer.classList.remove('slide-out');
         commentMenu.style.display = 'none';
+        checkComments.style.display = 'block';
     }, 500)
 }
 function onCommentMenu(){

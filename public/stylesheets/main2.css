@@ -66,6 +66,14 @@ main{
     flex-wrap: wrap;
     padding: 10px;
     border-radius: 100% 0% 100% 0% / 1% 54% 46% 100%;
+    transform: translateY(-20px);
+    animation: fadeIn 1s forwards;
+}
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 .info p {
     color: #468faf;

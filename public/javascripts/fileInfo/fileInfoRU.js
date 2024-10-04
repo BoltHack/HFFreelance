@@ -123,3 +123,71 @@ function commentForm(){
     }
 }
 commentForm();
+
+function displayInfo() {
+        const barrier = document.createElement('barrier');
+        const border = document.createElement('border');
+
+        const token = localStorage.getItem('token');
+        const local = localStorage.getItem('local');
+
+        if (token){
+            PersonalAreaJoin();
+        }
+        else {
+            barrier.innerHTML = `<div class="new-barrier"></div>`;
+            if (local === 'en'){
+                border.innerHTML = `
+<link rel="stylesheet" href="/stylesheets/style.css">
+<div class="new-border">
+<div class="border-data">
+    <h2 class="yourAccount">My account</h2>
+    <br>
+<h3>You are not logged in</h3>
+<p>Sign in or create an account.</p>
+<button onclick="login()" class="login-btn">Login</button>
+<button onclick="register()" class="register-btn">Create an account</button>
+<br>
+<br>
+<span>By continuing, you accept our <a class="termsOfUse" href="/rules" target="_blank">Terms of Use</a> and <a href="/privacyPolicy" target="_blank" class="privacyPolicy">Privacy Policy</a>.</span>
+</div>
+</div>
+</div>
+    `
+            }
+            else{
+                border.innerHTML = `
+<link rel="stylesheet" href="/stylesheets/style.css">
+<div class="new-border">
+<div class="border-data">
+    <h2 class="yourAccount">Мой аккаунт</h2>
+    <br>
+<h3>Вы не авторизованы</h3>
+<p>Войдите в учётную запись или создайте аккаунт.</p>
+<button onclick="login()" class="login-btn">Войти</button>
+<button onclick="register()" class="register-btn">Создать аккаунт</button>
+<br>
+<br>
+<span>Продолжая, вы принимаете наши <a class="termsOfUse" href="/rules" target="_blank">Условия использования</a> и <a href="privacyPolicy" target="_blank" class="privacyPolicy">Политику конфиденциальности</a>.</span>
+</div>
+</div>
+</div>
+    `
+            }
+
+
+            document.body.appendChild(border);
+            document.body.appendChild(barrier);
+            document.body.style.overflow = 'hidden';
+            barrier.addEventListener('click', () => {
+                document.body.removeChild(border);
+                document.body.style.overflow = 'auto';
+                document.body.removeChild(barrier);
+            })
+            document.getElementById('close').addEventListener('click', () => {
+                document.body.removeChild(border);
+                document.body.style.overflow = 'auto';
+                document.body.removeChild(barrier);
+            })
+        }
+}

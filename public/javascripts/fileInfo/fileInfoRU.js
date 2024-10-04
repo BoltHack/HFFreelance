@@ -100,14 +100,23 @@ function commentForm(){
     const commentForm = document.getElementById('commentForm');
     if (token){
         commentForm.innerHTML = `
-            <form action="/sendCommentsPost/${infoId}" method="POST" id="commentForm">
+<!--            <form id="form" action="">-->
+<!--                <div style="display: flex; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">-->
+<!--                    <input type="hidden" id="siteId" value="${infoId}" required >-->
+<!--                    <input id="input" autocomplete="off" placeholder="Написать комментарий" required >-->
+<!--                                        <input type="text" id="message" name="message" placeholder="Написать комментарий" class="input" maxlength="150" required>-->
+<!--                    <button type="submit" id="sendComment" style="background: none; border: none">-->
+<!--                        <img src="/images/send.png" style="width: 25px; height: 25px; cursor:pointer;">-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </form>-->
+<form action="/sendCommentsPost/${infoId}" method="POST" id="commentForm">
                 <div style="display: flex; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
                     <input type="text" id="message" name="message" placeholder="Написать комментарий" class="input" maxlength="150" required>
-                    <button type="submit" id="sendComment" style="background: none; border: none">
-                    <img src="/images/send.png" style="width: 25px; height: 25px; cursor:pointer;">
-                    </button>
+                    <button type="submit" id="sendComment" style="background: none; border: none"><img src="/images/send.png" style="width: 25px; height: 25px; cursor:pointer;"></button>
                 </div>
-            </form>`
+            </form>
+`
     }
     else{
         commentForm.innerHTML = `
@@ -125,38 +134,11 @@ function commentForm(){
 commentForm();
 
 function displayInfo() {
-        const barrier = document.createElement('barrier');
-        const border = document.createElement('border');
+    const barrier = document.createElement('barrier');
+    const border = document.createElement('border');
 
-        const token = localStorage.getItem('token');
-        const local = localStorage.getItem('local');
-
-        if (token){
-            PersonalAreaJoin();
-        }
-        else {
-            barrier.innerHTML = `<div class="new-barrier"></div>`;
-            if (local === 'en'){
-                border.innerHTML = `
-<link rel="stylesheet" href="/stylesheets/style.css">
-<div class="new-border">
-<div class="border-data">
-    <h2 class="yourAccount">My account</h2>
-    <br>
-<h3>You are not logged in</h3>
-<p>Sign in or create an account.</p>
-<button onclick="login()" class="login-btn">Login</button>
-<button onclick="register()" class="register-btn">Create an account</button>
-<br>
-<br>
-<span>By continuing, you accept our <a class="termsOfUse" href="/rules" target="_blank">Terms of Use</a> and <a href="/privacyPolicy" target="_blank" class="privacyPolicy">Privacy Policy</a>.</span>
-</div>
-</div>
-</div>
-    `
-            }
-            else{
-                border.innerHTML = `
+    barrier.innerHTML = `<div class="new-barrier"></div>`;
+    border.innerHTML = `
 <link rel="stylesheet" href="/stylesheets/style.css">
 <div class="new-border">
 <div class="border-data">
@@ -173,21 +155,21 @@ function displayInfo() {
 </div>
 </div>
     `
-            }
 
-
-            document.body.appendChild(border);
-            document.body.appendChild(barrier);
-            document.body.style.overflow = 'hidden';
-            barrier.addEventListener('click', () => {
-                document.body.removeChild(border);
-                document.body.style.overflow = 'auto';
-                document.body.removeChild(barrier);
-            })
-            document.getElementById('close').addEventListener('click', () => {
-                document.body.removeChild(border);
-                document.body.style.overflow = 'auto';
-                document.body.removeChild(barrier);
-            })
-        }
+    document.body.appendChild(border);
+    document.body.appendChild(barrier);
+    document.body.style.overflow = 'hidden';
+    barrier.addEventListener('click', () => {
+        document.body.removeChild(border);
+        document.body.style.overflow = 'auto';
+        document.body.removeChild(barrier);
+    })
 }
+
+function pathFileInfo(){
+    const ref = localStorage.getItem('ref');
+    if (ref !== 'refFileInfo'){
+        localStorage.setItem('ref', 'refFileInfo')
+    }
+}
+pathFileInfo();

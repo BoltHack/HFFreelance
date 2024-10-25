@@ -143,16 +143,16 @@
 <div class="br"></div>
 <div class="search">
     <h2>Список забаненых пользователей</h2>
-    <input type="text" id="searchInput" placeholder="Поиск по имени или email">
+    <input type="text" id="searchInput" placeholder="Поиск по id или email">
 </div>
 <ul class="ul" id="userList">
     <% if (users && users.length) { %>
         <% users.forEach(user => { %>
             <li class="li">
                 <div class="user-info">
-                    <p>id: <%= user._id %></p>
+                    <p class="user-id">id: <%= user._id %></p>
                     <p>Имя: <%= user.name %></p>
-                    <p>Эл. Адрес: <%= user.email %></p>
+                    <p class="user-email">Эл. Адрес: <%= user.email %></p>
                     <% if (user.reviews && user.reviews.length > 0) { %>
                         <% user.reviews.forEach(review => { %>
                             <div style="display: flex; gap: 10px;">
@@ -175,7 +175,7 @@
                         </form>
                     </div>
                     <p>Причина бана: <%= user.banned[0].reason %></p>
-                    <p>Автор бана: <%= user.banned[0].author %></p>
+                    <p>Автор бана: <%= user.banned[0].author[0].authorName %> | <%= user.banned[0].author[0].id %></p>
                     <% if(user.banned[0].description) {%>
                         <p>Доп. информация: <%= user.banned[0].description %></p>
                     <%}%>
@@ -216,9 +216,9 @@
         const users = userList.getElementsByClassName('li');
 
         Array.from(users).forEach(user => {
-            const userName = user.querySelector('.user-info p:nth-child(2)').textContent.toLowerCase();
-            const userEmail = user.querySelector('.user-info p:nth-child(3)').textContent.toLowerCase();
-            if (userName.includes(searchValue) || userEmail.includes(searchValue)) {
+            const userId = user.querySelector('.user-id').textContent.toLowerCase();
+            const userEmail = user.querySelector('.user-email').textContent.toLowerCase();
+            if (userId.includes(searchValue) || userEmail.includes(searchValue)) {
                 user.style.display = '';
             }
             else {

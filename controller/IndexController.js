@@ -4,7 +4,6 @@ const {LinksModel} = require("../models/LinksModel");
 const {WebsitesModel} = require("../models/WebSitesModel");
 const {authenticateJWT} = require('../middlewares/jwtAuth');
 const bcrypt = require("bcrypt");
-const https = require('https')
 
 
 class IndexController {
@@ -125,6 +124,9 @@ class IndexController {
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
+            if (!req.cookies['token'] && !req.cookies['refreshToken']){
+                return res.redirect('/')
+            }
 
             if (user.banned[0].banType === true) {
                 res.redirect('/youAreBanned')
@@ -146,6 +148,9 @@ class IndexController {
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
+            if (!req.cookies['token'] && !req.cookies['refreshToken']){
+                return res.redirect('/')
+            }
 
             const review = await UsersModel.findOne({ _id: user.id});
 
@@ -160,16 +165,20 @@ class IndexController {
     };
 
     static getTokenView = (req, res, next) => {
-        let locale = req.cookies['locale'] || 'en';
+        try{
+            let locale = req.cookies['locale'] || 'en';
 
-        if (!req.cookies['locale']) {
-            res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
-        }
-        if (locale === 'en'){
-            return res.render('en/getToken');
-        }
-        else{
-            return res.render('ru/getToken');
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
+            }
+            if (locale === 'en'){
+                return res.render('en/getToken');
+            }
+            else{
+                return res.render('ru/getToken');
+            }
+        }catch (err){
+            next(err)
         }
     }
     static moreDetailsView = async (req, res, next) => {
@@ -315,7 +324,8 @@ class IndexController {
             res.redirect('/allReviews');
         } catch (err) {
             console.error('Ошибка:', err);
-            res.status(500).json({ error: err.message });
+            return res.redirect(`/error?message=${encodeURIComponent(err.message)}`);
+            // res.status(500).json({ error: err.message });
             next(err);
         }
     }
@@ -407,12 +417,16 @@ class IndexController {
                 const errorMsg = locale === 'en' ? 'Invalid password.' : 'Неверный пароль.';
                 return res.redirect(`/error?message=${encodeURIComponent(errorMsg)}`);
             }
-            await UsersModel.findByIdAndDelete(id);
-            res.clearCookie('token');
-            res.clearCookie('refreshToken');
-            console.log('delete', id)
-            res.send(
-                `<script>
+            if (user.banned[0].banType === true) {
+                res.redirect('/youAreBanned');
+            } else {
+                await UsersModel.findByIdAndDelete(id);
+                res.clearCookie('token');
+                res.clearCookie('refreshToken');
+                res.clearCookie('session');
+                console.log('delete', id)
+                res.send(
+                    `<script>
                     function localstorageClear(){
                         localStorage.removeItem('id');
                         localStorage.removeItem('profileImage');
@@ -425,7 +439,8 @@ class IndexController {
                     }
                     localstorageClear()
                 </script>`
-            )
+                )
+            }
         } catch (error) {
             console.error(error);
             return res.status(500).json({ error: error.message });
@@ -636,7 +651,6 @@ class IndexController {
                 userId.favorites = userId.favorites.filter(favorite => favorite.favId.toString() !== id.toString());
                 await userId.save();
             }
-
 
             res.send(`
             <script>window.history.back()</script>

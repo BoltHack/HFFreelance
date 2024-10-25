@@ -1,7 +1,20 @@
 const {UsersModel } = require("../models/UsersModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const https = require('https')
+const {LinksModel} = require("../models/LinksModel");
+const {ForgottenPasswordsModel} = require("../models/ForgottenPasswords");
+const {authenticateJWT} = require("../middlewares/jwtAuth");
+
+require('dotenv').config();
+const nodemailer = require('nodemailer');
+
+function generateRandomNumber() {
+    const min = 10000;
+    const max = 99999;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const randomNumber = generateRandomNumber().toString();
 
 const {JWTSecret, refreshTokenSecret} = process.env;
 
@@ -25,6 +38,9 @@ class AuthController {
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true });
+            }
+            if (req.cookies['token'] && req.cookies['refreshToken']){
+                return res.redirect('/')
             }
             return res.render(locale === 'en' ? 'en/auth/register' : 'ru/auth/register');
         } catch (e) {
@@ -62,6 +78,9 @@ class AuthController {
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true });
+            }
+            if (req.cookies['token'] && req.cookies['refreshToken']){
+                return res.redirect('/')
             }
             return res.render(locale === 'en' ? 'en/auth/login' : 'ru/auth/login');
         } catch (e) {
@@ -104,6 +123,7 @@ class AuthController {
 
             const accessToken = jwt.sign(payload, JWTSecret, { expiresIn: '15m' });
             const refreshToken = jwt.sign(payload, refreshTokenSecret, { expiresIn: '10d' });
+
 
             user.refreshToken = refreshToken;
             await user.save();
@@ -173,14 +193,179 @@ class AuthController {
         }
     }
 
+    static sessionExpiredView = async (req, res, next) => {
+        try{
+            let locale = req.cookies['locale'] || 'en';
+            const token = req.cookies['token'];
+            const clearSession = req.cookies['clearSession'];
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
+            }
+
+            if (token){
+                return res.redirect('/');
+            }
+
+            if (req.cookies['token']) {
+                await authenticateJWT(req, res, () => {
+                    const user = req.user;
+                    if (user.banned[0].banType === true) {
+                        res.redirect('/youAreBanned')
+                    }
+                    else{
+                        return res.render(locale === 'en' ? 'en/auth/sessionExpired' : 'ru/auth/sessionExpired', { user, locale, clearSession });
+                    }
+                });
+            }
+            else {
+                return res.render(locale === 'en' ? 'en/auth/sessionExpired' : 'ru/auth/sessionExpired', { locale, clearSession });
+            }
+        }catch (err){
+            next(err)
+        }
+    };
 
 
-
-    static logout = (req, res, next)=> {
+    static forgetPasswordView = async (req, res, next) => {
         try {
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
+            if (req.cookies['token'] && req.cookies['refreshToken']){
+                return res.redirect('/')
+            }
+            return res.render(locale === 'en' ? 'en/auth/forget-password' : 'ru/auth/forget-password');
+        } catch (e) {
+            next(e)
+        }
+    }
+
+    static sendEmail = async (req, res, next) => {
+        try {
+            const {email} = req.body;
+            const checkEmail = await UsersModel.findOne({email});
+
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
+            }
+
+            if (!checkEmail){
+                const msg = locale === 'en' ? 'The entered address was not found.' : 'Введённый адрес не найден.';
+                return res.redirect(`/error?message=${encodeURIComponent(msg)}`);
+            }
+            const checkUser = await ForgottenPasswordsModel.findOne({email});
+            if (checkUser){
+                const msg = locale === 'en' ? 'You have already sent a verification code. Please try again later.' : 'Вы уже отправили код подтверждения. Повтроите попытку позже.';
+                return res.redirect(`/error?message=${encodeURIComponent(msg)}`);
+            }
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: process.env.USER,
+                    pass: process.env.PASS
+                }
+            })
+
+            const mainOptions = {
+                from: process.env.USER,
+                to: email,
+                subject: locale === 'en' ? 'Your HFFreelancers Account: Access from a New Browser.' : 'Ваш аккаунт HFFreelancers: Доступ из нового браузера',
+                text: locale === 'en' ? `It looks like you're trying to sign in from a new device. You'll need a verification code to do this: ${randomNumber}` : `Похоже, вы пытаетесь войти в аккаунт с нового устройства. Для этого вам понадобится код подтверждения: ${randomNumber}`
+            }
+
+            transporter.sendMail(mainOptions, (error, info) => {
+                if (error) {
+                    return console.log('Ошибка при отправке письма:', error);
+                }
+                console.log('Письмо отправлено:', info.response);
+                const emailCode = new ForgottenPasswordsModel({
+                    email: email,
+                    code: randomNumber,
+                    expiresInMinutes: '10'
+                })
+                emailCode.save();
+                res.cookie('email', email)
+
+                return res.redirect('/auth/account-recovery');
+            });
+
+        }catch (err){
+            next(err);
+        }
+    }
+
+    static accountRecoveryView = async (req, res, next) => {
+        try {
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true });
+            }
+            if (req.cookies['token'] && req.cookies['refreshToken']){
+                return res.redirect('/')
+            }
+            return res.render(locale === 'en' ? 'en/auth/account-recovery' : 'ru/auth/account-recovery');
+        } catch (e) {
+            next(e)
+        }
+    }
+
+    static accountRecovery = async (req, res, next) => {
+        try {
+            const {code, password, confirmPassword} = req.body;
+            const email = req.cookies['email'];
+
+            const user = await ForgottenPasswordsModel.findOne({email});
+            if (!user) {
+                return res.redirect(`/error?message=${encodeURIComponent('Пользователь не найден.')}`);
+            }
+
+            if (user.code !== code) {
+                return res.redirect(`/error?message=${encodeURIComponent('Коды не совпадают.')}`);
+            }
+
+            if (password !== confirmPassword) {
+                return res.redirect(`/error?message=${encodeURIComponent('Пароли не совпадают.')}`);
+            }
+
+            const emailId = await UsersModel.findOne({ email });
+            if (!emailId) {
+                return res.redirect(`/error?message=${encodeURIComponent('Пользователь не найден.')}`);
+            }
+
+            const idS = emailId._id.toString();
+
+            const hashedPassword = await bcrypt.hash(password, 10);
+
+            const updatePassword = await UsersModel.findByIdAndUpdate(
+                idS,
+                { password: hashedPassword },
+                { new: true }
+            );
+            res.clearCookie('email');
+            updatePassword.save();
+            return res.redirect('/auth/login')
+        } catch (e) {
+            next(e)
+        }
+    }
+
+
+    static logout = async (req, res, next)=> {
+        try {
+            const id = req.user.id;
+            await UsersModel.findByIdAndUpdate(id, {
+                refreshToken: '',
+            })
             req.cookies.user = null;
             res.clearCookie('token');
             res.clearCookie('refreshToken');
+            res.clearCookie('session');
             return res.json({status: "Успешный выход!"});
         }catch (err){
             next(err)

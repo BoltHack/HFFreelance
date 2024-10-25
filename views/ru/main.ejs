@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HFFreelance | Главная</title>
+    <title>HFFreelancers | Главная</title>
     <link rel="stylesheet" href="/stylesheets/main2.css">
-<!--    <link rel="stylesheet" href="/stylesheets/alert.css">-->
     <link rel="icon" type="image/png" href="/images/logo2.png">
 </head>
 <body>
 <%- include('header.ejs') %>
 <main>
-<br>
+    <br>
 <div class="imagesPositions" id="home">
     <%- include('carousel.ejs') %>
     <div class="info">
@@ -24,13 +23,6 @@
     </div>
 </div>
 <div class="br"></div>
-    <div id="about">
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-    </div>
 <div class="about-container">
     <div class="about-info">
         <div class="about-padding">
@@ -65,44 +57,51 @@
 </div>
     <div id="services">
         <br>
+        <br>
     </div>
     <div class="content">
-    <div class="services-container">
-        <h1>Наши услуги</h1>
-        <div class="service-list">
-            <div class="service">
-                <h3>Дизайн сайтов</h3>
-                <p>Мы создаем уникальные и креативные дизайны, которые привлекают внимание и улучшают пользовательский опыт.</p>
+        <div class="services-container">
+            <h2 style="color: #e7bc91; font-weight: 1000;">Наши услуги</h2>
+            <div style="display: flex; margin-left: 100px; gap: 30px; margin-top: 20px;">
+                <div style="word-break: break-word; max-width: 400px;">
+                    <div class="service">
+                        <h3 style="color: #f3d5b5">Дизайн сайтов</h3>
+                        <p>Мы создаем уникальные и креативные дизайны, которые привлекают внимание и улучшают пользовательский опыт.</p>
+                    </div>
+                    <div class="service">
+                        <h3 style="color: #f3d5b5">Разработка сайтов</h3>
+                        <p>Мы разрабатываем современные, отзывчивые и функциональные веб-сайты с использованием последних технологий.</p>
+                    </div>
+                    <div class="service">
+                        <h3 style="color: #f3d5b5">Электронная коммерция</h3>
+                        <p>Мы создаем эффективные интернет-магазины, помогая вашему бизнесу расти и привлекать новых клиентов.</p>
+                    </div>
+                </div>
+
+                <div style="word-break: break-word; width: 400px;">
+                    <div class="service">
+                        <h3 style="color: #f3d5b5">Индивидуальные веб-приложения</h3>
+                        <p>Мы разрабатываем индивидуальные веб-приложения, отвечающие вашим уникальным потребностям и целям.</p>
+                    </div>
+                    <div class="service">
+                        <h3 style="color: #f3d5b5">Оптимизация для поисковых систем (SEO)</h3>
+                        <p>Мы оптимизируем ваш сайт для поисковых систем, чтобы увеличить его видимость и привлечь больше трафика.</p>
+                    </div>
+                    <div class="service">
+                        <h3 style="color: #f3d5b5">Написание скриптов</h3>
+                        <p></p>
+                        <p>Мы создаем качественные и надежные скрипты для вашего веб-сайта, улучшая его функциональность и производительность.</p>
+                    </div>
+                </div>
             </div>
-            <div class="service">
-                <h3>Разработка сайтов</h3>
-                <p>Мы разрабатываем современные, отзывчивые и функциональные веб-сайты с использованием последних технологий.</p>
-            </div>
-            <div class="service">
-                <h3>Электронная коммерция</h3>
-                <p>Мы создаем эффективные интернет-магазины, помогая вашему бизнесу расти и привлекать новых клиентов.</p>
-            </div>
-            <div class="service">
-                <h3>Индивидуальные веб-приложения</h3>
-                <p>Мы разрабатываем индивидуальные веб-приложения, отвечающие вашим уникальным потребностям и целям.</p>
-            </div>
-            <div class="service">
-                <h3>Оптимизация для поисковых систем (SEO)</h3>
-                <p>Мы оптимизируем ваш сайт для поисковых систем, чтобы увеличить его видимость и привлечь больше трафика.</p>
-            </div>
-            <div class="service">
-                <h3>Написание скриптов</h3>
-                <p></p>
-                <p>Мы создаем качественные и надежные скрипты для вашего веб-сайта, улучшая его функциональность и производительность.</p>
+            <div style="position: relative; left: 80%; top: -320px;">
+                <img src="/images/terms.png" style="width: 200px; height: 200px;">
+                <br>
+                <button class="order-btn" onclick="moreDetails()">Подробнее</button>
             </div>
         </div>
-        <button class="order-btn" onclick="moreDetails()">Подробнее</button>
     </div>
-</div>
     <div id="reviews">
-        <br>
-        <br>
-        <br>
         <br>
         <br>
     </div>

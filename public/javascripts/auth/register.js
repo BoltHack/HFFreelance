@@ -29,6 +29,15 @@ document.addEventListener('DOMContentLoaded', function (){
     let pwd = document.getElementById('pwd');
     let cpwd = document.getElementById('cpwd');
 
+    loginForm.addEventListener('input', () => {
+        if (name.value !== '' && email.value !== '' && pwd.value !== '' && cpwd.value !== ''){
+            registerButton.style.backgroundColor = '#0653c7';
+        }
+        else{
+            registerButton.style.backgroundColor = '#2879f3';
+        }
+    })
+
     const local = localStorage.getItem('local');
 
     registerButton.addEventListener('click', (evt) => {
@@ -40,6 +49,8 @@ document.addEventListener('DOMContentLoaded', function (){
             email.style.border = '1px solid #780000';
             pwd.style.border = '1px solid #780000';
             cpwd.style.border = '1px solid #780000';
+            // togglePassword1.style.top = '47%';
+            // togglePassword2.style.top = '47%';
             return;
         }
 
@@ -65,6 +76,8 @@ document.addEventListener('DOMContentLoaded', function (){
                     email.style.border = '1px solid #780000';
                     pwd.style.border = '1px solid #780000';
                     cpwd.style.border = '1px solid #780000';
+                    // togglePassword1.style.top = '45.5%';
+                    // togglePassword2.style.top = '45.5%';
                     return;
                 }
                 const correctRegister = document.getElementById('correctRegister');
@@ -79,6 +92,8 @@ document.addEventListener('DOMContentLoaded', function (){
                 email.style.border = '1px solid #0d2818';
                 pwd.style.border = '1px solid #0d2818';
                 cpwd.style.border = '1px solid #0d2818';
+                // togglePassword1.style.top = '47%';
+                // togglePassword2.style.top = '47%';
                 setTimeout(function () {
                     window.location.href = `/auth/login`;
                     setTimeout(function () {
@@ -89,10 +104,10 @@ document.addEventListener('DOMContentLoaded', function (){
     });
 });
 
-function checkToken () {
-    const token = localStorage.getItem('token');
-    if(token){
-        window.location.href = '/'
-    }
-}
-checkToken()
+document.querySelectorAll('form').forEach(function(form) {
+    form.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+        }
+    });
+});

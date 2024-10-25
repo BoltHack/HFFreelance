@@ -1,6 +1,6 @@
 <style>
     .line{
-        border-top: 1px solid #f4f2f8;
+        border-top: 1px solid #666;
         position: relative;
         /*margin-left: 200px;*/
         margin-left: 0;
@@ -10,10 +10,9 @@
         width: 100%;
     }
     footer {
-        /*background: rgb(32,30,32);*/
-        /*background: linear-gradient(184deg, rgba(32,30,32,1) 54%, rgba(16,16,17,1) 76%);*/
+        background-color: #16171d;
         /*background-color: #43655a;*/
-        background-image: url("../images/programming.jpg");
+        /*background-image: url("../images/programming.jpg");*/
         color: white;
         padding: 20px 0;
         width: 100%;
@@ -22,8 +21,11 @@
         left: 0;
         bottom: 0;
     }
+    footer h3{
+        color: #f3d5b5
+    }
     footer a {
-        color: white;
+        color: #ECF1FD;
         text-decoration: none;
     }
     footer a:hover{
@@ -109,9 +111,12 @@
     </div>
 </footer>
 <script>
-    if (window.location.pathname === '/readyMadeSites' || window.location.pathname === '/readyMadeSites/htmlCssJs' || window.location.pathname === '/readyMadeSites/javascript' || window.location.pathname === '/readyMadeSites/nodeJs' || window.location.pathname === '/readyMadeSites/reactJs' || window.location.pathname === '/readyMadeSites/fullstack' || window.location.pathname === '/fileInfo/:id'){
-        const footerMargin = document.querySelector('.footer-our-company');
-        footerMargin.style.marginTop = '14.5px';
+    const footerInfoMargin = document.querySelector('.footer-info');
+    const footerContactsMargin = document.querySelector('.footer-contacts');
+    const checkRef = localStorage.getItem('ref');
+    if (window.location.pathname === '/readyMadeSites' || window.location.pathname === '/readyMadeSites/htmlCssJs' || window.location.pathname === '/readyMadeSites/javascript' || window.location.pathname === '/readyMadeSites/nodeJs' || window.location.pathname === '/readyMadeSites/reactJs' || window.location.pathname === '/readyMadeSites/fullstack'){
+        footerInfoMargin.style.marginTop = '-14.5px';
+        footerContactsMargin.style.marginTop = '-14.5px';
     }
 </script>
 <script src="/javascripts/script.js"></script>

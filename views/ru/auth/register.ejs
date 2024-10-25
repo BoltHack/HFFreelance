@@ -3,45 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HFFreelance | Регистрация</title>
     <link rel="stylesheet" href="/stylesheets/login-register.css">
     <link rel="icon" type="image/png" href="/images/logo2.png">
-    <title>Регистрация</title>
 </head>
 <body>
-<div class="login-register-container">
-    <form action="/auth/register" method="post" class="form-register" id="loginForm">
-        <div style="display: flex">
-            <a href="/" style="text-decoration: none"><h1>&#11013;</h1></a>
-            <h3 style="text-align: center; padding: 10px; margin: 20px 0; font-size: 18px;">Создать аккаунт</h3>
-        </div>
-        <div style="padding: 10px">
-            <input type="text" class="form-control" id="name" placeholder="Имя или Имя и Фамилия" name="name" required>
-            <input type="email" class="form-control" id="email" placeholder="Эл. адрес" name="email" required>
-            <div class="password-container">
-                <input type="password" class="form-control" id="pwd" placeholder="Пароль" name="password" required>
-                <img src="/images/invisiblePassword.png" class="toggle-password" id="togglePassword1">
-                <img src="/images/visiblePassword.png" class="toggle-password" id="togglePassword2" hidden>
+<form action="/auth/register" method="POST" id="loginForm">
+    <div class="card-container">
+        <!--            <div class="circle1"></div>-->
+        <div class="circle2"></div>
+        <div class="container">
+            <div class="log-card">
+                <div style="display: flex; gap: 10px; margin-left: -10px;">
+                    <a href="/" style="text-decoration: none"><h1>&#11013;</h1></a>
+                    <p class="heading">Регистрация!</p>
+                </div>
+<!--                <p style="margin-top: -10px; text-align: center">Создайте себе новый аккаунт!</p>-->
+
+                <div class="input-group">
+                    <p class="text">Имя или Фамилия</p>
+                    <input class="input" type="text" name="name" id="name" placeholder="Имя или Имя и Фамилия" required>
+                    <p class="text">Эл. адрес</p>
+                    <input class="input" type="email" name="email" id="email" placeholder="Эл. адрес" required>
+                    <div class="password-container">
+                        <p class="text">Пароль</p>
+                        <input class="input" type="password" id="pwd" name="password" placeholder="Пароль" required>
+                        <img src="/images/invisiblePassword.png" class="toggle-password" style="top: 48.6%" id="togglePassword1">
+                        <img src="/images/visiblePassword.png" class="toggle-password" style="top: 48.6%" id="togglePassword2" hidden>
+                        <p class="text">Повтор пароля</p>
+                        <input class="input" type="password" id="cpwd" name="confirmPassword" placeholder="Повтор пароля" required>
+                    </div>
+                </div>
+
+                <div class="rules">
+                    <span>Регистрируясь, вы принимаете наши <a href="/rules" target="_blank">Условия использования</a> и <a href="/privacyPolicy" target="_blank">Политику конфиденциальности.</a></span>
+                </div>
+
+                <button type="submit" class="btn" id="registerButton">Создать аккаунт</button>
+
+                <span id="registerErr"></span>
+                <span id="correctRegister"></span>
+
+                <p class="no-account">У вас уже есть аккаунт?<a href="/auth/login" class="link"> Войти</a></p>
             </div>
-            <div class="password-container">
-                <input type="password" class="form-control" id="cpwd" placeholder="повтор пароля" name="confirmPassword" require>
-            </div>
         </div>
-        <div class="rules">
-            <span>Регистрируясь, вы принимаете наши <a href="/rules" target="_blank">Условия использования</a> и <a href="/privacyPolicy" target="_blank">Политику конфиденциальности.</a></span>
-        </div>
-        <br>
-        <button type="submit" class="btn-register" id="registerButton">Зарегистрироваться</button>
-        <span id="registerErr"></span>
-        <span id="correctRegister"></span>
-        <br>
-    </form>
-    <div class="already-have-account">
-            <span>
-                <p class="login">Уже есть аккаунт?</p>
-                <a href="/auth/login" class="register">Войти</a>
-            </span>
     </div>
-</div>
+</form>
 <script src="/javascripts/auth/register.js"></script>
 <script src="/javascripts/warning.js"></script>
 </body>

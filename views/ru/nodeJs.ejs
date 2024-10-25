@@ -45,14 +45,11 @@
                 <li class="project">
                     <img src="data:image/jpeg;base64,<%= sites.fileImg %>" class="img">
                     <div class="sites-info">
-                        <p>Название: <%= sites.title %></p>
+                        <p><%= sites.title %></p>
                         <p>Тип: <%= sites.siteType %></p>
                         <div style="display: flex; gap: 10px; margin: auto 0;">
-                            <form action="/fileInfo/<%= sites._id %>" method="GET">
-                                <button class="button">Посмотреть</button>
-                            </form>
+                            <button class="button fileInfo" data-info="<%= sites._id %>">Посмотреть</button>
                             <div class="download" id="download" data-download="<%= sites._id %>">
-
                             </div>
                             <div>
                                 <img src="/images/love.png" class="love" id="love-<%= sites._id %>" data-id="<%= sites._id %>" data-title="<%= sites.title %>">

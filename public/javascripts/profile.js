@@ -1,4 +1,3 @@
-
 document.getElementById('togglePassword1').addEventListener('click', function () {
     const togglePassword1 = document.getElementById('togglePassword1');
     const togglePassword2 = document.getElementById('togglePassword2');
@@ -113,10 +112,10 @@ function profilePerms(){
                 if(response.ok){
                     localStorage.setItem('ref', 'refPersonalArea');
                     window.location.href = '/accessToken';
-                    dynamicMenu('<p>Изображение успешно сохранено!</p>')
+                    console.log('Изображение успешно сохранено!')
                     return response.json();
                 } else {
-                    dynamicMenu('<p>Ошибка при загрузке изображения</p>');
+                    console.log('Ошибка при загрузке изображения');
                 }
             })
             .catch(error => {

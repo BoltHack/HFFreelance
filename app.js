@@ -6,11 +6,49 @@ const logger = require('morgan');
 const fileUpload = require('express-fileupload');
 const start = require('./services/db');
 const indexRouter = require('./routes/index');
-const https = require('https')
+const socketIo = require('socket.io');
+// const {WebsitesModel} = require("./models/WebSitesModel");
+// const {UsersModel} = require("./models/UsersModel");
+const http = require("http");
+// const jwt = require("jsonwebtoken");
+
+// const JWTSecret = process.env.JWTSecret;
 
 const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
 
 start();
+
+// io.use((socket, next) => {
+//   const cookies = socket.handshake.headers.cookie;
+//
+//   if (cookies) {
+//     const parsedCookies = parseCookies(cookies);
+//
+//     if (parsedCookies.token) {
+//       try {
+//         const user = jwt.verify(parsedCookies.token, JWTSecret);
+//         socket.user = user;
+//         return next();
+//       } catch (err) {
+//         console.error('Token verification error:', err.message);
+//         return next(new Error('Authentication error'));
+//       }
+//     }
+//   }
+//
+//   return next(new Error('No token provided'));
+// });
+//
+// function parseCookies(cookieHeader) {
+//   const cookies = {};
+//   cookieHeader.split(';').forEach(cookie => {
+//     const parts = cookie.split('=');
+//     cookies[parts.shift().trim()] = decodeURI(parts.join('='));
+//   });
+//   return cookies;
+// }
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -23,6 +61,47 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 
 app.use('/', indexRouter);
+
+// io.on('connection', async (socket) => {
+//   const userId = await UsersModel.findById(socket.user.id)
+//   const author = userId.name
+//   const avatar = userId.image
+//   console.log('New user connected');
+//
+//   const messages = await WebsitesModel.find().sort({ timestamp: 1 }).limit(10);
+//   socket.emit('previousMessages', messages);
+//
+//   socket.on('chat message', async (msg, siteId) => {
+//
+//     try {
+//       await WebsitesModel.findByIdAndUpdate(siteId, {
+//         $inc: { commentsNumber: 1 },
+//       });
+//
+//       // console.log('msg', msg);
+//       console.log('siteId', siteId);
+//       // console.log('author', author);
+//       // console.log('avatar', avatar);
+//       // console.log('user', socket.user.name)
+//
+//       const siteComment = await WebsitesModel.findById(siteId);
+//       if (siteComment) {
+//         siteComment.comments.push({ author, avatar, message: msg });
+//         await siteComment.save();
+//       }
+//
+//       io.emit('chat message', { author: socket.user.name, avatar: socket.user.image, message: msg });
+//     } catch (error) {
+//       console.error('Ошибка при сохранении сообщения:', error);
+//     }
+//
+//     // io.emit('chat message', { author: socket.user.name, avatar: socket.user.image, message: msg });
+//   });
+//
+//   socket.on('disconnect', () => {
+//     console.log('User disconnected');
+//   });
+// });
 
 app.use(function(req, res, next) {
   next(createError(404));
@@ -48,6 +127,6 @@ app.use(function(err, req, res, next) {
   }
 });
 
-app.listen(3000, () => {
+server.listen(3000, () => {
   console.log('Сервер запущен на порту: http://localhost:3000');
 });

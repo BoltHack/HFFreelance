@@ -1,6 +1,6 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
+    background-color: #ECF1FD;
     color: #333;
     margin: 0;
     padding: 20px;
@@ -38,6 +38,7 @@ body {
     border-radius: 8px;
     border: 2px solid #007bff;
     margin-right: 20px;
+    margin-top: -40px;
 }
 
 .sites-info {

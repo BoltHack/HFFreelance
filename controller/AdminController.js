@@ -533,7 +533,7 @@ class AdminController {
 
             const playerBan = await UsersModel.findByIdAndUpdate(
                 id,
-                {banned: [{banType: true, reason, description, author: user.name}], reviews: []},
+                {banned: [{banType: true, reason, description, author: [{authorName: user.name, authorId: user.id}] }], reviews: []},
                 {new: true}
             );
 

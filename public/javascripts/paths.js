@@ -13,6 +13,7 @@ async function allPaths() {
         '/readyMadeSites/nodeJs': 'refNodeJs',
         '/readyMadeSites/reactJs': 'refReactJs',
         '/readyMadeSites/fullstack': 'refFullstack',
+        '/readyMadeSites/favorites': 'refFavorites',
     };
 
     const pathname = window.location.pathname;
@@ -49,30 +50,95 @@ async function getNewToken() {
     }
 }
 
-function redirections(){
-    document.getElementById('htmlCssJs').addEventListener('click', () => {
-        localStorage.setItem('ref', 'refHtmlCssJs');
-        window.location.href = '/accessToken';
-    })
-    document.getElementById('javascript').addEventListener('click', () => {
-        localStorage.setItem('ref', 'refJavascript');
-        window.location.href = '/accessToken';
-    })
-    document.getElementById('nodeJs').addEventListener('click', () => {
-        localStorage.setItem('ref', 'refNodeJs');
-        window.location.href = '/accessToken';
-    })
-    document.getElementById('reactJs').addEventListener('click', () => {
-        localStorage.setItem('ref', 'refReactJs');
-        window.location.href = '/accessToken';
-    })
-    document.getElementById('fullstack').addEventListener('click', () => {
-        localStorage.setItem('ref', 'refFullstack');
-        window.location.href = '/accessToken';
-    })
-    document.getElementById('allSites').addEventListener('click', () => {
-        localStorage.setItem('ref', 'refReadyMadeSites');
-        window.location.href = '/accessToken';
-    })
+function htmlCssJs(){
+    localStorage.setItem('ref', 'refHtmlCssJs');
+    window.location.href = '/accessToken';
 }
-redirections();
+function javascript(){
+    localStorage.setItem('ref', 'refJavascript');
+    window.location.href = '/accessToken';
+}
+function nodeJs(){
+    localStorage.setItem('ref', 'refNodeJs');
+    window.location.href = '/accessToken';
+}
+function reactJs(){
+    localStorage.setItem('ref', 'refReactJs');
+    window.location.href = '/accessToken';
+}
+function fullstack(){
+    localStorage.setItem('ref', 'refFullstack');
+    window.location.href = '/accessToken';
+}
+function allSites(){
+    localStorage.setItem('ref', 'refReadyMadeSites');
+    window.location.href = '/accessToken';
+}
+
+// function checkOnline(){
+//     const fileId = localStorage.getItem('fileInfo');
+//     const id = localStorage.getItem('id');
+//     const pathName = window.location.pathname;
+//     const session = localStorage.getItem('session');
+//     const paths = {
+//         main: '/',
+//         moreDetails: '/moreDetails',
+//         allReviews: '/allReviews',
+//         aboutUs: '/aboutUs',
+//         rules: '/rules',
+//         sendReviews: `/sendReviews/${id}`,
+//         privacyPolicy: '/privacyPolicy',
+//         PersonalArea: '/PersonalArea',
+//         readyMadeSites: '/readyMadeSites',
+//         htmlCssJs: '/readyMadeSites/html-css-js',
+//         javascript: '/readyMadeSites/javascript',
+//         nodeJs: '/readyMadeSites/nodeJs',
+//         reactJs: '/readyMadeSites/reactJs',
+//         fullstack: '/readyMadeSites/fullstack',
+//         fileInfo: `/fileInfo/${fileId}`
+//     };
+//     if (session === 'false'){
+//         if (Object.values(paths).includes(pathName)){
+//             localStorage.setItem('offline', 'true');
+//             alert('logout');
+//         }
+//         else{
+//             // window.addEventListener('beforeunload', function () {
+//                 console.log('gfhfdgdfgdfgdfgd')
+//                 localStorage.setItem('offline', 'false');
+//             // });
+//         }
+//     }
+// }
+
+
+// window.addEventListener('unload', function () {
+//     const id = localStorage.getItem('id');
+//     const fileId = localStorage.getItem('fileInfo');
+//     const pathName = window.location.pathname;
+//     const paths = {
+//         main: '/',
+//         moreDetails: '/moreDetails',
+//         allReviews: '/allReviews',
+//         aboutUs: '/aboutUs',
+//         rules: '/rules',
+//         sendReviews: `/sendReviews/${id}`,
+//         privacyPolicy: '/privacyPolicy',
+//         PersonalArea: '/PersonalArea',
+//         readyMadeSites: '/readyMadeSites',
+//         htmlCssJs: '/readyMadeSites/html-css-js',
+//         javascript: '/readyMadeSites/javascript',
+//         nodeJs: '/readyMadeSites/nodeJs',
+//         reactJs: '/readyMadeSites/reactJs',
+//         fullstack: '/readyMadeSites/fullstack',
+//         fileInfo: `/fileInfo/${fileId}`
+//     };
+//
+//     const matchingPath = Object.values(paths).find(path => path === pathName);
+//     const session = localStorage.getItem('session');
+//     if (session === 'false') {
+//         if (!matchingPath){
+//             localStorage.removeItem('name');
+//         }
+//     }
+// });

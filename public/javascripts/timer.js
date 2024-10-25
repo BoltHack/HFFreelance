@@ -137,3 +137,76 @@ async function getRefreshTokens() {
         console.error('Ошибка:', error);
     }
 }
+
+
+
+
+
+
+
+
+
+
+const SESSION_TIMER_DURATION = 86400000;
+const session = localStorage.getItem('session');
+function sessionTimerStart(duration) {
+    const startTime = Date.now();
+    const endTime = startTime + duration;
+
+    if (session === 'false' && token) {
+        localStorage.setItem('sessionEndTime', endTime);
+    }
+
+    sessionUpdateTimer();
+}
+
+function sessionUpdateTimer() {
+    const endTime = parseInt(localStorage.getItem('sessionEndTime'), 10);
+
+    const interval = setInterval(() => {
+        const currentTime = Date.now();
+        const remainingTime = endTime - currentTime;
+
+        if (remainingTime <= 0) {
+            clearInterval(interval);
+            sessionLogout();
+            localStorage.removeItem('sessionEndTime');
+        }
+    }, 1000);
+}
+
+const sessionEndTime = localStorage.getItem('sessionEndTime');
+
+if (sessionEndTime) {
+    sessionUpdateTimer();
+} else {
+    sessionTimerStart(SESSION_TIMER_DURATION);
+}
+
+
+function sessionLogout() {
+    fetch('/auth/logout', {
+        method: 'post',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+    }).then(res => res.json()).then((res) => {
+        const {status, error} = res;
+        if (error) {
+            return;
+        }
+
+        if (status) {
+            localStorage.removeItem('id');
+            localStorage.removeItem('profileImage');
+            localStorage.removeItem('accessTokenEndTime');
+            localStorage.removeItem('name');
+            localStorage.removeItem('refreshTokenEndTime');
+            localStorage.removeItem('token');
+            localStorage.removeItem('ref');
+            localStorage.removeItem('favorites');
+            window.location.href = "/auth/sessionExpired";
+            return;
+        }
+    });
+}

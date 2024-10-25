@@ -15,11 +15,17 @@ const ReviewSchema = new Schema({
     date: {type: String, default: dateOnly}
 });
 
+const AuthorSchema = new Schema({
+    authorName: {type: String, default: ''},
+    authorId: {type: String, default: ''}
+})
+
 const RequestBanSchema = new Schema({
     banType: { type: Boolean, default: false},
     reason: {type: String, default: ''},
     description: {type: String, default: ''},
-    author: {type: String, default: ''},
+    // author: {type: String, default: ''},
+    author: [AuthorSchema],
     date: {type: String, default: dateOnly}
 });
 

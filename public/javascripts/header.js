@@ -66,7 +66,7 @@ function headerColor(){
     const fullstack = document.getElementById('fullstackColor');
     const nodeJs = document.getElementById('nodeJsColor');
     const reactJs = document.getElementById('reactJsColor');
-    const favorites = document.getElementById('favorites');
+    const favorites = document.getElementById('favoritesColor');
     const favoritesHeader = document.getElementById('favoritesHeader');
     if (window.location.pathname === '/readyMadeSites'){
         // allSites.style.color = '#a2a8d3'

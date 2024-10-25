@@ -26,6 +26,15 @@ document.addEventListener('DOMContentLoaded', function (){
     let email = document.getElementById('email');
     let pwd = document.getElementById('pwd');
 
+    loginForm.addEventListener('input', () => {
+        if (email.value !== '' && pwd.value !== ''){
+            loginButton.style.backgroundColor = '#0653c7';
+        }
+        else{
+            loginButton.style.backgroundColor = '#2879f3';
+        }
+    })
+
     const local = localStorage.getItem('local');
 
     loginButton.addEventListener('click', (ev) => {
@@ -35,6 +44,8 @@ document.addEventListener('DOMContentLoaded', function (){
             loginErr.innerHTML = 'Пожалуйста, заполните все поля';
             email.style.border = '1px solid #780000';
             pwd.style.border = '1px solid #780000';
+            // togglePassword1.style.top = '53.6%';
+            // togglePassword2.style.top = '53.6%';
             return;
         }
 
@@ -57,7 +68,8 @@ document.addEventListener('DOMContentLoaded', function (){
                     loginErr.innerHTML = error;
                     email.style.border = '1px solid #780000';
                     pwd.style.border = '1px solid #780000';
-                    loginButton.classList.remove('loader')
+                    // togglePassword1.style.top = '53.6%';
+                    // togglePassword2.style.top = '53.6%';
                     return;
                 }
 
@@ -72,12 +84,21 @@ document.addEventListener('DOMContentLoaded', function (){
                     }
                     email.style.border = '1px solid #0d2818';
                     pwd.style.border = '1px solid #0d2818';
+                    // togglePassword1.style.top = '53.6%';
+                    // togglePassword2.style.top = '53.6%';
                     localStorage.setItem('token', token);
                     localStorage.setItem('name', user.name);
                     localStorage.setItem('profileImage', 'data:image/png;base64,' + user.image);
                     localStorage.setItem('id', user._id);
                     localStorage.setItem('ref', 'refMain');
                     localStorage.setItem('favorites', JSON.stringify(user.favorites));
+                    const checkbox = document.getElementById('rememberMeCheckbox');
+                    if (checkbox.checked){
+                        localStorage.setItem('session', 'true')
+                    }
+                    else{
+                        localStorage.setItem('session', 'false')
+                    }
                     setTimeout(function () {
                         window.location.href = `/`;
                         setTimeout(function () {
@@ -89,10 +110,50 @@ document.addEventListener('DOMContentLoaded', function (){
     });
 })
 
-function checkToken () {
-    const token = localStorage.getItem('token');
-    if(token){
-        window.location.href = '/';
-    }
-}
-checkToken();
+document.querySelectorAll('form').forEach(function(form) {
+    form.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+        }
+    });
+});
+
+// const checkbox = document.getElementById('rememberMeCheckbox');
+//
+// checkbox.addEventListener('change', async () => {
+//     const url = checkbox.checked ? '/auth/session-on' : '/auth/session-off';
+//
+//     try {
+//         const response = await fetch(url, {
+//             method: 'POST',
+//         });
+//
+//         if (!response.ok) {
+//             throw new Error('Ошибка при отправке запроса');
+//         }
+//
+//         const result = await response.json();
+//         console.log(result);
+//
+//     } catch (error) {
+//         console.error('Ошибка:', error);
+//     }
+// });
+
+// window.addEventListener('beforeunload', async function (){
+//     try {
+//         const response = await fetch('/auth/session-off', {
+//             method: 'POST',
+//         });
+//
+//         if (!response.ok) {
+//             throw new Error('Ошибка при отправке запроса');
+//         }
+//
+//         const result = await response.json();
+//         console.log(result);
+//
+//     } catch (error) {
+//         console.error('Ошибка:', error);
+//     }
+// })

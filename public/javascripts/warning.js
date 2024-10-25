@@ -31,4 +31,4 @@ function warning(){
         console.log('%cEntering information here may give scammers access to your account.', 'color: red; font-size: 18px;');
     }
 }
-warning()
+warning();

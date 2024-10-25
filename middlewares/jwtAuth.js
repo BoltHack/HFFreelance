@@ -11,7 +11,8 @@ const authenticateJWT = async (req, res, next) => {
             req.user = user;
             next();
         });
-    } else {
+    }
+    else {
         res.redirect('/auth/login')
     }
 };

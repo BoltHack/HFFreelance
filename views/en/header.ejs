@@ -5,7 +5,7 @@
         margin: 0;
         padding: 0;
         overflow-x: hidden;
-        background-color: #dadde2;
+        /*background-color: #dadde2;*/
     }
     html::-webkit-scrollbar {
         width: 12px;
@@ -36,11 +36,18 @@
         /*background: rgb(32,30,32);*/
         /*background: linear-gradient(184deg, rgba(32,30,32,1) 54%, rgba(16,16,17,1) 76%);*/
         /*background-color: #43655a;*/
-        background-image: url("../images/programming.jpg");
+        /*background-image: url("../images/programming.jpg");*/
+        /*background: rgb(32,30,32);*/
+        /*background: rgb(18,14,62);*/
+        /*background: linear-gradient(184deg, rgba(32,30,32,1) 54%, rgba(16,16,17,1) 76%);*/
+        /*background: rgb(32,30,32);*/
+        /*background: linear-gradient(184deg, rgba(32,30,32,1) 54%, rgba(16,16,17,1) 76%);*/
         position: fixed;
+        background-color: #16171d;
         top: 0;
         z-index: 2;
         transition: top 0.3s;
+        /*border-radius: 100% 0% 30% 30% / 0% 37% 11% 10%;*/
     }
     img {
         width: 60px;
@@ -64,7 +71,7 @@
         display: flex;
         flex-wrap: wrap;
         position: absolute;
-        top: 1%;
+        top: -1%;
         right: 5%;
     }
     li{
@@ -73,7 +80,7 @@
     }
     .ha{
         text-decoration: none;
-        color: #fff;
+        color: #ced4da;
         cursor: pointer;
     }
     .ha:hover{
@@ -115,11 +122,13 @@
         .ha{
             display: none;
         }
-        .logo{
-            display: none;
-        }
         #account{
             display: flex;
+        }
+    }
+    @media (max-width: 800px){
+        .logo{
+            display: none;
         }
     }
     details {
@@ -133,7 +142,7 @@
         text-align: center;
     }
     details summary {
-        color: white;
+        color: #ECF1FD;
         white-space: nowrap;
         outline: none;
         user-select: none;
@@ -156,7 +165,7 @@
     details ul li a {
         text-decoration: none;
         color: #333;
-        padding: 8px 12px;
+        padding: 5px 12px;
         display: block;
         border-radius: 3px;
         transition: background-color 0.3s ease, color 0.3s ease;
@@ -229,22 +238,22 @@
         <ul class="get">
             <li id="account">My Account</li>
             <img src="" id="account-img" onclick="PersonalAreaJoin()">
-            <li><a href="#home" class="ha">Home</a></li>
-            <li><a href="#about" class="ha">About</a></li>
+<!--            <li><a href="#home" class="ha">Home</a></li>-->
+<!--            <li><a href="#about" class="ha">About</a></li>-->
             <li><a href="#services" class="ha">Services</a></li>
-            <li><a href="#reviews" class="ha">Reviews</a></li>
+<!--            <li><a href="#reviews" class="ha">Reviews</a></li>-->
             <li><a href="#footerSection" class="ha">Contacts</a></li>
             <details>
                 <summary>Free</summary>
                 <div>
                     <ul>
-                        <li><a id="htmlCssJs">html, css, js</a></li>
-                        <li><a id="javascript">javascript</a></li>
-                        <li><a id="nodeJs">nodeJs</a></li>
-                        <li><a id="reactJs">reactJs</a></li>
-                        <li><a id="fullstack">fullstack</a></li>
-                        <li><a id="allSites">All Types</a></li>
-                        <li><a onclick="favoritesJoin()">Favorites</a></li>
+                        <li><a onclick="htmlCssJs()">html, css, js</a></li>
+                        <li><a onclick="javascript()">javascript</a></li>
+                        <li><a onclick="nodeJs()">nodeJs</a></li>
+                        <li><a onclick="reactJs()">reactJs</a></li>
+                        <li><a onclick="fullstack()">fullstack</a></li>
+                        <li><a onclick="allSites()">Все типы</a></li>
+                        <li><a onclick="favoritesJoin()">Избранное</a></li>
                     </ul>
                 </div>
             </details>
@@ -256,13 +265,13 @@
                 <summary>Types</summary>
                 <div>
                     <ul>
-                        <li><a href="/readyMadeSites/html-css-js" id="htmlCssJsColor">html, css, js</a></li>
-                        <li><a href="/readyMadeSites/javascript" id="javascriptColor">javascript</a></li>
-                        <li><a href="/readyMadeSites/nodeJs" id="nodeJsColor">nodeJs</a></li>
-                        <li><a href="/readyMadeSites/reactJs" id="reactJsColor">reactJs</a></li>
-                        <li><a href="/readyMadeSites/fullstack" id="fullstackColor">fullstack</a></li>
-                        <li><a href="/readyMadeSites" id="allSitesColor">All Types</a></li>
-                        <li><a onclick="favoritesJoin()" id="favorites">Favorites</a></li>
+                        <li><a id="htmlCssJsColor" onclick="htmlCssJs()">html, css, js</a></li>
+                        <li><a id="javascriptColor" onclick="javascript()">javascript</a></li>
+                        <li><a id="nodeJsColor" onclick="nodeJs()">nodeJs</a></li>
+                        <li><a id="reactJsColor" onclick="reactJs()">reactJs</a></li>
+                        <li><a id="fullstackColor" onclick="fullstack()">fullstack</a></li>
+                        <li><a id="allSitesColor" onclick="allSites()">Все типы</a></li>
+                        <li><a id="favoritesColor" onclick="favoritesJoin()">Избранное</a></li>
                     </ul>
                 </div>
             </details>

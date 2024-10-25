@@ -100,14 +100,23 @@ function commentForm(){
     const commentForm = document.getElementById('commentForm');
     if (token){
         commentForm.innerHTML = `
-            <form action="/sendCommentsPost/${infoId}" method="POST" id="commentForm">
+<!--            <form id="form" action="">-->
+<!--                <div style="display: flex; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">-->
+<!--                    <input type="hidden" id="siteId" value="${infoId}" required >-->
+<!--                    <input id="input" autocomplete="off" placeholder="Написать комментарий" required >-->
+<!--                                        <input type="text" id="message" name="message" placeholder="Написать комментарий" class="input" maxlength="150" required>-->
+<!--                    <button type="submit" id="sendComment" style="background: none; border: none">-->
+<!--                        <img src="/images/send.png" style="width: 25px; height: 25px; cursor:pointer;">-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </form>-->
+<form action="/sendCommentsPost/${infoId}" method="POST" id="commentForm">
                 <div style="display: flex; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
                     <input type="text" id="message" name="message" placeholder="Написать комментарий" class="input" maxlength="150" required>
-                    <button type="submit" id="sendComment" style="background: none; border: none">
-                    <img src="/images/send.png" style="width: 25px; height: 25px; cursor:pointer;">
-                    </button>
+                    <button type="submit" id="sendComment" style="background: none; border: none"><img src="/images/send.png" style="width: 25px; height: 25px; cursor:pointer;"></button>
                 </div>
-            </form>`
+            </form>
+`
     }
     else{
         commentForm.innerHTML = `
@@ -123,3 +132,44 @@ function commentForm(){
     }
 }
 commentForm();
+
+function displayInfo() {
+    const barrier = document.createElement('barrier');
+    const border = document.createElement('border');
+
+    barrier.innerHTML = `<div class="new-barrier"></div>`;
+    border.innerHTML = `
+<link rel="stylesheet" href="/stylesheets/style.css">
+<div class="new-border">
+<div class="border-data">
+    <h2 class="yourAccount">Мой аккаунт</h2>
+    <br>
+<h3>Вы не авторизованы</h3>
+<p>Войдите в учётную запись или создайте аккаунт.</p>
+<button onclick="login()" class="login-btn">Войти</button>
+<button onclick="register()" class="register-btn">Создать аккаунт</button>
+<br>
+<br>
+<span>Продолжая, вы принимаете наши <a class="termsOfUse" href="/rules" target="_blank">Условия использования</a> и <a href="privacyPolicy" target="_blank" class="privacyPolicy">Политику конфиденциальности</a>.</span>
+</div>
+</div>
+</div>
+    `
+
+    document.body.appendChild(border);
+    document.body.appendChild(barrier);
+    document.body.style.overflow = 'hidden';
+    barrier.addEventListener('click', () => {
+        document.body.removeChild(border);
+        document.body.style.overflow = 'auto';
+        document.body.removeChild(barrier);
+    })
+}
+
+function pathFileInfo(){
+    const ref = localStorage.getItem('ref');
+    if (ref !== 'refFileInfo'){
+        localStorage.setItem('ref', 'refFileInfo')
+    }
+}
+pathFileInfo();

@@ -120,3 +120,44 @@ function commentForm(){
     }
 }
 commentForm();
+
+function displayInfo() {
+    const barrier = document.createElement('barrier');
+    const border = document.createElement('border');
+
+    barrier.innerHTML = `<div class="new-barrier"></div>`;
+    border.innerHTML = `
+<link rel="stylesheet" href="/stylesheets/style.css">
+<div class="new-border">
+<div class="border-data">
+    <h2 class="yourAccount">My account</h2>
+    <br>
+<h3>You are not logged in</h3>
+<p>Sign in or create an account.</p>
+<button onclick="login()" class="login-btn">Login</button>
+<button onclick="register()" class="register-btn">Create an account</button>
+<br>
+<br>
+<span>By continuing, you accept our <a class="termsOfUse" href="/rules" target="_blank">Terms of Use</a> and <a href="/privacyPolicy" target="_blank" class="privacyPolicy">Privacy Policy</a>.</span>
+</div>
+</div>
+</div>
+    `
+
+    document.body.appendChild(border);
+    document.body.appendChild(barrier);
+    document.body.style.overflow = 'hidden';
+    barrier.addEventListener('click', () => {
+        document.body.removeChild(border);
+        document.body.style.overflow = 'auto';
+        document.body.removeChild(barrier);
+    })
+}
+
+function pathFileInfo(){
+    const ref = localStorage.getItem('ref');
+    if (ref !== 'refFileInfo'){
+        localStorage.setItem('ref', 'refFileInfo')
+    }
+}
+pathFileInfo();

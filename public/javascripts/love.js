@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loveButton = document.querySelectorAll('.love');
     const alreadyLove = document.querySelectorAll('.alreadyLove');
     const deleteFavoritesButton = document.querySelectorAll('.delete-favorites');
+    const fileInfo = document.querySelectorAll('.fileInfo');
     const local = localStorage.getItem('local');
 
     function checkLoveState() {
@@ -161,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     deleteFavoritesButton.forEach(button => {
         button.addEventListener('click', function () {
-            const deleteId = button.getAttribute('data-deleteFav');
+            const deleteId = this.getAttribute('data-deleteFav');
             const deleteFav = document.getElementById('deleteFav-'+deleteId);
             const load = document.getElementById('load-'+deleteId);
 
@@ -224,6 +225,14 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     })
     checkLoveState();
+
+    fileInfo.forEach(button => {
+        button.addEventListener('click', function () {
+            const dataInfo = this.getAttribute('data-info');
+            localStorage.setItem('fileInfo', dataInfo);
+            window.location.href = `/fileInfo/${dataInfo}`;
+        })
+    })
 });
 
 function successMenu(text) {
@@ -255,7 +264,7 @@ function successMenu(text) {
     <p class="success-message-text">Выполнено!</p>
     <p class="success-sub-text">${text}</p>
   </div>
-  <svg
+  <svg id="closeSuccessMenu"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 15 15"
     stroke-width="0"
@@ -282,8 +291,15 @@ function successMenu(text) {
     setTimeout(() => {
         document.body.removeChild(alert);
     }, 6000);
-}
 
+    document.getElementById('closeSuccessMenu').addEventListener('click', () => {
+        const successCard = document.getElementById('successCard');
+        successCard.classList.add('back-show');
+        setTimeout(() => {
+            document.body.removeChild(alert);
+        }, 2000);
+    })
+}
 function errorMenu(text) {
     const alert = document.createElement('div');
     alert.innerHTML = `

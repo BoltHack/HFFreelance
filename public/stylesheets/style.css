@@ -29,9 +29,13 @@ h2{
   z-index: 3;
 }
 .new-border{
-  width: 600px;
-  height: 500px;
-  background-color: #f4f1de;
+  width: 400px;
+  height: 460px;
+  /*background-color: #f4f1de;*/
+  /*background: rgb(209,196,209);*/
+  /*background: linear-gradient(360deg, rgba(209,196,209,1) -42%, rgba(231,225,231,1) 0%, rgba(244,242,244,1) 46%);*/
+  background: rgb(231,225,231);
+  background: linear-gradient(144deg, rgba(231,225,231,1) -42%, rgba(231,225,231,1) 100%);
   border-radius: 10px;
   z-index: 4;
   opacity: 1;

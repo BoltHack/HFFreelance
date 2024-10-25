@@ -1,7 +1,7 @@
-const join = () => {
-    localStorage.clear()
-    window.location.href = `/auth/login`
-}
+// const join = () => {
+//     localStorage.clear()
+//     window.location.href = `/auth/login`
+// }
 
 const login = () => {
     window.location.href = `/auth/login`
@@ -16,13 +16,8 @@ function displayInfo() {
         const barrier = document.createElement('barrier');
         const border = document.createElement('border');
 
-        const token = localStorage.getItem('token');
         const local = localStorage.getItem('local');
 
-        if (token){
-            PersonalAreaJoin();
-        }
-        else {
             barrier.innerHTML = `<div class="new-barrier"></div>`;
             if (local === 'en'){
                 border.innerHTML = `
@@ -69,15 +64,14 @@ function displayInfo() {
             document.body.style.overflow = 'hidden';
             barrier.addEventListener('click', () => {
                 document.body.removeChild(border);
-                document.body.style.overflow = 'auto';
+                document.body.style.overflowY = 'auto';
                 document.body.removeChild(barrier);
             })
             document.getElementById('close').addEventListener('click', () => {
                 document.body.removeChild(border);
-                document.body.style.overflow = 'auto';
+                document.body.style.overflowY = 'auto';
                 document.body.removeChild(barrier);
             })
-        }
 }
 
 function PersonalAreaJoin() {
@@ -159,6 +153,8 @@ function logout() {
             localStorage.removeItem('token');
             localStorage.removeItem('ref');
             localStorage.removeItem('favorites');
+            localStorage.removeItem('session');
+            localStorage.removeItem('sessionEndTime');
             window.location.href = "/auth/login";
             return;
         }
@@ -207,12 +203,12 @@ function checkTokenFunc() {
         barrier.addEventListener('click', () => {
             document.body.removeChild(barrier);
             document.body.removeChild(border);
-            document.body.style.overflow = 'auto';
+            document.body.style.overflowY = 'auto';
         })
         document.getElementById('closeBtn').addEventListener('click', () => {
             document.body.removeChild(barrier);
             document.body.removeChild(border);
-            document.body.style.overflow = 'auto';
+            document.body.style.overflowY = 'auto';
         })
     }
 }
@@ -279,23 +275,6 @@ function deleteAccountMenu() {
     })
 }
 
-function newsMenu() {
-    const barrier = document.querySelector('.new-barrier');
-    const border = document.querySelector('.newsMenu');
-    const close = document.getElementById('close');
-
-    barrier.hidden = false;
-    border.hidden = false;
-
-    barrier.addEventListener('click', () => {
-        barrier.hidden = true;
-        border.hidden = true;
-    })
-    close.addEventListener('click', () => {
-        barrier.hidden = true;
-        border.hidden = true;
-    })
-}
 
 function deleteReviewMenu() {
     const barrier = document.createElement('barrier');

@@ -1,6 +1,6 @@
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f0f2f5;
+    background-color: #ECF1FD;
     margin: 0;
     padding: 0;
     display: flex;
@@ -208,9 +208,10 @@ body {
     gap: 10px;
     margin-top: 20px;
     background: #fff;
-    position: relative;
+    position: fixed;
     left: 50%;
-    top: -2%;
+    /*top: -2%;*/
+    top: 80%;
     transform: translate(-50%);
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -231,7 +232,10 @@ body {
     color: #6c757d;
     font-size: 14px;
 }
-
+.time{
+    font-size: 12px;
+    color: #6c757d;
+}
 .input {
     border: 1.5px solid #0b0b0b;
     padding: 5px;
@@ -261,7 +265,84 @@ body {
     height: 50px;
 }
 .line{
-    border: 1px solid grey;
+    border-top: 1px solid #666;
     position: relative;
-    top: -50px;
+    /*margin-left: 200px;*/
+    margin-left: 0;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    /*width: 72%;*/
+    width: 100%;
+}
+
+.footer-line{
+    border-top: 1px solid #f4f2f8;
+    position: relative;
+    /*margin-left: 200px;*/
+    margin-left: 0;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    /*width: 72%;*/
+    width: 100%;
+}
+footer {
+    background-color: #16171d;
+    color: white;
+    padding: 20px 0;
+    width: 100%;
+    margin-bottom: auto;
+    position: relative;
+    left: 0;
+    bottom: 0;
+}
+footer h3{
+    color: #f3d5b5
+}
+footer a {
+    color: #ECF1FD;
+    text-decoration: none;
+}
+footer a:hover{
+    color: #F2F2F2;
+    text-decoration: underline;
+}
+footer p {
+    color: #F2F2F2
+}
+.footer-links {
+    display: flex;
+    margin: 20px 200px;
+}
+.footer-our-company{
+    width: 350px;
+    flex-wrap: wrap;
+    /*margin-top: 14.5px;*/
+}
+.footer-info{
+    display: grid;
+    gap: 10px;
+    margin-left: 50px;
+    margin-top: -14.5px;
+}
+.footer-contacts{
+    display: grid;
+    gap: 10px;
+    margin-left: 50px;
+    margin-top: -14.5px;
+}
+.footer-links a {
+    margin-right: 20px;
+}
+
+.footer-links a:last-child {
+    margin-right: 0;
+}
+.company-logo{
+    width: 30px;
+    height: 30px;
+}
+.company-name{
+    margin-left: 200px;
+    /*color: #6c757d;*/
+    color: white;
 }

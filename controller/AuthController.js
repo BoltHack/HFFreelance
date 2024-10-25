@@ -289,7 +289,7 @@ class AuthController {
                     expiresInMinutes: '10'
                 })
                 emailCode.save();
-                res.cookie('email', email)
+                res.cookie('email', email, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  })
 
                 return res.redirect('/auth/account-recovery');
             });

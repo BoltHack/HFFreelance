@@ -160,4 +160,8 @@ function pathFileInfo(){
         localStorage.setItem('ref', 'refFileInfo')
     }
 }
+<<<<<<< HEAD
 pathFileInfo();
+=======
+pathFileInfo();
+>>>>>>> 5ad1e3999416c27e546a12b8da54e3d57b87ebeb

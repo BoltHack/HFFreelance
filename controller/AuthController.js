@@ -11,10 +11,8 @@ const nodemailer = require('nodemailer');
 function generateRandomNumber() {
     const min = 10000;
     const max = 99999;
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.floor((Math.random() + Date.now() % 1) * (max - min + 1)) + min;
 }
-
-const randomNumber = generateRandomNumber().toString();
 
 const {JWTSecret, refreshTokenSecret} = process.env;
 
@@ -197,13 +195,14 @@ class AuthController {
         try{
             let locale = req.cookies['locale'] || 'en';
             const token = req.cookies['token'];
+            const refreshToken = req.cookies['refreshToken'];
             const clearSession = req.cookies['clearSession'];
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
 
-            if (token){
+            if (token || refreshToken){
                 return res.redirect('/');
             }
 
@@ -248,6 +247,8 @@ class AuthController {
             const {email} = req.body;
             const checkEmail = await UsersModel.findOne({email});
 
+            const randomNumber = generateRandomNumber().toString();
+
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
@@ -289,7 +290,7 @@ class AuthController {
                     expiresInMinutes: '10'
                 })
                 emailCode.save();
-                res.cookie('email', email, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  })
+                res.cookie('email', email, { httpOnly: true, maxAge: 600000 })
 
                 return res.redirect('/auth/account-recovery');
             });
@@ -306,7 +307,7 @@ class AuthController {
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true });
             }
-            if (req.cookies['token'] && req.cookies['refreshToken']){
+            if (req.cookies['token'] && req.cookies['refreshToken'] || !req.cookies['email']){
                 return res.redirect('/')
             }
             return res.render(locale === 'en' ? 'en/auth/account-recovery' : 'ru/auth/account-recovery');

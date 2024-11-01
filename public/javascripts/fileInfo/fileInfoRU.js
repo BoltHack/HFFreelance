@@ -154,6 +154,11 @@ function displayInfo() {
         document.body.style.overflow = 'auto';
         document.body.removeChild(barrier);
     })
+    document.getElementById('close').addEventListener('click', () => {
+        document.body.removeChild(border);
+        document.body.style.overflowY = 'auto';
+        document.body.removeChild(barrier);
+    })
 }
 
 function pathFileInfo(){

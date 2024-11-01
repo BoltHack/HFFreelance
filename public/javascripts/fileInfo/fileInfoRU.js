@@ -100,16 +100,6 @@ function commentForm(){
     const commentForm = document.getElementById('commentForm');
     if (token){
         commentForm.innerHTML = `
-<!--            <form id="form" action="">-->
-<!--                <div style="display: flex; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">-->
-<!--                    <input type="hidden" id="siteId" value="${infoId}" required >-->
-<!--                    <input id="input" autocomplete="off" placeholder="Написать комментарий" required >-->
-<!--                                        <input type="text" id="message" name="message" placeholder="Написать комментарий" class="input" maxlength="150" required>-->
-<!--                    <button type="submit" id="sendComment" style="background: none; border: none">-->
-<!--                        <img src="/images/send.png" style="width: 25px; height: 25px; cursor:pointer;">-->
-<!--                    </button>-->
-<!--                </div>-->
-<!--            </form>-->
 <form action="/sendCommentsPost/${infoId}" method="POST" id="commentForm">
                 <div style="display: flex; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
                     <input type="text" id="message" name="message" placeholder="Написать комментарий" class="input" maxlength="150" required>
@@ -141,9 +131,9 @@ function displayInfo() {
     border.innerHTML = `
 <link rel="stylesheet" href="/stylesheets/style.css">
 <div class="new-border">
+<b id="close" style="position: absolute; right: 5px; top: 10px; cursor:pointer; color: black">X</b>
 <div class="border-data">
     <h2 class="yourAccount">Мой аккаунт</h2>
-    <br>
 <h3>Вы не авторизованы</h3>
 <p>Войдите в учётную запись или создайте аккаунт.</p>
 <button onclick="login()" class="login-btn">Войти</button>

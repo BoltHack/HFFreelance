@@ -131,7 +131,6 @@ function displayInfo() {
 <div class="new-border">
 <div class="border-data">
     <h2 class="yourAccount">My account</h2>
-    <br>
 <h3>You are not logged in</h3>
 <p>Sign in or create an account.</p>
 <button onclick="login()" class="login-btn">Login</button>
@@ -160,8 +159,5 @@ function pathFileInfo(){
         localStorage.setItem('ref', 'refFileInfo')
     }
 }
-<<<<<<< HEAD
 pathFileInfo();
-=======
-pathFileInfo();
->>>>>>> 5ad1e3999416c27e546a12b8da54e3d57b87ebeb
+

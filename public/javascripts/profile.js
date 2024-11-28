@@ -220,4 +220,8 @@ document.getElementById('changePasswordBtn').addEventListener(function () {
         .catch(error => {
             console.error('Ошибка:', error);
         });
+<<<<<<< HEAD
 })
+=======
+})
+>>>>>>> db68649d5549f112df8cbd63dfa2a0b7fdc5cab9

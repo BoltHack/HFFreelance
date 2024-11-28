@@ -481,8 +481,6 @@ ul {
     background-color: #2c698d;
 }
 
-<<<<<<< HEAD
-=======
 .buy-button::before,
 .buy-button::after {
     content: '';
@@ -527,7 +525,7 @@ ul {
 /*p {*/
 /*    margin: 10px 0 20px;*/
 /*}*/
->>>>>>> 7a8cae5d502d4abf5099cfca480e1d27cf0da42d
+
 .details-container {
     max-width: 800px;
     position: relative;

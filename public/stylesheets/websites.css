@@ -136,14 +136,7 @@ body {
     border-radius: 20px;
 
 }
-/*.alreadyLove{*/
-/*    width: 25px;*/
-/*    height: 28px;*/
-/*    cursor: pointer;*/
-/*    transition: transform 0.2s;*/
-/*    border-radius: 20px;*/
-/*    margin-top: 3px;*/
-/*}*/
+
 .love:hover, .alreadyLove:hover{
     transform: scale(1.08);
 }
@@ -287,6 +280,7 @@ body {
 .lightTheme{
     .project{
         background-color: #fff;
+        border: 1px solid #fff;
     }
     .sites-info p{
         color: black;

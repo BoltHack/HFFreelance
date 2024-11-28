@@ -31,14 +31,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if(!token){
         myDetails.innerHTML = `
-                    <a href="/auth/login" class="href" style="color: #8ecae6">Войдите</a>
-                    <p style="margin-top: 0; color: #ECF1FD;">или</p>
-                    <a href="/auth/register" class="href" style="color: #8ecae6">зарегистрируйтесь,</a>
-                    <p style="margin-top: 0; color: #ECF1FD;">чтобы скачивать любимые сайты.</p>`
+                    <a href="/auth/login" class="href">Войдите</a>
+                    <p class="auth-info">или</p>
+                    <a href="/auth/register" class="href">зарегистрируйтесь,</a>
+                    <p class="auth-info">чтобы скачивать любимые сайты.</p>`
 
     }
     else{
-        myDetails.innerHTML = `<a style="color: #ECF1FD">Вы авторизованы и можете скачивать файлы. Удачи!</a>`
+        myDetails.innerHTML = `<a class="you-are-auth">Вы авторизованы и можете скачивать файлы. Удачи!</a>`
     }
 })
 

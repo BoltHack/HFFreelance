@@ -323,4 +323,8 @@ function deleteReviewMenu() {
         document.body.removeChild(border);
         document.body.style.overflow = 'auto';
     })
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 7a8cae5d502d4abf5099cfca480e1d27cf0da42d

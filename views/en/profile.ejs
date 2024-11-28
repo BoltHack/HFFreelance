@@ -25,7 +25,7 @@
     <main class="main-content">
         <section id="profile" class="section">
             <% if (profile && profile.id) { %>
-                <h3 style="color: #fefae0;">User Profile <%= profile.name %> </h3>
+                <h3 class="user-profile">User Profile <%= profile.name %> </h3>
                 <div class="profile-info">
                     <img src="data:image/png;base64,<%= profile.image %>" class="profile-pic" id="userImage" style="cursor: pointer">
                     <div class="zoomImageDiv" id="zoomImageDiv" hidden>
@@ -41,11 +41,11 @@
 
         <div class="profile-data" id="profileData">
             <div id="profileReview">
-                <h3 style="text-align: center; color: #f3d5b5">Review</h3>
+                <h3>Review</h3>
                 <% if(profile && profile.reviews && profile.reviews.length > 0 && profile.reviews[0].review) {%>
                     <div>
                         <div style="text-align: center">
-                            <p style="color: #fefae0;"><%= profile.reviews[0].review %></p>
+                            <p class="profile-review"><%= profile.reviews[0].review %></p>
                         </div>
                         <div class="grade-data">
                             <div class="grade">
@@ -83,7 +83,7 @@
                         <br>
                     </div>
                 <% } else {%>
-                    <p style="text-align: center; color: #fefae0">User has not left any reviews.</p>
+                    <p class="no-review">User has not left any reviews.</p>
                     <br>
                 <%}%>
             </div>
@@ -96,8 +96,8 @@
                                 <li class="project" style="width: 350px;">
                                     <img src="data:image/jpeg;base64,<%= favorite.fileImg %>" class="img">
                                     <div class="favorite-info">
-                                        <p style="color: #fefae0;"><%= favorite.title %></p>
-                                        <p style="color: #fefae0;">Type: <%= favorite.siteType %></p>
+                                        <p><%= favorite.title %></p>
+                                        <p>Type: <%= favorite.siteType %></p>
                                         <div style="display: flex; gap: 10px; margin: auto 0;">
                                             <button class="button fileInfo" data-info="<%= favorite._id %>">View</button>
                                             <div class="download" id="download" data-download="<%= favorite._id %>">
@@ -129,7 +129,7 @@
                                 </li>
                             <% }); %>
                         <% } else { %>
-                            <p style="color: #fefae0;">No favorite items.</p>
+                            <p class="no-favorites">No favorite items.</p>
                         <% } %>
                     </ul>
                 </div>
@@ -152,14 +152,28 @@
             favoritesMenu.style.background = 'none'
             profileFavorites.hidden = true;
             profileReview.hidden = false;
+            localStorage.setItem('userPersonalAreaMenu', 'profile');
         })
         favoritesMenu.addEventListener('click', () => {
             favoritesMenu.style.backgroundColor = '#34495e'
             profileMenu.style.background = 'none'
             profileReview.hidden = true;
             profileFavorites.hidden = false;
+            localStorage.setItem('userPersonalAreaMenu', 'favorites');
         })
-
+        const userPersonalAreaMenu = localStorage.getItem('userPersonalAreaMenu');
+        if (userPersonalAreaMenu === 'profile'){
+            profileMenu.style.backgroundColor = '#34495e'
+            favoritesMenu.style.background = 'none'
+            profileFavorites.hidden = true;
+            profileReview.hidden = false;
+        }
+        else{
+            favoritesMenu.style.backgroundColor = '#34495e'
+            profileMenu.style.background = 'none'
+            profileReview.hidden = true;
+            profileFavorites.hidden = false;
+        }
     }
     profileMenu()
 </script>

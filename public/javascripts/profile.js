@@ -148,6 +148,7 @@ function perms(){
         news.hidden = false;
         profile.hidden = true;
         myReview.hidden = true;
+        localStorage.setItem('personalAreaMenu', 'news');
     })
     const personalAreaMenu = localStorage.getItem('personalAreaMenu');
     if (personalAreaMenu === 'profile'){
@@ -220,6 +221,3 @@ document.getElementById('changePasswordBtn').addEventListener(function () {
             console.error('Ошибка:', error);
         });
 })
-
-
-

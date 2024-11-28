@@ -1,7 +1,7 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #ECF1FD;
-    color: #333;
+    background-color: #212121;
+    /*color: #333;*/
     margin: 0;
     padding: 20px;
 }
@@ -20,8 +20,8 @@ body {
 .project {
     display: flex;
     align-items: center;
-    background: #fff;
-    border: 1px solid #ddd;
+    background: #16171d;
+    border: 1px solid #313338;
     border-radius: 8px;
     padding: 20px;
     width: 400px;
@@ -47,7 +47,9 @@ body {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
+.sites-info p {
+    color: #fefae0;
+}
 
 .button, .Download-button {
     background: none;
@@ -127,7 +129,7 @@ body {
 
 .delete-favorites{
     background: none;
-    color: #761c19;
+    color: #ffb3c1;
     border: 1px solid #761c19;
     padding: 8px 12px;
     border-radius: 5px;
@@ -148,7 +150,9 @@ body {
     height: 1em;
     margin-top: 5px;
 }
-
+.not-found{
+    color: #f3d5b5;
+}
 .spinner .spinner-blade {
     position: absolute;
     left: 0.4629em;
@@ -267,4 +271,20 @@ body {
     100% {
         background-color: transparent;
     }
+}
+
+.lightTheme{
+    .project{
+        background-color: #fff;
+    }
+    .sites-info p{
+        color: black;
+    }
+    .not-found{
+        color: black;
+    }
+    .delete-favorites{
+        color: darkred;
+    }
+    background-color: #ECF1FD;
 }

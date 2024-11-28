@@ -31,14 +31,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if(!token){
         myDetails.innerHTML = `
-                    <a href="/auth/login" class="href">Войдите</a>
-                    <p style="margin-top: 0">или</p>
-                    <a href="/auth/register" class="href">зарегистрируйтесь,</a>
-                    <p style="margin-top: 0">чтобы скачивать любимые сайты.</p>`
+                    <a href="/auth/login" class="href" style="color: #8ecae6">Войдите</a>
+                    <p style="margin-top: 0; color: #ECF1FD;">или</p>
+                    <a href="/auth/register" class="href" style="color: #8ecae6">зарегистрируйтесь,</a>
+                    <p style="margin-top: 0; color: #ECF1FD;">чтобы скачивать любимые сайты.</p>`
 
     }
     else{
-        myDetails.innerHTML = `<a>Вы авторизованы и можете скачивать файлы. Удачи!</a>`
+        myDetails.innerHTML = `<a style="color: #ECF1FD">Вы авторизованы и можете скачивать файлы. Удачи!</a>`
     }
 })
 
@@ -100,16 +100,6 @@ function commentForm(){
     const commentForm = document.getElementById('commentForm');
     if (token){
         commentForm.innerHTML = `
-<!--            <form id="form" action="">-->
-<!--                <div style="display: flex; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">-->
-<!--                    <input type="hidden" id="siteId" value="${infoId}" required >-->
-<!--                    <input id="input" autocomplete="off" placeholder="Написать комментарий" required >-->
-<!--                                        <input type="text" id="message" name="message" placeholder="Написать комментарий" class="input" maxlength="150" required>-->
-<!--                    <button type="submit" id="sendComment" style="background: none; border: none">-->
-<!--                        <img src="/images/send.png" style="width: 25px; height: 25px; cursor:pointer;">-->
-<!--                    </button>-->
-<!--                </div>-->
-<!--            </form>-->
 <form action="/sendCommentsPost/${infoId}" method="POST" id="commentForm">
                 <div style="display: flex; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
                     <input type="text" id="message" name="message" placeholder="Написать комментарий" class="input" maxlength="150" required>
@@ -141,9 +131,9 @@ function displayInfo() {
     border.innerHTML = `
 <link rel="stylesheet" href="/stylesheets/style.css">
 <div class="new-border">
+<b id="close" style="position: absolute; right: 5px; top: 10px; cursor:pointer; color: black">X</b>
 <div class="border-data">
     <h2 class="yourAccount">Мой аккаунт</h2>
-    <br>
 <h3>Вы не авторизованы</h3>
 <p>Войдите в учётную запись или создайте аккаунт.</p>
 <button onclick="login()" class="login-btn">Войти</button>
@@ -162,6 +152,11 @@ function displayInfo() {
     barrier.addEventListener('click', () => {
         document.body.removeChild(border);
         document.body.style.overflow = 'auto';
+        document.body.removeChild(barrier);
+    })
+    document.getElementById('close').addEventListener('click', () => {
+        document.body.removeChild(border);
+        document.body.style.overflowY = 'auto';
         document.body.removeChild(barrier);
     })
 }

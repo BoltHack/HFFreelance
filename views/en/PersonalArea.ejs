@@ -14,15 +14,15 @@
 <%- include('header.ejs') %>
 <div class="pers-container">
     <aside class="sidebar">
-        <h2>Menu</h2>
+        <h4>Profile</h4>
         <ul>
             <li id="profileMenu" style="background-color: #34495e"><a href="#profilePage">My Profile</a></li>
 
             <li id="newsMenu"><a href="#news">News</a></li>
             <br>
+            <h4>general</h4>
             <% if (user.role === 'Admin') {%>
                 <li><a onclick="admin()" style="cursor:pointer;">Admin Panel</a></li>
-                <br>
             <% } %>
             <li><a href="/">Main Menu</a></li>
             <li><a onclick="deleteAccountMenu()" style="cursor:pointer;">Delete Account</a></li>
@@ -104,7 +104,7 @@
                     <div style="text-align: center"><button onclick="deleteReviewMenu()" class="review-delete">Delete review</button></div>
                 </div>
             <% } else {%>
-                <p style="text-align: center">You haven't left any feedback.</p>
+                <p class="no-reviews">You haven't left any feedback.</p>
                 <div style="text-align: center"><button class="my-review-send" onclick="sendReviewsJoin()">Write a review</button></div>
             <%}%>
         </div>
@@ -126,8 +126,8 @@
             </div>
         </div>
 
-        <section id="news" hidden>
-            <h2 class="center">News Feed</h2>
+        <section id="news" class="news" hidden>
+            <h2>News Feed</h2>
             <% if (news && news.length > 0) { %>
                 <ul>
                     <% news.reverse().forEach(newsItem => { %>
@@ -142,12 +142,13 @@
                     <% }); %>
                 </ul>
             <% } else { %>
-                <p style="text-align: center">The news feed is currently empty.</p>
+                <p class="no-news">The news feed is currently empty.</p>
             <% } %>
         </section>
     </main>
 </div>
 <div class="popup" hidden>
+    <b id="close" style="position: absolute; right: 10px; top: 10px; cursor:pointer; color: white">X</b>
     <form action="/deleteAccount/<%= user.id %>" method="post" class="form">
         <div class="icon">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 34 34" height="34" width="34">
@@ -162,7 +163,7 @@
             <span class="subtitle">To delete the account, you need to enter the current account password.</span>
         </div>
         <input placeholder="Enter your password" name="password" type="password" id="password" class="input_field" required>
-        <button class="submit" style="cursor:pointer;">Delete</button>
+        <button class="submit" style="cursor:pointer;">Delete account</button>
     </form>
 </div>
 <div class="new-barrier" hidden></div>

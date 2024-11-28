@@ -139,6 +139,7 @@ function perms(){
         profile.hidden = false;
         myReview.hidden = false;
         news.hidden = true;
+        localStorage.setItem('personalAreaMenu', 'profile');
     })
 
     newsMenu.addEventListener('click', () => {
@@ -148,6 +149,21 @@ function perms(){
         profile.hidden = true;
         myReview.hidden = true;
     })
+    const personalAreaMenu = localStorage.getItem('personalAreaMenu');
+    if (personalAreaMenu === 'profile'){
+        profileMenu.style.backgroundColor = '#34495e'
+        newsMenu.style.background = 'none'
+        profile.hidden = false;
+        myReview.hidden = false;
+        news.hidden = true;
+    }
+    else{
+        newsMenu.style.backgroundColor = '#34495e'
+        profileMenu.style.background = 'none'
+        news.hidden = false;
+        profile.hidden = true;
+        myReview.hidden = true;
+    }
 }
 perms()
 
@@ -204,3 +220,6 @@ document.getElementById('changePasswordBtn').addEventListener(function () {
             console.error('Ошибка:', error);
         });
 })
+
+
+

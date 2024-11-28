@@ -75,5 +75,8 @@ function refs(){
     else if(ref === 'refPrivacyPolicy'){
         window.location.href = `/privacyPolicy`;
     }
+    else if(ref === 'refAllReviews'){
+        window.location.href = `/allReviews`;
+    }
 }
 refs();

@@ -1,0 +1,165 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль <%= profile.name %></title>
+    <link rel="stylesheet" href="/stylesheets/PersonalArea.css">
+    <link rel="stylesheet" href="/stylesheets/alert.css">
+    <link rel="stylesheet" href="/stylesheets/websites.css">
+    <link rel="icon" type="image/png" href="/images/logo2.png">
+</head>
+<%- include('header.ejs') %>
+<div class="pers-container">
+    <aside class="sidebar">
+        <h4>Информация</h4>
+        <ul>
+            <li id="profileMenu" style="background-color: #34495e; cursor:pointer;"><a>Профиль</a></li>
+
+            <li id="favoritesMenu" style="cursor:pointer;"><a>Избранное</a></li>
+            <br>
+            <h4>Другое</h4>
+            <li><a href="/">В главное меню</a></li>
+            <li><a onclick="reportMenu()" style="cursor: pointer">Пожаловаться</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <section id="profile" class="section">
+            <% if (profile && profile.id) { %>
+                <h3 style="color: #edf6f9">Профиль пользователя <%= profile.name %> </h3>
+                <div class="profile-info">
+                    <img src="data:image/png;base64,<%= profile.image %>" class="profile-pic" id="userImage" style="cursor: pointer">
+                    <div class="zoomImageDiv" id="zoomImageDiv" hidden>
+                        <img src="" class="zoomImage" id="zoomImage">
+                    </div>
+                    <div class="pers-info">
+                        <h2><%= profile.name %></h2>
+                        <p>Дата регистрации: <%= profile.registerDate %></p>
+                    </div>
+                </div>
+            <% } %>
+        </section>
+
+        <div class="profile-data" id="profileData">
+            <div id="profileReview">
+                <h3 style="text-align: center; color: #f3d5b5">Отзыв</h3>
+                <% if(profile && profile.reviews && profile.reviews.length > 0 && profile.reviews[0].review) {%>
+                    <div>
+                        <div style="text-align: center">
+                            <p style="color: #edf6f9"><%= profile.reviews[0].review %></p>
+                        </div>
+                        <div class="grade-data">
+                            <div class="grade">
+                                <% if (profile.reviews[0].grade) {%>
+                                    <% if (profile.reviews[0].grade === "1") { %>
+                                        <p>&#11088;</p>
+                                    <% } %>
+                                    <% if (profile.reviews[0].grade === "2") { %>
+                                        <p>&#11088;</p>
+                                        <p>&#11088;</p>
+                                    <% } %>
+                                    <% if (profile.reviews[0].grade === "3") { %>
+                                        <p>&#11088;</p>
+                                        <p>&#11088;</p>
+                                        <p>&#11088;</p>
+                                    <% } %>
+                                    <% if (profile.reviews[0].grade === "4") { %>
+                                        <p>&#11088;</p>
+                                        <p>&#11088;</p>
+                                        <p>&#11088;</p>
+                                        <p>&#11088;</p>
+                                    <% } %>
+                                    <% if (profile.reviews[0].grade === "5") { %>
+                                        <p>&#11088;</p>
+                                        <p>&#11088;</p>
+                                        <p>&#11088;</p>
+                                        <p>&#11088;</p>
+                                        <p>&#11088;</p>
+                                    <% } %>
+                                <% } else { %>
+                                    <br>
+                                <%}%>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                <% } else {%>
+                    <p style="text-align: center; color: #edf6f9">Пользователь не оставлял никаких отзывов.</p>
+                    <br>
+                <%}%>
+            </div>
+
+            <div id="profileFavorites" hidden>
+                <div id="favorites-container">
+                    <ul class="ul">
+                        <% if (favorites && favorites.length > 0) { %>
+                            <% favorites.forEach(favorite => { %>
+                                <li class="project" style="width: 350px;">
+                                    <img src="data:image/jpeg;base64,<%= favorite.fileImg %>" class="img">
+                                    <div class="favorite-info">
+                                        <p style="color: #fefae0"><%= favorite.title %></p>
+                                        <p style="color: #fefae0">Тип: <%= favorite.siteType %></p>
+                                        <div style="display: flex; gap: 10px; margin: auto 0;">
+                                            <button class="button fileInfo" data-info="<%= favorite._id %>">Посмотреть</button>
+                                            <div class="download" id="download" data-download="<%= favorite._id %>">
+
+                                            </div>
+                                            <div>
+                                                <img src="/images/love.png" class="love" id="love-<%= favorite._id %>" data-id="<%= favorite._id %>" data-title="<%= favorite.title %>">
+                                                <div id="load-<%= favorite._id %>" hidden>
+                                                    <div class="spinner center">
+                                                        <div class="spinner-blade"></div>
+                                                        <div class="spinner-blade"></div>
+                                                        <div class="spinner-blade"></div>
+                                                        <div class="spinner-blade"></div>
+                                                        <div class="spinner-blade"></div>
+                                                        <div class="spinner-blade"></div>
+                                                        <div class="spinner-blade"></div>
+                                                        <div class="spinner-blade"></div>
+                                                        <div class="spinner-blade"></div>
+                                                        <div class="spinner-blade"></div>
+                                                        <div class="spinner-blade"></div>
+                                                        <div class="spinner-blade"></div>
+                                                    </div>
+                                                </div>
+                                                <img src="/images/alreadyLove.png" class="alreadyLove" id="alreadyLove-<%= favorite._id %>" data-id="<%= favorite._id %>" data-title="<%= favorite.title %>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            <% }); %>
+                        <% } else { %>
+                            <p style="color: #fefae0;">Нет избранных элементов.</p>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<div class="new-barrier" hidden></div>
+<script src="/javascripts/love.js"></script>
+<script>
+    function profileMenu(){
+        const profileMenu = document.getElementById('profileMenu');
+        const favoritesMenu = document.getElementById('favoritesMenu');
+
+        const profileReview = document.getElementById('profileReview');
+        const profileFavorites = document.getElementById('profileFavorites');
+
+        profileMenu.addEventListener('click', () => {
+            profileMenu.style.backgroundColor = '#34495e'
+            favoritesMenu.style.background = 'none'
+            profileFavorites.hidden = true;
+            profileReview.hidden = false;
+        })
+        favoritesMenu.addEventListener('click', () => {
+            favoritesMenu.style.backgroundColor = '#34495e'
+            profileMenu.style.background = 'none'
+            profileReview.hidden = true;
+            profileFavorites.hidden = false;
+        })
+
+    }
+    profileMenu()
+</script>
+

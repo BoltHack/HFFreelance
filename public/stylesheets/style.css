@@ -1,8 +1,8 @@
 .border-data{
   position: absolute;
-  top: 10%;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, 0);
+  transform: translate(-50%, -50%);
   text-align: center;
 }
 h2{
@@ -30,7 +30,8 @@ h2{
 }
 .new-border{
   width: 400px;
-  height: 460px;
+  /*height: 460px;*/
+  height: 400px;
   /*background-color: #f4f1de;*/
   /*background: rgb(209,196,209);*/
   /*background: linear-gradient(360deg, rgba(209,196,209,1) -42%, rgba(231,225,231,1) 0%, rgba(244,242,244,1) 46%);*/

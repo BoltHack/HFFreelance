@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
         })
     })
-    checkLoveState();
+    checkLoveState();+
 
     fileInfo.forEach(button => {
         button.addEventListener('click', function () {

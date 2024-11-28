@@ -1,247 +1,22 @@
+<link rel="stylesheet" href="/stylesheets/header.css">
 <link rel="stylesheet" href="/stylesheets/alert.css">
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-        /*background-color: #dadde2;*/
-    }
-    html::-webkit-scrollbar {
-        width: 12px;
-    }
-
-    html::-webkit-scrollbar-thumb {
-        background-color: #3498db;
-        border-radius: 6px;
-        border: 3px solid #f0f8ff;
-    }
-
-    html::-webkit-scrollbar-track {
-        background-color: #f0f8ff;
-        border-radius: 6px;
-    }
-
-    html {
-        scrollbar-width: thin;
-        scrollbar-color: #3498db #f0f8ff;
-    }
-
-    html::-webkit-scrollbar-thumb:hover {
-        background-color: #2980b9;
-    }
-    header{
-        width: 100%;
-        height: 80px;
-        /*background: rgb(32,30,32);*/
-        /*background: linear-gradient(184deg, rgba(32,30,32,1) 54%, rgba(16,16,17,1) 76%);*/
-        /*background-color: #43655a;*/
-        /*background-image: url("../images/programming.jpg");*/
-        /*background: rgb(32,30,32);*/
-        /*background: rgb(18,14,62);*/
-        /*background: linear-gradient(184deg, rgba(32,30,32,1) 54%, rgba(16,16,17,1) 76%);*/
-        /*background: rgb(32,30,32);*/
-        /*background: linear-gradient(184deg, rgba(32,30,32,1) 54%, rgba(16,16,17,1) 76%);*/
-        position: fixed;
-        background-color: #16171d;
-        top: 0;
-        z-index: 2;
-        transition: top 0.3s;
-        /*border-radius: 100% 0% 30% 30% / 0% 37% 11% 10%;*/
-    }
-    img {
-        width: 60px;
-        height: 60px;
-        border-radius: 10px;
-    }
-    .container-logo{
-        display: flex;
-        padding: 10px;
-        z-index: 2;
-        margin: 0 100px;
-    }
-    .logo{
-        color: #21f0df;
-        font-weight: 1000;
-        margin: 10px;
-        position: absolute;
-        top: 12%;
-    }
-    .get{
-        display: flex;
-        flex-wrap: wrap;
-        position: absolute;
-        top: -1%;
-        right: 5%;
-    }
-    li{
-        margin: 20px 10px;
-        list-style-type: none;
-    }
-    .ha{
-        text-decoration: none;
-        color: #ced4da;
-        cursor: pointer;
-    }
-    .ha:hover{
-        color: #a2a8d3;
-    }
-    .web-types{
-        display: flex;
-        flex-wrap: wrap;
-        position: absolute;
-        top: 1%;
-        right: 10%;
-    }
-    .types{
-        text-decoration: none;
-        color: #fff;
-    }
-    .types:hover{
-        color: #a2a8d3;
-    }
-    #account{
-        color: #fff;
-        cursor: pointer;
-        margin-left: 50px;
-    }
-    #account:hover{
-        color: #a2a8d3;
-    }
-    a{
-        text-decoration: none;
-    }
-    #account-img{
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        margin-top: 5px;
-        cursor: pointer;
-    }
-    @media (max-width: 1200px) {
-        .ha{
-            display: none;
-        }
-        #account{
-            display: flex;
-        }
-    }
-    @media (max-width: 800px){
-        .logo{
-            display: none;
-        }
-    }
-    details {
-        margin: 10px;
-        padding: 10px;
-        width: 150px;
-        border-radius: 5px;
-        cursor: pointer;
-        background: none;
-        transition: all 0.3s ease;
-        text-align: center;
-    }
-    details summary {
-        color: #ECF1FD;
-        white-space: nowrap;
-        outline: none;
-        user-select: none;
-    }
-    details div {
-        margin-top: 10px;
-        padding: 10px;
-        border-top: 1px solid #ccc;
-    }
-    details ul {
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-        border: 1px solid #a7c957;
-        background-color: #fff;
-    }
-    details ul li {
-        margin: 10px 0;
-    }
-    details ul li a {
-        text-decoration: none;
-        color: #333;
-        padding: 5px 12px;
-        display: block;
-        border-radius: 3px;
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
-    details ul li a:hover {
-        background-color: #ddd;
-        color: #000;
-    }
-    :root{
-        --background-color: #1C2025;
-        --hover-background-color: #303740;
-        --color: #DAE2ED;
-        --padding: 8px;
-        --border-radius: 8px;
-        --title-content-space: 4px;
-    }
-    .dropdown{
-        width: 50px;
-        text-align: center;
-        position: absolute;
-        right: -10%;
-        top: -1px;
-    }
-    .dropdown-title{
-        position: relative;
-        margin-bottom: var(--title-content-space);
-        background: none;
-    }
-    .dropdown-title::after{
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: var(--title-content-space);
-        bottom: 0;
-        left: 0;
-        transform: translateY(100%);
-    }
-    .dropdown-title, .dropdown-content{
-        padding: var(--padding);
-        border-radius: var(--border-radius);
-        color: var(--color);
-        cursor: pointer;
-    }
-
-    .dropdown-title:hover + .dropdown-content, .dropdown-content:hover{
-        transform: scaleY(1);
-    }
-    .dropdown-content{
-        display: flex;
-        flex-direction: column;
-        transition: transform 0.35s ease;
-        transform-origin: top;
-        transform: scaleY(0);
-    }
-    .dropdown-content a {
-        text-decoration: none;
-        padding: var(--padding);
-        color: var(--color);
-        border-radius: var(--border-radius);
-    }
-</style>
-
 <body>
 <header>
     <div class="container-logo">
         <a href="/"><img src="../images/logo2.png" alt="Logo"></a>
         <h2><a class="logo" href="/">𝓗𝓕𝓕𝓻𝓮𝓮𝓵𝓪𝓷𝓬𝓮𝓻𝓼</a></h2>
+        <div class="theme">
+            <label class="switch">
+                <input type="checkbox" id="theme">
+                <span class="slider"></span>
+            </label>
+        </div>
     </div>
     <div id="headerSection">
         <ul class="get">
             <li id="account">My Account</li>
             <img src="" id="account-img" onclick="PersonalAreaJoin()">
-<!--            <li><a href="#home" class="ha">Home</a></li>-->
-<!--            <li><a href="#about" class="ha">About</a></li>-->
             <li><a href="#services" class="ha">Services</a></li>
-<!--            <li><a href="#reviews" class="ha">Reviews</a></li>-->
             <li><a href="#footerSection" class="ha">Contacts</a></li>
             <details>
                 <summary>Free</summary>
@@ -252,8 +27,8 @@
                         <li><a onclick="nodeJs()">nodeJs</a></li>
                         <li><a onclick="reactJs()">reactJs</a></li>
                         <li><a onclick="fullstack()">fullstack</a></li>
-                        <li><a onclick="allSites()">Все типы</a></li>
-                        <li><a onclick="favoritesJoin()">Избранное</a></li>
+                        <li><a onclick="allSites()">All types</a></li>
+                        <li><a onclick="favoritesJoin()">Favofites</a></li>
                     </ul>
                 </div>
             </details>
@@ -270,8 +45,8 @@
                         <li><a id="nodeJsColor" onclick="nodeJs()">nodeJs</a></li>
                         <li><a id="reactJsColor" onclick="reactJs()">reactJs</a></li>
                         <li><a id="fullstackColor" onclick="fullstack()">fullstack</a></li>
-                        <li><a id="allSitesColor" onclick="allSites()">Все типы</a></li>
-                        <li><a id="favoritesColor" onclick="favoritesJoin()">Избранное</a></li>
+                        <li><a id="allSitesColor" onclick="allSites()">All types</a></li>
+                        <li><a id="favoritesColor" onclick="favoritesJoin()">Favorites</a></li>
                     </ul>
                 </div>
             </details>
@@ -295,3 +70,4 @@
 <script src="/javascripts/paths.js"></script>
 <script src="/javascripts/local.js"></script>
 <script src="/javascripts/warning.js"></script>
+<script src="/javascripts/theme.js"></script>

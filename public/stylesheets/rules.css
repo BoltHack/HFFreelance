@@ -1,0 +1,41 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #212121;
+    margin: 0;
+    padding: 20px;
+}
+
+.rules-container {
+    max-width: 800px;
+    margin: 90px auto;
+    padding: 20px;
+}
+
+.section {
+    margin-bottom: 40px;
+}
+
+h2 {
+    color: #f3d5b5;
+    font-size: 24px;
+}
+
+ol {
+    padding-left: 20px;
+}
+
+ol li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    color: #ECF1FD;
+}
+
+.lightTheme{
+    h2{
+        color: black;
+    }
+    ol li{
+        color: black;
+    }
+    background-color: #ECF1FD;
+}

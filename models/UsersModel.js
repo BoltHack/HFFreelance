@@ -6,7 +6,6 @@ const year = currentDate.getFullYear();
 const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
 const day = currentDate.getDate().toString().padStart(2, '0');
 
-
 const dateOnly = `${month}.${day}.${year}`;
 
 const ReviewSchema = new Schema({
@@ -27,6 +26,12 @@ const RequestBanSchema = new Schema({
     // author: {type: String, default: ''},
     author: [AuthorSchema],
     date: {type: String, default: dateOnly}
+});
+
+const ReportsSchema = new Schema({
+    name: { type: String},
+    reason: { type: String},
+    date: {type: String}
 });
 
 const RequestUnbanSchema = new Schema({
@@ -73,6 +78,10 @@ const UsersSchema = new Schema({
     },
     favorites: {
         type: [FavoritesSchema],
+        default: []
+    },
+    reports: {
+        type: [ReportsSchema],
         default: []
     }
 });

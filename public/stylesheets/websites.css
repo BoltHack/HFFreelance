@@ -1,6 +1,7 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #ECF1FD;
+    /*background-color: #313338;*/
+    background-color: #212121;
     /*color: #333;*/
     margin: 0;
     padding: 20px;
@@ -14,14 +15,15 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     max-width: 1000px;
+    height: auto;
     gap: 20px;
 }
 
 .project {
     display: flex;
     align-items: center;
-    background: #fff;
-    border: 1px solid #ddd;
+    background: #16171d;
+    border: 1px solid #313338;
     border-radius: 8px;
     padding: 20px;
     width: 400px;
@@ -45,6 +47,11 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+.sites-info p {
+    /*color: #e5e5e5;*/
+    /*color: #8d99ae;*/
+    color: #fefae0;
 }
 
 .button, .Download-button {
@@ -123,8 +130,11 @@ body {
     width: 30px;
     height: 30px;
     cursor: pointer;
+    margin-left: -2px;
+    margin-top: 1px;
     transition: transform 0.2s;
     border-radius: 20px;
+
 }
 /*.alreadyLove{*/
 /*    width: 25px;*/
@@ -260,6 +270,10 @@ body {
     transform: rotate(330deg);
 }
 
+.not-found {
+    color: #f3d5b5;
+}
+
 @keyframes spinner-fade9234 {
     0% {
         background-color: #69717d;
@@ -268,4 +282,17 @@ body {
     100% {
         background-color: transparent;
     }
+}
+
+.lightTheme{
+    .project{
+        background-color: #fff;
+    }
+    .sites-info p{
+        color: black;
+    }
+    .not-found{
+        color: black;
+    }
+    background-color: #ECF1FD;
 }

@@ -2,12 +2,12 @@
 <link rel="icon" type="image/png" href="/images/logo2.png">
 <style>
     body{
-        background-color: white;
+        /*background-color: #ECF1FD;*/
+        background-color: #212121;
     }
 
     .progress {
-        /*border: 1px solid black;*/
-        background-color: #ffffff;
+        background-color: #ECF1FD;
         width: 300px;
         height: 20px;
         border-radius: 100px;
@@ -51,8 +51,17 @@
         top: 55%;
         left: 50%;
         transform: translate(-50%);
-        color: black;
+        color: #edf6f9;
         display: block;
+    }
+    .lightTheme{
+        .progress{
+            background-color: #ffffff;
+        }
+        .pi{
+            color: black;
+        }
+        background-color: #ECF1FD;
     }
 </style>
 <div class="progress">
@@ -60,3 +69,4 @@
 </div>
 <p class="pi">Загрузка страницы...</p>
 <script src="/javascripts/token.js"></script>
+<script src="/javascripts/theme.js"></script>

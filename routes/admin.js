@@ -5,7 +5,7 @@ const {
     deleteDiscordLink, deleteInstagramLink, sendLinksPostVk, sendLinksPostDiscord, sendLinksPostInstagram,
     sendLinksPostFacebook, playerBanAdmin, playerUnbanAdmin, requestUnbanAdmin, banMenuAdmin, banListAdmin,
     createAWebSiteAdmin, createAwebsite, allWebsitesAdmin, deleteFileAdmin, createAdvertisingAdmin, createAdvertisingPost,
-    allAdvertisingAdmin, deleteAdvertising
+    allAdvertisingAdmin, deleteAdvertising, reportsAdmin
 } = require('../controller/AdminController');
 const {authenticateJWT} = require('../middlewares/jwtAuth');
 const {verifyPermissions} = require('../middlewares/permissionsAuthorization')
@@ -22,6 +22,7 @@ router.get('/createAWebSite', verifyPermissions('Admin'), authenticateJWT, creat
 router.get('/allWebsites', verifyPermissions('Admin'), authenticateJWT, allWebsitesAdmin);
 router.get('/createAdvertising', verifyPermissions('Admin'), authenticateJWT, createAdvertisingAdmin);
 router.get('/allAdvertising', verifyPermissions('Admin'), authenticateJWT, allAdvertisingAdmin);
+router.get('/reports', verifyPermissions('Admin'), authenticateJWT, reportsAdmin);
 
 router.post('/deleteUserAdmin/:id', verifyPermissions('Admin'), deleteUserAdmin);
 router.post('/deleteNewsAdmin/:id', verifyPermissions('Admin'), deleteNewsAdmin);

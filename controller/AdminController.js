@@ -3,6 +3,7 @@ const {NewsModel} = require("../models/NewsSchema");
 const {LinksModel} = require("../models/LinksModel");
 const {WebsitesModel} = require("../models/WebSitesModel");
 const {AdvertisingModel} = require("../models/AdvertisingModel");
+const {ReportsModel} = require("../models/ReportsModel");
 const bcrypt = require("bcrypt");
 const HttpErrors = require("http-errors");
 
@@ -78,6 +79,14 @@ class AdminController {
             next(err)
         }
     }
+    static reportsAdmin = async (req, res, next) => {
+        try{
+            const reports = await ReportsModel.find();
+            return res.render('admin/reports', {reports});
+        }catch(err){
+            next(err)
+        }
+    }
     static allWebsitesAdmin = async (req, res, next) => {
         try{
             const page = parseInt(req.query.page) || 1;
@@ -94,11 +103,6 @@ class AdminController {
                 currentPage: page,
                 totalPages: Math.ceil(totalWebsites / limit)
             });
-
-
-            // const links = await LinksModel.find();
-            // const websites = await WebsitesModel.find()
-            // return res.render('admin/allWebsites', {links, websites});
         }catch(err){
             next(err)
         }

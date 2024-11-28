@@ -1,8 +1,3 @@
-// const join = () => {
-//     localStorage.clear()
-//     window.location.href = `/auth/login`
-// }
-
 const login = () => {
     window.location.href = `/auth/login`
 }
@@ -23,9 +18,9 @@ function displayInfo() {
                 border.innerHTML = `
 <link rel="stylesheet" href="/stylesheets/style.css">
 <div class="new-border">
+<b id="close" style="position: absolute; right: 5px; top: 10px; cursor:pointer; color: black">X</b>
 <div class="border-data">
     <h2 class="yourAccount">My account</h2>
-    <br>
 <h3>You are not logged in</h3>
 <p>Sign in or create an account.</p>
 <button onclick="login()" class="login-btn">Login</button>
@@ -42,9 +37,9 @@ function displayInfo() {
                 border.innerHTML = `
 <link rel="stylesheet" href="/stylesheets/style.css">
 <div class="new-border">
+<b id="close" style="position: absolute; right: 5px; top: 10px; cursor:pointer; color: black">X</b>
 <div class="border-data">
     <h2 class="yourAccount">Мой аккаунт</h2>
-    <br>
 <h3>Вы не авторизованы</h3>
 <p>Войдите в учётную запись или создайте аккаунт.</p>
 <button onclick="login()" class="login-btn">Войти</button>
@@ -81,6 +76,11 @@ function PersonalAreaJoin() {
 
 function sendReviewsJoin() {
     localStorage.setItem('ref', 'refSendReviews');
+    window.location.href = '/accessToken';
+}
+
+function allReviewsJoin() {
+    localStorage.setItem('ref', 'refAllReviews');
     window.location.href = '/accessToken';
 }
 
@@ -192,7 +192,7 @@ function checkTokenFunc() {
         <p style="text-align: center; color: white; margin: 30px 0; padding: 10px;">Перейти в телеграм-чат с разработчиком?</p>
         <div class="yes-or-no">
         <button class="no-btn" id="closeBtn">Нет</button>
-        <a href="https://web.telegram.org/a/" target="_blank"><button class="yes-btn">Да</button></a>
+        <a href="https://web.telegram.org/a/" target="_blank"><button class="yes-btn" id="sendBtn">Да</button></a>
         </div>
         </div>`
         }
@@ -206,6 +206,11 @@ function checkTokenFunc() {
             document.body.style.overflowY = 'auto';
         })
         document.getElementById('closeBtn').addEventListener('click', () => {
+            document.body.removeChild(barrier);
+            document.body.removeChild(border);
+            document.body.style.overflowY = 'auto';
+        })
+        document.getElementById('sendBtn').addEventListener('click', () => {
             document.body.removeChild(barrier);
             document.body.removeChild(border);
             document.body.style.overflowY = 'auto';
@@ -318,26 +323,4 @@ function deleteReviewMenu() {
         document.body.removeChild(border);
         document.body.style.overflow = 'auto';
     })
-}
-
-
-function dynamicMenu(text) {
-    const alert = document.createElement('div');
-    const alertText = document.createElement('alertText');
-
-    alert.classList.add('alert');
-    alertText.innerHTML = text;
-
-    alert.appendChild(alertText);
-    document.body.appendChild(alert);
-
-    setTimeout(() => {
-        alert.classList.add('show');
-    }, 100);
-    setTimeout(() => {
-        alert.classList.add('backShow');
-    }, 3000)
-    setTimeout(() => {
-        document.body.removeChild(alert)
-    }, 6000)
 }

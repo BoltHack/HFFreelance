@@ -1,18 +1,22 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #ECF1FD;
+    background-color: #212121;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
 }
 .card-container {
+    display: flex;
     width: 350px;
     height: 440px;
-    background: transparent;
-    position: absolute;
+    /*background: transparent;*/
+    /*background: none;*/
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    /*background: rgb(231,225,231);*/
+    /*background: linear-gradient(144deg, rgba(231,225,231,1) -42%, rgba(231,225,231,1) 100%);*/
 }
 
 .container {
@@ -23,42 +27,28 @@ body {
     justify-content: center;
 }
 
-.circle1 {
-    height: 80px;
-    width: 80px;
-    border-radius: 50%;
-    background-color: #2879f3;
-    position: absolute;
-    top: -25px;
-    left: 50px;
-}
-
-.circle2 {
-    height: 80px;
-    width: 80px;
-    border-radius: 50%;
-    background-color: #f37e10;
-    position: absolute;
-    right: 0;
-    bottom: -15px;
-}
-
 .log-card {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    position: absolute;
-    width: 300px;
+    /*position: absolute;*/
+    width: 350px;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(5px);
     padding: 20px;
+    background-color: #16171d;
 }
-
+.welcome {
+    margin-top: -10px;
+    text-align: center;
+    color: #adb5bd;
+}
 .heading {
     font-size: 25px;
     font-weight: 800;
-    color: #333533;
+    /*color: #333533;*/
+    color: #f3d5b5;
 }
 
 .para {
@@ -79,13 +69,14 @@ body {
     margin-bottom: 4px;
 }
 
+
 .input {
     box-sizing: border-box;
     margin-bottom: 5px;
     width: 100%;
     border: none;
     padding: 8px 16px;
-    background-color: transparent;
+    background-color: #242632;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
     border-radius: 8px;
     font-weight: 600;
@@ -142,6 +133,7 @@ body {
 .no-account {
     font-size: 15px;
     font-weight: 400;
+    color: #adb5bd;
 }
 
 .link {
@@ -161,16 +153,10 @@ body {
     cursor: pointer;
     width: 18px;
     height: 18px;
-}
-#loginErr, #registerErr {
-    color: darkred;
-    text-align: center;
+    color: #afb2bf;
+    mix-blend-mode: multiply;
 }
 
-#correctJoin, #correctRegister {
-    color: #1c7430;
-    text-align: center;
-}
 .rules{
     text-align: center;
 }
@@ -178,7 +164,38 @@ body {
     color: #219ebc;
     text-decoration: none;
 }
-
 .rules a:hover {
     color: #023047;
+}
+
+.rules span{
+    color: #adb5bd;
+}
+.remember-me{
+    color: #adb5bd;
+}
+
+.lightTheme{
+    .log-card{
+        background-color: #ECF1FD;
+    }
+    .welcome{
+        color: #666
+    }
+    .heading{
+        color: black;
+    }
+    .remember-me{
+        color: black;
+    }
+    .no-account{
+        color: black;
+    }
+    .rules span{
+        color: black;
+    }
+    .input{
+        background-color: #ECF1FD;
+    }
+    background-color: #ECF1FD;
 }

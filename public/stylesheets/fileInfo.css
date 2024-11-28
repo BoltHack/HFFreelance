@@ -1,6 +1,6 @@
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #ECF1FD;
+    background-color: #212121;
     margin: 0;
     padding: 0;
     display: flex;
@@ -11,8 +11,8 @@ body {
 .info{
     display: block;
     margin: 150px 50px;
-    background: #fff;
-    border: 1px solid #ddd;
+    background: #16171d;
+    border: 1px solid #313338;
     border-radius: 8px;
     padding: 20px;
     /*width: 800px;*/
@@ -23,7 +23,7 @@ body {
     overflow: hidden;
 }
 .description{
-    color: #666;
+    color: #ECF1FD;
     margin-left: 10px;
     width: 500px;
     word-wrap: break-word;
@@ -36,8 +36,8 @@ body {
 }
 .my-info{
     display: block;
-    background: #fff;
-    border: 1px solid #ddd;
+    background: #16171d;
+    border: 1px solid #313338;
     border-radius: 8px;
     padding: 20px;
     width: 500px;
@@ -46,8 +46,8 @@ body {
 }
 .site-info{
     display: block;
-    background: #fff;
-    border: 1px solid #ddd;
+    background: #16171d;
+    border: 1px solid #313338;
     border-radius: 8px;
     padding: 20px;
     width: 239px;
@@ -256,13 +256,15 @@ body {
     position: absolute;
     right: 3%;
 }
+
 .checkComments img{
     position: absolute;
     top: 20%;
     right: 5%;
     cursor: pointer;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
+    /*mix-blend-mode: multiply;*/
 }
 .line{
     border-top: 1px solid #666;
@@ -345,4 +347,9 @@ footer p {
     margin-left: 200px;
     /*color: #6c757d;*/
     color: white;
+}
+.contact-us{
+    margin-top: -14.5px;
+    gap: 10px;
+    margin-left: 50px;
 }

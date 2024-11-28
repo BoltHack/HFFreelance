@@ -150,7 +150,8 @@
 }
 .error-sub-text {
     font-size: 14px;
-    color: #555;
+    /*color: #555;*/
+    color: #780000;
 }
 .error-cross-icon {
     width: 18px;

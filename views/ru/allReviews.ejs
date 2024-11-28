@@ -4,98 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HFFreelancers | Все отзывы</title>
+    <link rel="stylesheet" href="/stylesheets/allReviews.css">
     <link rel="icon" type="image/png" href="/images/logo2.png">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            /*background-color: #f4f4f4;*/
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            width: 70%;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        .review h2 {
-            margin: 0;
-            font-size: 1.2em;
-            color: #555;
-        }
-
-        .review p {
-            margin: 10px 0 0;
-            color: #777;
-            line-height: 1.6;
-        }
-        .r-container{
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 20px;
-            margin-bottom: 100px;
-            gap: 50px;
-            max-width: 970px;
-            position: relative;
-            left: 50%;
-            transform: translate(-50%);
-        }
-        .r-info{
-            padding: 20px;
-            text-align: center;
-            background-color: white;
-            width: 250px;
-            min-height: 300px;
-            height: auto;
-            flex-wrap: wrap;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-        .r-comment {
-            color: #666;
-            word-wrap: break-word;
-        }
-        .send-reviews{
-            background-color: #468faf;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-size: 16px;
-            border-radius: 5px;
-            position: relative;
-            left: 50%;
-            transform: translate(-50%);
-        }
-        .send-reviews:hover{
-            background-color: #012a4a;
-        }
-        .r-name{
-            color: #0d49d7;
-        }
-        .main-image{
-            width: 120px;
-            height: 120px;
-            border-radius: 100px;
-        }
-        .grade{
-            display: flex;
-            justify-content: center;
-        }
-        .grade-data{
-            display: block;
-            gap: 5px;
-            justify-content: center;
-        }
-    </style>
 </head>
 <body>
 <main>
@@ -153,6 +63,7 @@
                                 </div>
                                 <p class="r-date"><%= review.date %></p>
                             </div>
+                            <a href="/profile/<%= review.id %>" target="_blank" class="check-profile">Посмотреть профиль</a>
                         </div>
                     <% } %>
                 <% }); %>

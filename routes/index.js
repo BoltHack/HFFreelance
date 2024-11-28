@@ -3,6 +3,7 @@ const {
     mainView, aboutUsView, rulesView, privacyPolicyView, sendReviewsMenuView, displayAllReviews, deleteUser,
     deleteReview, PersonalAreaView, changeImage, sendReview, getTokenView, moreDetailsView, youAreBannedView,
     requestUnban, downloadFile, fileInfoView, changeLocal, changeLocalAuth, likeSite, dislikeSite, sendCommentsPost,
+    pofileView
 } = require('../controller/IndexController');
 const {
     readyMadeSitesView, htmlSitesView, javascriptSitesView, nodeJsSitesView, reactJsSitesView, fullstackSitesView,
@@ -35,6 +36,7 @@ router.get('/readyMadeSites/reactJs', reactJsSitesView);
 router.get('/readyMadeSites/fullstack', fullstackSitesView);
 router.get('/readyMadeSites/favorites', authenticateJWT, favoritesView);
 router.get('/fileInfo/:id', fileInfoView);
+router.get('/profile/:id', pofileView);
 
 router.post('/sendReviews/:id', authenticateJWT, sendReview);
 router.post('/sendCommentsPost/:id', authenticateJWT, sendCommentsPost);

@@ -18,29 +18,33 @@
     <br>
     <div style="display: block">
         <div class="info">
-            <h2 style="color: #3c096c; margin-left: 2px;">Information</h2>
+            <h2 style="color: rgba(98, 51, 185, 255); margin-left: 2px;">Information</h2>
             <div style="display: flex;">
                 <img src="data:image/jpeg;base64,<%= siteInfo.fileImg %>" class="img" onclick="imageMenu()" title="Zoom in">
                 <div style="display: block; margin-left: 20px; margin-top: -40px;">
-                    <b style="color: #3c096c">- Title:</b>
-                    <p style="margin-left: 10px; color: #666;"><%= siteInfo.title %></p>
-                    <b style="color: #3c096c">- Type:</b>
-                    <p style="margin-left: 10px; color: #666;"><%= siteInfo.siteType %></p>
-                    <b style="color: #3c096c">- Description:</b>
+                    <b style="color: rgba(98, 51, 185, 255);">- Title:</b>
+                    <p style="margin-left: 10px; color: #ECF1FD;"><%= siteInfo.title %></p>
+                    <b style="color: rgba(98, 51, 185, 255);">- Type:</b>
+                    <p style="margin-left: 10px; color: #ECF1FD;"><%= siteInfo.siteType %></p>
+                    <b style="color: rgba(98, 51, 185, 255);">- Description:</b>
                     <p class="description"><%= siteInfo.description %></p>
                 </div>
                 <div style="display: flex">
                     <div style="display: block; margin-left: -300px; margin-top: -40px;">
-                        <b style="color: #3c096c">- Looked :</b>
-                        <p style="margin-left: 10px; color: #666;"><%= siteInfo.views %></p>
-                        <b style="color: #3c096c">- Downloaded :</b>
-                        <p style="margin-left: 10px; color: #666;"><%= siteInfo.saves %> downloads</p>
+                        <b style="color: rgba(98, 51, 185, 255);">- Looked :</b>
+                        <p style="margin-left: 10px; color: #ECF1FD;"><%= siteInfo.views %></p>
+                        <b style="color: rgba(98, 51, 185, 255);">- Downloaded :</b>
+                        <p style="margin-left: 10px; color: #ECF1FD;"><%= siteInfo.saves %> downloads</p>
                     </div>
                     <div style="display: block; margin-left: 100px; margin-top: -40px;">
-                        <b style="color: #3c096c">- Comments :</b>
-                        <p style="margin-left: 10px; color: #666;"><%= siteInfo.commentsNumber %> comments</p>
-                        <b style="color: #3c096c">- Likes:</b>
-                        <p style="margin-left: 10px; color: #666;"><%= siteInfo.likes %> likes</p>
+                        <b style="color: rgba(98, 51, 185, 255);">- Comments :</b>
+                        <% if (siteInfo.commentsNumber >= 1) {%>
+                            <p style="margin-left: 10px; color: #ECF1FD;"><%= siteInfo.commentsNumber %> comments</p>
+                        <%} else {%>
+                            <p style="margin-left: 10px; color: #ECF1FD;">No comments</p>
+                        <%}%>
+                        <b style="color: rgba(98, 51, 185, 255);">- Likes:</b>
+                        <p style="margin-left: 10px; color: #ECF1FD;"><%= siteInfo.likes %> likes</p>
                     </div>
                 </div>
             </div>
@@ -48,19 +52,19 @@
     </div>
     <div class="info-container">
         <div class="my-info">
-            <h2 style="color: #3c096c">My Information</h2>
+            <h2 style="color: rgba(98, 51, 185, 255);">My Information</h2>
             <div style="display: flex; white-space: nowrap; gap: 5px;" id="my-details">
                 <div style="display: flex; white-space: nowrap; gap: 5px;">
                     <a href="/auth/login" class="href">Log in</a>
-                    <p style="margin-top: 0">or</p>
+                    <p style="margin-top: 0; color: #ECF1FD;">or</p>
                     <a href="/auth/register" class="href">register,</a>
-                    <p style="margin-top: 0">to download your favorite websites.</p>
+                    <p style="margin-top: 0; color: #ECF1FD;">to download your favorite websites.</p>
                 </div>
             </div>
         </div>
 
         <div class="site-info">
-            <h2 style="color: #3c096c">Download Archive</h2>
+            <h2 style="color: rgba(98, 51, 185, 255);">Download Archive</h2>
             <div style="display: flex; gap: 10px; margin: auto 0;" id="download-file">
             </div>
         </div>
@@ -85,7 +89,7 @@
                     </div>
                 <% }); %>
             <% } else {%>
-                <p>No comments found</p>
+                <p style="color: #f3d5b5">No comments found</p>
             <%}%>
         </div>
         <div class="comment-form" id="commentForm">
@@ -101,18 +105,18 @@
                 <img src="../images/logo2.png" class="company-logo">
                 <h3 style="margin: 5px 10px;">HFFreelance</h3>
             </div>
-            <p>Создание современных сайтов для создания нового источника заработка, смены профессии или карьерного роста.</p>
+            <p>Creating modern websites to generate new income sources, change careers, or advance professionally.</p>
         </div>
         <div class="footer-info">
-            <h3>Информация</h3>
-            <a href="/aboutUs">О нас</a>
-            <a href="/rules">Правила использования</a>
-            <a href="/privacyPolicy">Политика конфиденциальности</a>
+            <h3>Information</h3>
+            <a href="/aboutUs">About Us</a>
+            <a href="/rules">Terms of Use</a>
+            <a href="/privacyPolicy">Privacy Policy</a>
         </div>
         <div class="footer-contacts">
             <% if (links) { %>
                 <% links.forEach(linksItem => { %>
-                    <h3>Контакты</h3>
+                    <h3>Contacts</h3>
                     <% if(linksItem.vk) {%>
                         <a href="<%= linksItem.vk %>" target="_blank">VK</a>
                     <%}%>
@@ -128,9 +132,13 @@
                 <% }); %>
             <%}%>
         </div>
+        <div class="contact-us">
+            <h3>Our address</h3>
+            <a href="mailto:типаемейл" style="color: #b7b4be">HFFreelancers@gmail.com</a>
+        </div>
     </div>
     <div class="footer-line"></div>
-    <p class="company-name">&copy; 2024 HFFreelance. Все права защищены. Полное или частичное копирование сайта запрещено.</p>
+    <p class="company-name">&copy; 2024 HFFreelance. All rights reserved. Full or partial copying of the site is prohibited.</p>
 </div>
 </footer>
 <script src="/javascripts/advertising.js"></script>

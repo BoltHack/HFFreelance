@@ -269,6 +269,37 @@ class IndexController {
             next(err)
         }
     }
+    static pofileView = async (req, res, next) => {
+        try {
+            const {id} = req.params;
+            const profile = await UsersModel.findById(id);
+
+            const favoriteIds = profile.favorites.map(favorite => favorite.favId);
+            const favorites = await WebsitesModel.find({ _id: { $in: favoriteIds } });
+
+            const links = await LinksModel.find();
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
+            }
+
+            if (req.cookies['token']) {
+                await authenticateJWT(req, res, () => {
+                    const user = req.user;
+                    if (user.banned[0].banType === true) {
+                        res.redirect('/youAreBanned');
+                    } else {
+                        return res.render(locale === 'en' ? 'en/profile' : 'ru/profile', { user, profile, favorites, locale, links });
+                    }
+                });
+            } else {
+                return res.render(locale === 'en' ? 'en/profile' : 'ru/profile', { profile, favorites, locale, links });
+            }
+        } catch (e) {
+            next(e);
+        }
+    }
 
     static changeImage = async (req, res, next)=>{
         try{
@@ -368,6 +399,7 @@ class IndexController {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
             const reviews = users.flatMap(user => user.reviews.map(review => ({
+                id: user._id,
                 name: user.name,
                 image: user.image,
                 review: review.review,

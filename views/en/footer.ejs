@@ -70,6 +70,10 @@
         /*color: #6c757d;*/
         color: #ECF1FD;
     }
+    .contact-us{
+        gap: 10px;
+        margin-left: 50px;
+    }
 </style>
 
 <footer id="footerSection">
@@ -107,18 +111,24 @@
                     <% }); %>
                 <%}%>
             </div>
+            <div class="contact-us">
+                <h3>Contact us</h3>
+                <a href="mailto:типаемейл" style="color: #b7b4be">HFFreelancers@gmail.com</a>
+            </div>
         </div>
         <div class="line"></div>
-        <p class="company-name">&copy; 2024 HFFreelance. All rights reserved. Full or partial copying of the site is prohibited .</p>
+        <p class="company-name">&copy; 2024 HFFreelance. All rights reserved. Full or partial copying of the site is prohibited.</p>
     </div>
 </footer>
 <script>
     const footerInfoMargin = document.querySelector('.footer-info');
     const footerContactsMargin = document.querySelector('.footer-contacts');
+    const contactUsMargin = document.querySelector('.contact-us');
     const checkRef = localStorage.getItem('ref');
     if (window.location.pathname === '/readyMadeSites' || window.location.pathname === '/readyMadeSites/htmlCssJs' || window.location.pathname === '/readyMadeSites/javascript' || window.location.pathname === '/readyMadeSites/nodeJs' || window.location.pathname === '/readyMadeSites/reactJs' || window.location.pathname === '/readyMadeSites/fullstack'){
         footerInfoMargin.style.marginTop = '-14.5px';
         footerContactsMargin.style.marginTop = '-14.5px';
+        contactUsMargin.style.marginTop = '-14.5px';
     }
 </script>
 <script src="/javascripts/script.js"></script>

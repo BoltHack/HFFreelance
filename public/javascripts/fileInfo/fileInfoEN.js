@@ -32,14 +32,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if(!token){
         myDetails.innerHTML = `
-                    <a href="/auth/login" class="href">Login</a>
-                    <p style="margin-top: 0">or</p>
-                    <a href="/auth/register" class="href">register</a>
-                    <p style="margin-top: 0">to download your favorite sites.</p>`
+                    <a href="/auth/login" class="href" style="color: #8ecae6">Login</a>
+                    <p style="margin-top: 0; color: #ECF1FD;">or</p>
+                    <a href="/auth/register" class="href" style="color: #8ecae6;">register</a>
+                    <p style="margin-top: 0; color: #ECF1FD;">to download your favorite sites.</p>`
 
     }
     else{
-        myDetails.innerHTML = `<a>You are logged in and can download files. Good luck!</a>`
+        myDetails.innerHTML = `<a style="color: #ECF1FD">You are logged in and can download files. Good luck!</a>`
     }
 })
 
@@ -131,7 +131,6 @@ function displayInfo() {
 <div class="new-border">
 <div class="border-data">
     <h2 class="yourAccount">My account</h2>
-    <br>
 <h3>You are not logged in</h3>
 <p>Sign in or create an account.</p>
 <button onclick="login()" class="login-btn">Login</button>
@@ -152,6 +151,11 @@ function displayInfo() {
         document.body.style.overflow = 'auto';
         document.body.removeChild(barrier);
     })
+    document.getElementById('close').addEventListener('click', () => {
+        document.body.removeChild(border);
+        document.body.style.overflowY = 'auto';
+        document.body.removeChild(barrier);
+    })
 }
 
 function pathFileInfo(){
@@ -160,8 +164,5 @@ function pathFileInfo(){
         localStorage.setItem('ref', 'refFileInfo')
     }
 }
-<<<<<<< HEAD
 pathFileInfo();
-=======
-pathFileInfo();
->>>>>>> 5ad1e3999416c27e546a12b8da54e3d57b87ebeb
+

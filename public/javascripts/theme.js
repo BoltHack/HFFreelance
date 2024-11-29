@@ -23,6 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('lightTheme');
         divTheme.checked = false;
     }
+    else if(!theme){
+        localStorage.setItem('theme', 'dark');
+    }
     else{
         document.body.classList.add('lightTheme');
         divTheme.checked = true;

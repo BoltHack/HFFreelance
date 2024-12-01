@@ -182,8 +182,9 @@ body {
     position: fixed;
     top: 0;
     right: 0;
-    background: #fff;
-    border: 1px solid #ddd;
+    /*background: #fff;*/
+    background: #16171d;
+    border: 1px solid #313338;
     padding: 20px;
     width: 400px;
     height: 100vh;
@@ -192,6 +193,9 @@ body {
     opacity: 0;
     transform: translateX(100%);
     animation: slideIn 0.5s forwards;
+}
+.comment-container h3{
+    color: #f3d5b5;
 }
 
 .slide-in{
@@ -229,17 +233,20 @@ body {
     width: 400px;
     height: 500px;
 }
+.comments h3{
+    color: #666;
+}
 .comment-form{
     display: block;
     gap: 10px;
     margin-top: 20px;
-    background: #fff;
+    background-color: #212121;
     position: fixed;
     left: 50%;
     /*top: -2%;*/
     top: 80%;
     transform: translate(-50%);
-    border: 1px solid #ddd;
+    border: 1px solid #313338;
     border-radius: 8px;
     padding: 20px;
     width: 400px;
@@ -250,7 +257,8 @@ body {
     margin-left: 60px;
     width: 250px;
     word-wrap: break-word;
-    color: #666;
+    /*color: #666;*/
+    color: #adb5bd;
     margin-top: -5px;
 }
 .date{
@@ -275,14 +283,19 @@ body {
 
 .input{
     min-width: 350px;
+    background-color: #313338;
+    color: #fff;
 }
 .close{
     cursor: pointer;
     font-size: 20px;
     position: absolute;
     right: 3%;
+    color: #fff;
 }
-
+.no-comments{
+    color: #fff;
+}
 .checkComments img{
     position: absolute;
     top: 20%;
@@ -403,6 +416,30 @@ footer p {
     }
     .auth-info{
         color: black;
+    }
+    .comment-container{
+        background-color: #fff;
+        border: 1px solid #ddd;
+    }
+    .comment-container h3{
+        color: black;
+    }
+    .no-comments{
+        color: black;
+    }
+    .comment-form{
+        background-color: #fff;
+        border: 1px solid #ddd;
+    }
+    .input{
+        background-color: #fff;
+        color: black;
+    }
+    .close{
+        color: black;
+    }
+    .comment{
+        color: #666;
     }
     background-color: #ECF1FD;
 }

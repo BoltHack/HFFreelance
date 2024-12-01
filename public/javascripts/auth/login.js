@@ -41,12 +41,9 @@ document.addEventListener('DOMContentLoaded', function (){
         ev.preventDefault();
 
         if (!email.value || !pwd.value) {
-            // loginErr.innerHTML = 'Пожалуйста, заполните все поля';
             local === 'ru' ? errorMenu('Пожалуйста, заполните все поля') : errorMenu('Please fill in all fields');
             email.style.border = '1px solid #780000';
             pwd.style.border = '1px solid #780000';
-            // togglePassword1.style.top = '53.6%';
-            // togglePassword2.style.top = '53.6%';
             return;
         }
 
@@ -66,25 +63,15 @@ document.addEventListener('DOMContentLoaded', function (){
                 let {error, token, user} = data;
 
                 if (error) {
-                    // loginErr.innerHTML = error;
                     errorMenu(error)
                     email.style.border = '1px solid #780000';
                     pwd.style.border = '1px solid #780000';
-                    // togglePassword1.style.top = '53.6%';
-                    // togglePassword2.style.top = '53.6%';
                     return;
                 }
 
                 if (token) {
-                    // const correctJoin = document.getElementById('correctJoin');
                     loginErr.innerHTML = '';
                     local === 'en' ? successMenu('Successful login!') : successMenu('Успешный вход!');
-                    // if (local === 'en'){
-                    //     correctJoin.innerHTML = '<p>Successful login!</p>'
-                    // }
-                    // else{
-                    //     correctJoin.innerHTML = '<p>Успешный вход!</p>';
-                    // }
                     email.style.border = '1px solid #0d2818';
                     pwd.style.border = '1px solid #0d2818';
                     localStorage.setItem('token', token);

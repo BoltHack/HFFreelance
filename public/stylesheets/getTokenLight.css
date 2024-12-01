@@ -1,9 +1,9 @@
 body{
-    background-color: #212121;
+    background-color: #ECF1FD;
 }
 
 .progress {
-    background-color: #ECF1FD;
+    background-color: #fff;
     width: 300px;
     height: 20px;
     border-radius: 100px;
@@ -47,15 +47,6 @@ body{
     top: 55%;
     left: 50%;
     transform: translate(-50%);
-    color: #edf6f9;
+    color: black;
     display: block;
-}
-.lightTheme{
-    .progress{
-        background-color: #ffffff;
-    }
-    .pi{
-        color: black;
-    }
-    background-color: #ECF1FD;
 }

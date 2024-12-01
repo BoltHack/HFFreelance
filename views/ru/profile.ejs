@@ -138,42 +138,5 @@
 </div>
 <div class="new-barrier" hidden></div>
 <script src="/javascripts/love.js"></script>
-<script>
-    function profileMenu(){
-        const profileMenu = document.getElementById('profileMenu');
-        const favoritesMenu = document.getElementById('favoritesMenu');
-
-        const profileReview = document.getElementById('profileReview');
-        const profileFavorites = document.getElementById('profileFavorites');
-
-        profileMenu.addEventListener('click', () => {
-            profileMenu.style.backgroundColor = '#34495e'
-            favoritesMenu.style.background = 'none'
-            profileFavorites.hidden = true;
-            profileReview.hidden = false;
-            localStorage.setItem('userPersonalAreaMenu', 'profile');
-        })
-        favoritesMenu.addEventListener('click', () => {
-            favoritesMenu.style.backgroundColor = '#34495e'
-            profileMenu.style.background = 'none'
-            profileReview.hidden = true;
-            profileFavorites.hidden = false;
-            localStorage.setItem('userPersonalAreaMenu', 'favorites');
-        })
-        const userPersonalAreaMenu = localStorage.getItem('userPersonalAreaMenu');
-        if (userPersonalAreaMenu === 'profile'){
-            profileMenu.style.backgroundColor = '#34495e'
-            favoritesMenu.style.background = 'none'
-            profileFavorites.hidden = true;
-            profileReview.hidden = false;
-        }
-        else{
-            favoritesMenu.style.backgroundColor = '#34495e'
-            profileMenu.style.background = 'none'
-            profileReview.hidden = true;
-            profileFavorites.hidden = false;
-        }
-    }
-    profileMenu()
-</script>
+<script src="/javascripts/usersProfile.js"></script>
 

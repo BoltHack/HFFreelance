@@ -241,7 +241,9 @@ details ul li a:hover {
 }
 
 .slider {
-    --background: #28096b;
+    /*--background: #28096b;*/
+    --background: #1c1c23;
+    /*--background: #151216;*/
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -266,10 +268,10 @@ details ul li a:hover {
     transition: .5s;
 }
 
-input:checked + .slider {
+/*input:checked + .slider {*/
     /*background-color: #522ba7;*/
-    background-color: #28096b;
-}
+    /*background-color: #28096b;*/
+/*}*/
 
 input:checked + .slider:before {
     transform: translateX(100%);

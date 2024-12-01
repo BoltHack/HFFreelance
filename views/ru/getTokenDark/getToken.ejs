@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Готовые Сайты | Проверка</title>
-    <link rel="stylesheet" href="/stylesheets/getToken.css">
+    <link rel="stylesheet" href="/stylesheets/getTokenDark.css">
     <link rel="icon" type="image/png" href="/images/logo2.png">
 </head>
 <body>
@@ -14,18 +14,18 @@
 <p class="pi">Загрузка страницы...</p>
 <script src="/javascripts/token.js"></script>
 <script>
-    function theme(){
+    document.addEventListener('DOMContentLoaded', () => {
         const theme = localStorage.getItem('theme');
         if (theme === 'dark') {
             document.body.classList.remove('lightTheme');
-            divTheme.checked = false;
+        }
+        else if(!theme){
+            localStorage.setItem('theme', 'dark');
         }
         else{
             document.body.classList.add('lightTheme');
-            divTheme.checked = true;
         }
-    }
-    theme();
+    })
 </script>
 </body>
 </html>

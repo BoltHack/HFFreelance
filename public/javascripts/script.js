@@ -155,6 +155,7 @@ function logout() {
             localStorage.removeItem('favorites');
             localStorage.removeItem('session');
             localStorage.removeItem('sessionEndTime');
+            localStorage.removeItem('menus');
             window.location.href = "/auth/login";
             return;
         }
@@ -162,12 +163,6 @@ function logout() {
 }
 
 function checkTokenFunc() {
-    const token = localStorage.getItem('token');
-
-    if(!token){
-        displayInfo();
-    }
-    else{
         const barrier = document.createElement('barrier');
         const border = document.createElement('border');
         const locale = localStorage.getItem('local');
@@ -215,7 +210,7 @@ function checkTokenFunc() {
             document.body.removeChild(border);
             document.body.style.overflowY = 'auto';
         })
-    }
+
 }
 
 function moreDetails() {

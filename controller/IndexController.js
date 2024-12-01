@@ -167,15 +167,17 @@ class IndexController {
     static getTokenView = (req, res, next) => {
         try{
             let locale = req.cookies['locale'] || 'en';
+            let theme = req.cookies['theme'] || 'dark';
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
             if (locale === 'en'){
-                return res.render('en/getToken');
+                return res.render(theme === 'dark' ? 'en/getTokenDark/getToken' : 'en/getTokenLight/getToken');
+                // return res.render('en/getToken');
             }
             else{
-                return res.render('ru/getToken');
+                return res.render(theme === 'dark' ? 'ru/getTokenDark/getToken' : 'ru/getTokenLight/getToken');
             }
         }catch (err){
             next(err)
@@ -269,7 +271,7 @@ class IndexController {
             next(err)
         }
     }
-    static pofileView = async (req, res, next) => {
+    static profileView = async (req, res, next) => {
         try {
             const {id} = req.params;
             const profile = await UsersModel.findById(id);
@@ -573,6 +575,20 @@ class IndexController {
             res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000 });
 
             res.json({ locale });
+        } catch (err) {
+            console.error('Ошибка:', err);
+            res.status(500).json({ error: err.message });
+        }
+    };
+
+    static changeTheme = async (req, res) => {
+        try {
+            let theme = req.cookies['theme'] || 'dark';
+
+            theme = theme === 'dark' ? 'light' : 'dark';
+            res.cookie('theme', theme, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000 });
+
+            res.json({ theme });
         } catch (err) {
             console.error('Ошибка:', err);
             res.status(500).json({ error: err.message });

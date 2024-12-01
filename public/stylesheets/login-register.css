@@ -174,7 +174,9 @@ body {
 .remember-me{
     color: #adb5bd;
 }
-
+.expired-message{
+    color: #adb5bd;
+}
 .lightTheme{
     .log-card{
         background-color: #ECF1FD;
@@ -196,6 +198,12 @@ body {
     }
     .input{
         background-color: #ECF1FD;
+    }
+    .expired-message{
+        color: black;
+    }
+    .remember-me{
+        color: black;
     }
     background-color: #ECF1FD;
 }

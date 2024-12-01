@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /*background-color: #f4f4f4;*/
+            background-color: #212121;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -18,7 +18,7 @@
         }
 
         .container {
-            background-color: #ffffff;
+            background-color: #16171d;
             padding: 20px 30px;
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
@@ -29,7 +29,7 @@
         }
 
         h1 {
-            color: #e74c3c;
+            color: #f3d5b5;
             font-size: 24px;
             margin-bottom: 20px;
         }
@@ -38,6 +38,7 @@
             margin: 20px 0;
             font-size: 1.1em;
             line-height: 1.6;
+            color: #adb5bd;
         }
 
         form {
@@ -87,6 +88,9 @@
             color: #2980b9;
         }
 
+        .description{
+            color: #f1faee;
+        }
         .description,
         .banMessage {
             word-wrap: break-word;
@@ -214,10 +218,91 @@
             color: var(--color);
             border-radius: var(--border-radius);
         }
+        b{
+            color: #f1faee;
+        }
+
+        .theme{
+            position: absolute;
+            top: 5%;
+            left: 1%;
+            transform: translate(0, -50%);
+        }
+
+        .switch {
+            font-size: 17px;
+            position: relative;
+            display: inline-block;
+            width: 3.5em;
+            height: 2em;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            --background: #1c1c23;
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--background);
+            transition: .5s;
+            border-radius: 30px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 1.4em;
+            width: 1.4em;
+            border-radius: 50%;
+            left: 10%;
+            bottom: 15%;
+            box-shadow: inset 8px -4px 0px 0px #fff000;
+            background: var(--background);
+            transition: .5s;
+        }
+
+        input:checked + .slider {
+            background-color: #fff;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(100%);
+            box-shadow: inset 15px -4px 0px 15px #fff000;
+        }
+
+        .lightTheme{
+            .container{
+                background-color: #fff;
+            }
+            p{
+                color: black;
+            }
+            b{
+                color: #666;
+            }
+            h1{
+                color: #e74c3c;
+            }
+            background-color: #ECF1FD;
+        }
     </style>
 </head>
 
 <body>
+<div class="theme">
+    <label class="switch">
+        <input type="checkbox" id="theme">
+        <span class="slider"></span>
+    </label>
+</div>
 <div class="dropdown" id="local" style="position: absolute; top: 0; right: 1%;">
     <div class="dropdown-title">
         <img src="/images/russia-flag.png" style="width: 40px; height: 40px;">
@@ -295,5 +380,6 @@
     }
 </script>
 <script src="/javascripts/local.js"></script>
+<script src="/javascripts/theme.js"></script>
 </body>
 </html>

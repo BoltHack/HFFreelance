@@ -139,7 +139,9 @@ function perms(){
         profile.hidden = false;
         myReview.hidden = false;
         news.hidden = true;
-        localStorage.setItem('personalAreaMenu', 'profile');
+        const menus = JSON.parse(localStorage.getItem('menus') || '{}');
+        menus.personalAreaMenu = 'profile';
+        localStorage.setItem('menus', JSON.stringify(menus));
     })
 
     newsMenu.addEventListener('click', () => {
@@ -148,10 +150,12 @@ function perms(){
         news.hidden = false;
         profile.hidden = true;
         myReview.hidden = true;
-        localStorage.setItem('personalAreaMenu', 'news');
+        const menus = JSON.parse(localStorage.getItem('menus') || '{}');
+        menus.personalAreaMenu = 'news';
+        localStorage.setItem('menus', JSON.stringify(menus));
     })
-    const personalAreaMenu = localStorage.getItem('personalAreaMenu');
-    if (personalAreaMenu === 'profile'){
+    const personalAreaMenu = JSON.parse(localStorage.getItem('menus') || '{}');
+    if (personalAreaMenu.personalAreaMenu === 'profile'){
         profileMenu.style.backgroundColor = '#34495e'
         newsMenu.style.background = 'none'
         profile.hidden = false;
@@ -220,8 +224,6 @@ document.getElementById('changePasswordBtn').addEventListener(function () {
         .catch(error => {
             console.error('Ошибка:', error);
         });
-<<<<<<< HEAD
 })
-=======
-})
->>>>>>> db68649d5549f112df8cbd63dfa2a0b7fdc5cab9
+
+

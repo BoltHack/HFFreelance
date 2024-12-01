@@ -71,21 +71,25 @@ const commentContainer = document.querySelector('.comment-container');
 
 function offCommentMenu(){
     commentContainer.classList.add('slide-out');
-    localStorage.setItem('commentsMenu', 'false');
     setTimeout(function (){
         commentContainer.classList.remove('slide-out');
         commentMenu.style.display = 'none';
         checkComments.style.display = 'block';
-    }, 500)
+    }, 500);
+    const menus = JSON.parse(localStorage.getItem('menus') || '{}');
+    menus.commentsMenu = false;
+    localStorage.setItem('menus', JSON.stringify(menus));
 }
 function onCommentMenu(){
-    localStorage.setItem('commentsMenu', 'true');
     checkComments.style.display = 'none';
     commentMenu.style.display = 'block';
+    const menus = JSON.parse(localStorage.getItem('menus') || '{}');
+    menus.commentsMenu = true;
+    localStorage.setItem('menus', JSON.stringify(menus));
 }
 function checkCommentsMenu(){
-    const commentsMenu = localStorage.getItem('commentsMenu');
-    if (commentsMenu === 'true'){
+    const menus = JSON.parse(localStorage.getItem('menus') || '{}');
+    if (menus.commentsMenu === true){
         commentMenu.style.display = 'block';
         checkComments.style.display = 'none';
     }

@@ -70,21 +70,25 @@ const commentContainer = document.querySelector('.comment-container');
 
 function offCommentMenu(){
     commentContainer.classList.add('slide-out');
-    localStorage.setItem('commentsMenu', 'false');
     setTimeout(function (){
         commentContainer.classList.remove('slide-out');
         commentMenu.style.display = 'none';
         checkComments.style.display = 'block';
-    }, 500)
+    }, 500);
+    const menus = JSON.parse(localStorage.getItem('menus') || '{}');
+    menus.commentsMenu = false;
+    localStorage.setItem('menus', JSON.stringify(menus));
 }
 function onCommentMenu(){
-    localStorage.setItem('commentsMenu', 'true');
     checkComments.style.display = 'none';
     commentMenu.style.display = 'block';
+    const menus = JSON.parse(localStorage.getItem('menus') || '{}');
+    menus.commentsMenu = true;
+    localStorage.setItem('menus', JSON.stringify(menus));
 }
 function checkCommentsMenu(){
-    const commentsMenu = localStorage.getItem('commentsMenu');
-    if (commentsMenu === 'true'){
+    const menus = JSON.parse(localStorage.getItem('menus') || '{}');
+    if (menus.commentsMenu === true){
         commentMenu.style.display = 'block';
         checkComments.style.display = 'none';
     }
@@ -103,7 +107,7 @@ function commentForm(){
 <form action="/sendCommentsPost/${infoId}" method="POST" id="commentForm">
                 <div style="display: flex; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
                     <input type="text" id="message" name="message" placeholder="Написать комментарий" class="input" maxlength="150" required>
-                    <button type="submit" id="sendComment" style="background: none; border: none"><img src="/images/send.png" style="width: 25px; height: 25px; cursor:pointer;"></button>
+                    <button type="submit" id="sendComment" style="background: none; border: none; mix-blend-mode: multiply;"><img src="/images/send.png" style="width: 25px; height: 25px; background: none; cursor:pointer;"></button>
                 </div>
             </form>
 `

@@ -114,11 +114,13 @@ function commentForm(){
     }
     else{
         commentForm.innerHTML = `
-            <div style="display: flex; gap: 5px; justify-content: center; text-align: center; align-items: center; word-break: break-word">
-                <a href="/auth/login" class="href">Login</a>
-                <p>or</p>
-                <a href="/auth/register" class="href">register</a>
-                <p>to write comments.</p>
+            <div style="display: block; gap: 5px;">
+                <div style="display: flex; justify-content: center; gap: 5px">
+                    <a href="/auth/login" class="href">Login</a>
+                    <p style="margin-top: 0" class="auth-info">or</p>
+                    <a href="/auth/register" class="href">register</a>
+                </div>
+                <p style="text-align: center; margin-top: -3px" class="auth-info">to write comments.</p>
             </div>
                  `
     }

@@ -117,10 +117,10 @@ function commentForm(){
             <div style="display: block; gap: 5px;">
                 <div style="display: flex; justify-content: center; gap: 5px">
                     <a href="/auth/login" class="href">Войдите</a>
-                    <p style="margin-top: 0">или</p>
+                    <p style="margin-top: 0" class="auth-info">или</p>
                     <a href="/auth/register" class="href">зарегистрируйтесь,</a>
                 </div>
-                <p style="text-align: center; margin-top: -3px">чтобы писать комментарии.</p>
+                <p style="text-align: center; margin-top: -3px" class="auth-info">чтобы писать комментарии.</p>
             </div>
                  `
     }

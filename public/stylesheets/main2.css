@@ -6,6 +6,7 @@ body{
     display: grid;
     /*background-color: #ECF1FD;*/
     background-color: #212121;
+    /*background-color: #101218;*/
     grid-template-rows: auto 1fr auto;
     transition: background-color 0.3s ease;
 }

@@ -4,6 +4,7 @@ const {LinksModel} = require("../models/LinksModel");
 const {WebsitesModel} = require("../models/WebSitesModel");
 const {authenticateJWT} = require('../middlewares/jwtAuth');
 const bcrypt = require("bcrypt");
+const mongoose = require('mongoose');
 
 
 class IndexController {
@@ -226,6 +227,12 @@ class IndexController {
     static fileInfoView = async (req, res, next) => {
         try{
             const {id} = req.params;
+
+            if (!mongoose.Types.ObjectId.isValid(id)) {
+                const errorMsg = req.cookies['locale'] === 'en' ? 'Page not found.' : 'Страница не найдена.';
+                return res.redirect(`/error?message=${encodeURIComponent(errorMsg)}`);
+            }
+
             const siteInfo = await WebsitesModel.findById(id);
 
             let locale = req.cookies['locale'] || 'en';

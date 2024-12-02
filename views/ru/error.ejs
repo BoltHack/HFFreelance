@@ -8,7 +8,8 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #dadde2;
+            background-color: #212121;
+            /*background-color: #dadde2;*/
             margin: 0;
             padding: 0;
             display: flex;
@@ -22,7 +23,8 @@
         }
 
         .error-box {
-            background-color: #fff;
+            background-color: #16171d;
+            border: 1px solid #313338;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -32,8 +34,12 @@
             word-wrap: break-word;
         }
 
+        h2{
+            color: #761c19;
+        }
         .error-box h4 {
-            color: #d9534f;
+            /*color: #d9534f;*/
+            color: #ECF1FD;
         }
 
         .error-box pre {
@@ -47,7 +53,8 @@
             display: inline-block;
             margin-top: 20px;
             padding: 10px 20px;
-            background-color: #5cb85c;
+            /*background-color: #5cb85c;*/
+            background-color: #283618;
             color: #fff;
             text-decoration: none;
             border-radius: 5px;
@@ -58,9 +65,84 @@
             background-color: #4cae4c;
         }
 
+        .theme{
+            position: absolute;
+            top: 5%;
+            left: 1%;
+            transform: translate(0, -50%);
+        }
+
+        .switch {
+            font-size: 17px;
+            position: relative;
+            display: inline-block;
+            width: 3.5em;
+            height: 2em;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            --background: #1c1c23;
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--background);
+            transition: .5s;
+            border-radius: 30px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 1.4em;
+            width: 1.4em;
+            border-radius: 50%;
+            left: 10%;
+            bottom: 15%;
+            box-shadow: inset 8px -4px 0px 0px #fff000;
+            background: var(--background);
+            transition: .5s;
+        }
+
+        input:checked + .slider {
+            background-color: #fff;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(100%);
+            box-shadow: inset 15px -4px 0px 15px #fff000;
+        }
+
+        .lightTheme{
+            .error-box{
+                background-color: #fff;
+                border: 1px solid #ECF1FD;
+            }
+            h4{
+                color: black;
+            }
+            .home-link{
+                background-color: #5cb85c;
+            }
+            background-color: #ECF1FD;
+        }
     </style>
 </head>
 <body>
+<div class="theme">
+    <label class="switch">
+        <input type="checkbox" id="theme">
+        <span class="slider"></span>
+    </label>
+</div>
 <div class="container">
     <div class="error-box">
         <h2>Возникла ошибка</h2>
@@ -69,5 +151,6 @@
     <a href="/" class="home-link">На главную</a>
     <a href="#" class="home-link" onclick="window.history.back()">Назад</a>
 </div>
+<script src="/javascripts/theme.js"></script>
 </body>
 </html>

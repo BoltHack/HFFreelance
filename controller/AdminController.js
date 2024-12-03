@@ -3,7 +3,6 @@ const {NewsModel} = require("../models/NewsSchema");
 const {LinksModel} = require("../models/LinksModel");
 const {WebsitesModel} = require("../models/WebSitesModel");
 const {AdvertisingModel} = require("../models/AdvertisingModel");
-const {ReportsModel} = require("../models/ReportsModel");
 const bcrypt = require("bcrypt");
 const HttpErrors = require("http-errors");
 
@@ -75,14 +74,6 @@ class AdminController {
     static createAdvertisingAdmin = async (req, res, next) => {
         try{
             return res.render('admin/createAdvertising',);
-        }catch(err){
-            next(err)
-        }
-    }
-    static reportsAdmin = async (req, res, next) => {
-        try{
-            const reports = await ReportsModel.find();
-            return res.render('admin/reports', {reports});
         }catch(err){
             next(err)
         }

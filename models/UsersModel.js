@@ -23,15 +23,8 @@ const RequestBanSchema = new Schema({
     banType: { type: Boolean, default: false},
     reason: {type: String, default: ''},
     description: {type: String, default: ''},
-    // author: {type: String, default: ''},
     author: [AuthorSchema],
     date: {type: String, default: dateOnly}
-});
-
-const ReportsSchema = new Schema({
-    name: { type: String},
-    reason: { type: String},
-    date: {type: String}
 });
 
 const RequestUnbanSchema = new Schema({
@@ -80,10 +73,6 @@ const UsersSchema = new Schema({
         type: [FavoritesSchema],
         default: []
     },
-    reports: {
-        type: [ReportsSchema],
-        default: []
-    }
 });
 
 const UsersModel = model('user', UsersSchema);

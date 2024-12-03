@@ -18,7 +18,6 @@
             <br>
             <h4>Other</h4>
             <li><a href="/">Main Menu</a></li>
-            <li><a onclick="reportMenu()" style="cursor: pointer">Report</a></li>
         </ul>
     </aside>
 
@@ -29,7 +28,7 @@
                 <div class="profile-info">
                     <img src="data:image/png;base64,<%= profile.image %>" class="profile-pic" id="userImage" style="cursor: pointer">
                     <div class="zoomImageDiv" id="zoomImageDiv" hidden>
-                        <img src="" class="zoomImage" id="zoomImage">
+                        <img src="data:image/png;base64,<%= profile.image %>" class="zoomImage" id="zoomImage">
                     </div>
                     <div class="pers-info">
                         <h2><%= profile.name %></h2>

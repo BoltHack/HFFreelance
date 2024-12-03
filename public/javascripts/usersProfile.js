@@ -36,5 +36,17 @@ function profileMenu(){
         profileReview.hidden = true;
         profileFavorites.hidden = false;
     }
+
+    const userImage = document.getElementById('userImage');
+    const zoomImageDiv = document.getElementById('zoomImageDiv');
+    const barrier = document.querySelector('.new-barrier');
+    userImage.addEventListener('click', () => {
+        zoomImageDiv.hidden = false;
+        barrier.hidden = false;
+    });
+    barrier.addEventListener('click', () => {
+        barrier.hidden = true;
+        zoomImageDiv.hidden = true;
+    });
 }
 profileMenu()

@@ -189,16 +189,16 @@ document.addEventListener('DOMContentLoaded', () => {
                                 if (response.ok) {
                                     let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-                                    const favoritesIndex = favorites.findIndex(item => item.favId === deleteId)
+                                    const favoritesIndex = favorites.findIndex(item => item.favId === deleteId);
 
                                     if(favoritesIndex !== -1){
                                         favorites.splice(favoritesIndex, 1);
                                     }
 
-                                    localStorage.setItem('favorites', JSON.stringify(favorites))
-                                    // window.location.reload()
+                                    localStorage.setItem('favorites', JSON.stringify(favorites));
                                     favContainer.style.display = 'none';
-                                    successMenu(`${deleteName} успешно удалён из избранного!`);
+                                    const message = local === 'ru' ? `${deleteName} успешно удалён из избранного!`: `${deleteName} has been successfully removed from favorites!`;
+                                    successMenu(message);
                                 }
                             })
                             .catch(error => {
@@ -240,6 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function successMenu(text) {
+    const success = local === 'ru' ? 'Выполнено!' : 'Success!';
     const alert = document.createElement('div');
     alert.innerHTML = `
 <div class="success-card" id="successCard">
@@ -265,7 +266,7 @@ function successMenu(text) {
     </svg>
   </div>
   <div class="success-message-text-container">
-    <p class="success-message-text">Выполнено!</p>
+    <p class="success-message-text">${success}</p>
     <p class="success-sub-text">${text}</p>
   </div>
   <svg id="closeSuccessMenu"
@@ -305,6 +306,7 @@ function successMenu(text) {
     })
 }
 function errorMenu(text) {
+    const error = local === 'ru' ? 'Ошибка!' : 'Error!';
     const alert = document.createElement('div');
     alert.innerHTML = `
 <div class="error-card" id="errorCard">
@@ -330,7 +332,7 @@ function errorMenu(text) {
     </svg>
   </div>
   <div class="error-message-text-container">
-    <p class="error-message-text">Ошибка!</p>
+    <p class="error-message-text">${error}</p>
     <p class="error-sub-text">${text}</p>
   </div>
   <svg

@@ -43,7 +43,7 @@
         <ul class="ul">
             <% if (favorites && favorites.length > 0) { %>
                 <% favorites.forEach(favorite => { %>
-                    <li class="project">
+                    <li class="project" id="fav-container-<%= favorite._id %>">
                         <img src="data:image/jpeg;base64,<%= favorite.fileImg %>" class="img">
                         <div class="sites-info">
                             <p><%= favorite.title %></p>
@@ -85,7 +85,7 @@
                     </li>
                 <% }); %>
             <% } else { %>
-                <li style="color: #f3d5b5">No favorites.</li>
+                <li class="not-found">No favorites.</li>
             <% } %>
         </ul>
     </div>

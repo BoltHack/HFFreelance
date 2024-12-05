@@ -87,7 +87,6 @@ document.addEventListener('DOMContentLoaded', function (){
                     else{
                         localStorage.setItem('session', 'false');
                     }
-                    localStorage.setItem('theme', 'dark');
                     setTimeout(function () {
                         window.location.href = `/`;
                         setTimeout(function () {

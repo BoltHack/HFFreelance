@@ -337,7 +337,7 @@ footer {
     bottom: 0;
 }
 footer h3{
-    color: #f3d5b5
+    color: #f3d5b5;
 }
 footer a {
     color: #ECF1FD;
@@ -348,7 +348,7 @@ footer a:hover{
     text-decoration: underline;
 }
 footer p {
-    color: #F2F2F2
+    color: #F2F2F2;
 }
 .footer-links {
     display: flex;
@@ -401,14 +401,14 @@ footer p {
         border: 1px solid #fff;
     }
     .info p{
-        color: #666
+        color: #666;
     }
     .my-info{
         background-color: #fff;
         border: 1px solid #fff;
     }
     .you-are-auth{
-        color: black
+        color: black;
     }
     .site-info{
         background-color: #fff;

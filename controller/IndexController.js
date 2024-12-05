@@ -246,18 +246,6 @@ class IndexController {
                 return res.redirect(`/error?message=${encodeURIComponent(errorMsg)}`);
             }
 
-            const viewedPages = req.cookies['viewedPages'] || [];
-
-            if (!viewedPages.includes(id)) {
-                await WebsitesModel.findByIdAndUpdate(id, {
-                    $set: { views: (siteInfo.views || 0) + 1 }
-                });
-
-                viewedPages.push(id);
-                res.cookie('viewedPages', viewedPages, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000 });
-            }
-
-
             const links = await LinksModel.find();
 
             if (req.cookies['token']) {
@@ -662,25 +650,16 @@ class IndexController {
 
             const likeSite = await WebsitesModel.findById(id);
 
-            const likeCheck = req.cookies['likeCheck'] || [];
-
-            if (!likeCheck.includes(id)) {
-                await WebsitesModel.findByIdAndUpdate(id, {
-                    $set: { likes: (likeSite.likes || 0) + 1 }
-                });
-
-                likeCheck.push(id);
-                res.cookie('likeCheck', likeCheck, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000 });
-            }
+            await WebsitesModel.findByIdAndUpdate(id, {
+                $set: { likes: (likeSite.likes || 0) + 1 }
+            });
 
             if (!userId.favorites.some(fav => fav.favId.toString() === id.toString())) {
                 userId.favorites.push({favId: id});
                 await userId.save();
             }
 
-            res.send(`
-            <script>window.history.back()</script>
-            `)
+            res.status(200).json({message: "Элемент успешно добавлен!"})
         }catch(err){
             console.error('Ошибка:', err);
             res.status(500).json({ error: err.message });
@@ -700,16 +679,12 @@ class IndexController {
                 $set: { likes: (dislikeSite.likes || 0) - 1 }
             });
 
-            res.clearCookie('likeCheck');
-
             if (userId.favorites.some(favorite => favorite.favId.toString() === id.toString())) {
                 userId.favorites = userId.favorites.filter(favorite => favorite.favId.toString() !== id.toString());
                 await userId.save();
             }
 
-            res.send(`
-            <script>window.history.back()</script>
-            `)
+            res.status(200).json({message: "Элемент успешно удалён!"})
         }catch(err){
             console.error('Ошибка:', err);
             res.status(500).json({ error: err.message });

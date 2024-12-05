@@ -10,17 +10,17 @@ divTheme.addEventListener('change', () => {
             if (response.ok) {
                 if (divTheme.checked){
                     localStorage.setItem('theme', 'light');
-                    setTimeout(function (){
-                        window.location.reload();
-                    }, 500);
-                    console.log('Светлый режим');
+                    document.body.classList.add('lightTheme');
+                    // setTimeout(function (){
+                    //     window.location.reload();
+                    // }, 500);
                 }
                 else{
                     localStorage.setItem('theme', 'dark');
-                    setTimeout(function (){
-                        window.location.reload();
-                    }, 500);
-                    console.log('Тёмный режим');
+                    document.body.classList.remove('lightTheme');
+                    // setTimeout(function (){
+                    //     window.location.reload();
+                    // }, 500);
                 }
             } else {
                 response.json().then(errorMessage => {
@@ -40,11 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (theme === 'dark') {
         document.body.classList.remove('lightTheme');
         divTheme.checked = false;
-    }
-    else if(!theme){
+    } else if (!theme) {
         localStorage.setItem('theme', 'dark');
-    }
-    else{
+    } else {
         document.body.classList.add('lightTheme');
         divTheme.checked = true;
     }

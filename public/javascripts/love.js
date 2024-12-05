@@ -163,7 +163,9 @@ document.addEventListener('DOMContentLoaded', () => {
     deleteFavoritesButton.forEach(button => {
         button.addEventListener('click', function () {
             const deleteId = this.getAttribute('data-deleteFav');
+            const deleteName = this.getAttribute('data-title');
             const deleteFav = document.getElementById('deleteFav-'+deleteId);
+            const favContainer = document.getElementById('fav-container-'+deleteId);
             const load = document.getElementById('load-'+deleteId);
 
             deleteFav.hidden = true;
@@ -194,7 +196,9 @@ document.addEventListener('DOMContentLoaded', () => {
                                     }
 
                                     localStorage.setItem('favorites', JSON.stringify(favorites))
-                                    window.location.reload()
+                                    // window.location.reload()
+                                    favContainer.style.display = 'none';
+                                    successMenu(`${deleteName} успешно удалён из избранного!`);
                                 }
                             })
                             .catch(error => {

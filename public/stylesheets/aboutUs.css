@@ -52,15 +52,16 @@ h2 {
     width: 1em;
     margin-left: -1em;
 }
+
 .lightTheme{
     .ab-info h2{
         color: black;
     }
     .ab-info h3{
-        color: #333
+        color: #333;
     }
     .ab-info p {
-        color: black
+        color: black;
     }
     .ab-info li{
         color: #666;

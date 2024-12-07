@@ -260,17 +260,23 @@ body {
 }
 .news-content, .news-title{
     word-wrap: break-word;
+}
+.news-title{
     color: #fff;
 }
 .news-content{
-    color: #adb5bd;
+    color: #d8e2dc;
 }
 .news h2 {
     color: #f3d5b5;
 }
 .date{
-    text-align: end;
     color: #adb5bd;
+}
+.time{
+    color: #adb5bd;
+    margin: 3px 5px;
+    font-size: 14px;
 }
 
 .yes-btn{

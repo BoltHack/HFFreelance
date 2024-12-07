@@ -6,7 +6,6 @@ const {authenticateJWT} = require('../middlewares/jwtAuth');
 const bcrypt = require("bcrypt");
 const mongoose = require('mongoose');
 
-
 class IndexController {
     static mainView = async (req, res, next) => {
         try {
@@ -564,9 +563,31 @@ class IndexController {
 
     static changeLocal = async (req, res) => {
         try {
-            let locale = req.cookies['locale'] || 'en';
+            const {locale} = req.params;
+            // let locale = req.cookies['locale'] || 'en';
 
-            locale = locale === 'en' ? 'ru' : 'en';
+            // locale = locale === 'en' ? 'ru' : 'en';
+            res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000 });
+
+            res.json({ locale });
+        } catch (err) {
+            console.error('Ошибка:', err);
+            res.status(500).json({ error: err.message });
+        }
+    };
+
+    static changeLocalAuth = async (req, res) => {
+        try {
+            // let locale = req.cookies['locale'] || 'en';
+            const {id} = req.params;
+            const {locale} = req.params;
+            await UsersModel.findByIdAndUpdate(
+                id,
+                {locale: locale},
+                {new: true}
+            )
+
+            // locale = locale === 'en' ? 'ru' : 'en';
             res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000 });
 
             res.json({ locale });
@@ -584,27 +605,6 @@ class IndexController {
             res.cookie('theme', theme, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000 });
 
             res.json({ theme });
-        } catch (err) {
-            console.error('Ошибка:', err);
-            res.status(500).json({ error: err.message });
-        }
-    };
-
-
-    static changeLocalAuth = async (req, res) => {
-        try {
-            let locale = req.cookies['locale'] || 'en';
-            const {id} = req.params;
-            await UsersModel.findByIdAndUpdate(
-                id,
-                {locale: locale === 'en' ? 'ru' : 'en'},
-                {new: true}
-            )
-
-            locale = locale === 'en' ? 'ru' : 'en';
-            res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000 });
-
-            res.json({ locale });
         } catch (err) {
             console.error('Ошибка:', err);
             res.status(500).json({ error: err.message });

@@ -68,33 +68,40 @@ function headerColor(){
     const reactJs = document.getElementById('reactJsColor');
     const favorites = document.getElementById('favoritesColor');
     const favoritesHeader = document.getElementById('favoritesHeader');
+
     if (window.location.pathname === '/readyMadeSites'){
-        // allSites.style.color = '#a2a8d3'
-        allSites.style.backgroundColor = '#ddd'
+        allSites.style.color = 'white';
+        allSites.style.backgroundColor = 'black';
     }
     if (window.location.pathname === '/readyMadeSites/html-css-js'){
-        // htmlCssJs.style.color = '#a2a8d3'
-        htmlCssJs.style.backgroundColor = '#ddd'
+        htmlCssJs.style.color = 'white';
+        htmlCssJs.style.backgroundColor = 'black';
     }
     if (window.location.pathname === '/readyMadeSites/javascript'){
-        // javascript.style.color = '#a2a8d3'
-        javascript.style.backgroundColor = '#ddd'
+        javascript.style.color = 'white';
+        javascript.style.backgroundColor = 'black';
     }
     if (window.location.pathname === '/readyMadeSites/fullstack'){
-        // fullstack.style.color = '#a2a8d3'
-        fullstack.style.backgroundColor = '#ddd'
+        fullstack.style.color = 'white';
+        fullstack.style.backgroundColor = 'black';
     }
     if (window.location.pathname === '/readyMadeSites/nodeJs'){
-        // nodeJs.style.color = '#a2a8d3'
-        nodeJs.style.backgroundColor = '#ddd'
+        nodeJs.style.color = 'white';
+        nodeJs.style.backgroundColor = 'black';
     }
     if (window.location.pathname === '/readyMadeSites/reactJs'){
-        // reactJs.style.color = '#a2a8d3'
-        reactJs.style.backgroundColor = '#ddd'
+        reactJs.style.color = 'white';
+        reactJs.style.backgroundColor = 'black';
     }
     if (window.location.pathname === '/readyMadeSites/favorites'){
-        favoritesHeader.style.color = '#a2a8d3'
-        favorites.style.backgroundColor = '#ddd'
+        favoritesHeader.style.color = '#a2a8d3';
+        favorites.style.backgroundColor = 'black';
+        favorites.style.color = 'white';
+    }
+    const details = document.getElementById('details');
+    const token = localStorage.getItem('token');
+    if (token){
+        details.style.right = '3%';
     }
 }
 headerColor();

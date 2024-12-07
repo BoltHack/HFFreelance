@@ -397,10 +397,6 @@ ul {
     .r-info{
         display: none;
     }
-    .reviews-gradient{
-        text-align: start;
-        margin: 0 150px;
-    }
     .moreReviews{
         display: block;
         margin-right: 1000px;

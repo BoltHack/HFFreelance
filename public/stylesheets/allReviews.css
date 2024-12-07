@@ -3,7 +3,6 @@ body {
     margin: 0;
     padding: 0;
     background-color: #212121;
-    transition-duration: 0.6s;
 }
 
 .container {
@@ -14,27 +13,23 @@ body {
     background-color: #16171d;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    transition-duration: 0.6s;
 }
 
 h1 {
     text-align: center;
     color: #f3d5b5;
-    transition-duration: 0.6s;
 }
 
 .review h2 {
     margin: 0;
     font-size: 1.2em;
     color: #555;
-    transition-duration: 0.6s;
 }
 
 .review p {
     margin: 10px 0 0;
     color: #777;
     line-height: 1.6;
-    transition-duration: 0.6s;
 }
 .r-container{
     display: flex;
@@ -46,7 +41,6 @@ h1 {
     position: relative;
     left: 50%;
     transform: translate(-50%);
-    transition-duration: 0.6s;
 }
 .r-info{
     padding: 20px;
@@ -56,12 +50,10 @@ h1 {
     flex-wrap: wrap;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    transition-duration: 0.6s;
 }
 .r-comment {
     color: #e5e5e5;
     word-wrap: break-word;
-    transition-duration: 0.6s;
 }
 .send-reviews{
     background-color: #468faf;
@@ -74,70 +66,54 @@ h1 {
     position: relative;
     left: 50%;
     transform: translate(-50%);
-    transition-duration: 0.6s;
 }
 .send-reviews:hover{
     background-color: #012a4a;
-    transition-duration: 0.6s;
 }
 .r-name{
     color: #8ecae6;
-    transition-duration: 0.6s;
 }
 .main-image{
     width: 120px;
     height: 120px;
     border-radius: 100px;
-    transition-duration: 0.6s;
 }
 .grade{
     display: flex;
     justify-content: center;
-    transition-duration: 0.6s;
 }
 .grade-data{
     display: block;
     gap: 5px;
     justify-content: center;
-    transition-duration: 0.6s;
 }
 .check-profile{
     color: #219ebc;
-    transition-duration: 0.6s;
 }
 .check-profile:hover{
     color: #8ecae6;
-    transition-duration: 0.6s;
 }
 .r-date{
     color: #e5e5e5;
-    transition-duration: 0.6s;
 }
 .lightTheme{
     .container{
         background-color: #fff;
-        transition-duration: 0.6s;
     }
     h1{
         color: black;
-        transition-duration: 0.6s;
     }
     .r-info{
         background-color: #fff;
-        transition-duration: 0.6s;
     }
     .r-info h3{
         color: black;
-        transition-duration: 0.6s;
     }
     .r-comment{
         color: #666;
-        transition-duration: 0.6s;
     }
     .r-date{
         color: black;
-        transition-duration: 0.6s;
     }
     background-color: #ECF1FD;
-    transition-duration: 0.6s;
 }

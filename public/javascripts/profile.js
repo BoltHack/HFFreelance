@@ -155,19 +155,19 @@ function perms(){
         localStorage.setItem('menus', JSON.stringify(menus));
     })
     const personalAreaMenu = JSON.parse(localStorage.getItem('menus') || '{}');
-    if (personalAreaMenu.personalAreaMenu === 'profile'){
-        profileMenu.style.backgroundColor = '#34495e'
-        newsMenu.style.background = 'none'
-        profile.hidden = false;
-        myReview.hidden = false;
-        news.hidden = true;
-    }
-    else{
+    if (personalAreaMenu.personalAreaMenu === 'news'){
         newsMenu.style.backgroundColor = '#34495e'
         profileMenu.style.background = 'none'
         news.hidden = false;
         profile.hidden = true;
         myReview.hidden = true;
+    }
+    else{
+        profileMenu.style.backgroundColor = '#34495e'
+        newsMenu.style.background = 'none'
+        profile.hidden = false;
+        myReview.hidden = false;
+        news.hidden = true;
     }
 }
 perms()

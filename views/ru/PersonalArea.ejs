@@ -131,7 +131,7 @@
         </div>
 
         <section id="news" class="news" hidden>
-            <h2>Лента новостей</h2>
+            <h2>Новости</h2>
             <% if (news && news.length > 0) { %>
                 <ul>
                     <% news.reverse().forEach(newsItem => { %>
@@ -141,7 +141,10 @@
                                 <img src="data:image/jpeg;base64,<%= newsItem.image %>" class="news-image">
                             <%}%>
                             <p class="news-content"><%= newsItem.content %></p>
-                            <p class="date"><%= newsItem.date %></p>
+                            <div style="justify-content: end; display: flex">
+                                <p class="date"><%= newsItem.date %></p>
+                                <p class="time"><%= newsItem.time %></p>
+                            </div>
                         </li>
                     <% }); %>
                 </ul>

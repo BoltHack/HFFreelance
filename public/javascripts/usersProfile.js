@@ -24,17 +24,17 @@ function profileMenu(){
         localStorage.setItem('menus', JSON.stringify(menus));
     })
     const userPersonalAreaMenu = JSON.parse(localStorage.getItem('menus') || '{}');
-    if (userPersonalAreaMenu.userPersonalAreaMenu === 'profile'){
-        profileMenu.style.backgroundColor = '#34495e'
-        favoritesMenu.style.background = 'none'
-        profileFavorites.hidden = true;
-        profileReview.hidden = false;
-    }
-    else{
+    if (userPersonalAreaMenu.userPersonalAreaMenu === 'favorites'){
         favoritesMenu.style.backgroundColor = '#34495e'
         profileMenu.style.background = 'none'
         profileReview.hidden = true;
         profileFavorites.hidden = false;
+    }
+    else{
+        profileMenu.style.backgroundColor = '#34495e'
+        favoritesMenu.style.background = 'none'
+        profileFavorites.hidden = true;
+        profileReview.hidden = false;
     }
 
     const userImage = document.getElementById('userImage');

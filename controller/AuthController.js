@@ -129,6 +129,11 @@ class AuthController {
             res.cookie('token', accessToken, { httpOnly: true, secure: true, maxAge: parseMaxAge('15m') });
             res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: true, maxAge: parseMaxAge('10d') });
 
+            const forwarded = req.headers['x-forwarded-for'];
+            const userIP = forwarded ? forwarded.split(',')[0] : req.connection.remoteAddress;
+
+            console.log(`User IP: ${userIP}`);
+
             return res.json({ token: accessToken, refreshToken, user, locale });
         } catch (e) {
             next(e);

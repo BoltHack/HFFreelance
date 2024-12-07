@@ -59,7 +59,7 @@ img {
 }
 .get{
     display: flex;
-    flex-wrap: wrap;
+    /*flex-wrap: wrap;*/
     position: absolute;
     top: -1%;
     right: 5%;
@@ -158,8 +158,10 @@ details ul {
     background-color: #fff;
     border-radius: 5px;
     display: flex;
-    width: 250px;
-    height: 210px;
+    /*width: 250px;*/
+    width: 350px;
+    /*height: 210px;*/
+    height: 170px;
     position: absolute;
     /*right: 3%;*/
     right: 2.3%;

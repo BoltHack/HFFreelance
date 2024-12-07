@@ -100,8 +100,9 @@ function headerColor(){
     }
     const details = document.getElementById('details');
     const token = localStorage.getItem('token');
+    const local = localStorage.getItem('local');
     if (token){
-        details.style.right = '3%';
+        local === 'en' ? details.style.right = '3.5%' : details.style.right = '3%';
     }
 }
 headerColor();

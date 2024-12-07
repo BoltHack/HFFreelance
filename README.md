@@ -1,4 +1,4 @@
-# HFFreelance
+# HFFreelancers
 
 ## Инструкция по запуску кода
 

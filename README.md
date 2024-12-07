@@ -15,6 +15,8 @@
 `env`:
 ```
 MONGODB_URL=Ваша строка подключения к базе данных MongoDB.
+JWTSecret=kkgjdhfgdfkgbhdfbgdfhg156g46fg
+refreshTokenSecret=hlndfghfdh5gf5h65gitgfh+65gf6h1gf65gf1f4gh1gf1h981gf91gf98h1gf98h1g56fg6h1fg
 USER=Электронная почта, которая будет использоваться для отправки кодов восстановления аккаунтов пользователям.
 PASS=Пароль приложения для указанного адреса электронной почты.
 ```
@@ -34,13 +36,13 @@ JWTSecret и refreshTokenSecret - это токены безопасности. 
     - Укажите любое название приложения, например: `hffreelancers`.
 6. Скопируйте сгенерированный пароль и вставьте его в файл `.env` в значение переменной `PASS` (без пробелов).
 
-Ваш файл `.env` должен выглядеть следующим образом:
-
-настройка файла `env`:
+Ваш файл `.env` должен выглядеть примерно следующим образом:
 ```
-MONGODB_URL=ваша строка подключения к базе данных
-USER='ваш электронный адрес'
-PASS='полученный пароль приложения'
+MONGODB_URL=mongodb://username:password@host:port/database_name?options
+JWTSecret=kkgjdhfgdfkgbhdfbgdfhg156g46fg
+refreshTokenSecret=hlndfghfdh5gf5h65gitgfh+65gf6h1gf65gf1f4gh1gf1h981gf91gf98h1gf98h1g56fg6h1fg
+USER='test@gmail.com'
+PASS='lknghiutynoliunf'
 ```
 
 ---

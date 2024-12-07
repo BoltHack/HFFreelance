@@ -20,7 +20,7 @@ refreshTokenSecret=hlndfghfdh5gf5h65gitgfh+65gf6h1gf65gf1f4gh1gf1h981gf91gf98h1g
 USER=Электронная почта, которая будет использоваться для отправки кодов восстановления аккаунтов пользователям.
 PASS=Пароль приложения для указанного адреса электронной почты.
 ```
-JWTSecret и refreshTokenSecret - это токены безопасности. Их менять не надо, они уже настроены.
+JWTSecret и refreshTokenSecret - это токены безопасности. Их менять не надо, они уже настроены. Но если вы разбираетесь в этом, то можете побаловаться.
 
 ---
 
@@ -38,7 +38,7 @@ JWTSecret и refreshTokenSecret - это токены безопасности. 
 
 Ваш файл `.env` должен выглядеть примерно следующим образом:
 ```
-MONGODB_URL=mongodb://username:password@host:port/database_name?options
+MONGODB_URL=mongodb://admin:mySecurePassword@localhost:27017/myDatabase?retryWrites=true&w=majority
 JWTSecret=kkgjdhfgdfkgbhdfbgdfhg156g46fg
 refreshTokenSecret=hlndfghfdh5gf5h65gitgfh+65gf6h1gf65gf1f4gh1gf1h981gf91gf98h1gf98h1g56fg6h1fg
 USER='test@gmail.com'

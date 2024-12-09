@@ -3,7 +3,7 @@ const {
     mainView, aboutUsView, rulesView, privacyPolicyView, sendReviewsMenuView, displayAllReviews, deleteUser,
     deleteReview, PersonalAreaView, changeImage, sendReview, getTokenView, moreDetailsView, youAreBannedView,
     requestUnban, downloadFile, fileInfoView, changeLocal, changeLocalAuth, likeSite, dislikeSite, sendCommentsPost,
-    profileView, changeTheme
+    profileView, changeTheme, manageCookieFiles
 } = require('../controller/IndexController');
 const {
     readyMadeSitesView, htmlSitesView, javascriptSitesView, nodeJsSitesView, reactJsSitesView, fullstackSitesView,
@@ -53,6 +53,7 @@ router.post('/changeLocalAuth/:id/:locale', changeLocalAuth);
 router.post('/changeTheme', changeTheme);
 router.post('/likeSite/:id', authenticateJWT, likeSite);
 router.post('/dislikeSite/:id', authenticateJWT, dislikeSite);
+router.post('/acceptCookies/:type', manageCookieFiles);
 
 router.use('/auth', AuthRouter);
 router.use('/admin', AdminRouter);

@@ -82,6 +82,9 @@ document.addEventListener('DOMContentLoaded', function (){
                 email.style.border = '1px solid #0d2818';
                 pwd.style.border = '1px solid #0d2818';
                 cpwd.style.border = '1px solid #0d2818';
+                fetch('/acceptCookies/true', {
+                    method: 'POST'
+                })
                 setTimeout(function () {
                     window.location.href = `/auth/login`;
                     setTimeout(function () {

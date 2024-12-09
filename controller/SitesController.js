@@ -10,6 +10,7 @@ class SitesController {
             const skip = (page - 1) * limit;
 
             let locale = req.cookies['locale'] || 'en';
+            let acceptCookies = req.cookies['acceptCookies'];
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, {httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000});
@@ -28,6 +29,7 @@ class SitesController {
 
             const renderData = {
                 links,
+                acceptCookies,
                 websites,
                 advertising,
                 currentPage: page,
@@ -64,6 +66,7 @@ class SitesController {
             const skip = (page - 1) * limit;
 
             let locale = req.cookies['locale'] || 'en';
+            let acceptCookies = req.cookies['acceptCookies'];
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
@@ -104,6 +107,7 @@ class SitesController {
 
             const renderData = {
                 links,
+                acceptCookies,
                 websites,
                 advertising,
                 currentPage: page,
@@ -142,6 +146,7 @@ class SitesController {
             const skip = (page - 1) * limit;
 
             let locale = req.cookies['locale'] || 'en';
+            let acceptCookies = req.cookies['acceptCookies'];
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
@@ -176,6 +181,7 @@ class SitesController {
 
             const renderData = {
                 links,
+                acceptCookies,
                 websites,
                 advertising,
                 currentPage: page,
@@ -214,6 +220,7 @@ class SitesController {
             const skip = (page - 1) * limit;
 
             let locale = req.cookies['locale'] || 'en';
+            let acceptCookies = req.cookies['acceptCookies'];
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
@@ -248,6 +255,7 @@ class SitesController {
 
             const renderData = {
                 links,
+                acceptCookies,
                 websites,
                 advertising,
                 currentPage: page,
@@ -286,6 +294,7 @@ class SitesController {
             const skip = (page - 1) * limit;
 
             let locale = req.cookies['locale'] || 'en';
+            let acceptCookies = req.cookies['acceptCookies'];
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
@@ -320,6 +329,7 @@ class SitesController {
 
             const renderData = {
                 links,
+                acceptCookies,
                 websites,
                 advertising,
                 currentPage: page,
@@ -358,6 +368,7 @@ class SitesController {
             const skip = (page - 1) * limit;
 
             let locale = req.cookies['locale'] || 'en';
+            let acceptCookies = req.cookies['acceptCookies'];
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
@@ -392,6 +403,7 @@ class SitesController {
 
             const renderData = {
                 links,
+                acceptCookies,
                 websites,
                 advertising,
                 currentPage: page,
@@ -434,6 +446,7 @@ class SitesController {
             const favorites = await WebsitesModel.find({ _id: { $in: favoriteIds } });
 
             let locale = req.cookies['locale'] || 'en';
+            let acceptCookies = req.cookies['acceptCookies'];
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
@@ -442,7 +455,8 @@ class SitesController {
             const renderData = {
                 links,
                 advertising,
-                favorites
+                favorites,
+                acceptCookies
             }
 
             if (user.banned[0].banType === true) {

@@ -41,7 +41,8 @@ async function accessToken(req, res, next) {
                 registerDate: user.registerDate,
                 role: user.role,
                 banned: user.banned,
-                favorites: user.favorites
+                favorites: user.favorites,
+                ip: user.ip,
             }, JWTSecret, { expiresIn: '15m' });
 
             await res.cookie('token', newAccessToken, { httpOnly: true, secure: true, maxAge: parseMaxAge('15m') });

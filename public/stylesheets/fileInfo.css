@@ -387,9 +387,10 @@ footer p {
     color: white;
 }
 .contact-us{
-    margin-top: -14.5px;
+    display: grid;
     gap: 10px;
     margin-left: 50px;
+    margin-top: -14.5px;
 }
 .you-are-auth{
     color: #ECF1FD;

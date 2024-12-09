@@ -23,8 +23,9 @@ const RequestBanSchema = new Schema({
     banType: { type: Boolean, default: false},
     reason: {type: String, default: ''},
     description: {type: String, default: ''},
+    banIp: {type: String, default: ''},
     author: [AuthorSchema],
-    date: {type: String, default: dateOnly}
+    date: {type: String, default: ''}
 });
 
 const RequestUnbanSchema = new Schema({
@@ -73,6 +74,10 @@ const UsersSchema = new Schema({
         type: [FavoritesSchema],
         default: []
     },
+    ip: {
+        type: String,
+        default: ''
+    }
 });
 
 const UsersModel = model('user', UsersSchema);

@@ -50,6 +50,8 @@ class AuthController {
         try {
             const {name, email, password} = req.body;
 
+            const ip = req.cookies['ip'];
+
             const hashPassword = bcrypt.hashSync(password, 8)
 
             const newUser = await new UsersModel({
@@ -59,6 +61,7 @@ class AuthController {
                 confirmPassword: hashPassword,
                 banned: [{ banType: false }],
                 locale: 'en',
+                ip: ip,
             })
 
             await newUser.save();
@@ -116,7 +119,8 @@ class AuthController {
                 role: user.role,
                 banned: user.banned,
                 locale: user.locale,
-                favorites: user.favorites
+                favorites: user.favorites,
+                ip: user.ip,
             };
 
             const accessToken = jwt.sign(payload, JWTSecret, { expiresIn: '15m' });

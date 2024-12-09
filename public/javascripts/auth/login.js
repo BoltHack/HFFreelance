@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function (){
                 let {error, token, user} = data;
 
                 if (error) {
+                    console.log('error', error)
                     errorMenu(error)
                     email.style.border = '1px solid #780000';
                     pwd.style.border = '1px solid #780000';

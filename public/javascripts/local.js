@@ -53,27 +53,101 @@ function localsFEn() {
             console.log("Произошла ошибка при отправке запроса: " + error.message);
         });
 }
+
+function checkCookie() {
+    if (!acceptCookies || (acceptCookies !== 'true' && acceptCookies !== 'false')){
+        cookiesMenus();
+    }
+    else{
+        checkIp();
+    }
+}
+checkCookie();
 function checkIp() {
-    const changeLocale = localStorage.getItem('changeLocale');
     const local = localStorage.getItem('local');
-    if (changeLocale === false || !changeLocale){
-        fetch('https://api.ipify.org?format=json')
-            .then(response => response.json())
-            .then(data => {
+    const changeLocale = localStorage.getItem('changeLocale');
+    fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            if (acceptCookies === 'true'){
                 const ip = data.ip
                 document.cookie = `ip=${encodeURIComponent(ip)}; max-age=${24 * 60 * 60}`;
                 const checkIp2 = ip.substr(0, 2);
                 const checkIp3 = ip.substr(0, 3);
-                if (checkIp2 === '90' || checkIp3 === '100') {
-                    if (local !== 'en'){
-                        localsFEn();
-                    }
-                } else {
-                    if (local !== 'ru'){
-                        localsFRu();
+                if (changeLocale !== 'true'){
+                    if (checkIp2 === '90' || checkIp3 === '100') {
+                        if (local !== 'en') {
+                            localsFEn();
+                        }
+                    } else {
+                        if (local !== 'ru') {
+                            localsFRu();
+                        }
                     }
                 }
-            });
-    }
+            }
+        });
 }
-checkIp();
+
+function cookiesMenus() {
+    const border = document.createElement('border');
+
+    const local = localStorage.getItem('local');
+
+    if (local === 'en'){
+        border.innerHTML = `
+<link rel="stylesheet" href="/stylesheets/style.css">
+<div class="cookie-card">
+    <span class="cookies-title">🍪 We collect cookies</span>
+    <p class="description">We use cookies to ensure you get the best experience on our website.<a href="/privacyPolicy" target="_blank"> Privacy Policy</a>. </p>
+    <div class="actions">
+        <button class="cookies-pref" onclick="rejectCookiesFunc()" id="reject">
+            Reject
+        </button>
+        <button class="cookies-accept" onclick="acceptCookiesFunc()" id="accept">
+            Accept
+        </button>
+    </div>
+</div>
+    `
+    }
+    else{
+        border.innerHTML = `
+<link rel="stylesheet" href="/stylesheets/style.css">
+<div class="cookie-card">
+    <span class="cookies-title">🍪 Мы собираем файлах cookie</span>
+    <p class="description">Мы используем файлы cookie, чтобы обеспечить вам максимальное удобство использования нашего веб-сайта.<a href="/privacyPolicy" target="_blank"> Правила конфиденциальности</a>. </p>
+    <div class="actions">
+        <button class="cookies-pref" onclick="rejectCookiesFunc()" id="reject">
+            отклонить
+        </button>
+        <button class="cookies-accept" onclick="acceptCookiesFunc()" id="accept">
+            Принять
+        </button>
+    </div>
+</div>
+    `
+    }
+
+
+    document.body.appendChild(border);
+    document.getElementById('accept').addEventListener('click', () => {
+        document.body.removeChild(border);
+    })
+    document.getElementById('reject').addEventListener('click', () => {
+        document.body.removeChild(border);
+    })
+}
+
+function acceptCookiesFunc(){
+    fetch('/acceptCookies/true', {
+        method: 'POST'
+    })
+    window.location.reload();
+}
+
+function rejectCookiesFunc(){
+    fetch('/acceptCookies/false', {
+        method: 'POST'
+    })
+}

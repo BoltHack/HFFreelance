@@ -11,6 +11,7 @@ class IndexController {
         try {
             const links = await LinksModel.find();
             let locale = req.cookies['locale'] || 'en';
+            let acceptCookies = req.cookies['acceptCookies'];
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
@@ -22,11 +23,11 @@ class IndexController {
                     if (user.banned[0].banType === true) {
                         res.redirect('/youAreBanned');
                     } else {
-                            return res.render(locale === 'en' ? 'en/main' : 'ru/main', { user, locale, links });
+                            return res.render(locale === 'en' ? 'en/main' : 'ru/main', { user, locale, links, acceptCookies });
                     }
                 });
             } else {
-                return res.render(locale === 'en' ? 'en/main' : 'ru/main', { locale, links });
+                return res.render(locale === 'en' ? 'en/main' : 'ru/main', { locale, links, acceptCookies });
             }
         } catch (e) {
             next(e);
@@ -38,6 +39,7 @@ class IndexController {
         try{
             const links = await LinksModel.find();
             let locale = req.cookies['locale'] || 'en';
+            let acceptCookies = req.cookies['acceptCookies'];
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
@@ -50,12 +52,12 @@ class IndexController {
                         res.redirect('/youAreBanned')
                     }
                     else{
-                        return res.render(locale === 'en' ? 'en/aboutUs' : 'ru/aboutUs', { user, locale, links });
+                        return res.render(locale === 'en' ? 'en/aboutUs' : 'ru/aboutUs', { user, locale, links, acceptCookies });
                     }
                 });
             }
             else {
-                return res.render(locale === 'en' ? 'en/aboutUs' : 'ru/aboutUs', { locale, links });
+                return res.render(locale === 'en' ? 'en/aboutUs' : 'ru/aboutUs', { locale, links, acceptCookies });
             }
         }catch (err){
             next(err)
@@ -65,6 +67,7 @@ class IndexController {
         try{
             const links = await LinksModel.find();
             let locale = req.cookies['locale'] || 'en';
+            let acceptCookies = req.cookies['acceptCookies'];
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
@@ -77,12 +80,12 @@ class IndexController {
                         res.redirect('/youAreBanned')
                     }
                     else{
-                        return res.render(locale === 'en' ? 'en/rules' : 'ru/rules', { user, locale, links });
+                        return res.render(locale === 'en' ? 'en/rules' : 'ru/rules', { user, locale, links, acceptCookies });
                     }
                 });
             }
             else {
-                return res.render(locale === 'en' ? 'en/rules' : 'ru/rules', { locale, links });
+                return res.render(locale === 'en' ? 'en/rules' : 'ru/rules', { locale, links, acceptCookies });
             }
         }catch (err){
             next(err)
@@ -92,6 +95,7 @@ class IndexController {
         try{
             const links = await LinksModel.find();
             let locale = req.cookies['locale'] || 'en';
+            let acceptCookies = req.cookies['acceptCookies'];
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
@@ -104,12 +108,12 @@ class IndexController {
                         res.redirect('/youAreBanned')
                     }
                     else{
-                        return res.render(locale === 'en' ? 'en/privacyPolicy' : 'ru/privacyPolicy', { user, locale, links });
+                        return res.render(locale === 'en' ? 'en/privacyPolicy' : 'ru/privacyPolicy', { user, locale, links, acceptCookies });
                     }
                 });
             }
             else {
-                return res.render(locale === 'en' ? 'en/privacyPolicy' : 'ru/privacyPolicy', { locale, links });
+                return res.render(locale === 'en' ? 'en/privacyPolicy' : 'ru/privacyPolicy', { locale, links, acceptCookies });
             }
         }catch (err){
             next(err)
@@ -120,6 +124,7 @@ class IndexController {
         try{
             const user = req.user;
             let locale = req.cookies['locale'] || 'en';
+            let acceptCookies = req.cookies['acceptCookies'];
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
@@ -132,7 +137,7 @@ class IndexController {
                 res.redirect('/youAreBanned')
             }
 
-            return res.render(locale === 'en' ? 'en/sendReviews' : 'ru/sendReviews', { user });
+            return res.render(locale === 'en' ? 'en/sendReviews' : 'ru/sendReviews', { user, acceptCookies });
         }catch(err){
             next(err)
         }
@@ -144,6 +149,7 @@ class IndexController {
             const news = await NewsModel.find();
             const links = await LinksModel.find();
             let locale = req.cookies['locale'] || 'en';
+            let acceptCookies = req.cookies['acceptCookies'];
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
@@ -158,7 +164,7 @@ class IndexController {
                 res.redirect('/youAreBanned')
             }
 
-            return res.render(locale === 'en' ? 'en/PersonalArea' : 'ru/PersonalArea', { user, links, news, review, locale });
+            return res.render(locale === 'en' ? 'en/PersonalArea' : 'ru/PersonalArea', { user, links, news, review, locale, acceptCookies });
         }catch (err){
             next(err)
         }
@@ -187,6 +193,7 @@ class IndexController {
         try{
             const links = await LinksModel.find();
             let locale = req.cookies['locale'] || 'en';
+            let acceptCookies = req.cookies['acceptCookies'];
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
@@ -199,11 +206,11 @@ class IndexController {
                         res.redirect('/youAreBanned')
                     }
                     else{
-                        return res.render(locale === 'en' ? 'en/moreDetails' : 'ru/moreDetails', { user, locale, links });
+                        return res.render(locale === 'en' ? 'en/moreDetails' : 'ru/moreDetails', { user, locale, links, acceptCookies });
                     }
                 });
             }
-            return res.render(locale === 'en' ? 'en/moreDetails' : 'ru/moreDetails', { locale, links });
+            return res.render(locale === 'en' ? 'en/moreDetails' : 'ru/moreDetails', { locale, links, acceptCookies });
         }catch (err){
             next(err)
         }
@@ -212,6 +219,7 @@ class IndexController {
         try {
             const user = req.user;
             let locale = req.cookies['locale'] || 'en';
+            let acceptCookies = req.cookies['acceptCookies'];
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
@@ -235,6 +243,7 @@ class IndexController {
             const siteInfo = await WebsitesModel.findById(id);
 
             let locale = req.cookies['locale'] || 'en';
+            let acceptCookies = req.cookies['acceptCookies'];
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
@@ -254,12 +263,12 @@ class IndexController {
                         res.redirect('/youAreBanned')
                     }
                     else{
-                        return res.render(locale === 'en' ? 'en/fileInfo' : 'ru/fileInfo', { user, locale, links, siteInfo });
+                        return res.render(locale === 'en' ? 'en/fileInfo' : 'ru/fileInfo', { user, locale, links, siteInfo, acceptCookies });
                     }
                 });
             }
             else {
-                return res.render(locale === 'en' ? 'en/fileInfo' : 'ru/fileInfo', {locale, links, siteInfo});
+                return res.render(locale === 'en' ? 'en/fileInfo' : 'ru/fileInfo', {locale, links, siteInfo, acceptCookies});
             }
         }catch(err){
             next(err)
@@ -275,6 +284,7 @@ class IndexController {
 
             const links = await LinksModel.find();
             let locale = req.cookies['locale'] || 'en';
+            let acceptCookies = req.cookies['acceptCookies'];
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
@@ -286,11 +296,11 @@ class IndexController {
                     if (user.banned[0].banType === true) {
                         res.redirect('/youAreBanned');
                     } else {
-                        return res.render(locale === 'en' ? 'en/profile' : 'ru/profile', { user, profile, favorites, locale, links });
+                        return res.render(locale === 'en' ? 'en/profile' : 'ru/profile', { user, profile, favorites, locale, links, acceptCookies });
                     }
                 });
             } else {
-                return res.render(locale === 'en' ? 'en/profile' : 'ru/profile', { profile, favorites, locale, links });
+                return res.render(locale === 'en' ? 'en/profile' : 'ru/profile', { profile, favorites, locale, links, acceptCookies });
             }
         } catch (e) {
             next(e);
@@ -390,6 +400,7 @@ class IndexController {
         try {
             const users = await UsersModel.find();
             let locale = req.cookies['locale'] || 'en';
+            let acceptCookies = req.cookies['acceptCookies'];
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
@@ -410,12 +421,12 @@ class IndexController {
                         res.redirect('/youAreBanned')
                     }
                     else{
-                        return res.render(locale === 'en' ? 'en/allReviews' : 'ru/allReviews', { user, reviews });
+                        return res.render(locale === 'en' ? 'en/allReviews' : 'ru/allReviews', { user, reviews, acceptCookies });
                     }
                 });
             }
             else {
-                return res.render(locale === 'en' ? 'en/allReviews' : 'ru/allReviews', {reviews});
+                return res.render(locale === 'en' ? 'en/allReviews' : 'ru/allReviews', {reviews, acceptCookies});
             }
         } catch (err) {
             next(err);
@@ -691,6 +702,19 @@ class IndexController {
             next(err);
         }
     }
+
+    static manageCookieFiles = async (req, res) => {
+        try {
+            const {type} = req.params;
+
+            res.cookie('acceptCookies', type, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000 });
+
+            res.json({ type });
+        } catch (err) {
+            console.error('Ошибка:', err);
+            res.status(500).json({ error: err.message });
+        }
+    };
 }
 
 module.exports = IndexController;

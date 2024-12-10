@@ -9,7 +9,7 @@
     <style>
         .form-container {
             max-width: 400px;
-            background-color: #fff;
+            background-color: #16171d;
             padding: 32px 24px;
             font-size: 14px;
             font-family: inherit;
@@ -34,6 +34,7 @@
             text-align: center;
             font-weight: 600;
             font-size: 18px;
+            color: #f3d5b5;
         }
 
         .form-container .form {
@@ -164,6 +165,12 @@
             box-shadow: inset 15px -4px 0px 15px #fff000;
         }
         .lightTheme{
+            .form-container{
+                background-color: #fff;
+            }
+            .logo-container{
+                color: black;
+            }
             background-color: #ECF1FD;
         }
     </style>
@@ -182,18 +189,18 @@
 
     <form class="form" action="/auth/send-code" method="POST">
         <div class="form-group">
-            <label for="code">Confirmation Code</label>
-            <input type="text" id="code" name="code" placeholder="Example: 442186" required style="width: 90%;">
+            <label for="code" class="text">Confirmation Code</label>
+            <input class="input" type="text" id="code" name="code" placeholder="Example: 442186" required>
         </div>
         <br>
         <div class="form-group">
-            <label for="password">New Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter password" required style="width: 90%;">
+            <label for="password" class="text">New Password</label>
+            <input class="input" type="password" id="password" name="password" placeholder="Enter password" required>
         </div>
         <br>
         <div class="form-group">
-            <label for="confirmPassword">Repeat Password</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Enter password" required style="width: 90%;">
+            <label for="confirmPassword" class="text">Repeat Password</label>
+            <input class="input" type="password" id="confirmPassword" name="confirmPassword" placeholder="Enter password" required>
         </div>
 
         <button class="form-submit-btn" type="submit">Change Password</button>

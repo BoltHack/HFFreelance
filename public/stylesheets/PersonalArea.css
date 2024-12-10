@@ -201,7 +201,7 @@ body {
     transition: background-color 0.3s;
 }
 .password-container input{
-    width: 300px;
+    width: 280px;
     padding: 10px;
     margin-top: 5px;
     border: 1px solid #bdc3c7;

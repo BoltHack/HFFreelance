@@ -143,7 +143,9 @@ function acceptCookiesFunc(){
     fetch('/acceptCookies/true', {
         method: 'POST'
     })
-    window.location.reload();
+    setTimeout(function (){
+        window.location.reload();
+    }, 500)
 }
 
 function rejectCookiesFunc(){

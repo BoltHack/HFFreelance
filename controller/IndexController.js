@@ -575,9 +575,7 @@ class IndexController {
     static changeLocal = async (req, res) => {
         try {
             const {locale} = req.params;
-            // let locale = req.cookies['locale'] || 'en';
 
-            // locale = locale === 'en' ? 'ru' : 'en';
             res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000 });
 
             res.json({ locale });
@@ -589,7 +587,6 @@ class IndexController {
 
     static changeLocalAuth = async (req, res) => {
         try {
-            // let locale = req.cookies['locale'] || 'en';
             const {id} = req.params;
             const {locale} = req.params;
             await UsersModel.findByIdAndUpdate(
@@ -598,7 +595,6 @@ class IndexController {
                 {new: true}
             )
 
-            // locale = locale === 'en' ? 'ru' : 'en';
             res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000 });
 
             res.json({ locale });
@@ -610,9 +606,8 @@ class IndexController {
 
     static changeTheme = async (req, res) => {
         try {
-            let theme = req.cookies['theme'] || 'dark';
+            const {theme} = req.params;
 
-            theme = theme === 'dark' ? 'light' : 'dark';
             res.cookie('theme', theme, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000 });
 
             res.json({ theme });

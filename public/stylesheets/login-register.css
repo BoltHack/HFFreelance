@@ -165,7 +165,7 @@ body {
     text-decoration: none;
 }
 .rules a:hover {
-    color: #023047;
+    color: #8ecae6;
 }
 
 .rules span{
@@ -204,6 +204,9 @@ body {
     }
     .remember-me{
         color: black;
+    }
+    .rules a:hover{
+        color: #8ecae6;
     }
     background-color: #ECF1FD;
 }

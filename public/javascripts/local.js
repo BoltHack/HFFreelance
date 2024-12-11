@@ -71,7 +71,9 @@ function checkIp() {
         .then(data => {
             if (acceptCookies === 'true'){
                 const ip = data.ip
-                document.cookie = `ip=${encodeURIComponent(ip)}; max-age=${24 * 60 * 60}`;
+                if (!(document.cookie = `ip=${encodeURIComponent(ip)};`)){
+                    document.cookie = `ip=${encodeURIComponent(ip)}; max-age=${24 * 60 * 60}`;
+                }
                 const checkIp2 = ip.substr(0, 2);
                 const checkIp3 = ip.substr(0, 3);
                 if (changeLocale !== 'true'){
@@ -115,7 +117,7 @@ function cookiesMenus() {
         border.innerHTML = `
 <link rel="stylesheet" href="/stylesheets/style.css">
 <div class="cookie-card">
-    <span class="cookies-title">🍪 Мы собираем файлах cookie</span>
+    <span class="cookies-title">🍪 Мы собираем файлы cookie</span>
     <p class="description">Мы используем файлы cookie, чтобы обеспечить вам максимальное удобство использования нашего веб-сайта.<a href="/privacyPolicy" target="_blank"> Правила конфиденциальности</a>. </p>
     <div class="actions">
         <button class="cookies-pref" onclick="rejectCookiesFunc()" id="reject">

@@ -50,7 +50,7 @@ router.post('/requestUnban/:id', authenticateJWT, requestUnban);
 router.post('/downloadFile/:id', authenticateJWT, downloadFile);
 router.post('/changeLocal/:locale', changeLocal);
 router.post('/changeLocalAuth/:id/:locale', changeLocalAuth);
-router.post('/changeTheme', changeTheme);
+router.post('/changeTheme/:theme', changeTheme);
 router.post('/likeSite/:id', authenticateJWT, likeSite);
 router.post('/dislikeSite/:id', authenticateJWT, dislikeSite);
 router.post('/acceptCookies/:type', manageCookieFiles);

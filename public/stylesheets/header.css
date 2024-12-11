@@ -3,7 +3,6 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    /*background-color: #dadde2;*/
 }
 html::-webkit-scrollbar {
     width: 12px;
@@ -33,7 +32,6 @@ header{
     height: 80px;
     position: absolute;
     background-color: #16171d;
-    /*background-color: #1e1f29;*/
     top: 0;
     z-index: 2;
     transition: top 0.3s;
@@ -392,4 +390,11 @@ input:checked + .slider:before {
 .accept:focus {
     outline: 2px solid transparent;
     outline-offset: 2px;
+}
+
+
+
+html.lightTheme {
+    scrollbar-width: thin;
+    scrollbar-color: grey #fff;
 }

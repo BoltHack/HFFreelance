@@ -21,6 +21,7 @@ body {
     color: #f3d5b5;
     margin-bottom: 20px;
 }
+
 h2 {
     color: #f3d5b5;
 }
@@ -64,7 +65,7 @@ h2 {
         color: black;
     }
     .ab-info li{
-        color: #666;
+        color: black;
     }
     background-color: #ECF1FD;
 }

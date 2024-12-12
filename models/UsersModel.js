@@ -23,9 +23,9 @@ const RequestBanSchema = new Schema({
     banType: { type: Boolean, default: false},
     reason: {type: String, default: ''},
     description: {type: String, default: ''},
-    banIp: {type: String, default: ''},
+    banIp: {type: Boolean, default: false},
     author: [AuthorSchema],
-    date: {type: String, default: ''}
+    date: {type: String, default: dateOnly}
 });
 
 const RequestUnbanSchema = new Schema({

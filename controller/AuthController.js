@@ -49,8 +49,7 @@ class AuthController {
     static registerNewUser = async (req, res, next) => {
         try {
             const {name, email, password} = req.body;
-
-            const ip = req.cookies['ip'];
+            const {ip} = req.params;
 
             const hashPassword = bcrypt.hashSync(password, 8)
 
@@ -94,6 +93,8 @@ class AuthController {
             const { email, password } = req.body;
             const user = await UsersModel.findOne({ email });
 
+            // const ip = req.cookies['ip'];
+
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {
@@ -120,23 +121,17 @@ class AuthController {
                 banned: user.banned,
                 locale: user.locale,
                 favorites: user.favorites,
-                ip: user.ip,
+                ip: user.ip
             };
 
             const accessToken = jwt.sign(payload, JWTSecret, { expiresIn: '15m' });
             const refreshToken = jwt.sign(payload, refreshTokenSecret, { expiresIn: '10d' });
-
 
             user.refreshToken = refreshToken;
             await user.save();
 
             res.cookie('token', accessToken, { httpOnly: true, secure: true, maxAge: parseMaxAge('15m') });
             res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: true, maxAge: parseMaxAge('10d') });
-
-            const forwarded = req.headers['x-forwarded-for'];
-            const userIP = forwarded ? forwarded.split(',')[0] : req.connection.remoteAddress;
-
-            console.log(`User IP: ${userIP}`);
 
             return res.json({ token: accessToken, refreshToken, user, locale });
         } catch (e) {
@@ -256,6 +251,8 @@ class AuthController {
             const {email} = req.body;
             const checkEmail = await UsersModel.findOne({email});
 
+            const ip = req.cookies['ip'];
+
             const randomNumber = generateRandomNumber().toString();
 
             let locale = req.cookies['locale'] || 'en';
@@ -296,6 +293,7 @@ class AuthController {
                 const emailCode = new ForgottenPasswordsModel({
                     email: email,
                     code: randomNumber,
+                    ip: ip,
                     expiresInMinutes: '10'
                 })
                 emailCode.save();

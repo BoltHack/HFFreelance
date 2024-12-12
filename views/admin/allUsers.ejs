@@ -171,11 +171,11 @@
         .only-banned-users{
             color: #2a47cb;
         }
-        .request-ban-users{
+        .request-ban-users, .only-ip-banned-users{
             color: #2a47cb;
             margin-left: 20px;
         }
-        .only-banned-users:hover, .request-ban-users:hover{
+        .only-banned-users:hover, .request-ban-users:hover, .only-ip-banned-users:hover{
             text-decoration: underline;
             text-decoration-color: black;
         }
@@ -245,7 +245,8 @@
     <input type="text" id="searchInput" placeholder="Поиск по id или email">
 </div>
 <div class="dop-pos">
-    <a href="/admin/banList" class="only-banned-users">Только заблокированные пользователи</a>
+    <a href="/admin/banList" class="only-banned-users">Заблокированные пользователи</a>
+    <a href="/admin/banIpList" class="only-ip-banned-users">Заблокированные по ip пользователи</a>
     <a href="/admin/requestUnban" class="request-ban-users">Заявки на разбан</a>
 </div>
 <ul class="ul" id="userList">
@@ -273,6 +274,13 @@
                     <% } %>
                     <p>Язык: <%= user.locale %></p>
                     <p>Роль: <%= user.role %></p>
+                    <div style="display: flex; gap: 5px;">
+                        <p>Ip-адрес: <%= user.ip %></p>
+                        <% if (user.banned[0].banIp === true) {%>
+                            <p>/</p>
+                            <p>Заблокирован</p>
+                        <%}%>
+                    </div>
                     <% if (user.banned && user.banned.length > 0) { %>
                         <% if (user.banned[0].banType === false) { %>
                             <div style="display: flex; gap: 10px;">
@@ -283,9 +291,15 @@
                         <% } else { %>
                             <div style="display: flex; gap: 10px;">
                                 <p>Пользователь забанен</p>
-                                <form action="/admin/playerUnban/<%= user._id %>" method="POST">
-                                    <button class="unban-btn">Разблокировать</button>
-                                </form>
+                                <% if (user.banned[0].banIp === true) {%>
+                                    <form action="/admin/playerUnbanIp/<%= user._id %>/<%= user.ip %>" method="POST">
+                                        <button class="unban-btn">Разблокировать ip</button>
+                                    </form>
+                                <%} else {%>
+                                    <form action="/admin/playerUnban/<%= user._id %>" method="POST">
+                                        <button class="unban-btn">Разблокировать</button>
+                                    </form>
+                                <%}%>
                             </div>
                         <% } %>
                     <% } else { %>

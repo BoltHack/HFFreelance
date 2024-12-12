@@ -15,7 +15,8 @@ function verifyPermissions(role) {
             }
 
             if (!decoded.role || decoded.role !== role) {
-                return res.redirect(`/error?message=${encodeURIComponent("У вас нет доступа к этому ресурсу.")}`);
+                // return res.redirect(`/error?message=${encodeURIComponent("У вас нет доступа к этому ресурсу.")}`);
+                throw new HttpErrors('Not Found');
             }
 
             req.user = decoded;

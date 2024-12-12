@@ -18,10 +18,7 @@ document.addEventListener('DOMContentLoaded', function (){
         }
     });
 
-
     let loginButton = document.getElementById('loginButton');
-
-    let loginErr = document.getElementById('loginErr');
     let loginForm = document.getElementById('loginForm');
     let email = document.getElementById('email');
     let pwd = document.getElementById('pwd');
@@ -61,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function (){
         }).then(res => res.json())
             .then(data => {
                 let {error, token, user} = data;
-
                 if (error) {
                     console.log('error', error)
                     errorMenu(error)
@@ -78,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function (){
                     localStorage.setItem('name', user.name);
                     localStorage.setItem('profileImage', 'data:image/png;base64,' + user.image);
                     localStorage.setItem('id', user._id);
+                    localStorage.setItem('ip', user.ip);
                     localStorage.setItem('ref', 'refMain');
                     localStorage.setItem('favorites', JSON.stringify(user.favorites));
                     const checkbox = document.getElementById('rememberMeCheckbox');

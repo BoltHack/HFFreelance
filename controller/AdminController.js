@@ -3,6 +3,7 @@ const {NewsModel} = require("../models/NewsSchema");
 const {LinksModel} = require("../models/LinksModel");
 const {WebsitesModel} = require("../models/WebSitesModel");
 const {AdvertisingModel} = require("../models/AdvertisingModel");
+const {BanIpListModel} = require("../models/BanIpListModel");
 const bcrypt = require("bcrypt");
 const HttpErrors = require("http-errors");
 
@@ -185,6 +186,50 @@ class AdminController {
                 .limit(limit);
 
             res.render('admin/banList', {
+                users,
+                currentPage: page,
+                totalPages: Math.ceil(totalUsers / limit)
+            });
+        } catch (err) {
+            console.error('Ошибка:', err);
+            res.status(500).json({error: err.message});
+            next(err);
+        }
+    }
+
+    static banIpListAdmin = async (req, res, next) => {
+        try {
+            const page = parseInt(req.query.page) || 1;
+            const limit = 10;
+            const skip = (page - 1) * limit;
+
+            const totalUsersResult  = await UsersModel.aggregate([
+                { $match: { role: 'User' } },
+                {
+                    $match: {
+                        'banned': {
+                            $elemMatch: {
+                                banIp: true
+                            }
+                        }
+                    }
+                },
+                { $count: 'totalUsers' }
+            ])
+            const totalUsers = totalUsersResult.length > 0 ? totalUsersResult[0].totalUsers : 0;
+
+            const users = await UsersModel.find({
+                role: 'User',
+                'banned': {
+                    $elemMatch: {
+                        banIp: true
+                    }
+                }
+            })
+                .skip(skip)
+                .limit(limit);
+
+            res.render('admin/banIpList', {
                 users,
                 currentPage: page,
                 totalPages: Math.ceil(totalUsers / limit)
@@ -523,17 +568,29 @@ class AdminController {
     static playerBanAdmin = async (req, res, next) => {
         try {
             const {id} = req.params;
-            const {reason, description} = req.body;
+            const {reason, description, banIpBox, banIp} = req.body;
             const user = req.user;
 
-            const playerBan = await UsersModel.findByIdAndUpdate(
-                id,
-                {banned: [{banType: true, reason, description, author: [{authorName: user.name, authorId: user.id}] }], reviews: []},
-                {new: true}
-            );
-
-            if (!playerBan) {
-                throw new HttpErrors('Пользователь не найден.');
+            if (banIpBox){
+                await UsersModel.findByIdAndUpdate(
+                    id,
+                    {banned: [{banType: true, banIp: true, reason, description, author: [{authorName: user.name, authorId: user.id}] }], reviews: []},
+                    {new: true}
+                );
+                const banIpEntry = new BanIpListModel({
+                    ip: banIp,
+                    reason,
+                    description,
+                    author: [{ authorName: user.name, authorId: user.id }]
+                });
+                await banIpEntry.save();
+            }
+            else{
+                await UsersModel.findByIdAndUpdate(
+                    id,
+                    {banned: [{banType: true, reason, description, author: [{authorName: user.name, authorId: user.id}] }], reviews: []},
+                    {new: true}
+                );
             }
 
             setTimeout(() => {
@@ -563,6 +620,33 @@ class AdminController {
             setTimeout(() => {
                 res.redirect('/admin/allUsers');
                 console.log(id, ' успешно удалён!')
+            }, 500);
+        } catch (e) {
+            console.log(e);
+            next(e);
+        }
+    }
+
+    static playerUnbanIpAdmin = async (req, res, next) => {
+        try {
+            const {id, ip} = req.params;
+            const userId = ip.id;
+
+            const playerBan = await UsersModel.findByIdAndUpdate(
+                id,
+                {banned: [{banType: false, reason: '', description: ''}], requestUnban: []},
+                {new: true}
+            );
+            await BanIpListModel.deleteOne({ id: userId });
+
+            if (!playerBan) {
+                throw new HttpErrors('Пользователь не найден.');
+            }
+
+            setTimeout(() => {
+                res.redirect('/admin/allUsers');
+                console.log(id, ' успешно удалён!')
+                console.log('id', ip.id);
             }, 500);
         } catch (e) {
             console.log(e);

@@ -176,6 +176,7 @@
                     </div>
                     <p>Причина бана: <%= user.banned[0].reason %></p>
                     <p>Автор бана: <%= user.banned[0].author[0].authorName %> | <%= user.banned[0].author[0].id %></p>
+                    <p>Дата блокировки: <%= user.banned[0].date %></p>
                     <% if(user.banned[0].description) {%>
                         <p>Доп. информация: <%= user.banned[0].description %></p>
                     <%}%>

@@ -60,7 +60,6 @@ function profilePerms(){
     editImageBtn.addEventListener('click', () => {
         barrier.innerHTML = `<div class="new-barrier"></div>`;
         document.body.appendChild(barrier);
-        editImageBtn.hidden = true;
         editImagePart.hidden = false
     })
 
@@ -128,17 +127,21 @@ profilePerms();
 function perms(){
     let profileMenu = document.getElementById('profileMenu');
     let newsMenu = document.getElementById('newsMenu');
+    let settingsMenu = document.getElementById('settingsMenu');
 
     let profile = document.getElementById('profile');
     let news = document.getElementById('news');
     let myReview = document.getElementById('myReview');
+    let settings = document.getElementById('settings');
 
     profileMenu.addEventListener('click', () => {
         profileMenu.style.backgroundColor = '#34495e'
         newsMenu.style.background = 'none'
+        settingsMenu.style.background = 'none'
         profile.hidden = false;
         myReview.hidden = false;
         news.hidden = true;
+        settings.hidden = true;
         const menus = JSON.parse(localStorage.getItem('menus') || '{}');
         menus.personalAreaMenu = 'profile';
         localStorage.setItem('menus', JSON.stringify(menus));
@@ -147,11 +150,26 @@ function perms(){
     newsMenu.addEventListener('click', () => {
         newsMenu.style.backgroundColor = '#34495e'
         profileMenu.style.background = 'none'
+        settingsMenu.style.background = 'none'
         news.hidden = false;
         profile.hidden = true;
         myReview.hidden = true;
+        settings.hidden = true;
         const menus = JSON.parse(localStorage.getItem('menus') || '{}');
         menus.personalAreaMenu = 'news';
+        localStorage.setItem('menus', JSON.stringify(menus));
+    })
+
+    settingsMenu.addEventListener('click', () => {
+        settingsMenu.style.backgroundColor = '#34495e'
+        profileMenu.style.background = 'none'
+        newsMenu.style.background = 'none'
+        settings.hidden = false;
+        news.hidden = true;
+        profile.hidden = true;
+        myReview.hidden = true;
+        const menus = JSON.parse(localStorage.getItem('menus') || '{}');
+        menus.personalAreaMenu = 'settings';
         localStorage.setItem('menus', JSON.stringify(menus));
     })
     const personalAreaMenu = JSON.parse(localStorage.getItem('menus') || '{}');
@@ -159,6 +177,15 @@ function perms(){
         newsMenu.style.backgroundColor = '#34495e'
         profileMenu.style.background = 'none'
         news.hidden = false;
+        profile.hidden = true;
+        myReview.hidden = true;
+    }
+    else if (personalAreaMenu.personalAreaMenu === 'settings'){
+        settingsMenu.style.backgroundColor = '#34495e'
+        profileMenu.style.background = 'none'
+        newsMenu.style.background = 'none'
+        settings.hidden = false;
+        news.hidden = true;
         profile.hidden = true;
         myReview.hidden = true;
     }

@@ -24,11 +24,10 @@
             <li id="newsMenu"><a href="#news">News</a></li>
             <br>
             <h4>general</h4>
+            <li id="settingsMenu"><a style="cursor: pointer;">Settings</a></li>
             <% if (user.role === 'Admin') {%>
                 <li><a onclick="admin()" style="cursor:pointer;">Admin Panel</a></li>
             <% } %>
-            <li><a href="/">Main Menu</a></li>
-            <li><a onclick="deleteAccountMenu()" style="cursor:pointer;">Delete Account</a></li>
             <li><a onclick="logoutMenu()" style="cursor:pointer;">Logout</a></li>
         </ul>
     </aside>
@@ -47,22 +46,7 @@
                         <p>Registration Date: <%= user.registerDate %></p>
                     </div>
                 </div>
-                <div class="redaction">
-                    <p>
-                        <button id="editImageBtn">Change Avatar</button>
-                        <button id="changePasswordBtn">Change Password</button>
-                    </p>
-                    <form action="/upload/<%= user.id %>" method="POST" enctype="multipart/form-data">
-                        <section id="editImagePart" hidden>
-                            <img src="" class="profile-pic-edit" id="userImageEdit" style="cursor: pointer">
-                            <input type="file" name="file" id="attachFile">
-                            <p>
-                                <input type="button" value="Save" id="changeBtn">
-                                <input type="button" value="Back" id="cancelChangeBtn">
-                            </p>
-                        </section>
-                    </form>
-                </div>
+
             <% } %>
         </section>
 
@@ -150,6 +134,25 @@
             <% } else { %>
                 <p class="no-news">The news feed is currently empty.</p>
             <% } %>
+        </section>
+
+        <section id="settings" class="settings" hidden>
+            <h2>Settings</h2>
+            <div class="redaction">
+                <button id="editImageBtn">Change Avatar</button>
+                <button id="changePasswordBtn">Change Password</button>
+                <button onclick="deleteAccountMenu()">Delete account</button>
+                <form action="/upload/<%= user.id %>" method="POST" enctype="multipart/form-data">
+                    <section id="editImagePart" hidden>
+                        <img src="" class="profile-pic-edit" id="userImageEdit" style="cursor: pointer">
+                        <input type="file" name="file" id="attachFile">
+                        <p>
+                            <input type="button" value="Сохранить" id="changeBtn">
+                            <input type="button" value="Назад" id="cancelChangeBtn">
+                        </p>
+                    </section>
+                </form>
+            </div>
         </section>
     </main>
 </div>

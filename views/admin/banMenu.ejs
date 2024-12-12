@@ -86,10 +86,33 @@
     <div class="input-container">
         <input type="text" name="description" placeholder="Доп. инфа. (необязательна)" maxlength="100">
     </div>
+    <div class="input-container" id="banIp" hidden>
+        <input type="text" name="banIp" value="<%= user.ip %>" style="color: black;" readonly>
+    </div>
     <button type="submit" class="submit">
         Заблокировать
     </button>
+    <div style="text-align: center">
+        <div>
+            <input type="checkbox" id="banIpBox" name="banIpBox">
+            <label for="banIpBox">Заблокировать по ip-адресу</label>
+        </div>
+    </div>
+    <br>
     <div class="signup-link">
         <a href="/admin/allUsers">Назад</a>
     </div>
 </form>
+<script>
+    const banIpBox = document.getElementById('banIpBox');
+    const ip = document.getElementById('banIp');
+    banIpBox.addEventListener('change', () => {
+        if (banIpBox.checked){
+            ip.hidden = false;
+        }
+        else{
+            ip.hidden = true;
+        }
+    })
+
+</script>

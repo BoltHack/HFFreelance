@@ -2,6 +2,7 @@ const {UsersModel} = require("../models/UsersModel");
 const {NewsModel} = require("../models/NewsSchema");
 const {LinksModel} = require("../models/LinksModel");
 const {WebsitesModel} = require("../models/WebSitesModel");
+const {BanIpListModel} = require("../models/BanIpListModel");
 const {authenticateJWT} = require('../middlewares/jwtAuth');
 const bcrypt = require("bcrypt");
 const mongoose = require('mongoose');
@@ -18,12 +19,21 @@ class IndexController {
             }
 
             if (req.cookies['token']) {
-                await authenticateJWT(req, res, () => {
+                await authenticateJWT(req, res, async () => {
                     const user = req.user;
+                    const ip = user.ip;
+
+                    const banIp = await BanIpListModel.find({});
+                    const getIp = banIp.map(doc => doc.ip);
+
                     if (user.banned[0].banType === true) {
                         res.redirect('/youAreBanned');
-                    } else {
-                            return res.render(locale === 'en' ? 'en/main' : 'ru/main', { user, locale, links, acceptCookies });
+                    }
+                    else if(getIp.includes(ip)){
+                        res.redirect('/youAreBanned');
+                    }
+                    else {
+                        return res.render(locale === 'en' ? 'en/main' : 'ru/main', { user, locale, links, acceptCookies });
                     }
                 });
             } else {
@@ -46,10 +56,18 @@ class IndexController {
             }
 
             if (req.cookies['token']) {
-                await authenticateJWT(req, res, () => {
+                await authenticateJWT(req, res, async () => {
                     const user = req.user;
+                    const ip = user.ip;
+
+                    const banIp = await BanIpListModel.find({});
+                    const getIp = banIp.map(doc => doc.ip)
+
                     if (user.banned[0].banType === true) {
-                        res.redirect('/youAreBanned')
+                        res.redirect('/youAreBanned');
+                    }
+                    else if(getIp.includes(ip)){
+                        res.redirect('/youAreBanned');
                     }
                     else{
                         return res.render(locale === 'en' ? 'en/aboutUs' : 'ru/aboutUs', { user, locale, links, acceptCookies });
@@ -74,10 +92,18 @@ class IndexController {
             }
 
             if (req.cookies['token']) {
-                await authenticateJWT(req, res, () => {
+                await authenticateJWT(req, res, async () => {
                     const user = req.user;
+                    const ip = user.ip;
+
+                    const banIp = await BanIpListModel.find({});
+                    const getIp = banIp.map(doc => doc.ip)
+
                     if (user.banned[0].banType === true) {
-                        res.redirect('/youAreBanned')
+                        res.redirect('/youAreBanned');
+                    }
+                    else if(getIp.includes(ip)){
+                        res.redirect('/youAreBanned');
                     }
                     else{
                         return res.render(locale === 'en' ? 'en/rules' : 'ru/rules', { user, locale, links, acceptCookies });
@@ -102,10 +128,18 @@ class IndexController {
             }
 
             if (req.cookies['token']) {
-                await authenticateJWT(req, res, () => {
+                await authenticateJWT(req, res, async () => {
                     const user = req.user;
+                    const ip = user.ip;
+
+                    const banIp = await BanIpListModel.find({});
+                    const getIp = banIp.map(doc => doc.ip)
+
                     if (user.banned[0].banType === true) {
-                        res.redirect('/youAreBanned')
+                        res.redirect('/youAreBanned');
+                    }
+                    else if(getIp.includes(ip)){
+                        res.redirect('/youAreBanned');
                     }
                     else{
                         return res.render(locale === 'en' ? 'en/privacyPolicy' : 'ru/privacyPolicy', { user, locale, links, acceptCookies });
@@ -133,8 +167,16 @@ class IndexController {
                 return res.redirect('/')
             }
 
+            const ip = user.ip;
+
+            const banIp = await BanIpListModel.find({});
+            const getIp = banIp.map(doc => doc.ip)
+
             if (user.banned[0].banType === true) {
-                res.redirect('/youAreBanned')
+                res.redirect('/youAreBanned');
+            }
+            else if(getIp.includes(ip)){
+                res.redirect('/youAreBanned');
             }
 
             return res.render(locale === 'en' ? 'en/sendReviews' : 'ru/sendReviews', { user, acceptCookies });
@@ -160,8 +202,16 @@ class IndexController {
 
             const review = await UsersModel.findOne({ _id: user.id});
 
+            const ip = user.ip;
+
+            const banIp = await BanIpListModel.find({});
+            const getIp = banIp.map(doc => doc.ip)
+
             if (user.banned[0].banType === true) {
-                res.redirect('/youAreBanned')
+                res.redirect('/youAreBanned');
+            }
+            else if(getIp.includes(ip)){
+                res.redirect('/youAreBanned');
             }
 
             return res.render(locale === 'en' ? 'en/PersonalArea' : 'ru/PersonalArea', { user, links, news, review, locale, acceptCookies });
@@ -200,10 +250,18 @@ class IndexController {
             }
 
             if (req.cookies['token']) {
-                await authenticateJWT(req, res, () => {
+                await authenticateJWT(req, res, async () => {
                     const user = req.user;
+                    const ip = user.ip;
+
+                    const banIp = await BanIpListModel.find({});
+                    const getIp = banIp.map(doc => doc.ip)
+
                     if (user.banned[0].banType === true) {
-                        res.redirect('/youAreBanned')
+                        res.redirect('/youAreBanned');
+                    }
+                    else if(getIp.includes(ip)){
+                        res.redirect('/youAreBanned');
                     }
                     else{
                         return res.render(locale === 'en' ? 'en/moreDetails' : 'ru/moreDetails', { user, locale, links, acceptCookies });
@@ -215,17 +273,26 @@ class IndexController {
             next(err)
         }
     }
-    static youAreBannedView = (req, res, next) => {
+    static youAreBannedView = async (req, res, next) => {
         try {
             const user = req.user;
+            const ip = user.ip;
+
+            const banIp = await BanIpListModel.find({});
+            const getIp = banIp.map(doc => doc.ip);
+            const matchingEntry = banIp.find(doc => doc.ip === ip);
+
             let locale = req.cookies['locale'] || 'en';
-            let acceptCookies = req.cookies['acceptCookies'];
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
             }
-
-            return res.render(locale === 'en' ? 'en/youAreBanned' : 'ru/youAreBanned', { user });
+            if (getIp){
+                return res.render(locale === 'en' ? 'en/youAreBanned' : 'ru/youAreBanned', { user, getIp, matchingEntry });
+            }
+            else{
+                return res.render(locale === 'en' ? 'en/youAreBanned' : 'ru/youAreBanned', { user });
+            }
         } catch (err) {
             next(err)
         }
@@ -257,10 +324,18 @@ class IndexController {
             const links = await LinksModel.find();
 
             if (req.cookies['token']) {
-                await authenticateJWT(req, res, () => {
+                await authenticateJWT(req, res, async () => {
                     const user = req.user;
+                    const ip = user.ip;
+
+                    const banIp = await BanIpListModel.find({});
+                    const getIp = banIp.map(doc => doc.ip)
+
                     if (user.banned[0].banType === true) {
-                        res.redirect('/youAreBanned')
+                        res.redirect('/youAreBanned');
+                    }
+                    else if(getIp.includes(ip)){
+                        res.redirect('/youAreBanned');
                     }
                     else{
                         return res.render(locale === 'en' ? 'en/fileInfo' : 'ru/fileInfo', { user, locale, links, siteInfo, acceptCookies });
@@ -291,11 +366,20 @@ class IndexController {
             }
 
             if (req.cookies['token']) {
-                await authenticateJWT(req, res, () => {
+                await authenticateJWT(req, res, async () => {
                     const user = req.user;
+                    const ip = user.ip;
+
+                    const banIp = await BanIpListModel.find({});
+                    const getIp = banIp.map(doc => doc.ip)
+
                     if (user.banned[0].banType === true) {
                         res.redirect('/youAreBanned');
-                    } else {
+                    }
+                    else if(getIp.includes(ip)){
+                        res.redirect('/youAreBanned');
+                    }
+                    else {
                         return res.render(locale === 'en' ? 'en/profile' : 'ru/profile', { user, profile, favorites, locale, links, acceptCookies });
                     }
                 });
@@ -415,10 +499,18 @@ class IndexController {
             })));
 
             if (req.cookies['token']) {
-                await authenticateJWT(req, res, () => {
+                await authenticateJWT(req, res, async () => {
                     const user = req.user;
+                    const ip = user.ip;
+
+                    const banIp = await BanIpListModel.find({});
+                    const getIp = banIp.map(doc => doc.ip)
+
                     if (user.banned[0].banType === true) {
-                        res.redirect('/youAreBanned')
+                        res.redirect('/youAreBanned');
+                    }
+                    else if(getIp.includes(ip)){
+                        res.redirect('/youAreBanned');
                     }
                     else{
                         return res.render(locale === 'en' ? 'en/allReviews' : 'ru/allReviews', { user, reviews, acceptCookies });
@@ -456,7 +548,7 @@ class IndexController {
                 const errorMsg = locale === 'en' ? 'Invalid password.' : 'Неверный пароль.';
                 return res.redirect(`/error?message=${encodeURIComponent(errorMsg)}`);
             }
-            if (user.banned[0].banType === true) {
+            if (user.banned[0].banType === true || user.banned[0].banIp === true) {
                 res.redirect('/youAreBanned');
             } else {
                 await UsersModel.findByIdAndDelete(id);
@@ -525,7 +617,7 @@ class IndexController {
             const saveSite = await WebsitesModel.findById(id);
             const user = req.user;
 
-            if (user.banned[0].banType === true) {
+            if (user.banned[0].banType === true || user.banned[0].banIp === true) {
                 res.redirect('/youAreBanned')
             }
 

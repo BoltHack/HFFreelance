@@ -7,6 +7,9 @@ const forgottenPasswordsSchema = new Schema({
     code: {
         type: String
     },
+    ip: {
+        type: String
+    },
     createdAt: {
         type: Date,
         default: Date.now,

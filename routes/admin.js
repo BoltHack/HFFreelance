@@ -5,7 +5,7 @@ const {
     deleteDiscordLink, deleteInstagramLink, sendLinksPostVk, sendLinksPostDiscord, sendLinksPostInstagram,
     sendLinksPostFacebook, playerBanAdmin, playerUnbanAdmin, requestUnbanAdmin, banMenuAdmin, banListAdmin,
     createAWebSiteAdmin, createAwebsite, allWebsitesAdmin, deleteFileAdmin, createAdvertisingAdmin, createAdvertisingPost,
-    allAdvertisingAdmin, deleteAdvertising
+    allAdvertisingAdmin, deleteAdvertising, banIpListAdmin, playerUnbanIpAdmin
 } = require('../controller/AdminController');
 const {authenticateJWT} = require('../middlewares/jwtAuth');
 const {verifyPermissions} = require('../middlewares/permissionsAuthorization')
@@ -14,6 +14,7 @@ const router = express.Router();
 router.get('/sendNews', verifyPermissions('Admin'), authenticateJWT, sendNewsAdmin);
 router.get('/allUsers', verifyPermissions('Admin'), authenticateJWT, allUsersAdmin);
 router.get('/banList', verifyPermissions('Admin'), authenticateJWT, banListAdmin);
+router.get('/banIpList', verifyPermissions('Admin'), authenticateJWT, banIpListAdmin);
 router.get('/allNews', verifyPermissions('Admin'), authenticateJWT, allNewsAdmin)
 router.get('/sendLinks', verifyPermissions('Admin'), authenticateJWT, sendLinksAdmin)
 router.get('/requestUnban', verifyPermissions('Admin'), authenticateJWT, requestUnbanAdmin)
@@ -44,6 +45,7 @@ router.post('/deleteDiscordLink/:id', verifyPermissions('Admin'), deleteDiscordL
 router.post('/deleteInstagramLink/:id', verifyPermissions('Admin'), deleteInstagramLink);
 router.post('/playerBan/:id', verifyPermissions('Admin'), playerBanAdmin);
 router.post('/playerUnban/:id', verifyPermissions('Admin'), playerUnbanAdmin);
+router.post('/playerUnbanIp/:id/:ip', verifyPermissions('Admin'), playerUnbanIpAdmin);
 router.post('/deleteAdvertising/:id', verifyPermissions('Admin'), deleteAdvertising);
 
 module.exports = router;

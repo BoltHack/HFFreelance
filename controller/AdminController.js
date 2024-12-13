@@ -570,8 +570,10 @@ class AdminController {
             const {id} = req.params;
             const {reason, description, banIpBox, banIp} = req.body;
             const user = req.user;
+
             const banIpPerms = await UsersModel.find({ip: banIp});
             const users = banIpPerms.map(user => user._id);
+
             if (banIpBox){
                 await UsersModel.updateMany(
                     { _id: { $in: users } },
@@ -653,7 +655,7 @@ class AdminController {
             //     {banned: [{banType: false, reason: '', description: ''}], requestUnban: []},
             //     {new: true}
             // );
-            await BanIpListModel.deleteOne({ id: userId });
+            await BanIpListModel.deleteMany({ id: userId });
 
             // if (!playerBan) {
             //     throw new HttpErrors('Пользователь не найден.');

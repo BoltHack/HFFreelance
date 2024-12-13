@@ -570,11 +570,16 @@ class AdminController {
             const {id} = req.params;
             const {reason, description, banIpBox, banIp} = req.body;
             const user = req.user;
-
+            const banIpPerms = await UsersModel.find({ip: banIp});
+            const users = banIpPerms.map(user => user._id);
             if (banIpBox){
-                await UsersModel.findByIdAndUpdate(
-                    id,
-                    {banned: [{banType: true, banIp: true, reason, description, author: [{authorName: user.name, authorId: user.id}] }], reviews: []},
+                await UsersModel.updateMany(
+                    { _id: { $in: users } },
+                    {
+                        $set: {
+                            banned: [{banType: true, banIp: true, reason, description, author: [{authorName: user.name, authorId: user.id}] }], reviews: []
+                        }
+                    },
                     {new: true}
                 );
                 const banIpEntry = new BanIpListModel({
@@ -632,16 +637,27 @@ class AdminController {
             const {id, ip} = req.params;
             const userId = ip.id;
 
-            const playerBan = await UsersModel.findByIdAndUpdate(
-                id,
-                {banned: [{banType: false, reason: '', description: ''}], requestUnban: []},
+            const banIpPerms = await UsersModel.find({ip: ip});
+            const users = banIpPerms.map(user => user._id);
+            await UsersModel.updateMany(
+                { _id: { $in: users } },
+                {
+                    $set: {
+                        banned: [{banType: false, reason: '', description: ''}], requestUnban: [],
+                    }},
                 {new: true}
             );
+
+            // const playerBan = await UsersModel.findByIdAndUpdate(
+            //     id,
+            //     {banned: [{banType: false, reason: '', description: ''}], requestUnban: []},
+            //     {new: true}
+            // );
             await BanIpListModel.deleteOne({ id: userId });
 
-            if (!playerBan) {
-                throw new HttpErrors('Пользователь не найден.');
-            }
+            // if (!playerBan) {
+            //     throw new HttpErrors('Пользователь не найден.');
+            // }
 
             setTimeout(() => {
                 res.redirect('/admin/allUsers');

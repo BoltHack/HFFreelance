@@ -232,25 +232,26 @@ function deleteReview() {
         });
 }
 
-document.getElementById('changePasswordBtn').addEventListener(function () {
-    const homeId = idUser;
-    fetch(`/changePassword/${homeId}`,{
-        method: "POST",
-        headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem("token")
-        },
-    })
-        .then(response => {
-            if(response.ok){
-                localStorage.setItem('ref', 'refPersonalArea');
-                window.location.href = '/accessToken';
-            } else {
-                throw new Error('Ошибка при смене пароля');
-            }
-        })
-        .catch(error => {
-            console.error('Ошибка:', error);
-        });
-})
+// document.getElementById('changePasswordBtn').addEventListener(function () {
+// function changePassword(){
+//     const homeId = idUser;
+//     fetch(`/changePassword/${homeId}`,{
+//         method: "POST",
+//         headers: {
+//             'Authorization': 'Bearer ' + localStorage.getItem("token")
+//         },
+//     })
+//         .then(response => {
+//             if(response.ok){
+//                 localStorage.setItem('ref', 'refPersonalArea');
+//                 window.location.href = '/accessToken';
+//             } else {
+//                 throw new Error('Ошибка при смене пароля');
+//             }
+//         })
+//         .catch(error => {
+//             console.error('Ошибка:', error);
+//         });
+// }
 
 

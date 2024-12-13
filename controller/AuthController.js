@@ -188,7 +188,7 @@ class AuthController {
                 return res.redirect(`/error?message=${encodeURIComponent(errorMsg)}`);
             }
 
-            res.redirect('/');
+            res.redirect('/PersonalArea');
         } catch (e) {
             console.log(e);
             next(e);

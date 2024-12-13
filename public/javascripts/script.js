@@ -246,17 +246,6 @@ function checkTokenSendPreview() {
     }
 }
 
-const rInfo = document.getElementById('rInfo');
-const moreReviews = document.getElementById('moreReviews');
-document.getElementById('moreReviews').addEventListener('click', () => {
-    rInfo.hidden = false;
-    moreReviews.hidden = true
-})
-document.getElementById('invincibleReviews').addEventListener('click', () => {
-    rInfo.hidden = true;
-    moreReviews.hidden = false;
-})
-
 function deleteAccountMenu() {
     const barrier = document.querySelector('.new-barrier');
     const border = document.querySelector('.popup');

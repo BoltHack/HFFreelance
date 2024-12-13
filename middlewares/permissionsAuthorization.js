@@ -6,7 +6,8 @@ function verifyPermissions(role) {
         const token = req.cookies.token;
 
         if (!token) {
-            return res.redirect(`/error?message=${encodeURIComponent("Требуется аутентификация.")}`);
+            // return res.redirect(`/error?message=${encodeURIComponent("Требуется аутентификация.")}`);
+            throw new HttpErrors('Not Found');
         }
 
         jwt.verify(token, process.env.JWTSecret, (err, decoded) => {

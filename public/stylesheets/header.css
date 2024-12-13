@@ -123,10 +123,8 @@ a{
 details {
     margin: 10px;
     padding: 10px;
-    /*width: 150px;*/
     border-radius: 5px;
     cursor: pointer;
-    /*background: none;*/
     transition: all 0.3s ease;
     text-align: center;
 }
@@ -142,10 +140,10 @@ details summary {
     outline: none;
     user-select: none;
 }
+
 details div {
     margin-top: 10px;
     padding: 10px;
-    /*border-top: 1px solid #ccc;*/
 
 }
 details ul {
@@ -156,14 +154,11 @@ details ul {
     background-color: #fff;
     border-radius: 5px;
     display: flex;
-    /*width: 250px;*/
-    width: 350px;
-    /*height: 210px;*/
-    height: 170px;
+    /*width: 350px;*/
+    width: 250px;
+    /*height: 170px;*/
     position: absolute;
-    /*right: 3%;*/
     right: 2.3%;
-    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);*/
 }
 details ul li {
     margin: 10px 0;

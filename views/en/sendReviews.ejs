@@ -21,7 +21,16 @@
         <form action="/sendReviews/<%= user.id %>" method="POST" id="reviewForm">
             <div class="form-group">
                 <textarea id="message" name="message" placeholder="Your review" maxlength="150" required style="color: white"></textarea>
-                <input id="grade" type="number" name="grade" placeholder="Rating (1-5)" min="1" max="5">
+                <div class="grade-container">
+                    <p>Overall rating:</p>
+                    <select name="grade" id="grade" required>
+                        <option value="1">1 - Terrible</option>
+                        <option value="2">2 - Bad</option>
+                        <option value="3">3 - Average</option>
+                        <option value="4">4 - Good</option>
+                        <option value="5">5 - Great</option>
+                    </select>
+                </div>
             </div>
             <button type="submit" id="sendReview">Submit</button>
         </form>

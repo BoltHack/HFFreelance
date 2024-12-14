@@ -73,6 +73,7 @@ function profilePerms(){
         editImageBtn.hidden = false;
         editImagePart.hidden = true;
         document.body.removeChild(barrier);
+        localStorage.setItem('profileImage', `data:image/png;base64,${imageUser}`);
     })
 
     attachFile.addEventListener('change', () => {

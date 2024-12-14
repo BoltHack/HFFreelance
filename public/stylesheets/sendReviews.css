@@ -35,7 +35,7 @@ body {
     font-weight: bold;
 }
 
-input[type="text"],
+
 textarea {
     width: 100%;
     padding: 10px;
@@ -67,15 +67,22 @@ button:hover {
     min-width: 400px;
     max-width: 400px;
 }
+.grade-container{
+    position: relative;
+    top: 5%;
+    display: flex;
+    gap: 10px;
+    text-align: center;
+}
+.grade-container p{
+    color: white;
+}
 #grade{
     width: 100px;
     height: 20px;
-    position: relative;
-    top: 5%;
-    left: 50%;
-    transform: translate(-50%);
     background-color: #212121;
     color: white;
+    margin-top: 15px;
 }
 
 
@@ -90,6 +97,9 @@ button:hover {
         background-color: #fff;
         color: black;
         border: 1px solid grey;
+    }
+    .grade-container p{
+        color: black;
     }
     #grade{
         background-color: #fff;

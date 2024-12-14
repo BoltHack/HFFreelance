@@ -20,7 +20,16 @@
         <form action="/sendReviews/<%= user.id %>" method="POST" id="reviewForm">
             <div class="form-group">
                 <textarea id="message" name="message" placeholder="Ваш отзыв" maxlength="150" required></textarea>
-                <input id="grade" type="number" name="grade" placeholder="Оценка (1-5)" min="1" max="5">
+                <div class="grade-container">
+                    <p>Общая оценка:</p>
+                    <select name="grade" id="grade" required>
+                        <option value="1">1 - Ужасно</option>
+                        <option value="2">2 - Плохо</option>
+                        <option value="3">3 - Средне</option>
+                        <option value="4">4 - Хорошо</option>
+                        <option value="5">5 - Отлично</option>
+                    </select>
+                </div>
             </div>
             <button type="submit" id="sendReview">Отправить</button>
         </form>

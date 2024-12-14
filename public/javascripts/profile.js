@@ -29,7 +29,6 @@ function profilePerms(){
     let profileImg = document.getElementById('userImage');
     let userImageEdit = document.getElementById('userImageEdit');
     let homeId = idUser;
-    let image = localStorage.getItem('profileImage');
 
     let editImageBtn = document.getElementById('editImageBtn');
     let attachFile = document.getElementById('attachFile');
@@ -48,7 +47,6 @@ function profilePerms(){
         barrier.innerHTML = `<div class="new-barrier"></div>`;
         document.body.appendChild(barrier);
         zoomImageDiv.hidden = false;
-        zoomImage.src = image;
     })
 
     changePasswordBtn.addEventListener('click', () => {
@@ -79,7 +77,6 @@ function profilePerms(){
 
     attachFile.addEventListener('change', () => {
         let href = URL.createObjectURL(attachFile.files[0])
-        profileImg.src = href
         userImageEdit.src = href
 
         const reader = new FileReader();

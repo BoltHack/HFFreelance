@@ -22,7 +22,7 @@ async function getNewToken() {
                 window.location.href = '/PersonalArea';
             }
             else if(ref === 'refSendReviews'){
-                window.location.href = `/sendReviews/${homeId}`;
+                window.location.href = `/sendReviews`;
             }
             else if(ref === 'refAdmin'){
                 window.location.href = `/admin/allUsers`;

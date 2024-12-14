@@ -36,9 +36,9 @@
             <% if (user && user.id) { %>
                 <h1>Profile</h1>
                 <div class="profile-info">
-                    <img src="" class="profile-pic" id="userImage" style="cursor: pointer">
+                    <img src="data:image/png;base64,<%= image %>" class="profile-pic" id="userImage" style="cursor: pointer">
                     <div class="zoomImageDiv" id="zoomImageDiv" hidden>
-                        <img src="" class="zoomImage" id="zoomImage">
+                        <img src="data:image/png;base64,<%= image %>" class="zoomImage" id="zoomImage">
                     </div>
                     <div class="pers-info">
                         <h2><%= user.name %></h2>
@@ -179,10 +179,8 @@
 <script src="/javascripts/profile.js"></script>
 <script src="/javascripts/script.js"></script>
 <script>
-    const userImage = document.getElementById('userImage');
     const userImageEdit = document.getElementById('userImageEdit');
     const img = localStorage.getItem('profileImage');
-    userImage.src = img;
     userImageEdit.src = img;
 </script>
 </body>

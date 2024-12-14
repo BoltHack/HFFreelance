@@ -24,7 +24,7 @@ router.get('/rules', rulesView);
 router.get('/privacyPolicy', privacyPolicyView);
 router.get('/allReviews', displayAllReviews);
 router.get('/accessToken', getTokenView);
-router.get('/sendReviews/:id', authenticateJWT, sendReviewsMenuView);
+router.get('/sendReviews', authenticateJWT, sendReviewsMenuView);
 router.get('/PersonalArea', authenticateJWT, PersonalAreaView);
 router.get('/moreDetails',  moreDetailsView);
 router.get('/youAreBanned', authenticateJWT, youAreBannedView);

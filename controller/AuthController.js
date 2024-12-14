@@ -93,8 +93,6 @@ class AuthController {
             const { email, password } = req.body;
             const user = await UsersModel.findOne({ email });
 
-            // const ip = req.cookies['ip'];
-
             let locale = req.cookies['locale'] || 'en';
 
             if (!req.cookies['locale']) {

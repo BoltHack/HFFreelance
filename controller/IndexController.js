@@ -190,6 +190,9 @@ class IndexController {
             const user = req.user;
             const news = await NewsModel.find();
             const links = await LinksModel.find();
+            const getImage = await UsersModel.findById({ _id: user.id });
+            const image =  getImage.image;
+
             let locale = req.cookies['locale'] || 'en';
             let acceptCookies = req.cookies['acceptCookies'];
 
@@ -214,7 +217,7 @@ class IndexController {
                 res.redirect('/youAreBanned');
             }
 
-            return res.render(locale === 'en' ? 'en/PersonalArea' : 'ru/PersonalArea', { user, links, news, review, locale, acceptCookies });
+            return res.render(locale === 'en' ? 'en/PersonalArea' : 'ru/PersonalArea', { user, links, news, review, locale, acceptCookies, image });
         }catch (err){
             next(err)
         }

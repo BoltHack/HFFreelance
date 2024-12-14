@@ -23,7 +23,7 @@ async function allPaths() {
         if (tokenL){
             await getNewToken()
         }
-    } else if (pathname.startsWith('/sendReviews/')) {
+    } else if (pathname.startsWith('/sendReviews')) {
         localStorage.setItem('ref', 'refSendReviews');
     }
 }

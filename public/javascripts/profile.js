@@ -67,6 +67,7 @@ function profilePerms(){
         editImagePart.hidden = true;
         changePassword.hidden = true;
         zoomImageDiv.hidden = true;
+        localStorage.setItem('profileImage', `data:image/png;base64,${imageUser}`);
     })
 
     cancelChangeBtn.addEventListener('click', () => {
@@ -125,19 +126,26 @@ profilePerms();
 function perms(){
     let profileMenu = document.getElementById('profileMenu');
     let newsMenu = document.getElementById('newsMenu');
+    let contactsMenu = document.getElementById('contactsMenu');
     let settingsMenu = document.getElementById('settingsMenu');
 
     let profile = document.getElementById('profile');
     let news = document.getElementById('news');
     let myReview = document.getElementById('myReview');
+    let contacts = document.getElementById('contacts');
     let settings = document.getElementById('settings');
+
+    // let persInfo = document.getElementById('pers-info');
 
     profileMenu.addEventListener('click', () => {
         profileMenu.style.backgroundColor = '#34495e'
-        newsMenu.style.background = 'none'
-        settingsMenu.style.background = 'none'
+        newsMenu.style.background = 'none';
+        settingsMenu.style.background = 'none';
+        contactsMenu.style.background = 'none';
         profile.hidden = false;
+        // persInfo.hidden = false;
         myReview.hidden = false;
+        contacts.hidden = true;
         news.hidden = true;
         settings.hidden = true;
         const menus = JSON.parse(localStorage.getItem('menus') || '{}');
@@ -147,24 +155,43 @@ function perms(){
 
     newsMenu.addEventListener('click', () => {
         newsMenu.style.backgroundColor = '#34495e'
-        profileMenu.style.background = 'none'
-        settingsMenu.style.background = 'none'
+        profileMenu.style.background = 'none';
+        contactsMenu.style.background = 'none';
+        settingsMenu.style.background = 'none';
         news.hidden = false;
         profile.hidden = true;
         myReview.hidden = true;
+        contacts.hidden = true;
         settings.hidden = true;
         const menus = JSON.parse(localStorage.getItem('menus') || '{}');
         menus.personalAreaMenu = 'news';
         localStorage.setItem('menus', JSON.stringify(menus));
     })
-
-    settingsMenu.addEventListener('click', () => {
-        settingsMenu.style.backgroundColor = '#34495e'
+    contactsMenu.addEventListener('click', () => {
+        contactsMenu.style.backgroundColor = '#34495e'
         profileMenu.style.background = 'none'
         newsMenu.style.background = 'none'
+        settingsMenu.style.background = 'none'
+        contacts.hidden = false;
+        news.hidden = true;
+        profile.hidden = false;
+        // persInfo.hidden = true;
+        myReview.hidden = true;
+        settings.hidden = true;
+        const menus = JSON.parse(localStorage.getItem('menus') || '{}');
+        menus.personalAreaMenu = 'contacts';
+        localStorage.setItem('menus', JSON.stringify(menus));
+    })
+
+    settingsMenu.addEventListener('click', () => {
+        settingsMenu.style.backgroundColor = '#34495e';
+        profileMenu.style.background = 'none';
+        newsMenu.style.background = 'none';
+        contactsMenu.style.background = 'none';
         settings.hidden = false;
         news.hidden = true;
         profile.hidden = true;
+        contacts.hidden = true;
         myReview.hidden = true;
         const menus = JSON.parse(localStorage.getItem('menus') || '{}');
         menus.personalAreaMenu = 'settings';
@@ -187,12 +214,29 @@ function perms(){
         profile.hidden = true;
         myReview.hidden = true;
     }
+    else if (personalAreaMenu.personalAreaMenu === 'contacts'){
+        contactsMenu.style.backgroundColor = '#34495e'
+        profileMenu.style.background = 'none'
+        newsMenu.style.background = 'none'
+        settingsMenu.style.background = 'none'
+        contacts.hidden = false;
+        news.hidden = true;
+        profile.hidden = false;
+        // persInfo.hidden = true;
+        myReview.hidden = true;
+        settings.hidden = true;
+    }
     else{
         profileMenu.style.backgroundColor = '#34495e'
-        newsMenu.style.background = 'none'
+        newsMenu.style.background = 'none';
+        settingsMenu.style.background = 'none';
+        contactsMenu.style.background = 'none';
         profile.hidden = false;
+        // persInfo.hidden = false;
         myReview.hidden = false;
+        contacts.hidden = true;
         news.hidden = true;
+        settings.hidden = true;
     }
 }
 perms()
@@ -225,8 +269,32 @@ function deleteReview() {
             }
         })
         .catch(error => {
-            dynamicMenu('Произошла ошибка при отправке запроса:', error);
-            dynamicMenu("Произошла ошибка при отправке запроса: " + error.message);
+            errorMenu('Произошла ошибка при отправке запроса:', error);
+            errorMenu("Произошла ошибка при отправке запроса: " + error.message);
+        });
+}
+
+function deleteContacts() {
+    const homeId = idUser;
+    fetch(`/deleteContacts/${homeId}`, {
+        method: "POST",
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+    })
+        .then(response => {
+            if (response.ok) {
+                localStorage.setItem('ref', 'refPersonalArea');
+                window.location.href = '/accessToken';
+            } else {
+                response.text().then(errorMessage => {
+                    console.log("Ошибка: " + errorMessage);
+                });
+            }
+        })
+        .catch(error => {
+            errorMenu('Произошла ошибка при отправке запроса:', error);
+            errorMenu("Произошла ошибка при отправке запроса: " + error.message);
         });
 }
 
@@ -252,4 +320,26 @@ function deleteReview() {
 //         });
 // }
 
-
+function sendContactsPost() {
+    const homeId = idUser;
+    fetch(`/sendContacts/${homeId}`, {
+        method: "POST",
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+    })
+        .then(response => {
+            if (response.ok) {
+                localStorage.setItem('ref', 'refPersonalArea');
+                window.location.href = '/accessToken';
+            } else {
+                response.text().then(errorMessage => {
+                    console.log("Ошибка: " + errorMessage);
+                });
+            }
+        })
+        .catch(error => {
+            errorMenu('Произошла ошибка при отправке запроса:', error);
+            errorMenu("Произошла ошибка при отправке запроса: " + error.message);
+        });
+}

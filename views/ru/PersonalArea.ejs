@@ -21,7 +21,7 @@
         <h4>Профиль</h4>
         <ul>
             <li id="profileMenu" style="background-color: #34495e; cursor:pointer;"><a>Мой профиль</a></li>
-
+            <li id="contactsMenu" style="cursor:pointer;"><a>Контакты</a></li>
             <li id="newsMenu" style="cursor:pointer;"><a>Новости</a></li>
             <br>
             <h4>Общее</h4>
@@ -42,12 +42,13 @@
                         <img src="data:image/png;base64,<%= image %>" class="zoomImage" id="zoomImage">
                     </div>
                     <div class="pers-info">
-                        <h2><%= user.name %></h2>
-                        <p>Email: <%= user.email %></p>
-                        <p>Дата регистрации: <%= user.registerDate %></p>
+<!--                        <div id="pers-info">-->
+                            <h2><%= user.name %></h2>
+                            <p>Email: <%= user.email %></p>
+                            <p>Дата регистрации: <%= user.registerDate %></p>
+<!--                        </div>-->
                     </div>
                 </div>
-
             <% } %>
         </section>
 
@@ -118,6 +119,22 @@
             </div>
         </div>
 
+        <section class="my-review" id="contacts" hidden>
+            <h3>Контакты</h3>
+                <div class="contact-items">
+                    <% if (contacts && contacts.length > 0) {%>
+                        <a href="<%= contacts[0].youtube %>"><%= contacts[0].youtube %></a>
+                        <a href="<%= contacts[0].vk %>"><%= contacts[0].vk %></a>
+                        <br>
+                        <div style="text-align: center"><button class="review-delete" onclick="deleteContactsMenu()">Удалить</button></div>
+                        <br>
+                    <%} else {%>
+                            <p>У вас нет кантактов для связи.</p>
+                            <div style="text-align: center"><button class="my-review-send" onclick="leaveYourContacts()">Оставить</button></div>
+                    <%}%>
+                </div>
+        </section>
+
         <section id="news" class="news" hidden>
             <h2>Новости</h2>
             <% if (news && news.length > 0) { %>
@@ -144,9 +161,14 @@
         <section id="settings" class="settings" hidden>
             <h2>Настройки</h2>
             <div class="redaction">
-                <button id="editImageBtn">Сменить аватара</button>
-                <button id="changePasswordBtn">Сменить Пароль</button>
-                <button onclick="deleteAccountMenu()">Удалить Уч. запись</button>
+                <div style="display: flex">
+                    <button id="editImageBtn">Сменить аватара</button>
+                    <button id="changePasswordBtn">Сменить Пароль</button>
+                </div>
+                <div style="display: flex">
+                    <button onclick="deleteAccountMenu()">Удалить Уч. запись</button>
+                    <button onclick="leaveYourContacts()">Оставить свои контакты</button>
+                </div>
                 <form action="/upload/<%= user.id %>" method="POST" enctype="multipart/form-data">
                     <section id="editImagePart" hidden>
                         <img src="" class="profile-pic-edit" id="userImageEdit" style="cursor: pointer">
@@ -161,7 +183,7 @@
         </section>
     </main>
 </div>
-<div class="popup" hidden>
+<div class="popup" id="deleteAccountMenu" hidden>
     <b id="close" style="position: absolute; right: 10px; top: 10px; cursor:pointer; color: white">X</b>
     <form action="/deleteAccount/<%= user.id %>" method="post" class="form">
         <div class="icon">
@@ -178,6 +200,23 @@
         </div>
         <input placeholder="Введите пароль" name="password" type="password" id="password" class="input_field" required>
         <button class="submit" style="cursor:pointer;">Удалить аккаунт</button>
+    </form>
+</div>
+
+<div class="leaveYourContacts" id="leaveYourContacts" hidden>
+    <h1>Добавьте свои контакты</h1>
+    <p>Оставьте ссылки на свои социальные сети или YouTube-канал, чтобы другие пользователи могли убедиться, что ваш отзыв настоящий.</p>
+    <form action="/sendContacts/<%= user.id %>" method="POST" class="contact-form">
+        <label for="youtube">YouTube:</label>
+        <input type="url" id="youtube" name="youtube" placeholder="https://youtube.com/ваш_канал" >
+
+        <label for="vk">ВКонтакте:</label>
+        <input type="url" id="vk" name="vk" placeholder="https://vk.com/ваша_страница">
+
+<!--        <label for="other">Другие контакты:</label>-->
+<!--        <input type="url" id="other" name="other" placeholder="Например, Instagram или Telegram">-->
+
+        <button type="submit">Сохранить контакты</button>
     </form>
 </div>
 <div class="new-barrier" hidden></div>

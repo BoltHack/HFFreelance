@@ -4,19 +4,7 @@ body {
     margin: 0;
     padding: 0;
 }
-.lightTheme{
-    .pers-info h2{
-        color: #115dfc;
-    }
-    .my-review, .news-section, .profile-data, .pers-container{
-        background-color: #fff;
-    }
-    .user-profile, .favorite-info p, .profile-review, .settings h2, .profile-data h3, .news-title, .news-content, .news h2,
-    .no-reviews, .no-news, .no-review, .no-favorites, .my-review h3, .my-review p, .section h1, .pers-info p{
-        color: black;
-    }
-    background-color: #ECF1FD;
-}
+
 .pers-container {
     display: flex;
     /*max-height: 550px;*/
@@ -115,7 +103,9 @@ body {
     font-size: 28px;
     color: #f3d5b5;
 }
-
+.pers-info b {
+    color: #f3d5b5;
+}
 .pers-info p {
     margin: 5px 0;
     font-size: 16px;
@@ -128,7 +118,8 @@ body {
 .redaction button {
     background-color: #212121;
     color: white;
-    width: 180px;
+    width: 200px;
+    height: 50px;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -362,7 +353,7 @@ body {
 .profile-review{
     color: #edf6f9;
 }
-.no-review{
+.no-review, .no-contacts{
     text-align: center;
     color: #edf6f9;
 }
@@ -373,7 +364,7 @@ body {
     text-align: center;
     background-color: #212121;
 }
-.my-review h3 {
+.my-review h3, .my-review h2 {
     text-align: center;
     color: #f3d5b5;
 }
@@ -523,4 +514,113 @@ body {
 }
 .settings li{
     color: white;
+}
+
+.leaveYourContacts{
+    background-color: #212529;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    z-index: 4;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.leaveYourContacts h1{
+    font-size: 24px;
+    color: #f3d5b5;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.leaveYourContacts p{
+    font-size: 14px;
+    color: #adb5bd;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.contact-form label {
+    display: block;
+    font-size: 14px;
+    color: lightslategray;
+    margin-bottom: 5px;
+}
+
+.contact-form input {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #313338;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #16171d;
+    color: white;
+}
+
+.contact-form input:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.contact-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.contact-form button:hover {
+    background-color: #0056b3;
+}
+/*.contacts{*/
+/*    display: block;*/
+/*    align-items: center;*/
+/*    margin-bottom: 20px;*/
+/*}*/
+.contacts h2{
+    color: #f3d5b5;
+}
+.contact-items a{
+    display: block;
+    margin-top: 10px;
+    color: #219ebc;
+}
+.contact-items a:hover{
+    color: #8ecae6;
+}
+.lightTheme{
+    .pers-info h2{
+        color: #115dfc;
+    }
+    .my-review, .news-section, .profile-data, .pers-container{
+        background-color: #fff;
+    }
+    .user-profile, .favorite-info p, .profile-review, .settings h2, .profile-data h3, .news-title, .news-content, .news h2,
+    .no-reviews, .no-news, .no-review, .no-contacts, .no-favorites, .my-review h3, .my-review p, .section h1, .pers-info p,
+    .contacts h2{
+        color: black;
+    }
+    .leaveYourContacts{
+        background-color: #ffffff;
+    }
+    .leaveYourContacts h1, .leaveYourContacts label{
+        color: #333333;
+    }
+    .contact-form input{
+        background-color: #ffffff;
+        border: 1px solid #dddddd;
+        color: black;
+    }
+    .leaveYourContacts p{
+        color: #666666;
+    }
+    background-color: #ECF1FD;
 }

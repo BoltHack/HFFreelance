@@ -650,16 +650,8 @@ class AdminController {
                 {new: true}
             );
 
-            // const playerBan = await UsersModel.findByIdAndUpdate(
-            //     id,
-            //     {banned: [{banType: false, reason: '', description: ''}], requestUnban: []},
-            //     {new: true}
-            // );
             await BanIpListModel.deleteMany({ id: userId });
 
-            // if (!playerBan) {
-            //     throw new HttpErrors('Пользователь не найден.');
-            // }
 
             setTimeout(() => {
                 res.redirect('/admin/allUsers');

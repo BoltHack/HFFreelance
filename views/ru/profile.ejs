@@ -16,7 +16,7 @@
         <h4>Информация</h4>
         <ul>
             <li id="profileMenu" style="background-color: #34495e; cursor:pointer;"><a>Профиль</a></li>
-
+            <li id="contactsMenu" style="cursor:pointer;"><a>Контакты</a></li>
             <li id="favoritesMenu" style="cursor:pointer;"><a>Избранное</a></li>
             <br>
             <h4>Другое</h4>
@@ -89,6 +89,22 @@
                     <br>
                 <%}%>
             </div>
+
+            <section class="contacts" id="profileContacts" hidden>
+                <h2 style="text-align: center">Контакты</h2>
+                <div class="contact-items" style="text-align: center">
+                    <% if (profile.contacts && profile.contacts.length > 0) {%>
+                        <% if (profile.contacts[0].youtube ) {%>
+                            <a href="<%= profile.contacts[0].youtube %>" target="_blank"><%= profile.contacts[0].youtube %></a>
+                        <%}%>
+                            <% if (profile.contacts[0].vk) {%>
+                                <a href="<%= profile.contacts[0].vk %>" target="_blank"><%= profile.contacts[0].vk %></a>
+                            <%}%>
+                    <%} else {%>
+                        <p class="no-contacts">Пользователь не оставил контактов для связи.</p>
+                    <%}%>
+                </div>
+            </section>
 
             <div id="profileFavorites" hidden>
                 <div id="favorites-container">

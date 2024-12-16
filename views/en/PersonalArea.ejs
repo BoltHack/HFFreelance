@@ -10,6 +10,7 @@
     <% if (user && user.id) { %>
         <script>
             const idUser = "<%= user.id %>";
+            const imageUser = "<%= image %>";
         </script>
     <% } %>
 </head>
@@ -19,9 +20,9 @@
     <aside class="sidebar">
         <h4>Profile</h4>
         <ul>
-            <li id="profileMenu" style="background-color: #34495e"><a href="#profilePage">My Profile</a></li>
-
-            <li id="newsMenu"><a href="#news">News</a></li>
+            <li id="profileMenu" style="background-color: #34495e; cursor:pointer;"><a>My Profile</a></li>
+            <li id="contactsMenu" style="cursor: pointer;"><a>Contacts</a></li>
+            <li id="newsMenu" style="cursor: pointer;"><a>News</a></li>
             <br>
             <h4>general</h4>
             <li id="settingsMenu"><a style="cursor: pointer;">Settings</a></li>
@@ -113,6 +114,22 @@
             </div>
         </div>
 
+        <section class="my-review" id="contacts" hidden>
+            <h3>Contacts</h3>
+            <div class="contact-items">
+                <% if (contacts && contacts.length > 0) {%>
+                    <a href="<%= contacts[0].youtube %>"><%= contacts[0].youtube %></a>
+                    <a href="<%= contacts[0].vk %>"><%= contacts[0].vk %></a>
+                    <br>
+                    <div style="text-align: center"><button class="review-delete" onclick="deleteContactsMenu()">Delete</button></div>
+                    <br>
+                <%} else {%>
+                    <p>You do not have contact details .</p>
+                    <div style="text-align: center"><button class="my-review-send" onclick="leaveYourContacts()">Leave</button></div>
+                <%}%>
+            </div>
+        </section>
+
         <section id="news" class="news" hidden>
             <h2>News</h2>
             <% if (news && news.length > 0) { %>
@@ -139,9 +156,14 @@
         <section id="settings" class="settings" hidden>
             <h2>Settings</h2>
             <div class="redaction">
-                <button id="editImageBtn">Change Avatar</button>
-                <button id="changePasswordBtn">Change Password</button>
-                <button onclick="deleteAccountMenu()">Delete account</button>
+                <div style="display: flex">
+                    <button id="editImageBtn">Change Avatar</button>
+                    <button id="changePasswordBtn">Change Password</button>
+                </div>
+                <div style="display: flex">
+                    <button onclick="deleteAccountMenu()">Delete Account</button>
+                    <button onclick="leaveYourContacts()">Leave your contacts</button>
+                </div>
                 <form action="/upload/<%= user.id %>" method="POST" enctype="multipart/form-data">
                     <section id="editImagePart" hidden>
                         <img src="" class="profile-pic-edit" id="userImageEdit" style="cursor: pointer">
@@ -173,6 +195,23 @@
         </div>
         <input placeholder="Enter your password" name="password" type="password" id="password" class="input_field" required>
         <button class="submit" style="cursor:pointer;">Delete account</button>
+    </form>
+</div>
+
+<div class="leaveYourContacts" id="leaveYourContacts" hidden>
+    <h1>Add your contacts</h1>
+    <p>Leave links to your social networks or YouTube channel so that other users can make sure that your review is real.</p>
+    <form action="/sendContacts/<%= user.id %>" method="POST" class="contact-form">
+        <label for="youtube">YouTube:</label>
+        <input type="url" id="youtube" name="youtube" placeholder="https://youtube.com/your_cannel" >
+
+        <label for="vk">VK:</label>
+        <input type="url" id="vk" name="vk" placeholder="https://vk.com/your_page">
+
+        <!--        <label for="other">Другие контакты:</label>-->
+        <!--        <input type="url" id="other" name="other" placeholder="Например, Instagram или Telegram">-->
+
+        <button type="submit">Сохранить контакты</button>
     </form>
 </div>
 <div class="new-barrier" hidden></div>

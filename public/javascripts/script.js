@@ -248,7 +248,25 @@ function checkTokenSendPreview() {
 
 function deleteAccountMenu() {
     const barrier = document.querySelector('.new-barrier');
-    const border = document.querySelector('.popup');
+    const border = document.getElementById('deleteAccountMenu');
+    const close = document.getElementById('close');
+
+    barrier.hidden = false;
+    border.hidden = false;
+
+    barrier.addEventListener('click', () => {
+        barrier.hidden = true;
+        border.hidden = true;
+    })
+    close.addEventListener('click', () => {
+        barrier.hidden = true;
+        border.hidden = true;
+    })
+}
+
+function leaveYourContacts() {
+    const barrier = document.querySelector('.new-barrier');
+    const border = document.getElementById('leaveYourContacts');
     const close = document.getElementById('close');
 
     barrier.hidden = false;
@@ -309,3 +327,46 @@ function deleteReviewMenu() {
     })
 }
 
+function deleteContactsMenu() {
+    const barrier = document.createElement('barrier');
+    const border = document.createElement('border');
+    const local = localStorage.getItem('local');
+
+    barrier.innerHTML = `<div class="new-barrier"></div>`;
+    if (local === 'en'){
+        border.innerHTML = `
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <div class="logout-border">
+        <p style="text-align: center; color: white; margin: 30px 0; padding: 10px;">Are you sure you want to delete your contacts?</p>
+        <div class="yes-or-no">
+        <button class="no-btn" id="closeBtn">No</button>
+            <button class="yes-btn" onclick="deleteContacts()">Yes</button>
+        </div>
+        </div>`
+    }
+    else {
+        border.innerHTML = `
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <div class="logout-border">
+        <p style="text-align: center; color: white; margin: 30px 0; padding: 10px;">Вы уверены, что хотите удалить свои контакты?</p>
+        <div class="yes-or-no">
+        <button class="no-btn" id="closeBtn">Нет</button>
+            <button class="yes-btn" onclick="deleteContacts()">Да</button>
+        </div>
+        </div>`
+    }
+
+    document.body.appendChild(border);
+    document.body.appendChild(barrier);
+    document.body.style.overflow = 'hidden';
+    barrier.addEventListener('click', () => {
+        document.body.removeChild(barrier);
+        document.body.removeChild(border);
+        document.body.style.overflow = 'auto';
+    })
+    document.getElementById('closeBtn').addEventListener('click', () => {
+        document.body.removeChild(barrier);
+        document.body.removeChild(border);
+        document.body.style.overflow = 'auto';
+    })
+}

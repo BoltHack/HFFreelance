@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile <%= profile.name %></title>
+    <title>Profile of <%= profile.name %></title>
     <link rel="stylesheet" href="/stylesheets/PersonalArea.css">
     <link rel="stylesheet" href="/stylesheets/alert.css">
     <link rel="stylesheet" href="/stylesheets/websites.css">
@@ -16,18 +16,18 @@
         <h4>Information</h4>
         <ul>
             <li id="profileMenu" style="background-color: #34495e; cursor:pointer;"><a>Profile</a></li>
-
+            <li id="contactsMenu" style="cursor:pointer;"><a>Contacts</a></li>
             <li id="favoritesMenu" style="cursor:pointer;"><a>Favorites</a></li>
             <br>
             <h4>Other</h4>
-            <li><a href="/">Main Menu</a></li>
+            <li><a href="/">Back to Main Menu</a></li>
         </ul>
     </aside>
 
     <main class="main-content">
         <section id="profile" class="section">
             <% if (profile && profile.id) { %>
-                <h3 class="user-profile">User Profile <%= profile.name %> </h3>
+                <h3 class="user-profile">User Profile: <%= profile.name %></h3>
                 <div class="profile-info">
                     <img src="data:image/png;base64,<%= profile.image %>" class="profile-pic" id="userImage" style="cursor: pointer">
                     <div class="zoomImageDiv" id="zoomImageDiv" hidden>
@@ -85,10 +85,26 @@
                         <br>
                     </div>
                 <% } else {%>
-                    <p class="no-review">User has not left any reviews.</p>
+                    <p class="no-review">The user has not left any reviews.</p>
                     <br>
                 <%}%>
             </div>
+
+            <section class="contacts" id="profileContacts" hidden>
+                <h2 style="text-align: center">Contacts</h2>
+                <div class="contact-items" style="text-align: center">
+                    <% if (profile.contacts && profile.contacts.length > 0) {%>
+                        <% if (profile.contacts[0].youtube ) {%>
+                            <a href="<%= profile.contacts[0].youtube %>" target="_blank"><%= profile.contacts[0].youtube %></a>
+                        <%}%>
+                        <% if (profile.contacts[0].vk) {%>
+                            <a href="<%= profile.contacts[0].vk %>" target="_blank"><%= profile.contacts[0].vk %></a>
+                        <%}%>
+                    <%} else {%>
+                        <p class="no-contacts">The user has not provided any contact details.</p>
+                    <%}%>
+                </div>
+            </section>
 
             <div id="profileFavorites" hidden>
                 <div id="favorites-container">
@@ -121,7 +137,6 @@
                                                         <div class="spinner-blade"></div>
                                                         <div class="spinner-blade"></div>
                                                         <div class="spinner-blade"></div>
-                                                        <div class="spinner-blade"></div>
                                                     </div>
                                                 </div>
                                                 <img src="/images/alreadyLove.png" class="alreadyLove" id="alreadyLove-<%= favorite._id %>" data-id="<%= favorite._id %>" data-title="<%= favorite.title %>">
@@ -131,7 +146,7 @@
                                 </li>
                             <% }); %>
                         <% } else { %>
-                            <p class="no-favorites">No favorite items.</p>
+                            <p class="no-favorites">No favorites.</p>
                         <% } %>
                     </ul>
                 </div>

@@ -6,6 +6,22 @@ const {BanIpListModel} = require("../models/BanIpListModel");
 const {authenticateJWT} = require('../middlewares/jwtAuth');
 const bcrypt = require("bcrypt");
 const mongoose = require('mongoose');
+const jwt = require("jsonwebtoken");
+
+const {contactSecret} = process.env;
+
+function parseMaxAge(duration) {
+    const unit = duration.slice(-1);
+    const amount = parseInt(duration.slice(0, -1), 10);
+
+    switch (unit) {
+        case 's': return amount * 1000;
+        case 'm': return amount * 60 * 1000;
+        case 'h': return amount * 60 * 60 * 1000;
+        case 'd': return amount * 24 * 60 * 60 * 1000;
+        default: throw new Error('Выбраное время не найдено');
+    }
+}
 
 class IndexController {
     static mainView = async (req, res, next) => {
@@ -188,13 +204,17 @@ class IndexController {
     static PersonalAreaView = async (req, res, next) => {
         try {
             const user = req.user;
+
             const news = await NewsModel.find();
             const links = await LinksModel.find();
+
             const getImage = await UsersModel.findById({ _id: user.id });
             const image =  getImage.image;
 
             let locale = req.cookies['locale'] || 'en';
             let acceptCookies = req.cookies['acceptCookies'];
+
+            const contacts = getImage.contacts;
 
             if (!req.cookies['locale']) {
                 res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
@@ -217,7 +237,7 @@ class IndexController {
                 res.redirect('/youAreBanned');
             }
 
-            return res.render(locale === 'en' ? 'en/PersonalArea' : 'ru/PersonalArea', { user, links, news, review, locale, acceptCookies, image });
+            return res.render(locale === 'en' ? 'en/PersonalArea' : 'ru/PersonalArea', { user, links, news, review, locale, acceptCookies, image, contacts });
         }catch (err){
             next(err)
         }
@@ -233,7 +253,6 @@ class IndexController {
             }
             if (locale === 'en'){
                 return res.render(theme === 'dark' ? 'en/getTokenDark/getToken' : 'en/getTokenLight/getToken');
-                // return res.render('en/getToken');
             }
             else{
                 return res.render(theme === 'dark' ? 'ru/getTokenDark/getToken' : 'ru/getTokenLight/getToken');
@@ -614,6 +633,37 @@ class IndexController {
         }
     }
 
+    static deleteContacts = async (req, res, next) => {
+        try{
+            const { id } = req.params;
+
+            let locale = req.cookies['locale'] || 'en';
+
+            if (!req.cookies['locale']) {
+                res.cookie('locale', locale, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000  });
+            }
+
+            await UsersModel.findByIdAndUpdate(
+                id,
+                { contacts: [] },
+                { new: true }
+            )
+                .then((user) => {
+                    if (!user) {
+                        const errorMsg = locale === 'en' ? 'User not found.' : 'Пользователь не найден.';
+                        return res.redirect(`/error?message=${encodeURIComponent(errorMsg)}`);
+                    }
+                    res.redirect('/PersonalArea')
+                })
+                .catch((error) => {
+                    res.status(500).json({ error: error.message });
+                });
+        }catch (e){
+            console.log(e)
+            next(e)
+        }
+    }
+
     static downloadFile = async (req, res) => {
         try {
             const {id} = req.params;
@@ -805,6 +855,34 @@ class IndexController {
             res.status(500).json({ error: err.message });
         }
     };
+
+    static sendContacts = async (req, res, next) => {
+        try {
+            const {id} = req.params;
+            const {youtube, vk} = req.body;
+
+            const user = await UsersModel.findById(id);
+
+            const existingContacts = user.contacts && user.contacts[0] ? user.contacts[0] : {};
+
+            const contacts = {
+                youtube: youtube || existingContacts.youtube || '',
+                vk: vk || existingContacts.vk || ''
+            };
+
+            await UsersModel.findByIdAndUpdate(
+                id,
+                { $set: { contacts } },
+                { new: true }
+            );
+            res.cookie('contacts', contacts, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000 });
+            return res.redirect('/PersonalArea');
+        } catch (err) {
+            console.error('Ошибка:', err);
+            res.status(500).json({error: err.message});
+            next(err);
+        }
+    }
 }
 
 module.exports = IndexController;

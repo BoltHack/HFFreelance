@@ -10,7 +10,7 @@ router.get('/register', registerView );
 router.post('/register/:ip', validateRegister, checkEmail, registerNewUser);
 
 router.get('/login', loginView);
-router.post('/login',  validateLogin, loginUser);
+router.post('/login/:ip',  validateLogin, loginUser);
 
 router.get('/forget-password', forgetPasswordView);
 router.post('/send-email', sendEmail);

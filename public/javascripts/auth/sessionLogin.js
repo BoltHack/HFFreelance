@@ -52,48 +52,56 @@ document.addEventListener('DOMContentLoaded', function (){
             password: loginForm.elements['password'].value
         };
 
-        fetch('/auth/login', {
-            method: 'post',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(loginInfo)
-        }).then(res => res.json())
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
             .then(data => {
-                let {error, token, user} = data;
+                const ip = data.ip
+                document.cookie = `ip=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+                document.cookie = `ip=${encodeURIComponent(ip)}; max-age=${24 * 60 * 60}`;
 
-                if (error) {
-                    errorMenu(error)
-                    email.style.border = '1px solid #780000';
-                    pwd.style.border = '1px solid #780000';
-                    return;
-                }
+                fetch(`/auth/login/${ip}`, {
+                    method: 'post',
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify(loginInfo)
+                }).then(res => res.json())
+                    .then(data => {
+                        let {error, token, user} = data;
+                        if (error) {
+                            console.log('error', error)
+                            errorMenu(error)
+                            email.style.border = '1px solid #780000';
+                            pwd.style.border = '1px solid #780000';
+                            return;
+                        }
 
-                if (token) {
-                    loginErr.innerHTML = '';
-                    local === 'en' ? successMenu('Successful login!') : successMenu('Успешный вход!');
-                    email.style.border = '1px solid #0d2818';
-                    pwd.style.border = '1px solid #0d2818';
-                    localStorage.setItem('token', token);
-                    localStorage.setItem('name', user.name);
-                    localStorage.setItem('profileImage', 'data:image/png;base64,' + user.image);
-                    localStorage.setItem('id', user._id);
-                    localStorage.setItem('ref', 'refMain');
-                    localStorage.setItem('favorites', JSON.stringify(user.favorites));
-                    const checkbox = document.getElementById('rememberMeCheckbox');
-                    if (checkbox.checked){
-                        localStorage.setItem('session', 'true');
-                    }
-                    else{
-                        localStorage.setItem('session', 'false');
-                    }
-                    setTimeout(function () {
-                        window.location.href = `/`;
-                        setTimeout(function () {
-                            window.location.reload();
-                        }, 500);
-                    }, 1000);
-                }
+                        if (token) {
+                            local === 'en' ? successMenu('Successful login!') : successMenu('Успешный вход!');
+                            email.style.border = '1px solid #0d2818';
+                            pwd.style.border = '1px solid #0d2818';
+                            localStorage.setItem('token', token);
+                            localStorage.setItem('name', user.name);
+                            localStorage.setItem('profileImage', 'data:image/png;base64,' + user.image);
+                            localStorage.setItem('id', user._id);
+                            localStorage.setItem('ip', user.ip);
+                            localStorage.setItem('ref', 'refMain');
+                            localStorage.setItem('favorites', JSON.stringify(user.favorites));
+                            const checkbox = document.getElementById('rememberMeCheckbox');
+                            if (checkbox.checked){
+                                localStorage.setItem('session', 'true');
+                            }
+                            else{
+                                localStorage.setItem('session', 'false');
+                            }
+                            setTimeout(function () {
+                                window.location.href = `/`;
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, 500);
+                            }, 1000);
+                        }
+                    });
             });
     });
 })

@@ -91,6 +91,7 @@ class AuthController {
     static loginUser = async (req, res, next) => {
         try {
             const { email, password } = req.body;
+            const {ip} = req.params;
             const user = await UsersModel.findOne({ email });
 
             let locale = req.cookies['locale'] || 'en';
@@ -128,8 +129,18 @@ class AuthController {
             user.refreshToken = refreshToken;
             await user.save();
 
+            const id = user._id;
+
+            await UsersModel.findByIdAndUpdate(
+                id,
+                { $set: { ip: ip } },
+                { new: true }
+            );
+            console.log('ip', ip)
+
             res.cookie('token', accessToken, { httpOnly: true, secure: true, maxAge: parseMaxAge('15m') });
             res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: true, maxAge: parseMaxAge('10d') });
+            res.cookie('acceptCookies', true, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000 });
 
             return res.json({ token: accessToken, refreshToken, user, locale });
         } catch (e) {

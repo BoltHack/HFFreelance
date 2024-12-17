@@ -3,7 +3,7 @@ const {
     mainView, aboutUsView, rulesView, privacyPolicyView, sendReviewsMenuView, displayAllReviews, deleteUser,
     deleteReview, PersonalAreaView, changeImage, sendReview, getTokenView, moreDetailsView, youAreBannedView,
     requestUnban, downloadFile, fileInfoView, changeLocal, changeLocalAuth, likeSite, dislikeSite, sendCommentsPost,
-    profileView, changeTheme, manageCookieFiles, sendContacts, deleteContacts
+    profileView, changeTheme, manageCookieFiles, sendContacts, deleteContacts, deleteImage
 } = require('../controller/IndexController');
 const {
     readyMadeSitesView, htmlSitesView, javascriptSitesView, nodeJsSitesView, reactJsSitesView, fullstackSitesView,
@@ -51,6 +51,7 @@ router.get('/profile/:id', profileView);
 router.post('/sendReviews/:id', authenticateJWT, sendReview);
 router.post('/sendCommentsPost/:id', authenticateJWT, sendCommentsPost);
 router.post('/upload/:id', authenticateJWT, verifyToken, changeImage);
+router.post('/deleteImage/:id', authenticateJWT, verifyToken, deleteImage);
 router.post('/deleteAccount/:id', authenticateJWT, deleteUser, accessToken);
 router.post('/deleteReview/:id', authenticateJWT, deleteReview);
 router.post('/changePassword/:id', authenticateJWT, changePassword);

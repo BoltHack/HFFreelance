@@ -42,11 +42,9 @@
                         <img src="data:image/png;base64,<%= image %>" class="zoomImage" id="zoomImage">
                     </div>
                     <div class="pers-info">
-<!--                        <div id="pers-info">-->
-                            <h2><%= user.name %></h2>
-                            <p>Email: <%= user.email %></p>
-                            <p>Дата регистрации: <%= user.registerDate %></p>
-<!--                        </div>-->
+                        <h2><%= user.name %></h2>
+                        <p>Email: <%= user.email %></p>
+                        <p>Дата регистрации: <%= user.registerDate %></p>
                     </div>
                 </div>
             <% } %>
@@ -175,6 +173,7 @@
                         <input type="file" name="file" id="attachFile">
                         <p>
                             <input type="button" value="Сохранить" id="changeBtn">
+                            <input type="button" value="Удалить" id="deleteImageBtn">
                             <input type="button" value="Назад" id="cancelChangeBtn">
                         </p>
                     </section>

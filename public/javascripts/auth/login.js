@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function (){
                             localStorage.setItem('token', token);
                             localStorage.setItem('name', user.name);
                             localStorage.setItem('profileImage', 'data:image/png;base64,' + user.image);
-=                            localStorage.setItem('ref', 'refMain');
+                            localStorage.setItem('ref', 'refMain');
                             localStorage.setItem('favorites', JSON.stringify(user.favorites));
                             const checkbox = document.getElementById('rememberMeCheckbox');
                             if (checkbox.checked){

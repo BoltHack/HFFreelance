@@ -85,15 +85,17 @@
                                     <p>&#11088;</p>
                                 <% } %>
                             <% } else { %>
-                            <br>
+                                    <br>
                             <%}%>
                         </div>
                     </div>
                     <div style="text-align: center"><button onclick="deleteReviewMenu()" class="review-delete">Delete review</button></div>
+                    <br>
                 </div>
             <% } else {%>
                 <p class="no-reviews">You haven't left any feedback.</p>
                 <div style="text-align: center"><button class="my-review-send" onclick="sendReviewsJoin()">Write a review</button></div>
+                <br>
             <%}%>
         </div>
 
@@ -122,11 +124,11 @@
                     <a href="<%= contacts[0].vk %>"><%= contacts[0].vk %></a>
                     <br>
                     <div style="text-align: center"><button class="review-delete" onclick="deleteContactsMenu()">Delete</button></div>
-                    <br>
                 <%} else {%>
                     <p>You did not leave contact details.</p>
-                    <div style="text-align: center"><button class="my-review-send" onclick="leaveYourContacts()">Leave</button></div>
+                    <div style="text-align: center"><button class="my-review-send" onclick="leaveYourContacts()">Leave contacts</button></div>
                 <%}%>
+                    <br>
             </div>
         </section>
 

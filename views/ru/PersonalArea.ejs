@@ -84,7 +84,7 @@
                                     <p>&#11088;</p>
                                 <% } %>
                             <% } else { %>
-                                <br>
+                                    <br>
                             <%}%>
                         </div>
                     </div>
@@ -125,11 +125,11 @@
                         <a href="<%= contacts[0].vk %>"><%= contacts[0].vk %></a>
                         <br>
                         <div style="text-align: center"><button class="review-delete" onclick="deleteContactsMenu()">Удалить</button></div>
-                        <br>
                     <%} else {%>
                             <p>Вы не оставляли контактов для связи.</p>
-                            <div style="text-align: center"><button class="my-review-send" onclick="leaveYourContacts()">Оставить</button></div>
+                            <div style="text-align: center"><button class="my-review-send" onclick="leaveYourContacts()" style="width: 150px;">Оставить контакты</button></div>
                     <%}%>
+                        <br>
                 </div>
         </section>
 

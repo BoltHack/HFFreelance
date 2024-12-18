@@ -71,7 +71,7 @@ function checkIp() {
         .then(data => {
             if (acceptCookies === 'true'){
                 const ip = data.ip
-                if (!(document.cookie = `ip=${encodeURIComponent(ip)};`)){
+                if (!document.cookie.match(/(?:^|;\s*)ip=/)) {
                     document.cookie = `ip=${encodeURIComponent(ip)}; max-age=${24 * 60 * 60}`;
                 }
                 const checkIp2 = ip.substr(0, 2);

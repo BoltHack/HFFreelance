@@ -144,7 +144,7 @@ function displayInfo() {
 <button onclick="register()" class="register-btn">Создать аккаунт</button>
 <br>
 <br>
-<span>Продолжая, вы принимаете наши <a class="termsOfUse" href="/rules" target="_blank">Условия использования</a> и <a href="privacyPolicy" target="_blank" class="privacyPolicy">Политику конфиденциальности</a>.</span>
+<span>Продолжая, вы принимаете наши <a class="termsOfUse" href="/rules" target="_blank">Условия использования</a> и <a href="/privacyPolicy" target="_blank" class="privacyPolicy">Политику конфиденциальности</a>.</span>
 </div>
 </div>
 </div>

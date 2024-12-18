@@ -159,15 +159,12 @@ function perms(){
     let contacts = document.getElementById('contacts');
     let settings = document.getElementById('settings');
 
-    // let persInfo = document.getElementById('pers-info');
-
     profileMenu.addEventListener('click', () => {
         profileMenu.style.backgroundColor = '#34495e'
         newsMenu.style.background = 'none';
         settingsMenu.style.background = 'none';
         contactsMenu.style.background = 'none';
         profile.hidden = false;
-        // persInfo.hidden = false;
         myReview.hidden = false;
         contacts.hidden = true;
         news.hidden = true;
@@ -199,7 +196,6 @@ function perms(){
         contacts.hidden = false;
         news.hidden = true;
         profile.hidden = false;
-        // persInfo.hidden = true;
         myReview.hidden = true;
         settings.hidden = true;
         const menus = JSON.parse(localStorage.getItem('menus') || '{}');
@@ -246,7 +242,6 @@ function perms(){
         contacts.hidden = false;
         news.hidden = true;
         profile.hidden = false;
-        // persInfo.hidden = true;
         myReview.hidden = true;
         settings.hidden = true;
     }
@@ -256,7 +251,6 @@ function perms(){
         settingsMenu.style.background = 'none';
         contactsMenu.style.background = 'none';
         profile.hidden = false;
-        // persInfo.hidden = false;
         myReview.hidden = false;
         contacts.hidden = true;
         news.hidden = true;

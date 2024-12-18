@@ -101,7 +101,7 @@ function cookiesMenus() {
 <link rel="stylesheet" href="/stylesheets/style.css">
 <div class="cookie-card">
     <span class="cookies-title">🍪 We collect cookies</span>
-    <p class="description">We use cookies to ensure you get the best experience on our website.<a href="/privacyPolicy" target="_blank"> Privacy Policy</a>. </p>
+    <p class="description">We use cookies to ensure you get the best experience on our website.<a href="/privacyPolicy"> Privacy Policy</a>. </p>
     <div class="actions">
         <button class="cookies-pref" onclick="rejectCookiesFunc()" id="reject">
             Reject
@@ -118,7 +118,7 @@ function cookiesMenus() {
 <link rel="stylesheet" href="/stylesheets/style.css">
 <div class="cookie-card">
     <span class="cookies-title">🍪 Мы собираем файлы cookie</span>
-    <p class="description">Мы используем файлы cookie, чтобы обеспечить вам максимальное удобство использования нашего веб-сайта.<a href="/privacyPolicy" target="_blank"> Правила конфиденциальности</a>. </p>
+    <p class="description">Мы используем файлы cookie, чтобы обеспечить вам максимальное удобство использования нашего веб-сайта.<a href="/privacyPolicy"> Правила конфиденциальности</a>. </p>
     <div class="actions">
         <button class="cookies-pref" onclick="rejectCookiesFunc()" id="reject">
             отклонить

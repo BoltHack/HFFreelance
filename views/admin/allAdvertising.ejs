@@ -93,6 +93,7 @@
                 <div class="adv-info">
                     <p>Название: <%= adv.title %></p>
                     <p>Ссылка: <%= adv.link %></p>
+                    <p>Язык: <%= adv.locale %></p>
                     <br>
                     <form action="/admin/deleteAdvertising/<%= adv._id %>" method="POST">
                         <button class="delFile-button">Удалить</button>

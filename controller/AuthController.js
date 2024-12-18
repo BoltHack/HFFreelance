@@ -257,9 +257,11 @@ class AuthController {
     static sendEmail = async (req, res, next) => {
         try {
             const {email} = req.body;
-            const checkEmail = await UsersModel.findOne({email});
+            // const {ip} = req.cookies['ip'];
+            const {ip} = req.params;
 
-            const ip = req.cookies['ip'];
+            const checkEmail = await UsersModel.findOne({email});
+            const checkIp = await ForgottenPasswordsModel.findOne({ip});
 
             const randomNumber = generateRandomNumber().toString();
 
@@ -273,8 +275,8 @@ class AuthController {
                 const msg = locale === 'en' ? 'The entered address was not found.' : 'Введённый адрес не найден.';
                 return res.redirect(`/error?message=${encodeURIComponent(msg)}`);
             }
-            const checkUser = await ForgottenPasswordsModel.findOne({email});
-            if (checkUser){
+
+            if (checkIp && checkIp.ip === ip){
                 const msg = locale === 'en' ? 'You have already sent a verification code. Please try again later.' : 'Вы уже отправили код подтверждения. Повтроите попытку позже.';
                 return res.redirect(`/error?message=${encodeURIComponent(msg)}`);
             }

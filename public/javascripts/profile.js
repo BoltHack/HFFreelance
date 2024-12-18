@@ -337,27 +337,3 @@ function deleteContacts() {
 //             console.error('Ошибка:', error);
 //         });
 // }
-
-function sendContactsPost() {
-    const homeId = idUser;
-    fetch(`/sendContacts/${homeId}`, {
-        method: "POST",
-        headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem("token")
-        },
-    })
-        .then(response => {
-            if (response.ok) {
-                localStorage.setItem('ref', 'refPersonalArea');
-                window.location.href = '/accessToken';
-            } else {
-                response.text().then(errorMessage => {
-                    console.log("Ошибка: " + errorMessage);
-                });
-            }
-        })
-        .catch(error => {
-            errorMenu('Произошла ошибка при отправке запроса:', error);
-            errorMenu("Произошла ошибка при отправке запроса: " + error.message);
-        });
-}

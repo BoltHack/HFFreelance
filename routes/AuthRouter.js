@@ -13,7 +13,7 @@ router.get('/login', loginView);
 router.post('/login/:ip',  validateLogin, loginUser);
 
 router.get('/forget-password', forgetPasswordView);
-router.post('/send-email', sendEmail);
+router.post('/send-email/:ip', sendEmail);
 
 router.get('/account-recovery', accountRecoveryView);
 router.post('/send-code', accountRecovery);

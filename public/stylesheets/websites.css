@@ -103,8 +103,9 @@ body {
     transform: translate(-50%);
 }
 .no-advertising{
-    border: 1px solid black;
-    background-color: white;
+    background-color: #16171d;
+    border: 1px solid #313338;
+    border-radius: 10px;
     width: 800px;
     height: 85px;
     position: relative;
@@ -123,8 +124,9 @@ body {
     text-align: center;
     justify-content: center;
     margin-top: 35px;
-    color: #040505;
+    /*color: #040505;*/
     z-index: 2;
+    color: white;
 }
 .love, .alreadyLove{
     width: 30px;
@@ -287,6 +289,13 @@ body {
     }
     .not-found{
         color: black;
+    }
+    .no-advertising{
+        border: 1px solid black;
+        background-color: white;
+    }
+    .center-advertising{
+        color: #040505;
     }
     background-color: #ECF1FD;
 }

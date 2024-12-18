@@ -136,7 +136,6 @@ class AuthController {
                 { $set: { ip: ip } },
                 { new: true }
             );
-            console.log('ip', ip)
 
             res.cookie('token', accessToken, { httpOnly: true, secure: true, maxAge: parseMaxAge('15m') });
             res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: true, maxAge: parseMaxAge('10d') });

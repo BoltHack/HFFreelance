@@ -863,17 +863,11 @@ class IndexController {
 
             const existingContacts = user.contacts && user.contacts[0] ? user.contacts[0] : {};
 
-            const contacts = {
-                youtube: youtube || existingContacts.youtube || '',
-                vk: vk || existingContacts.vk || ''
-            };
-
             await UsersModel.findByIdAndUpdate(
                 id,
                 { $set: { contacts } },
                 { new: true }
             );
-            res.cookie('contacts', contacts, { httpOnly: true, maxAge: 10 * 365 * 24 * 60 * 60 * 1000 });
             return res.redirect('/PersonalArea');
         } catch (err) {
             console.error('Ошибка:', err);
